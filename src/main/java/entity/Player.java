@@ -6,6 +6,7 @@ import world.position.WorldPosition;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -16,6 +17,8 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+
+    private double angle;
 
     public Player(GamePanel gp, KeyInputs keyI) {
 
@@ -98,6 +101,9 @@ public class Player extends Entity {
             double normalizedDx = dx / vectorNorm;
             double normalizedDy = dy / vectorNorm;
 
+            angle = Math.atan2(dy, dx);
+            System.out.println(angle);
+
             worldPos.increment(normalizedDx*speed, normalizedDy*speed);
         }
 
@@ -115,57 +121,43 @@ public class Player extends Entity {
         }
 
     }
-    public void draw(Graphics g2) {
+    public void draw(Graphics2D g2) {
         BufferedImage image = null;
+        direction = "left";
 
-        switch (direction) {
-            case "up":
-                if (spriteNum == 1 || spriteNum == 3) {
-                    image = upstand;
-                }
-                if (spriteNum == 2){
-                    image = upwalk1;
-                }
-                if (spriteNum == 4){
-                    image = upwalk2;
-                }
-                break;
-            case "down":
-                if (spriteNum == 1 || spriteNum == 3) {
-                    image = downstand;
-                }
-                if (spriteNum == 2){
-                    image = downwalk1;
-                }
-                if (spriteNum == 4){
-                    image = downwalk2;
-                }
-                break;
-            case "left":
-                if (spriteNum == 1 || spriteNum == 3) {
-                    image= leftstand;
-                }
-                if (spriteNum == 2){
-                    image= leftwalk1;
-                }
-                if (spriteNum == 4){
-                    image= leftwalk2;
-                }
-                break;
-            case "right":
-                if (spriteNum == 1 || spriteNum == 3) {
-                    image= rightstand;
-                }
-                if (spriteNum == 2){
-                    image= rightwalk1;
-                }
-                if (spriteNum == 4){
-                    image= rightwalk2;
-                }
-                break;
+        if (spriteNum == 1 || spriteNum == 3) {
+            image= leftstand;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        if (spriteNum == 2){
+            image= leftwalk1;
+        }
+        if (spriteNum == 4){
+            image= leftwalk2;
+        }
 
+        assert image != null;
+        AffineTransform at = createAffineTransform(image);
+
+        g2.drawImage(image, at, null);
+
+    }
+
+    private AffineTransform createAffineTransform(BufferedImage image){
+        AffineTransform at = new AffineTransform();
+
+        // Move the object to the center
+        at.translate(screenX, screenY);
+
+        // Rotate it
+        at.rotate(angle);
+
+        // Scale it
+        at.scale((double) gp.tileSize / image.getWidth(), (double) gp.tileSize / image.getWidth());
+
+        // Make the object rotate around the center
+        at.translate((double) -image.getWidth(null) / 2, (double) -image.getHeight(null) / 2);
+
+        return at;
     }
 
     public KeyInputs getKeyI() {
