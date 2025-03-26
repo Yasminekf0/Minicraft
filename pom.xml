@@ -33,6 +33,12 @@
             <version>5.11.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>de.articdive</groupId>
+            <artifactId>jnoise-pipeline</artifactId>
+            <version>4.1.0</version>
+        </dependency>
     </dependencies>
 
 </project>
