@@ -65,29 +65,40 @@ public class Player extends Entity {
 }
 
     public void update() {
-        System.out.println(worldPos.getY());
+
         boolean moving = false;
         boolean Do = false;
 
+        double dx = 0;
+        double dy = 0;
+
         if (keyI.upPressed) {
             direction = "up";
-            worldPos.increment(0, -speed);
+            dy = -speed;
             moving = true;
         }
         if (keyI.downPressed) {
             direction = "down";
-            worldPos.increment(0, speed);
+            dy = speed;
             moving = true;
         }
         if (keyI.leftPressed) {
             direction = "left";
-            worldPos.increment(-speed, 0);
+            dx = -speed;
             moving = true;
         }
         if (keyI.rightPressed) {
             direction = "right";
-            worldPos.increment(speed, 0);
+            dx = speed;
             moving = true;
+        }
+
+        if (moving) {
+            double vectorNorm = Math.sqrt(dx*dx + dy*dy);
+            double normalizedDx = dx / vectorNorm;
+            double normalizedDy = dy / vectorNorm;
+
+            worldPos.increment(normalizedDx*speed, normalizedDy*speed);
         }
 
         if (moving) {
@@ -155,5 +166,9 @@ public class Player extends Entity {
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
+    }
+
+    public KeyInputs getKeyI() {
+        return keyI;
     }
 }
