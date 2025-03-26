@@ -51,7 +51,7 @@ public class TileManager {
 
         while (worldCol<gp.maxWorldCol && worldRow<gp.maxWorldRow){
 
-            Tile tileNum = mapTiles[worldCol][worldRow];
+            Tile tile = mapTiles[worldCol][worldRow];
 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
@@ -64,14 +64,7 @@ public class TileManager {
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY){
 
 
-                try{
-                    BufferedImage image = ImageIO.read(getClass().getResourceAsStream(tileNum.getPictureFile()));
-
-                    g2.drawImage(image,screenX,screenY, gp.tileSize,gp.tileSize,null);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                g2.drawImage(tile.getImage(),screenX,screenY, gp.tileSize,gp.tileSize,null);
 
             }
             worldCol++;
