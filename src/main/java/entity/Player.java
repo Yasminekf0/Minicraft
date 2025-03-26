@@ -7,6 +7,10 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Player extends Entity {
 
@@ -15,6 +19,10 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+
+    private Map<String, ArrayList<String>> inventory;
+    private String currentSection;
+    private String selectedItem;
 
     public Player(GamePanel gp, KeyInputs keyI) {
 
@@ -26,6 +34,7 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
+        initializeInventory();
 
     }
     public void setDefaultValues() {
@@ -176,4 +185,34 @@ public class Player extends Entity {
     public void heal(int healAmount) {
         this.health = Math.min(maxHealth, this.health + healAmount);
     }
+
+    public void initializeInventory() {
+        inventory = new HashMap<>();
+        inventory.put("Tools", new ArrayList<>());
+        inventory.put("Blocks", new ArrayList<>());
+        inventory.put("Potions", new ArrayList<>());
+        currentSection = "Tools";
+        selectedItem = null;
+    }
+
+    public void addItem(String section, String item) {
+        if (!inventory.containsKey(section)) return;
+
+        ArrayList<String> items = inventory.get(section);
+
+        if (section.equals("Tools") && items.contains(item)) {
+            System.err.println("You already have this tool");
+            return;
+        }
+
+        items.add(item);
+        if (selectedItem == null) selectedItem = item;
+    }
+
+    public void switchInventorySection(String section) {
+        if (inventory.containsKey(section)) {
+            currentSection = section;
+        }
+    }
+
 }
