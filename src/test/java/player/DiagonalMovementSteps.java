@@ -1,6 +1,7 @@
 package player;
 
 import entity.Player;
+import world.position.WorldPosition;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -22,7 +23,7 @@ public class DiagonalMovementSteps {
 
     @And("his WorldPosition is {int} {int}")
     public void hisWorldPositionIs(int arg0, int arg1) {
-        player.setWorldPos(WorldPosition(arg0, arg1));
+        player.setWorldPos(new WorldPosition(arg0, arg1));
     }
 
     @And("a KeyInput of {string}")

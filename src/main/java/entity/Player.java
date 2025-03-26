@@ -23,7 +23,6 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyI = keyI;
 
-        worldPos = new WorldPosition();
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
@@ -33,7 +32,7 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
-        worldPos.setPos(gp.tileSize*20, gp.tileSize*20);
+        worldPos = new WorldPosition(gp.tileSize*20, gp.tileSize*20);
         speed = 4;
         direction = "down";
     }
