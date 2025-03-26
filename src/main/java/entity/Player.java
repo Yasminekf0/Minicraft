@@ -37,30 +37,16 @@ public class Player extends Entity {
 
         worldPos = new WorldPosition(gp.tileSize*20, gp.tileSize*20);
         speed = 4;
-        direction = "down";
+        angle = Math.PI / 2;
     }
 
     public void getPlayerImage() {
         try {
-            upstand = ImageIO.read(getClass().getResource("/player/upstand.png"));
-            upwalk1 = ImageIO.read(getClass().getResource("/player/upwalk1.png"));
-            upwalk2 = ImageIO.read(getClass().getResource("/player/upwalk2.png"));
-            updo = ImageIO.read(getClass().getResource("/player/updo.png"));
 
             rightstand = ImageIO.read(getClass().getResource("/player/rightstand.png"));
             rightwalk1 = ImageIO.read(getClass().getResource("/player/rightwalk1.png"));
             rightwalk2 = ImageIO.read(getClass().getResource("/player/rightwalk2.png"));
             rightdo = ImageIO.read(getClass().getResource("/player/rightdo.png"));
-
-            downstand = ImageIO.read(getClass().getResource("/player/downstand.png"));
-            downwalk1 = ImageIO.read(getClass().getResource("/player/downwalk1.png"));
-            downwalk2 = ImageIO.read(getClass().getResource("/player/downwalk2.png"));
-            downdo = ImageIO.read(getClass().getResource("/player/downdo.png"));
-
-            leftstand = ImageIO.read(getClass().getResource("/player/leftstand.png"));
-            leftwalk1 = ImageIO.read(getClass().getResource("/player/leftwalk1.png"));
-            leftwalk2 = ImageIO.read(getClass().getResource("/player/leftwalk2.png"));
-            leftdo = ImageIO.read(getClass().getResource("/player/leftdo.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,22 +62,18 @@ public class Player extends Entity {
         double dy = 0;
 
         if (keyI.upPressed) {
-            direction = "up";
             dy = -speed;
             moving = true;
         }
         if (keyI.downPressed) {
-            direction = "down";
             dy = speed;
             moving = true;
         }
         if (keyI.leftPressed) {
-            direction = "left";
             dx = -speed;
             moving = true;
         }
         if (keyI.rightPressed) {
-            direction = "right";
             dx = speed;
             moving = true;
         }
@@ -123,16 +105,15 @@ public class Player extends Entity {
     }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
-        direction = "left";
 
         if (spriteNum == 1 || spriteNum == 3) {
-            image= leftstand;
+            image= rightstand;
         }
         if (spriteNum == 2){
-            image= leftwalk1;
+            image= rightwalk1;
         }
         if (spriteNum == 4){
-            image= leftwalk2;
+            image= rightwalk2;
         }
 
         assert image != null;
