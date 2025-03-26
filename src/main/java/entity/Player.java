@@ -26,19 +26,20 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyI = keyI;
 
-        screenX = gp.screenWidth/2 - (gp.tileSize/2);
-        screenY = gp.screenHeight/2 - (gp.tileSize/2);
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         setDefaultValues();
         getPlayerImage();
 
     }
+
     public void setDefaultValues() {
 
         health = 10;
         maxHealth = 10;
 
-        worldPos = new WorldPosition(gp.tileSize*20, gp.tileSize*20);
+        worldPos = new WorldPosition(gp.tileSize * 20, gp.tileSize * 20);
         speed = 4;
         angle = Math.PI / 2;
     }
@@ -82,14 +83,14 @@ public class Player extends Entity {
         }
 
         if (moving) {
-            double vectorNorm = Math.sqrt(dx*dx + dy*dy);
+            double vectorNorm = Math.sqrt(dx * dx + dy * dy);
             double normalizedDx = dx / vectorNorm;
             double normalizedDy = dy / vectorNorm;
 
             angle = Math.atan2(dy, dx);
             System.out.println(angle);
 
-            worldPos.increment(normalizedDx*speed, normalizedDy*speed);
+            worldPos.increment(normalizedDx * speed, normalizedDy * speed);
         }
 
         if (moving) {
@@ -106,17 +107,18 @@ public class Player extends Entity {
         }
 
     }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
         if (spriteNum == 1 || spriteNum == 3) {
-            image= rightstand;
+            image = rightstand;
         }
-        if (spriteNum == 2){
-            image= rightwalk1;
+        if (spriteNum == 2) {
+            image = rightwalk1;
         }
-        if (spriteNum == 4){
-            image= rightwalk2;
+        if (spriteNum == 4) {
+            image = rightwalk2;
         }
 
         assert image != null;
@@ -126,7 +128,7 @@ public class Player extends Entity {
 
     }
 
-    private AffineTransform createAffineTransform(BufferedImage image){
+    private AffineTransform createAffineTransform(BufferedImage image) {
         AffineTransform at = new AffineTransform();
 
         // Move the object to the center
@@ -144,8 +146,6 @@ public class Player extends Entity {
         return at;
     }
 
-    }
-
 
     public int getHealth() {
         return health;
@@ -161,7 +161,10 @@ public class Player extends Entity {
 
     public void heal(int healAmount) {
         this.health = Math.min(maxHealth, this.health + healAmount);
-    public KeyInputs getKeyI() {
+    }
+    public KeyInputs getKeyI () {
         return keyI;
     }
+
+
 }
