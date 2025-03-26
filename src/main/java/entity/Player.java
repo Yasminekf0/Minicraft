@@ -30,19 +30,19 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
-<<<<<<< src/main/java/entity/Player.java
         health = 10;
         maxHealth = 10;
-=======
+
         worldX = gp.maxWorldCol*gp.tileSize/2 - (gp.tileSize/2);
         worldY = gp.maxWorldRow*gp.tileSize/2 - (gp.tileSize/2);
->>>>>>> src/main/java/entity/Player.java
+
         speed = 4;
         direction = "down";
     }
 
     public void getPlayerImage() {
         try {
+        worldY = gp.tileSize*20;
             upstand = ImageIO.read(getClass().getResource("/player/upstand.png"));
             upwalk1 = ImageIO.read(getClass().getResource("/player/upwalk1.png"));
             upwalk2 = ImageIO.read(getClass().getResource("/player/upwalk2.png"));
