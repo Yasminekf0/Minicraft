@@ -1,6 +1,7 @@
 package tile;
 
 import main.GamePanel;
+import world.generator.WorldMap;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,33 +16,21 @@ public class TileManager {
     GamePanel gp;
     Tile[][] mapTiles;
 
+    int size;
+
+    WorldMap map;
+
     public TileManager(GamePanel gp) {
 
         this.gp = gp;
+        size = gp.WorldSize;
+        map = new WorldMap(size);
 
-        mapTiles = new Tile[gp.maxWorldCol][gp.maxWorldRow];
+        mapTiles = map.getWorld();
 
-        loadMap();
     }
 
-    public void loadMap() {
-        try {
 
-            int row = 0;
-            // Read one line for each row in your map.
-            while (row < gp.maxWorldRow) {
-                for (int col = 0; col < gp.maxWorldCol; col++) {
-                    mapTiles[col][row] = Tile.GRASS;
-                }
-                row++;
-            }
-
-            System.out.println(mapTiles);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public void draw(Graphics2D g2){
 
@@ -49,7 +38,7 @@ public class TileManager {
         int worldRow = 0;
 
 
-        while (worldCol<gp.maxWorldCol && worldRow<gp.maxWorldRow){
+        while (worldCol<gp.WorldSize && worldRow<gp.WorldSize){
 
             Tile tile = mapTiles[worldCol][worldRow];
 
@@ -69,7 +58,7 @@ public class TileManager {
             }
             worldCol++;
 
-            if (worldCol == gp.maxWorldCol) {
+            if (worldCol == gp.WorldSize) {
                 worldCol = 0;
                 worldRow++;
             }

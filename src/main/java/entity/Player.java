@@ -33,10 +33,10 @@ public class Player extends Entity {
         health = 10;
         maxHealth = 10;
 
-        worldX = gp.maxWorldCol*gp.tileSize/2 - (gp.tileSize/2);
-        worldY = gp.maxWorldRow*gp.tileSize/2 - (gp.tileSize/2);
+        worldX = (gp.WorldSize*gp.tileSize)/2 - (gp.tileSize/2);
+        worldY = (gp.WorldSize*gp.tileSize)/2 - (gp.tileSize/2);
 
-        speed = 4;
+        speed = 10;
         direction = "down";
     }
 
