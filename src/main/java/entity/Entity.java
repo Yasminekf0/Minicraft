@@ -6,6 +6,8 @@ public class Entity {
 
     public int worldX,worldY;
     public int speed;
+    public int health;
+    public int maxHealth;
 
     public BufferedImage upstand, upwalk1, upwalk2, updo, rightstand, rightwalk1, rightwalk2, rightdo, downstand, downwalk1, downwalk2, downdo, leftstand, leftwalk1, leftwalk2, leftdo;
     public String direction;

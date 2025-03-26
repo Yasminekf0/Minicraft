@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyInputs keyI;
+    public GamePanel gp;
+    public KeyInputs keyI;
 
     public final int screenX;
     public final int screenY;
@@ -30,8 +30,13 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
+<<<<<<< src/main/java/entity/Player.java
+        health = 10;
+        maxHealth = 10;
+=======
         worldX = gp.maxWorldCol*gp.tileSize/2 - (gp.tileSize/2);
         worldY = gp.maxWorldRow*gp.tileSize/2 - (gp.tileSize/2);
+>>>>>>> src/main/java/entity/Player.java
         speed = 4;
         direction = "down";
     }
@@ -61,7 +66,7 @@ public class Player extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-}
+    }
 
     public void update() {
         boolean moving = false;
@@ -153,5 +158,22 @@ public class Player extends Entity {
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
+    }
+
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int new_health) {
+        this.health = new_health;
+    }
+
+    public void takeDamage(int damage) {
+        this.health = Math.max(0, this.health - damage);
+    }
+
+    public void heal(int healAmount) {
+        this.health = Math.min(maxHealth, this.health + healAmount);
     }
 }
