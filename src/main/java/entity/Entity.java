@@ -8,6 +8,8 @@ public class Entity {
 
     protected WorldPosition worldPos;
     public int speed;
+    public int health;
+    public int maxHealth;
 
     public BufferedImage rightstand, rightwalk1, rightwalk2, rightdo;
     public String direction;

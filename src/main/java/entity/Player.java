@@ -12,8 +12,8 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyInputs keyI;
+    public GamePanel gp;
+    public KeyInputs keyI;
 
     public final int screenX;
     public final int screenY;
@@ -35,6 +35,9 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
+        health = 10;
+        maxHealth = 10;
+
         worldPos = new WorldPosition(gp.tileSize*20, gp.tileSize*20);
         speed = 4;
         angle = Math.PI / 2;
@@ -51,7 +54,7 @@ public class Player extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-}
+    }
 
     public void update() {
 
@@ -141,6 +144,23 @@ public class Player extends Entity {
         return at;
     }
 
+    }
+
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int new_health) {
+        this.health = new_health;
+    }
+
+    public void takeDamage(int damage) {
+        this.health = Math.max(0, this.health - damage);
+    }
+
+    public void heal(int healAmount) {
+        this.health = Math.min(maxHealth, this.health + healAmount);
     public KeyInputs getKeyI() {
         return keyI;
     }
