@@ -30,10 +30,13 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
+<<<<<<< src/main/java/entity/Player.java
         health = 10;
         maxHealth = 10;
-        worldX = gp.tileSize*20;
-        worldY = gp.tileSize*20;
+=======
+        worldX = gp.maxWorldCol*gp.tileSize/2 - (gp.tileSize/2);
+        worldY = gp.maxWorldRow*gp.tileSize/2 - (gp.tileSize/2);
+>>>>>>> src/main/java/entity/Player.java
         speed = 4;
         direction = "down";
     }
