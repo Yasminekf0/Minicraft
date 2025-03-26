@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyInputs;
+import world.position.WorldPosition;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -18,9 +19,11 @@ public class Player extends Entity {
 
     public Player(GamePanel gp, KeyInputs keyI) {
 
+        super();
         this.gp = gp;
         this.keyI = keyI;
 
+        worldPos = new WorldPosition();
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
@@ -30,8 +33,7 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
-        worldX = gp.tileSize*20;
-        worldY = gp.tileSize*20;
+        worldPos.setPos(gp.tileSize*20, gp.tileSize*20);
         speed = 4;
         direction = "down";
     }
@@ -64,27 +66,28 @@ public class Player extends Entity {
 }
 
     public void update() {
+        System.out.println(worldPos.getY());
         boolean moving = false;
         boolean Do = false;
 
         if (keyI.upPressed) {
             direction = "up";
-            worldY -= speed;
+            worldPos.increment(0, -speed);
             moving = true;
         }
-        else if (keyI.downPressed) {
+        if (keyI.downPressed) {
             direction = "down";
-            worldY += speed;
+            worldPos.increment(0, speed);
             moving = true;
         }
-        else if (keyI.leftPressed) {
+        if (keyI.leftPressed) {
             direction = "left";
-            worldX -= speed;
+            worldPos.increment(-speed, 0);
             moving = true;
         }
-        else if (keyI.rightPressed) {
+        if (keyI.rightPressed) {
             direction = "right";
-            worldX += speed;
+            worldPos.increment(speed, 0);
             moving = true;
         }
 
