@@ -1,7 +1,6 @@
 package world.tile;
 
 import main.GamePanel;
-import world.WorldGenerator;
 
 import java.awt.*;
 
