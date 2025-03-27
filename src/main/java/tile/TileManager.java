@@ -1,35 +1,46 @@
 package tile;
 
 import main.GamePanel;
-import world.generator.WorldMap;
+import world.WorldGenerator;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import java.util.Random;
 
 public class TileManager {
 
-    GamePanel gp;
-    Tile[][] mapTiles;
+    private GamePanel gp;
+    private Tile[][] mapTiles;
 
-    int size;
+    private Random random;
 
-    WorldMap map;
+    private WorldGenerator map;
+
+    private int size;
+    private int seed;
+
+
 
     public TileManager(GamePanel gp) {
 
         this.gp = gp;
-        size = gp.WorldSize;
-        map = new WorldMap(size);
+        size = gp.getWorldSize();
+        random = new Random();
+
+        getSeed();
+
+        map = new WorldGenerator(size,seed);
 
         mapTiles = map.getWorld();
 
     }
 
+    private void getSeed() {
+        if (gp.isSetSeed()) seed = gp.getSeed();
+        else {
+            seed = random.nextInt();
+        }
+    }
 
 
     public void draw(Graphics2D g2){
@@ -38,7 +49,7 @@ public class TileManager {
         int worldRow = 0;
 
 
-        while (worldCol<gp.WorldSize && worldRow<gp.WorldSize){
+        while (worldCol<gp.getWorldSize() && worldRow<gp.getWorldSize()){
 
             Tile tile = mapTiles[worldCol][worldRow];
 
@@ -58,7 +69,7 @@ public class TileManager {
             }
             worldCol++;
 
-            if (worldCol == gp.WorldSize) {
+            if (worldCol == gp.getWorldSize()) {
                 worldCol = 0;
                 worldRow++;
             }

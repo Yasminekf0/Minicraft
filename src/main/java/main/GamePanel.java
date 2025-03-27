@@ -19,9 +19,38 @@ public class GamePanel extends JPanel implements Runnable {
     public int screenHeight = tileSize * maxScreenRow;
 
     // WORLD SETTINGS
-    public final int WorldSize = 1000;
+    private int WorldSize = 1000;
+
+    public int getWorldSize(){
+        return WorldSize;
+    }
+
+    public void setWorldSize(int size){
+        WorldSize = size;
+    }
+
     public final int worldWidth = tileSize * WorldSize;
     public final int worldHeight = tileSize * WorldSize;
+
+    private int seed = 8845;
+
+    private boolean setSeed = false;
+
+    public int getSeed() {
+        return seed;
+    }
+
+    public void setSeed(int seed){
+        this.seed = seed;
+    }
+
+    public boolean isSetSeed() {
+        return setSeed;
+    }
+
+    public void setSetSeed(boolean setSeed) {
+        this.setSeed = setSeed;
+    }
 
     int FPS = 60;
 
@@ -92,6 +121,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2.dispose();
     }
+
+
+
 }
 
 

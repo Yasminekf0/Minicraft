@@ -33,8 +33,8 @@ public class Player extends Entity {
         health = 10;
         maxHealth = 10;
 
-        worldX = (gp.WorldSize*gp.tileSize)/2 - (gp.tileSize/2);
-        worldY = (gp.WorldSize*gp.tileSize)/2 - (gp.tileSize/2);
+        worldX = (gp.getWorldSize()*gp.tileSize)/2 - (gp.tileSize/2);
+        worldY = (gp.getWorldSize()*gp.tileSize)/2 - (gp.tileSize/2);
 
         speed = 10;
         direction = "down";
