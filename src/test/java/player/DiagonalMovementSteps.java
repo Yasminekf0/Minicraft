@@ -43,7 +43,7 @@ public class DiagonalMovementSteps {
 
     @Then("the player should move both up and right")
     public void thePlayerShouldMoveBothUpAndRight() {
-        assertEquals(player.speed / Math.sqrt(2), player.getWorldPos().getX());
-        assertEquals(-player.speed / Math.sqrt(2), player.getWorldPos().getY());
+        assertEquals(player.getSpeed() / Math.sqrt(2), player.getWorldPos().getX());
+        assertEquals(-player.getSpeed() / Math.sqrt(2), player.getWorldPos().getY());
     }
 }

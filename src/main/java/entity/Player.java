@@ -9,9 +9,7 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-
-    public KeyInputs keyI;
-
+    private final KeyInputs keyI;
 
 
 
@@ -22,9 +20,6 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyI = keyI;
 
-        setScreenX(gp.screenWidth / 2 - (gp.tileSize / 2));
-        setScreenY(gp.screenHeight / 2 - (gp.tileSize / 2));
-
         setDefaultValues();
         getPlayerImage();
 
@@ -32,12 +27,16 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
+
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
         health = 10;
         maxHealth = 10;
 
         worldPos = new WorldPosition(gp.worldWidth/2.0, gp.worldHeight/2.0);
         speed = 10;
-        setAngle(Math.PI / 2);
+        angle = Math.PI / 2;
     }
 
     public void getPlayerImage() {

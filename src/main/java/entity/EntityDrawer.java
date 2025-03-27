@@ -12,17 +12,17 @@ public class EntityDrawer {
         this.entity = entity;
     }
     public void draw(Graphics2D g2) {
-        spriteNum = entity.getSpriteNum();
+        spriteNum = entity.spriteNum;
         BufferedImage image = null;
 
         if (spriteNum == 1 || spriteNum == 3) {
-            image = entity.getRightstand();
+            image = entity.rightstand;
         }
         if (spriteNum == 2) {
-            image = entity.getRightwalk1();
+            image = entity.rightwalk1;
         }
         if (spriteNum == 4) {
-            image = entity.getRightwalk2();
+            image = entity.rightwalk2;
         }
 
         assert image != null;
@@ -36,7 +36,7 @@ public class EntityDrawer {
         AffineTransform at = new AffineTransform();
 
         // Move the object to the center
-        at.translate(entity.getScreenX(), entity.getScreenY());
+        at.translate(entity.screenX, entity.screenY);
 
         // Rotate it
         at.rotate(entity.getAngle());
