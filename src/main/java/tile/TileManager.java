@@ -55,13 +55,13 @@ public class TileManager {
 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - (int) gp.player.getWorldPos().getX() + gp.player.screenX;
-            int screenY = worldY - (int) gp.player.getWorldPos().getY() + gp.player.screenY;
+            int screenX = worldX - (int) gp.player.getWorldPos().getX() + gp.player.getScreenX();
+            int screenY = worldY - (int) gp.player.getWorldPos().getY() + gp.player.getScreenY();
 
-            if (worldX + gp.tileSize > gp.player.getWorldPos().getX() - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.getWorldPos().getX() + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.getWorldPos().getY() - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.getWorldPos().getY() + gp.player.screenY){
+            if (worldX + gp.tileSize > gp.player.getWorldPos().getX() - gp.player.getScreenX() &&
+                worldX - gp.tileSize < gp.player.getWorldPos().getX() + gp.player.getScreenX() &&
+                worldY + gp.tileSize > gp.player.getWorldPos().getY() - gp.player.getScreenY() &&
+                worldY - gp.tileSize < gp.player.getWorldPos().getY() + gp.player.getScreenY()){
 
 
                 g2.drawImage(tile.getImage(),screenX,screenY, gp.tileSize,gp.tileSize,null);

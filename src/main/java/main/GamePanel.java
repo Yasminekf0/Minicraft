@@ -1,5 +1,6 @@
 package main;
 
+import entity.EntityDrawer;
 import entity.Player;
 import tile.TileManager;
 
@@ -58,6 +59,8 @@ public class GamePanel extends JPanel implements Runnable {
     KeyInputs keyI = new KeyInputs();
     Thread gameThread;
     public Player player = new Player(this,keyI);
+    private EntityDrawer playerDrawer = new EntityDrawer(player);
+
 
     public GamePanel() {
 
@@ -117,7 +120,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileM.draw(g2);
 
-        player.draw(g2);
+        playerDrawer.draw(g2);
 
         g2.dispose();
     }
