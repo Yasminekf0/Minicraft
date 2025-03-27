@@ -1,26 +1,25 @@
-package tile;
+package world.tile;
 
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public enum Tile {
     GRASS("/tiles/grass.png", true),
     STONE("/tiles/stone.png", true),
     WATER("/tiles/water.png", false);
 
-    private String pictureFile;
-    private boolean walkable;
+    private final boolean walkable;
 
     private BufferedImage image;
 
-    private Tile(String pictureFile, boolean isWalkable) {
-        this.pictureFile = pictureFile;
+    Tile(String pictureFile, boolean isWalkable) {
         this.walkable = isWalkable;
 
         try{
-            this.image = ImageIO.read(getClass().getResourceAsStream(this.pictureFile));
+            this.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pictureFile)));
         } catch (IOException e) {
             e.printStackTrace();
         }

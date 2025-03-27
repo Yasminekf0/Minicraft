@@ -5,14 +5,13 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class EntityDrawer {
-    Entity entity;
-    int spriteNum;
+    private final Entity entity;
 
     public EntityDrawer(Entity entity){
         this.entity = entity;
     }
     public void draw(Graphics2D g2) {
-        spriteNum = entity.spriteNum;
+        int spriteNum = entity.spriteNum;
         BufferedImage image = null;
 
         if (spriteNum == 1 || spriteNum == 3) {

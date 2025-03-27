@@ -6,6 +6,7 @@ import world.position.WorldPosition;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity {
 
@@ -42,10 +43,10 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
 
-            rightstand = ImageIO.read(getClass().getResource("/player/rightstand.png"));
-            rightwalk1 = ImageIO.read(getClass().getResource("/player/rightwalk1.png"));
-            rightwalk2 = ImageIO.read(getClass().getResource("/player/rightwalk2.png"));
-            rightdo = ImageIO.read(getClass().getResource("/player/rightdo.png"));
+            rightstand = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/rightstand.png")));
+            rightwalk1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/rightwalk1.png")));
+            rightwalk2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/rightwalk2.png")));
+            rightdo = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/rightdo.png")));
 
         } catch (IOException e) {
             e.printStackTrace();

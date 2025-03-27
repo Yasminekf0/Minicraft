@@ -2,7 +2,8 @@ package main;
 
 import entity.EntityDrawer;
 import entity.Player;
-import tile.TileManager;
+import world.WorldGenerator;
+import world.tile.TileDrawer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,33 +34,17 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldWidth = tileSize * WorldSize;
     public final int worldHeight = tileSize * WorldSize;
 
-    private int seed = 8845;
-
-    private boolean setSeed = false;
-
-    public int getSeed() {
-        return seed;
-    }
-
-    public void setSeed(int seed){
-        this.seed = seed;
-    }
-
-    public boolean isSetSeed() {
-        return setSeed;
-    }
-
-    public void setSetSeed(boolean setSeed) {
-        this.setSeed = setSeed;
-    }
+    private final int seed = 980;
 
     int FPS = 60;
 
-    TileManager tileM = new TileManager(this);
+
+    WorldGenerator map = new WorldGenerator(WorldSize, seed);
+    TileDrawer tileM = new TileDrawer(this,map.getWorld());
     KeyInputs keyI = new KeyInputs();
     Thread gameThread;
     public Player player = new Player(this,keyI);
-    private EntityDrawer playerDrawer = new EntityDrawer(player);
+    private final EntityDrawer playerDrawer = new EntityDrawer(player);
 
 
     public GamePanel() {

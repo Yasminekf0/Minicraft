@@ -1,45 +1,24 @@
-package tile;
+package world.tile;
 
 import main.GamePanel;
 import world.WorldGenerator;
 
 import java.awt.*;
 
-import java.util.Random;
+public class TileDrawer {
 
-public class TileManager {
-
-    private GamePanel gp;
-    private Tile[][] mapTiles;
-
-    private Random random;
-
-    private WorldGenerator map;
-
-    private int size;
-    private int seed;
+    private final GamePanel gp;
+    private final Tile[][] mapTiles;
 
 
 
-    public TileManager(GamePanel gp) {
+
+    public TileDrawer(GamePanel gp, Tile[][] mapTiles) {
 
         this.gp = gp;
-        size = gp.getWorldSize();
-        random = new Random();
 
-        getSeed();
+        this.mapTiles = mapTiles;
 
-        map = new WorldGenerator(size,seed);
-
-        mapTiles = map.getWorld();
-
-    }
-
-    private void getSeed() {
-        if (gp.isSetSeed()) seed = gp.getSeed();
-        else {
-            seed = random.nextInt();
-        }
     }
 
 
