@@ -64,7 +64,7 @@ public class WorldGenSteps {
 
     @Then("Both world arrays are the same")
     public void bothWorldArraysAreTheSame() {
-        assertTrue(Arrays.deepEquals(mapArray, map.getWorld()));
+        assertTrue(Arrays.deepEquals(mapArray, map2.getWorld()));
     }
 
     @And("a different world object with different seed")
@@ -74,6 +74,6 @@ public class WorldGenSteps {
 
     @Then("Both world arrays are not the same")
     public void bothWorldArraysAreNotTheSame() {
-        assertFalse(Arrays.deepEquals(mapArray, map.getWorld()));
+        assertFalse(Arrays.deepEquals(mapArray, map2.getWorld()));
     }
 }
