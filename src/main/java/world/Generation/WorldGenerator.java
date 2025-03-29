@@ -1,4 +1,4 @@
-package world;
+package world.Generation;
 
 import de.articdive.jnoise.core.api.functions.Interpolation;
 import de.articdive.jnoise.generators.noise_parameters.fade_functions.FadeFunction;
@@ -29,7 +29,7 @@ public class WorldGenerator {
     }
 
     private void generateNoise(){
-        noiseMap = JNoise.newBuilder().perlin(seed, Interpolation.LINEAR, FadeFunction.CUBIC_POLY)
+        noiseMap = JNoise.newBuilder().perlin(seed, Interpolation.LINEAR, FadeFunction.NONE)
                 .scale(1/16.0)
                 .addModifier(v -> (v + 1) / 2.0)
                 .clamp(0.0, 1.0)
@@ -47,10 +47,10 @@ public class WorldGenerator {
     }
 
     private void generateTileArray(){
-        for (double i=0; i<size; i++){
-            for (double j=0; j<size; j++){
-                double noise = noiseArray[(int) i][(int) j];
-                tileArray[(int) i][(int) j] = selectTile(noise);
+        for (int i=0; i<size; i++){
+            for (int j=0; j<size; j++){
+                double noise = noiseArray[i][j];
+                tileArray[ i][ j] = selectTile(noise);
             }
 
         }

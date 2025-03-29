@@ -8,8 +8,12 @@ import java.util.Objects;
 
 public enum Tile {
     GRASS("/tiles/grass.png", true),
+    DIRT("/tiles/dirt.png", true),
     STONE("/tiles/stone.png", true),
-    WATER("/tiles/water.png", false);
+    WATER("/tiles/water.png", false),
+    LAVA("/tiles/lava.png", false),
+    SAND("/tiles/sand.png", true),
+    SNOW("/tiles/snow.png", true);
 
     private final boolean walkable;
 
