@@ -15,11 +15,15 @@ public enum Biome {
     private final Map<Tile, Double> weightMap;
 
 
+
     Biome(Map<Tile, Double> weightMap) {
         this.weightMap = weightMap;
+
     }
 
     public Map<Tile, Double> getWeightMap() {
         return weightMap;
     }
+
+
 }
