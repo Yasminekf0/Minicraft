@@ -5,29 +5,21 @@ import main.KeyInputs;
 import world.position.WorldPosition;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity {
 
-    public GamePanel gp;
-    public KeyInputs keyI;
+    private final KeyInputs keyI;
 
-    public final int screenX;
-    public final int screenY;
 
-    private double angle;
+
 
     public Player(GamePanel gp, KeyInputs keyI) {
 
         super();
         this.gp = gp;
         this.keyI = keyI;
-
-        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
-        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         setDefaultValues();
         getPlayerImage();
@@ -36,21 +28,25 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
+
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
         health = 10;
         maxHealth = 10;
 
-        worldPos = new WorldPosition(gp.tileSize * 20, gp.tileSize * 20);
-        speed = 4;
+        worldPos = new WorldPosition(gp.worldWidth/2.0, gp.worldHeight/2.0);
+        speed = 10;
         angle = Math.PI / 2;
     }
 
     public void getPlayerImage() {
         try {
 
-            rightstand = ImageIO.read(getClass().getResource("/player/rightstand.png"));
-            rightwalk1 = ImageIO.read(getClass().getResource("/player/rightwalk1.png"));
-            rightwalk2 = ImageIO.read(getClass().getResource("/player/rightwalk2.png"));
-            rightdo = ImageIO.read(getClass().getResource("/player/rightdo.png"));
+            rightstand = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/rightstand.png")));
+            rightwalk1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/rightwalk1.png")));
+            rightwalk2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/rightwalk2.png")));
+            rightdo = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/rightdo.png")));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,8 +83,7 @@ public class Player extends Entity {
             double normalizedDx = dx / vectorNorm;
             double normalizedDy = dy / vectorNorm;
 
-            angle = Math.atan2(dy, dx);
-            System.out.println(angle);
+            setAngle(Math.atan2(dy, dx));
 
             worldPos.increment(normalizedDx * speed, normalizedDy * speed);
         }
@@ -108,43 +103,7 @@ public class Player extends Entity {
 
     }
 
-    public void draw(Graphics2D g2) {
-        BufferedImage image = null;
 
-        if (spriteNum == 1 || spriteNum == 3) {
-            image = rightstand;
-        }
-        if (spriteNum == 2) {
-            image = rightwalk1;
-        }
-        if (spriteNum == 4) {
-            image = rightwalk2;
-        }
-
-        assert image != null;
-        AffineTransform at = createAffineTransform(image);
-
-        g2.drawImage(image, at, null);
-
-    }
-
-    private AffineTransform createAffineTransform(BufferedImage image) {
-        AffineTransform at = new AffineTransform();
-
-        // Move the object to the center
-        at.translate(screenX, screenY);
-
-        // Rotate it
-        at.rotate(angle);
-
-        // Scale it
-        at.scale((double) gp.tileSize / image.getWidth(), (double) gp.tileSize / image.getWidth());
-
-        // Make the object rotate around the center
-        at.translate((double) -image.getWidth(null) / 2, (double) -image.getHeight(null) / 2);
-
-        return at;
-    }
 
 
     public int getHealth() {

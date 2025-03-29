@@ -3,15 +3,15 @@ package world;
 import de.articdive.jnoise.core.api.functions.Interpolation;
 import de.articdive.jnoise.generators.noise_parameters.fade_functions.FadeFunction;
 import de.articdive.jnoise.pipeline.JNoise;
-import tile.Tile;
+import world.tile.Tile;
 
 
 public class WorldGenerator {
 
 
-    private double[][] noiseArray;
+    private final double[][] noiseArray;
 
-    private  Tile[][] tileArray;
+    private final Tile[][] tileArray;
     int size;
 
     int seed;
