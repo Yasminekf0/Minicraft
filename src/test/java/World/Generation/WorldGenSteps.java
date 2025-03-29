@@ -5,7 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import world.tile.Tile;
-import world.WorldGenerator;
+import world.Generation.WorldGenerator;
 
 import java.util.Arrays;
 

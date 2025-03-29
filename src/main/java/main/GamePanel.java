@@ -2,7 +2,7 @@ package main;
 
 import entity.EntityDrawer;
 import entity.Player;
-import world.WorldGenerator;
+import world.Generation.WorldGenerator;
 import world.tile.TileDrawer;
 
 import javax.swing.*;
@@ -12,11 +12,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SCREEN SETTINGS
     final int originalTileSize = 16; //16x16 px
-    final int scale = 3;
+    final int scale = 1;
 
     public final int tileSize = originalTileSize * scale; //48x48 px
-    public final int maxScreenCol = 16;
-    public final int maxScreenRow = 16;
+    public final int maxScreenCol = 64*3;
+    public final int maxScreenRow = 36*3;
     public int screenWidth = tileSize * maxScreenCol;
     public int screenHeight = tileSize * maxScreenRow;
 
