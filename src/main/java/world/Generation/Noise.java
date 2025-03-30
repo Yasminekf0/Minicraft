@@ -1,13 +1,23 @@
 package world.Generation;
 
+import de.articdive.jnoise.pipeline.JNoise;
+import world.position.WorldPosition;
+
 public class Noise {
 
     private final Biome biome;
-    private final double perlinNoise;
+    private final JNoise perlinNoise;
 
-    public Noise(Biome biome,double perlinNoise){
+    private final double worldX;
+
+    private final double worldY;
+
+    public Noise(Biome biome, JNoise perlinNoise, WorldPosition position){
         this.biome = biome;
         this.perlinNoise = perlinNoise;
+        this.worldX = position.getX();
+        this.worldY = position.getY();
+
     }
 
     public Biome getBiome() {
@@ -15,6 +25,6 @@ public class Noise {
     }
 
     public double getPerlinNoise() {
-        return perlinNoise;
+        return perlinNoise.evaluateNoise(worldX,worldY);
     }
 }
