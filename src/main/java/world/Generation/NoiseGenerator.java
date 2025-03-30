@@ -8,23 +8,12 @@ import de.articdive.jnoise.generators.noisegen.worley.WorleyNoiseResult;
 import de.articdive.jnoise.pipeline.JNoise;
 import de.articdive.jnoise.pipeline.JNoiseDetailed;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
 
 public class NoiseGenerator {
-
-    public static void main(String[] args) {
-        NoiseGenerator noise = new NoiseGenerator(10,100);
-        noise.generateWorleyNoise();
-        /*
-            WorleyNoiseResult<Vector> wnoise = noise.worleyNoise.evaluateNoiseResult(11, 0);
-            Vector closestPoint = wnoise.getClosestPoint();
-            double evalNoise = noise.worleyNoise.evaluateNoise(closestPoint.x(), closestPoint.y());
-            System.out.println(evalNoise);
-
-         */
-    }
 
     private final Noise[][] noiseArray;
     private final Random random;
@@ -33,20 +22,24 @@ public class NoiseGenerator {
     private final int seed;
     private final int size;
 
+    private final double[] perlinArray;
+
     private final Biome[] biomes;
-    private HashMap<Vector,Biome> biomeHashMap = new HashMap<>();
+    private final HashMap<Vector,Biome> biomeHashMap = new HashMap<>();
 
     public NoiseGenerator(int size, int seed){
         this.size = size;
         this.seed = seed;
         biomes = Biome.values();
         noiseArray = new Noise[size][size];
+        perlinArray = new double[size*size];
         random = new Random(seed);
 
         generatePerlinNoise();
         generateWorleyNoise();
 
         generateNoiseArray();
+        Arrays.sort(perlinArray);
 
     }
     private void generatePerlinNoise(){
@@ -60,7 +53,7 @@ public class NoiseGenerator {
 
     private void generateWorleyNoise(){
         worleyNoise = JNoise.newBuilder().worley(WorleyNoiseGenerator.newBuilder().setSeed(seed).build())
-                .scale(1 / 40.0)
+                .scale(1 / 60.0)
                 .clamp(0.0, 1.0)
                 .buildDetailed();
     }
@@ -70,12 +63,14 @@ public class NoiseGenerator {
         WorleyNoiseResult<Vector> worleyNoiseResult;
         Vector worleyClosestPoint;
 
-        for (double i=0; i<size; i++){
-            for (double j=0; j<size; j++){
+        for (double i = 0, k = 0; i<size; i++){
+            for (double j=0; j<size; j++, k++){
                 worleyNoiseResult = worleyNoise.evaluateNoiseResult(i, j);
                 worleyClosestPoint = worleyNoiseResult.getClosestPoint();
                 biome = getBiome(worleyClosestPoint);
                 noiseArray[(int) i][(int) j] = new Noise(biome,perlinNoise.evaluateNoise(i, j));
+
+                perlinArray[(int) k] = perlinNoise.evaluateNoise(i, j);
             }
 
         }
@@ -88,5 +83,9 @@ public class NoiseGenerator {
 
     public Noise[][] getNoiseArray() {
         return noiseArray;
+    }
+
+    public double getPerlinThreshold(double prob){
+        return perlinArray[(int) (prob * size * size-1)];
     }
 }
