@@ -33,8 +33,8 @@ public class TileDrawer {
 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - (int) gp.player.getWorldPos().getX() + gp.player.getScreenX();
-            int screenY = worldY - (int) gp.player.getWorldPos().getY() + gp.player.getScreenY();
+            int screenX = worldX - gp.player.getWorldPos().getX().intValue() + gp.player.getScreenX();
+            int screenY = worldY - gp.player.getWorldPos().getY().intValue() + gp.player.getScreenY();
 
             if (worldX + gp.tileSize > gp.player.getWorldPos().getX() - gp.player.getScreenX() &&
                 worldX - gp.tileSize < gp.player.getWorldPos().getX() + gp.player.getScreenX() &&

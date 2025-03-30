@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyInputs;
+import world.position.ScreenPosition;
 import world.position.WorldPosition;
 
 import javax.imageio.ImageIO;
@@ -28,14 +29,12 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-
-        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
-        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
-
         health = 10;
         maxHealth = 10;
 
         worldPos = new WorldPosition(gp.worldWidth/2.0, gp.worldHeight/2.0);
+        screenPos = new ScreenPosition(gp.screenWidth / 2 - (gp.tileSize / 2), gp.screenHeight / 2 - (gp.tileSize / 2));
+
         speed = 10;
         angle = Math.PI / 2;
     }

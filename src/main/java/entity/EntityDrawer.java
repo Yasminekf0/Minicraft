@@ -35,7 +35,7 @@ public class EntityDrawer {
         AffineTransform at = new AffineTransform();
 
         // Move the object to the center
-        at.translate(entity.screenX, entity.screenY);
+        at.translate(entity.screenPos.getX(), entity.screenPos.getY());
 
         // Rotate it
         at.rotate(entity.getAngle());

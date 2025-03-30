@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+import world.position.ScreenPosition;
 import world.position.WorldPosition;
 
 import java.awt.image.BufferedImage;
@@ -8,14 +9,14 @@ import java.awt.image.BufferedImage;
 public class Entity {
 
     WorldPosition worldPos;
+    ScreenPosition screenPos;
+
     int speed;
     int health;
     int maxHealth;
 
     GamePanel gp;
 
-    int screenX;
-    int screenY;
     double angle;
 
     BufferedImage rightstand, rightwalk1, rightwalk2, rightdo;
@@ -34,12 +35,12 @@ public class Entity {
     }
 
     public int getScreenX() {
-        return screenX;
+        return screenPos.getX();
     }
 
 
     public int getScreenY() {
-        return screenY;
+        return screenPos.getY();
     }
 
     public double getAngle() {
