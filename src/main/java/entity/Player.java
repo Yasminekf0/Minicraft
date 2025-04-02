@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class Player extends Entity {
 
-    public GamePanel gp;
+
     private final KeyInputs keyI;
 
 
