@@ -15,7 +15,7 @@ public class Player extends Entity {
 
     public Player() {
         this.worldPos = new WorldPosition(0,0);
-        this.speed = 5;
+        this.speed = 15;
         this.health = 10;
         this.maxHealth = 10;
         initializeInventory();

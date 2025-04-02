@@ -7,6 +7,7 @@ import model.world.WorldGenerator;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 public class GameView extends JPanel {
     private WorldGenerator world;
@@ -15,10 +16,10 @@ public class GameView extends JPanel {
 
     // Screen settings
     private final int originalTileSize = 16; // 16x16 px
-    private final int scale = 3;
+    private final int scale = 1;
     public final int tileSize = originalTileSize * scale; // 48x48 px
-    public final int maxScreenCol = 20;
-    public final int maxScreenRow = 20;
+    public final int maxScreenCol = 70;
+    public final int maxScreenRow = 40;
     public int screenWidth = tileSize * maxScreenCol;
     public int screenHeight = tileSize * maxScreenRow;
 
@@ -51,24 +52,29 @@ public class GameView extends JPanel {
         int playerWorldX = player.getWorldPos().getX().intValue();
         int playerWorldY = player.getWorldPos().getY().intValue();
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        int[] ij = getTopLeftTileCoords();
+        int rightTileX = ij[0] + maxScreenCol + 1;
+        int bottomTileY = ij[1] + maxScreenRow + 1;
+
+        for (int i = ij[0]; i < rightTileX; i++) {
+            for (int j = ij[1]; j < bottomTileY; j++) {
                 int worldX = i * tileSize;
                 int worldY = j * tileSize;
                 int screenX = worldX - playerWorldX + playerScreenX;
                 int screenY = worldY - playerWorldY + playerScreenY;
 
-                // Draw only tiles within the visible area
-                if (worldX + tileSize > playerWorldX - playerScreenX &&
-                        worldX - tileSize < playerWorldX + playerScreenX &&
-                        worldY + tileSize > playerWorldY - playerScreenY &&
-                        worldY - tileSize < playerWorldY + playerScreenY) {
-
+                if (i>=0 & i<size & j>=0 & j<size) {
                     BufferedImage img = tiles[i][j].getImage();
                     g2.drawImage(img, screenX, screenY, tileSize, tileSize, null);
                 }
             }
         }
+    }
+
+    private int[] getTopLeftTileCoords(){
+        int x = (int) (player.getWorldPos().getX() - playerScreenX) / tileSize;
+        int y = (int) (player.getWorldPos().getY() - playerScreenY) / tileSize;
+        return new int[]{x,y};
     }
 
     public PlayerView getPlayerView() {

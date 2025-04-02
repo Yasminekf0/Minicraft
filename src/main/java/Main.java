@@ -15,7 +15,7 @@ public class Main {
         window.setResizable(false);
 
         // Create the world
-        int worldSize = 1000;
+        int worldSize = 3000;
         int seed = 8845;
         WorldGenerator world = new WorldGenerator(worldSize, seed);
 
