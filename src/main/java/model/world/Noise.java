@@ -1,7 +1,7 @@
-package world.Generation;
+package model.world;
 
 import de.articdive.jnoise.pipeline.JNoise;
-import world.position.WorldPosition;
+import model.position.WorldPosition;
 
 public class Noise {
 

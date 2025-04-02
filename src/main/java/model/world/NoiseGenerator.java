@@ -1,4 +1,4 @@
-package world.Generation;
+package model.world;
 
 import de.articdive.jnoise.core.api.functions.Interpolation;
 import de.articdive.jnoise.core.util.vectors.Vector;
@@ -7,7 +7,7 @@ import de.articdive.jnoise.generators.noisegen.worley.WorleyNoiseGenerator;
 import de.articdive.jnoise.generators.noisegen.worley.WorleyNoiseResult;
 import de.articdive.jnoise.pipeline.JNoise;
 import de.articdive.jnoise.pipeline.JNoiseDetailed;
-import world.position.WorldPosition;
+import model.position.WorldPosition;
 
 import java.util.Arrays;
 import java.util.HashMap;

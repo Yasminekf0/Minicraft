@@ -1,6 +1,5 @@
-package world.Generation;
+package model.world;
 
-import world.tile.Tile;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
