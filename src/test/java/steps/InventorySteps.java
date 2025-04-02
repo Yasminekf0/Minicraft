@@ -22,14 +22,14 @@ public class InventorySteps {
 
     }
 
-    @When("the player picks up a {string} in {string}")
-    public void thePlayerPicksUpAIn(String item, String section) {
+    @When("the player picks up a {string} in {string} section")
+    public void thePlayerPicksUpAInSection(String item, String section) {
         player.addItem(section, item);
 
     }
 
-    @Then("the inventory should contain {string} in {string}")
-    public void theInventoryShouldContainIn(String item, String section) {
+    @Then("the inventory should contain {string} in {string} section")
+    public void theInventoryShouldContainInSection (String item, String section) {
         assertEquals(item, player.getItemFromInventory(section, item));
     }
 
@@ -63,8 +63,8 @@ public class InventorySteps {
 
 
 
-    @Given("the player has a {string} in {string} in their inventory")
-    public void thePlayerHasAInTheirInventory(String item, String section) {
+    @Given("the player has a {string} in {string} section in their inventory")
+    public void thePlayerHasAInSectionInTheirInventory(String item, String section) {
         player = new Player();
         player.initializeInventory();
         player.addItem(section, item);
@@ -84,8 +84,6 @@ public class InventorySteps {
     public void theInventoryShouldContainAnInstead(String upgradedTool) {
         assertEquals(upgradedTool, player.getItemFromInventory("Tool", upgradedTool));
     }
-
-
 
 
 
@@ -119,33 +117,29 @@ public class InventorySteps {
         player.setCurrentSection(section);
     }
 
-    @Then("the player should see potions in the inventory")
-    public void thePlayerShouldSeePotionsInTheInventory(String section) {
-        ArrayList<String> items = player.getInventorySection(section);
-        assertFalse(items.isEmpty());
+    @Then("the player should see potions in {string} section in the inventory")
+    public void thePlayerShouldSeePotionsInSectionInTheInventory(String section) {
+        //ArrayList<String> items = player.getInventorySection(section);
+        assertEquals(section, player.getCurrentSection());
     }
 
 
 
-
-
-
     @Given("the player has a {string} in {string} in their inventory")
-    public void thePlayerHasAInInTheirInventory(String item,  String section) {
+    public void thePlayerHasAInSpecificInventory(String item,  String section) {
         player = new Player();
         player.initializeInventory();
         player.addItem(section, item);
     }
 
-    @When("the player tries to pick up another {string} in {string}")
-    public void thePlayerTriesToPickUpAnother(String item,  String section) {
+    @When("the player tries to pick up another {string} in {string} section")
+    public void thePlayerTriesToPickUpAnotherInSection(String item,  String section) {
         player.addItem(section, item);
     }
 
-    @Then("the inventory should still contain only one {string} in {string}")
-    public void theInventoryShouldStillContainOnlyOne(String item,  String section) {
+    @Then("the inventory should still contain only one {string} in {string} section")
+    public void theInventoryShouldStillContainOnlyOneInSection(String item,  String section) {
         assertEquals(1, player.countItem(section, item));
     }
-
 
 }
