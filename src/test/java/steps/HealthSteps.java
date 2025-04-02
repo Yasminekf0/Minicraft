@@ -12,12 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HealthSteps {
     Player player;
-    GameController gp = new GameController();
-    KeyController keyI = new KeyController();
 
     @Given("the player starts with {int} health")
     public void thePlayerStartsWithHealth(int health) {
-        player = new Player(gp, keyI);
+        player = new Player();
         player.setHealth(health);
 
     }
@@ -34,7 +32,7 @@ public class HealthSteps {
 
     @Given("the player has {int} health")
     public void thePlayerHasHealth(int health) {
-        player = new Player(gp, keyI);
+        player = new Player();
         player.setHealth(health);
     }
 

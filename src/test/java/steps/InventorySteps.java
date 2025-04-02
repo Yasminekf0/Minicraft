@@ -4,10 +4,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import model.entity.Player;
 
-import entity.Player;
-import main.GamePanel;
-import main.KeyInputs;
 
 import java.util.ArrayList;
 
@@ -15,12 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class InventorySteps {
     Player player;
-    GamePanel gp =  new GamePanel();
-    KeyInputs keyI =  new KeyInputs();
+
 
     @Given("the player has an empty inventory")
     public void thePlayerHasAnEmptyInventory() { // sus
-        player = new Player(gp, keyI);
+        player = new Player();
         player.initializeInventory();
 
     }
@@ -42,7 +39,7 @@ public class InventorySteps {
 
     @Given("the player has items in all inventory sections")
     public void thePlayerHasItemsInAllInventorySections() {
-        player = new Player(gp, keyI);
+        player = new Player();
         player.initializeInventory();
         player.addItem("Tools", "Hammer");
         player.addItem("Blocks", "Wood");
@@ -68,7 +65,7 @@ public class InventorySteps {
 
     @Given("the player has a {string} in {string} in their inventory")
     public void thePlayerHasAInTheirInventory(String item, String section) {
-        player = new Player(gp, keyI);
+        player = new Player();
         player.initializeInventory();
         player.addItem(section, item);
     }
@@ -95,7 +92,7 @@ public class InventorySteps {
 
     @Given("the player has {string} and {string} in their inventory")
     public void thePlayerHasAndInTheirInventory(String item1, String item2) {
-        player = new Player(gp, keyI);
+        player = new Player();
         player.initializeInventory();
         player.addItem("Tools", item1);
         player.addItem("Tools", item2);
@@ -117,7 +114,7 @@ public class InventorySteps {
 
     @Given("the player is in the {string} inventory section")
     public void thePlayerIsInTheInventorySection(String section) {
-        player = new Player(gp, keyI);
+        player = new Player();
         player.initializeInventory();
         player.setCurrentSection(section);
     }
@@ -135,7 +132,7 @@ public class InventorySteps {
 
     @Given("the player has a {string} in {string} in their inventory")
     public void thePlayerHasAInInTheirInventory(String item,  String section) {
-        player = new Player(gp, keyI);
+        player = new Player();
         player.initializeInventory();
         player.addItem(section, item);
     }

@@ -22,7 +22,7 @@ public class Main {
         // Create the player (start 20 tiles in, each tile 48 px => 48*20)
         int initialX = 48 * 20;
         int initialY = 48 * 20;
-        Player player = new Player(initialX, initialY);
+        Player player = new Player();
 
         // Create the views
         GameView gameView = new GameView(world, player);
