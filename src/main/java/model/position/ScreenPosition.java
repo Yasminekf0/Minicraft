@@ -1,4 +1,4 @@
-package world.position;
+package model.position;
 
 public class ScreenPosition extends Position<Integer> {
 

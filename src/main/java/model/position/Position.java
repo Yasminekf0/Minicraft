@@ -1,4 +1,4 @@
-package world.position;
+package model.position;
 
 public class Position <T> {
     protected T x;

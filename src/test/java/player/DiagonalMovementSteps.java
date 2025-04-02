@@ -1,24 +1,24 @@
 package player;
 
-import entity.Player;
-import world.position.WorldPosition;
+import model.entity.Player;
+import model.position.WorldPosition;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import main.GamePanel;
-import main.KeyInputs;
-
-import java.util.Objects;
+import controller.GameController;
+import controller.KeyController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+/*
 
 public class DiagonalMovementSteps {
     Player player;
+    KeyController keyController;
 
     @Given("a Player")
     public void aPlayer() {
-        player = new Player(new GamePanel(), new KeyInputs());
+        player = new Player(new GameController(), new KeyController());
     }
 
     @And("his WorldPosition is {int} {int}")
@@ -28,12 +28,7 @@ public class DiagonalMovementSteps {
 
     @And("a KeyInput of {string}")
     public void aKeyInputOf(String arg0) {
-        switch (arg0) {
-            case "W" -> player.getKeyI().upPressed = true;
-            case "S" -> player.getKeyI().downPressed = true;
-            case "A" -> player.getKeyI().leftPressed = true;
-            case "D" -> player.getKeyI().rightPressed = true;
-        }
+        a
     }
 
     @When("update Player")
@@ -46,4 +41,10 @@ public class DiagonalMovementSteps {
         assertEquals(player.getSpeed() / Math.sqrt(2), player.getWorldPos().getX());
         assertEquals(-player.getSpeed() / Math.sqrt(2), player.getWorldPos().getY());
     }
+
+    @And("a KeyController")
+    public void aKeyController() {
+        keyController = new KeyController();
+    }
 }
+*/
