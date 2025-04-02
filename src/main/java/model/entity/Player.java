@@ -21,9 +21,6 @@ public class Player extends Entity {
         initializeInventory();
     }
 
-    /**
-     * Move the player by (dx, dy), scaled by speed.
-     */
     public void move(double dx, double dy) {
         worldPos.increment(dx * speed, dy * speed);
     }
@@ -87,10 +84,9 @@ public class Player extends Entity {
     public void setCurrentSection(String section){
         if (inventory.containsKey(section)) {
             currentSection = section;
-        }}
-    /**
-     * If you want the player to do any autonomous updates, place them here.
-     */
+        }
+    }
+
     public void update() {
         // For autonomous updates if needed
     }

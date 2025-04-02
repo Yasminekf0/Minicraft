@@ -1,0 +1,32 @@
+package model.items.tools;
+
+import model.items.Item;
+
+public class Tool extends Item {
+    private String material; // Wood,Stone, Iron, Diamond
+
+    public Tool(String name, String material) {
+        super(name, "Tool");
+        this.material = material;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void upgrade() {
+        switch (material) {
+            case "Wood":
+                material = "Stone";
+                break;
+            case "Stone":
+                material = "Iron";
+                break;
+            case "Iron":
+                material = "Diamond";
+                break;
+            case "Diamond":
+                break;
+        }
+    }
+}
