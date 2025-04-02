@@ -209,10 +209,41 @@ public class Player extends Entity {
         if (selectedItem == null) selectedItem = item;
     }
 
-    public void switchInventorySection(String section) {
+
+    public ArrayList<String> getInventorySection(String section) {
+        return inventory.get(section);
+    }
+
+    public String getItemFromInventory(String section, String item) {
+        if (inventory.containsKey(section)) {
+            ArrayList<String> items = inventory.get(section);
+
+            if (items.contains(item)) {
+                return item;
+            }
+        }
+
+        return "Item not found";
+    }
+
+    public int countItem(String section, String item) {
+        return 1;
+    }
+
+    public void openChest() { //*****************************
+    }
+
+    public void upgradeTool() {} //***************************
+
+    public String getSelectedItem(){return selectedItem;}
+
+    public void setSelectedItem(String item){selectedItem = item;}
+
+    public String getCurrentSection(){return currentSection;}
+
+    public void setCurrentSection(String section){
         if (inventory.containsKey(section)) {
             currentSection = section;
-        }
-    }
+        }}
 
 }
