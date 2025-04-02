@@ -2,8 +2,8 @@ Feature: Inventory system
 
   Scenario: Player adds an item to the inventory
     Given the player has an empty inventory
-    When the player picks up a "Sword"
-    Then the inventory should contain "Sword"
+    When the player picks up a "Sword" in "Tools"
+    Then the inventory should contain "Sword" in "Tools"
 
   Scenario: Player views inventory sections
     Given the player has items in all inventory sections
@@ -11,7 +11,7 @@ Feature: Inventory system
     Then the player should see tools in the inventory
 
   Scenario: Player upgrades a tool
-    Given the player has a "Wooden Pickaxe" in their inventory
+    Given the player has a "Wooden Pickaxe" in "Tools" in their inventory
     And the player finds an upgrade chest
     When the player upgrades the "Wooden Pickaxe"
     Then the inventory should contain an "Iron Pickaxe" instead
@@ -27,6 +27,6 @@ Feature: Inventory system
     Then the player should see potions in the inventory
 
   Scenario: Player tries to pick up a duplicate tool
-    Given the player has a "Sword" in their inventory
-    When the player tries to pick up another "Sword"
-    Then the inventory should still contain only one "Sword"
+    Given the player has a "Sword" in "Tools" in their inventory
+    When the player tries to pick up another "Sword" in "Tools"
+    Then the inventory should still contain only one "Sword" in "Tools"
