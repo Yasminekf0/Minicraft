@@ -1,4 +1,4 @@
-package world.position;
+package model.position;
 
 public class WorldPosition {
     private double x;
@@ -25,7 +25,7 @@ public class WorldPosition {
         this.y = y;
     }
 
-    public void setPos(double x, double y){
+    public void setPos(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -34,5 +34,4 @@ public class WorldPosition {
         this.x += dx;
         this.y += dy;
     }
-
 }

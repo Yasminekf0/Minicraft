@@ -1,15 +1,13 @@
 package player;
 
-import entity.Player;
-import world.position.WorldPosition;
+import model.entity.Player;
+import model.position.WorldPosition;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import main.GamePanel;
-import main.KeyInputs;
-
-import java.util.Objects;
+import controller.GameController;
+import controller.KeyController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,7 +16,7 @@ public class DiagonalMovementSteps {
 
     @Given("a Player")
     public void aPlayer() {
-        player = new Player(new GamePanel(), new KeyInputs());
+        player = new Player(new GameController(), new KeyController());
     }
 
     @And("his WorldPosition is {int} {int}")

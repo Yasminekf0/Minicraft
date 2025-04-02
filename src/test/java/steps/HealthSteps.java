@@ -1,20 +1,19 @@
 package steps;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import entity.Player;
-import main.GamePanel;
-import main.KeyInputs;
+import model.entity.Player;
+import controller.GameController;
+import controller.KeyController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HealthSteps {
     Player player;
-    GamePanel gp = new GamePanel();
-    KeyInputs keyI = new KeyInputs();
+    GameController gp = new GameController();
+    KeyController keyI = new KeyController();
 
     @Given("the player starts with {int} health")
     public void thePlayerStartsWithHealth(int health) {
