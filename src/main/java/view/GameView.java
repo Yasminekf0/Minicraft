@@ -48,8 +48,8 @@ public class GameView extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         Tile[][] tiles = world.getTiles();
         int size = world.getSize();
-        int playerWorldX = (int) player.getWorldPos().getX();
-        int playerWorldY = (int) player.getWorldPos().getY();
+        int playerWorldX = player.getWorldPos().getX().intValue();
+        int playerWorldY = player.getWorldPos().getY().intValue();
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {

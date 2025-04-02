@@ -1,27 +1,9 @@
-package view;
+package model.position;
 
-public class ScreenPosition {
-    private int x;
-    private int y;
+public class ScreenPosition extends Position<Integer> {
 
     public ScreenPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 }

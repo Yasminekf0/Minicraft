@@ -1,4 +1,4 @@
-package world.position;
+package model.position;
 
 public class WorldPosition extends Position<Double>{
 
