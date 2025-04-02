@@ -39,7 +39,7 @@ public class WorldGenSteps {
     @When("World Generation is called")
     public void worldGenerationIsCalled() {
         map = new WorldGenerator(size,seed);
-        mapArray =  map.getWorld();
+        mapArray =  map.getTiles();
     }
 
 
@@ -64,7 +64,7 @@ public class WorldGenSteps {
 
     @Then("Both world arrays are the same")
     public void bothWorldArraysAreTheSame() {
-        assertTrue(Arrays.deepEquals(mapArray, map2.getWorld()));
+        assertTrue(Arrays.deepEquals(mapArray, map2.getTiles()));
     }
 
     @And("a different world object with different seed")
@@ -74,6 +74,6 @@ public class WorldGenSteps {
 
     @Then("Both world arrays are not the same")
     public void bothWorldArraysAreNotTheSame() {
-        assertFalse(Arrays.deepEquals(mapArray, map2.getWorld()));
+        assertFalse(Arrays.deepEquals(mapArray, map2.getTiles()));
     }
 }

@@ -59,4 +59,5 @@ public class WorldGenerator {
     public int getSize() {
         return size;
     }
+
 }
