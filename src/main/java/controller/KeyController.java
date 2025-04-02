@@ -1,10 +1,17 @@
 package controller;
 
+import view.GameView;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyController implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed;
+    private GameView gameView;
+
+    public KeyController(GameView gameView){
+        this.gameView = gameView;
+    }
 
     public boolean isUpPressed() {
         return upPressed;
@@ -39,6 +46,9 @@ public class KeyController implements KeyListener {
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
+        }
+        if (code == KeyEvent.VK_ESCAPE) {
+            gameView.getOptionsMenuView().toggle();
         }
     }
 
