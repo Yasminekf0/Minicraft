@@ -15,13 +15,10 @@ public class Main {
         window.setResizable(false);
 
         // Create the world
-        int worldSize = 3000;
+        int worldSize = 1000;
         int seed = 8845;
         WorldGenerator world = new WorldGenerator(worldSize, seed);
 
-        // Create the player (start 20 tiles in, each tile 48 px => 48*20)
-        int initialX = 48 * 20;
-        int initialY = 48 * 20;
         Player player = new Player();
 
         // Create the views

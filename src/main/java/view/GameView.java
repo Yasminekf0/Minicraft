@@ -26,10 +26,12 @@ public class GameView extends JPanel {
     // Player drawing position on screen (centered)
     public final int playerScreenX = screenWidth / 2;
     public final int playerScreenY = screenHeight / 2;
+    Tile[][] tiles;
 
     public GameView(WorldGenerator world, Player player) {
         this.world = world;
         this.player = player;
+        tiles = world.getTiles();
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.WHITE);
         setDoubleBuffered(true);
@@ -47,7 +49,7 @@ public class GameView extends JPanel {
 
     private void drawWorld(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        Tile[][] tiles = world.getTiles();
+
         int size = world.getSize();
         int playerWorldX = player.getWorldPos().getX().intValue();
         int playerWorldY = player.getWorldPos().getY().intValue();

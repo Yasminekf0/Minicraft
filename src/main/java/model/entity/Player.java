@@ -14,7 +14,7 @@ public class Player extends Entity {
     private String selectedItem;
 
     public Player() {
-        this.worldPos = new WorldPosition(0,0);
+        this.worldPos = new WorldPosition(8000,8000);
         this.speed = 15;
         this.health = 10;
         this.maxHealth = 10;
