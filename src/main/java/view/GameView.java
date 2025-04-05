@@ -41,7 +41,7 @@ public class GameView extends JPanel {
         // Create the PlayerView to handle the player's sprites
         playerView = new PlayerView(player, tileSize, playerScreenX, playerScreenY);
 
-        optionsMenuView = new OptionsMenuView();
+        optionsMenuView = new OptionsMenuView(screenWidth, screenHeight);
     }
 
     @Override
