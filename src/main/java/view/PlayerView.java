@@ -31,6 +31,7 @@ public class PlayerView extends GameElementView {
         this.tileSize = tileSize;
         this.screenX = screenX;
         this.screenY = screenY;
+        loadImages();
     }
 
     protected void loadImages() {
