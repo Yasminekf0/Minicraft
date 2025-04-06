@@ -1,10 +1,13 @@
 package controller;
 
 import view.GameView;
+import view.hud.HUDButton;
 import view.hud.OptionsMenuView;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 public class KeyController implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed;
@@ -43,6 +46,19 @@ public class KeyController implements KeyListener {
             }
             if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 optionsMenuView.moveSelection(true);
+            }
+            if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
+                switch (optionsMenuView.getSelectedButton()) {
+                    case HUDButton.BACKTOGAME:
+                        gameView.getOptionsMenuView().toggle();
+                        break;
+                    case HUDButton.SAVE:
+                        // TODO call save here
+                        break;
+                    case HUDButton.QUIT:
+                        JFrame window = (JFrame) SwingUtilities.getWindowAncestor(gameView);
+                        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
+                }
             }
         } else {
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {

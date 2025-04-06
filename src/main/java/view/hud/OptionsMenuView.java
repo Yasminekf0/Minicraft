@@ -61,4 +61,7 @@ public class OptionsMenuView extends HUDView {
         return (i >= 0 & i < buttons.length);
     }
 
+    public HUDButton getSelectedButton() {
+        return selectedButton;
+    }
 }
