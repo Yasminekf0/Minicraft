@@ -12,12 +12,15 @@ public class OptionsMenuView extends HUDView {
 
     private HUDButton[] buttons;
     private HUDButton selectedButton;
+    private ButtonSelectionBorderView buttonSelectionBorder;
     private final int buttonCentersGap = 100;
 
     public OptionsMenuView(int screenWidth, int screenHeight) {
         super(screenWidth, screenHeight);
         visible = false;
         buttons = HUDButton.values();
+        selectedButton = buttons[0];
+        buttonSelectionBorder = new ButtonSelectionBorderView(selectedButton);
     }
 
     @Override
@@ -29,7 +32,7 @@ public class OptionsMenuView extends HUDView {
                 g2.drawImage(button.getImg(), button.getTopLeftPos().getX(), button.getTopLeftPos().getY(),
                         button.getWidth(), button.getHeight(), null);
             }
-            //g2.drawRect(100, 100, 100, 100);
+            buttonSelectionBorder.draw(g2);
         }
     }
 
@@ -39,6 +42,23 @@ public class OptionsMenuView extends HUDView {
 
     public void toggle() {
         visible = !visible;
+    }
+
+    public void moveSelection(boolean direction) {
+        int newIndex;
+        if (direction) {
+            newIndex = selectedButton.getIndex() + 1;
+        } else {
+            newIndex = selectedButton.getIndex() - 1;
+        }
+        if (buttonIndexInRange(newIndex)) {
+            selectedButton = buttons[newIndex];
+            buttonSelectionBorder.setButton(selectedButton);
+        }
+    }
+
+    private boolean buttonIndexInRange(int i){
+        return (i >= 0 & i < buttons.length);
     }
 
 }
