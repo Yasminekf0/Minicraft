@@ -28,6 +28,17 @@ public enum HUDButton {
         this.index = index;
     }
 
+    HUDButton(String imagePath, int index) {
+        try {
+            this.img = ImageIO.read(getClass().getResourceAsStream(imagePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        width = img.getWidth();
+        height = img.getHeight();
+        this.index = index;
+    }
+
     public void setCenter(ScreenPosition centerCoords){
         int x = centerCoords.getX() - width / 2;
         int y = centerCoords.getY() - height / 2;
