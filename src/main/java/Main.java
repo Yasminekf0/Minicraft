@@ -42,5 +42,7 @@ public class Main {
             KeyController keyController = new KeyController(gameView);
             new GameController(world, player, gameView, keyController);
         });
+
+        startView.addQuitListener(e -> System.exit(0));
     }
 }
