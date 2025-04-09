@@ -5,6 +5,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import model.entity.Player;
+import model.items.Item;
+import model.items.tools.Sword;
+import model.items.tools.Tool;
 
 
 import java.util.ArrayList;
@@ -14,17 +17,25 @@ import static org.junit.jupiter.api.Assertions.*;
 public class InventorySteps {
     Player player;
 
+    Sword swordItem;
+
+
+
+
+
 
     @Given("the player has an empty inventory")
     public void thePlayerHasAnEmptyInventory() { // sus
         player = new Player();
         player.initializeInventory();
 
-    }
 
+    }
+ool section = Inste
     @When("the player picks up a {string} in {string} section")
     public void thePlayerPicksUpAInSection(String item, String section) {
-        player.addItem(section, item);
+        Item i =  new Tool(item, section);
+        player.addItem(section, i);
 
     }
 

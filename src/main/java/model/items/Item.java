@@ -1,19 +1,21 @@
 package model.items;
 
 public abstract class Item {
-    protected String name;
-    protected String type;
-
-    public Item(String name, String type) {
-        this.name = name;
-        this.type = type;
+    protected String section;
+    protected int count;
+    public Item(String section) {
+        this.section = section;
+        this.count = 0;
     }
 
-    public String getName() {
-        return name;
+    public int getCount() {
+        return count;
+    }
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public String getType() {
-        return type;
+    public String getSection() {
+        return section;
     }
 }

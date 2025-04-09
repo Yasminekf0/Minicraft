@@ -1,5 +1,7 @@
 package model.entity;
 
+import model.items.Item;
+import model.items.tools.Tool;
 import model.position.WorldPosition;
 
 import java.util.ArrayList;
@@ -9,9 +11,9 @@ import java.util.Map;
 public class Player extends Entity {
 
 
-    private Map<String, ArrayList<String>> inventory;
+    private Map<String, ArrayList<Item>> inventory;
     private String currentSection;
-    private String selectedItem;
+    private Item selectedItem;
 
     public Player() {
         this.worldPos = new WorldPosition(0,0);
@@ -28,56 +30,93 @@ public class Player extends Entity {
 
     public void initializeInventory() {
         inventory = new HashMap<>();
-        inventory.put("Tools", new ArrayList<>());
-        inventory.put("Blocks", new ArrayList<>());
-        inventory.put("Potions", new ArrayList<>());
+        inventory.put("Tools", new ArrayList<Item>());
+        inventory.put("Blocks", new ArrayList<Item>());
+        inventory.put("Potions", new ArrayList<Item>());
         currentSection = "Tools";
         selectedItem = null;
     }
 
-    public void addItem(String section, String item) {
+    public void addItem(Item i) {
+        String section = i.getSection();
         if (!inventory.containsKey(section)) return;
 
-        ArrayList<String> items = inventory.get(section);
+        ArrayList<Item> items = inventory.get(section);
+        if (items == null) return;
 
-        if (section.equals("Tools") && items.contains(item)) {
-            System.err.println("You already have this tool");
-            return;
-        }
+        for (Item existing : items) {
+            if (existing.getClass().equals(i.getClass())) {
+                if (section.equals("Potions") || section.equals("Blocks")) {
+                    existing.setCount(existing.getCount()+i.getCount());
+                }
 
-        items.add(item);
-        if (selectedItem == null) selectedItem = item;
-    }
-
-
-    public ArrayList<String> getInventorySection(String section) {
-        return inventory.get(section);
-    }
-
-    public String getItemFromInventory(String section, String item) {
-        if (inventory.containsKey(section)) {
-            ArrayList<String> items = inventory.get(section);
-
-            if (items.contains(item)) {
-                return item;
+                return;
             }
         }
 
-        return "Item not found";
+        items.add(i);
+        if (selectedItem == null) selectedItem = i;
     }
 
-    public int countItem(String section, String item) {
-        return 1;
+
+    public ArrayList<Item> getInventorySection(String section) {
+        return inventory.get(section);
+    }
+
+    public Item getItemFromInventory(Item i) {
+        String section = i.getSection();
+        if (!inventory.containsKey(section)) return null;
+
+        ArrayList<Item> items = inventory.get(section);
+        if (items == null) return null;
+
+        for (Item existing : items) {
+            if (existing.getClass().equals(i.getClass())) {
+                return existing;
+            }
+        }
+
+        return null;
+    }
+
+    public int countItem(Item i) {
+        return i.getCount();
     }
 
     public void openChest() { //*****************************
     }
 
-    public void upgradeTool() {} //***************************
+    public void upgradeTool(Item i) {
+        String section = i.getSection();
+        if (!inventory.containsKey(section)) return;
 
-    public String getSelectedItem(){return selectedItem;}
+        ArrayList<Item> items = inventory.get(section);
+        if (items == null) return;
 
-    public void setSelectedItem(String item){selectedItem = item;}
+        for (Item existing : items) {
+            if (existing instanceof Tool && i instanceof Tool) {
+                ((Tool) existing).upgrade();
+            }
+        }
+    }
+
+    public Item getSelectedItem(){return selectedItem;}
+
+    public void setSelectedItem(Item i){
+        String section = i.getSection();
+        if (!inventory.containsKey(section)) return;
+
+        ArrayList<Item> items = inventory.get(section);
+        if (items == null) return;
+
+        for (Item existing : items) {
+            if (existing.getClass().equals(i.getClass())) {
+                selectedItem = existing;
+                currentSection = section;
+                return;
+            }
+        }
+    }
 
     public String getCurrentSection(){return currentSection;}
 
@@ -85,9 +124,5 @@ public class Player extends Entity {
         if (inventory.containsKey(section)) {
             currentSection = section;
         }
-    }
-
-    public void update() {
-        // For autonomous updates if needed
     }
 }
