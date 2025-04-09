@@ -9,6 +9,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 
+
+import model.saveloadmanager.*;
+import java.io.*;
+
 public class KeyController implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed;
     private GameView gameView;
@@ -53,8 +57,14 @@ public class KeyController implements KeyListener {
                         gameView.getOptionsMenuView().toggle();
                         break;
                     case HUDButton.SAVE:
-                        // TODO call save here
-                        break;
+                        try {
+                            GameState gameState = new GameState(gameView.getPlayer(), gameView.getWorld());
+                            SaveLoadManager.saveGame(gameState, "save/mygame.sav");
+                            System.out.println("Game saved");
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+
+                            break;}
                     case HUDButton.QUIT:
                         JFrame window = (JFrame) SwingUtilities.getWindowAncestor(gameView);
                         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));

@@ -1,10 +1,11 @@
 package model.world;
 
 
+import java.io.Serializable;
 import java.util.Map;
 
 
-public class WorldGenerator {
+public class WorldGenerator implements Serializable {
 
     private final Noise[][] noiseArray;
 

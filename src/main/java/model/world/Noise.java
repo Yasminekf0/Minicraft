@@ -2,8 +2,9 @@ package model.world;
 
 import de.articdive.jnoise.pipeline.JNoise;
 import model.position.WorldPosition;
+import java.io.Serializable;
 
-public class Noise {
+public class Noise implements Serializable {
 
     private final Biome biome;
     private final JNoise perlinNoise;

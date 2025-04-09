@@ -92,4 +92,11 @@ public class GameView extends JPanel {
         return optionsMenuView;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public WorldGenerator getWorld() {
+        return world;
+    }
 }

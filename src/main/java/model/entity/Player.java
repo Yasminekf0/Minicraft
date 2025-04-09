@@ -20,7 +20,6 @@ public class Player extends Entity {
         this.maxHealth = 10;
         initializeInventory();
     }
-
     public void move(double dx, double dy) {
         worldPos.increment(dx * speed, dy * speed);
     }
