@@ -2,15 +2,14 @@ package view;
 
 import model.entity.Player;
 import model.world.Tile;
-import model.world.WorldGenerator;
+import model.world.generator.MapGenerator;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 public class GameView extends JPanel {
-    private WorldGenerator world;
+    private MapGenerator world;
     private Player player;
     private PlayerView playerView;
 
@@ -28,7 +27,7 @@ public class GameView extends JPanel {
     public final int playerScreenY = screenHeight / 2;
     Tile[][] tiles;
 
-    public GameView(WorldGenerator world, Player player) {
+    public GameView(MapGenerator world, Player player) {
         this.world = world;
         this.player = player;
         tiles = world.getTiles();

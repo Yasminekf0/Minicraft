@@ -1,7 +1,7 @@
 import controller.GameController;
 import controller.KeyController;
 import model.entity.Player;
-import model.world.WorldGenerator;
+import model.world.generator.MapGenerator;
 import view.GameView;
 import view.StartView;
 
@@ -17,7 +17,7 @@ public class Main {
         // Create the world
         int worldSize = 1000;
         int seed = 8845;
-        WorldGenerator world = new WorldGenerator(worldSize, seed);
+        MapGenerator world = new MapGenerator(worldSize, seed);
 
         Player player = new Player();
 

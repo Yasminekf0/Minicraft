@@ -5,7 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import model.world.Tile;
-import model.world.WorldGenerator;
+import model.world.generator.MapGenerator;
 
 import java.util.Arrays;
 
@@ -15,9 +15,9 @@ public class WorldGenSteps {
 
     Tile[][] mapArray;
 
-    WorldGenerator map;
+    MapGenerator map;
 
-    WorldGenerator map2;
+    MapGenerator map2;
 
     int size;
 
@@ -38,7 +38,7 @@ public class WorldGenSteps {
 
     @When("World Generation is called")
     public void worldGenerationIsCalled() {
-        map = new WorldGenerator(size,seed);
+        map = new MapGenerator(size,seed);
         mapArray =  map.getTiles();
     }
 
@@ -59,7 +59,7 @@ public class WorldGenSteps {
 
     @And("a different world object with same seed")
     public void aDifferentWorldObject() {
-        map2 = new WorldGenerator(size,seed);
+        map2 = new MapGenerator(size,seed);
     }
 
     @Then("Both world arrays are the same")
@@ -69,7 +69,7 @@ public class WorldGenSteps {
 
     @And("a different world object with different seed")
     public void aDifferentWorldObjectWithDifferentSeed() {
-        map2 = new WorldGenerator(size,seed+23);
+        map2 = new MapGenerator(size,seed+23);
     }
 
     @Then("Both world arrays are not the same")
