@@ -3,7 +3,7 @@ package view;
 import model.entity.Player;
 import model.world.Tile;
 import model.world.World;
-
+import view.hud.OptionsMenuView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +13,7 @@ public class GameView extends JPanel {
     private World world;
     private Player player;
     private PlayerView playerView;
+    private OptionsMenuView optionsMenuView;
 
     // Screen settings
     private final int originalTileSize = 16; // 16x16 px
@@ -38,6 +39,8 @@ public class GameView extends JPanel {
 
         // Create the PlayerView to handle the player's sprites
         playerView = new PlayerView(player, tileSize, playerScreenX, playerScreenY);
+
+        optionsMenuView = new OptionsMenuView(screenWidth, screenHeight);
     }
 
     @Override
@@ -45,6 +48,7 @@ public class GameView extends JPanel {
         super.paintComponent(g);
         drawWorld(g);
         playerView.draw((Graphics2D) g);
+        optionsMenuView.draw((Graphics2D) g);
     }
 
     private void drawWorld(Graphics g) {
@@ -82,4 +86,9 @@ public class GameView extends JPanel {
     public PlayerView getPlayerView() {
         return playerView;
     }
+
+    public OptionsMenuView getOptionsMenuView() {
+        return optionsMenuView;
+    }
+
 }

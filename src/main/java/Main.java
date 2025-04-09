@@ -39,7 +39,7 @@ public class Main {
         startView.addNewGameListener(e -> {
             CardLayout cl = (CardLayout) container.getLayout();
             cl.show(container, "game");
-            KeyController keyController = new KeyController();
+            KeyController keyController = new KeyController(gameView);
             new GameController(world, player, gameView, keyController);
         });
     }
