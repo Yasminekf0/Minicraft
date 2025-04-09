@@ -12,7 +12,7 @@ import java.io.IOException;
  * Handles all rendering/animation logic for the Player, including
  * sprite switching and rotation, separate from the model.
  */
-public class PlayerView {
+public class PlayerView extends GameElementView {
     private Player player;
 
     // Sprite images
@@ -31,10 +31,10 @@ public class PlayerView {
         this.tileSize = tileSize;
         this.screenX = screenX;
         this.screenY = screenY;
-        loadPlayerImages();
+        loadImages();
     }
 
-    private void loadPlayerImages() {
+    protected void loadImages() {
         try {
             stand = ImageIO.read(getClass().getResourceAsStream("/player/stand.png"));
             walk1 = ImageIO.read(getClass().getResourceAsStream("/player/walk1.png"));

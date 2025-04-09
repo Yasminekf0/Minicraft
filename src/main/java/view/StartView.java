@@ -1,72 +1,133 @@
 package view;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class StartView extends JPanel {
-    private CardLayout cardLayout;
-    private JPanel loadingPanel;
-    private JPanel landingPanel;
-    private JProgressBar progressBar;
+    private BufferedImage wallpaper;
+    private BufferedImage titleImage;
+    private JLabel titleLabel;
+    private float alpha = 0f;
+    private Timer fadeTimer;
+
+    private Buttons newGameButton;
+    private Buttons loadGameButton;
+    private Buttons quitButton;
+
+    // Field to scale the title image (1.0 = original size)
+    private double titleScale = 0.9;
 
     public StartView() {
-        cardLayout = new CardLayout();
-        setLayout(cardLayout);
+        // Load wallpaper and title images.
+        try {
+            wallpaper = ImageIO.read(getClass().getResourceAsStream("/start/wallpaper.jpg"));
+            titleImage = ImageIO.read(getClass().getResourceAsStream("/start/title.png"));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
 
-        // Create loading screen
-        loadingPanel = new JPanel(new GridBagLayout());
-        loadingPanel.setBackground(Color.WHITE);
+        setOpaque(false);
+        setLayout(new GridBagLayout());
+
+        // Create a content panel for the title and buttons.
+        JPanel contentPanel = new JPanel();
+        contentPanel.setOpaque(false);
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
+        // Create the title label using a scaled version of the title image.
+        titleLabel = new JLabel();
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        updateTitleIcon();
+        contentPanel.add(titleLabel);
+
+        contentPanel.add(Box.createVerticalStrut(50));
+
+        // Create buttons using the new ShadowImageButton class.
+        newGameButton = new Buttons("New  Game");
+        loadGameButton = new Buttons("Load  Game");
+        quitButton    = new Buttons("Quit");
+
+        // Panel for the buttons.
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loadGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonPanel.add(newGameButton);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(loadGameButton);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(quitButton);
+
+        contentPanel.add(buttonPanel);
+
+        // Add the content panel to the center.
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        JLabel titleLabel = new JLabel("Minicraft", SwingConstants.CENTER);
-        titleLabel.setForeground(Color.BLACK);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
         gbc.gridy = 0;
-        gbc.insets = new Insets(0, 0, 80, 0);
-        loadingPanel.add(titleLabel, gbc);
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(contentPanel, gbc);
 
-        progressBar = new JProgressBar(0, 100);
-        progressBar.setForeground(Color.RED);
-        progressBar.setBackground(Color.WHITE);
-        progressBar.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 2),
-                BorderFactory.createEmptyBorder(2, 2, 2, 2)
-        ));
-        progressBar.setPreferredSize(new Dimension(700, 20));
-        gbc.gridy = 1;
-        gbc.insets = new Insets(0, 0, 0, 0);
-        loadingPanel.add(progressBar, gbc);
-
-        // Create landing page
-        landingPanel = new JPanel(new GridBagLayout());
-        JButton newGameButton = new JButton("New Game");
-        JButton loadGameButton = new JButton("Load Game");
-        GridBagConstraints gbc1 = new GridBagConstraints();
-        gbc1.insets = new Insets(10, 10, 10, 10);
-        landingPanel.add(newGameButton, gbc1);
-        landingPanel.add(loadGameButton, gbc1);
-
-        add(loadingPanel, "loading");
-        add(landingPanel, "landing");
-
-        // Show the loading screen first
-        cardLayout.show(this, "loading");
-
-        // Simulate a 3-second loading time
-        Timer timer = new Timer(3000, e -> cardLayout.show(StartView.this, "landing"));
-        timer.setRepeats(false);
-        timer.start();
+        // Set up the fade-in effect.
+        int fadeDelay = 10; // milliseconds per update
+        int duration = 500; // total duration in ms
+        int steps = duration / fadeDelay;
+        fadeTimer = new Timer(fadeDelay, e -> {
+            alpha += 1f / steps;
+            if (alpha >= 1f) {
+                alpha = 1f;
+                fadeTimer.stop();
+            }
+            repaint();
+        });
+        fadeTimer.start();
     }
 
-    public void addNewGameListener(ActionListener listener) {
-        // Attach a listener to the "New Game" button in landingPanel
-        for (Component comp : landingPanel.getComponents()) {
-            if (comp instanceof JButton && "New Game".equals(((JButton) comp).getText())) {
-                ((JButton) comp).addActionListener(listener);
-            }
+    private void updateTitleIcon(){
+        if(titleImage != null){
+            int newWidth = (int)(titleImage.getWidth() * titleScale);
+            int newHeight = (int)(titleImage.getHeight() * titleScale);
+            Image scaledTitle = titleImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            titleLabel.setIcon(new ImageIcon(scaledTitle));
         }
+    }
+
+    public void setTitleScale(double scale){
+        this.titleScale = scale;
+        updateTitleIcon();
+        revalidate();
+        repaint();
+    }
+
+    // Listener attachment methods (MVC)
+    public void addNewGameListener(ActionListener listener){
+        newGameButton.addActionListener(listener);
+    }
+
+    public void addLoadGameListener(ActionListener listener){
+        loadGameButton.addActionListener(listener);
+    }
+
+    public void addQuitListener(ActionListener listener){
+        quitButton.addActionListener(listener);
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+        if (wallpaper != null) {
+            g2.drawImage(wallpaper, 0, 0, getWidth(), getHeight(), this);
+        }
+        g2.dispose();
+        Graphics2D g2ForChildren = (Graphics2D) g.create();
+        g2ForChildren.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+        super.paint(g2ForChildren);
+        g2ForChildren.dispose();
     }
 }

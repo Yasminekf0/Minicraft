@@ -19,9 +19,6 @@ public class Main {
         int seed = 8845;
         WorldGenerator world = new WorldGenerator(worldSize, seed);
 
-        // Create the player (start 20 tiles in, each tile 48 px => 48*20)
-        int initialX = 48 * 20;
-        int initialY = 48 * 20;
         Player player = new Player();
 
         // Create the views
@@ -42,7 +39,7 @@ public class Main {
         startView.addNewGameListener(e -> {
             CardLayout cl = (CardLayout) container.getLayout();
             cl.show(container, "game");
-            KeyController keyController = new KeyController();
+            KeyController keyController = new KeyController(gameView);
             new GameController(world, player, gameView, keyController);
         });
     }
