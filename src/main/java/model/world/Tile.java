@@ -5,22 +5,24 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public enum Tile {
-    GRASS("/tiles/grass.png"),
-    DIRT("/tiles/dirt.png"),
-    STONE("/tiles/stone.png"),
-    WATER("/tiles/water.png"),
-    LAVA("/tiles/lava.png"),
-    SAND("/tiles/sand.png"),
-    SNOW("/tiles/snow.png");
+    GRASS("/tiles/grass.png", true),
+    DIRT("/tiles/dirt.png", true),
+    STONE("/tiles/stone.png", true),
+    WATER("/tiles/water.png", false),
+    LAVA("/tiles/lava.png", false),
+    SAND("/tiles/sand.png", true),
+    SNOW("/tiles/snow.png", true);
 
     private final String pictureFile;
+    private final boolean isBlockPlaceable;
 
     private Block block;
 
     private BufferedImage image;
 
-    Tile(String pictureFile) {
+    Tile(String pictureFile, boolean isBlockPlaceable) {
         this.pictureFile = pictureFile;
+        this.isBlockPlaceable = isBlockPlaceable;
         try {
             this.image = ImageIO.read(getClass().getResourceAsStream(this.pictureFile));
         } catch (IOException e) {

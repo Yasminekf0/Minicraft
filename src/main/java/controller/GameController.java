@@ -1,7 +1,7 @@
 package controller;
 
 import model.entity.Player;
-import model.world.generator.MapGenerator;
+import model.world.World;
 import view.GameView;
 
 import javax.swing.Timer;
@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
 
 public class GameController {
     private Player player;
-    private MapGenerator world;
+    private World world;
     private GameView gameView;
     private KeyController keyController;
 
     private final int FPS = 60;
 
-    public GameController(MapGenerator world, Player player, GameView gameView, KeyController keyController) {
+    public GameController(World world, Player player, GameView gameView, KeyController keyController) {
         this.world = world;
         this.player = player;
         this.gameView = gameView;

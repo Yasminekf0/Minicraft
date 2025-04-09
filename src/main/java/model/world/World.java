@@ -4,11 +4,18 @@ import model.world.generator.MapGenerator;
 
 public class World {
 
-    Tile[][] map;
+    private Tile[][] map;
+    private int size;
     public World(int size, int seed){
         MapGenerator map = new MapGenerator(size, seed);
         this.map = map.getTiles();
+        this.size = size;
     }
 
-
+    public Tile[][] getMap() {
+        return map;
+    }
+    public int getSize(){
+        return size;
+    }
 }

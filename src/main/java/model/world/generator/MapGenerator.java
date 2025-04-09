@@ -39,7 +39,7 @@ public class MapGenerator {
             for (int j=0; j<size; j++){
                 Noise noise = noiseArray[i][j];
                 Tile tile = selectTile(noise);
-                Block block = selectBlock(noise);
+                Block block = selectBlock(noise,tile);
                 tile.setBlock(block);
                 tileArray[ i][ j] = tile;
             }
@@ -60,13 +60,14 @@ public class MapGenerator {
         return Tile.WATER;
     }
 
-    private Block selectBlock(Noise noise){
+    private Block selectBlock(Noise noise, Tile tile){
         Biome biome = noise.getBiome();
         Map<Block, Double> blockWeightMap = biome.getBlockWeightMap();
         double i = 0;
         for (var entry: blockWeightMap.entrySet()){
+            Block block = entry.getKey();
             if (noise.getTileNoise() <= noiseGenerator.getBlockPerlinThreshold(entry.getValue() + i)) {
-                return entry.getKey();
+                if (block.isSpawnableTile(tile)) return entry.getKey();
             }
             else i += entry.getValue();
         }
