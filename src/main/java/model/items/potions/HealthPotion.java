@@ -1,4 +1,4 @@
 package model.items.potions;
 
-public class HealthPotion {
+public class HealthPotion extends Potion {
 }
