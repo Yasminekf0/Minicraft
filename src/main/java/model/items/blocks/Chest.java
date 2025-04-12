@@ -1,4 +1,4 @@
 package model.items.blocks;
 
-public class Chest {
+public class Chest extends Block {
 }

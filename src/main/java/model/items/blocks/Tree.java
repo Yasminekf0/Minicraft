@@ -1,4 +1,4 @@
 package model.items.blocks;
 
-public class Tree {
+public class Tree extends Block {
 }

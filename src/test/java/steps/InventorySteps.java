@@ -5,6 +5,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import model.entity.Player;
+import model.items.Item;
+import model.items.blocks.Wood;
+import model.items.potions.HealthPotion;
+import model.items.tools.Pickaxe;
+import model.items.tools.Sword;
+import model.items.tools.Tool;
 
 
 import java.util.ArrayList;
@@ -14,23 +20,24 @@ import static org.junit.jupiter.api.Assertions.*;
 public class InventorySteps {
     Player player;
 
+    Sword swordItem;
 
     @Given("the player has an empty inventory")
     public void thePlayerHasAnEmptyInventory() { // sus
         player = new Player();
         player.initializeInventory();
 
-    }
 
+    }
     @When("the player picks up a {string} in {string} section")
-    public void thePlayerPicksUpAInSection(String item, String section) {
-        player.addItem(section, item);
+    public void thePlayerPicksUpAInSection(Item i) {
+        player.addItem(i);
 
     }
 
     @Then("the inventory should contain {string} in {string} section")
-    public void theInventoryShouldContainInSection (String item, String section) {
-        assertEquals(item, player.getItemFromInventory(section, item));
+    public void theInventoryShouldContainInSection (Item i) {
+        assertEquals(i, player.getItemFromInventory(i));
     }
 
 
@@ -41,9 +48,12 @@ public class InventorySteps {
     public void thePlayerHasItemsInAllInventorySections() {
         player = new Player();
         player.initializeInventory();
-        player.addItem("Tools", "Hammer");
-        player.addItem("Blocks", "Wood");
-        player.addItem("Potions", "Health Potion");
+        Item a = new Sword();
+        Item b = new Wood();
+        Item c = new HealthPotion();
+        player.addItem(a);
+        player.addItem(b);
+        player.addItem(c);
     }
 
     @When("the player switches to the {string} section")
@@ -54,7 +64,7 @@ public class InventorySteps {
 
     @Then("the player should see tools in the inventory")
     public void thePlayerShouldSeeToolsInTheInventory() {
-        ArrayList<String> items = player.getInventorySection("Tools");
+        ArrayList<Item> items = player.getInventorySection("Tools");
         assertFalse(items.isEmpty());
     }
 
@@ -64,10 +74,10 @@ public class InventorySteps {
 
 
     @Given("the player has a {string} in {string} section in their inventory")
-    public void thePlayerHasAInSectionInTheirInventory(String item, String section) {
+    public void thePlayerHasAInSectionInTheirInventory(Item i) {
         player = new Player();
         player.initializeInventory();
-        player.addItem(section, item);
+        player.addItem(i);
     }
 
     @And("the player finds an upgrade chest")
@@ -76,33 +86,35 @@ public class InventorySteps {
     }
 
     @When("the player upgrades the {string}")
-    public void thePlayerUpgradesThe(String arg0) {
-        player.upgradeTool();
+    public void thePlayerUpgradesThe(Item i) {
+        player.upgradeTool(i);
     }
 
     @Then("the inventory should contain an {string} instead")
-    public void theInventoryShouldContainAnInstead(String upgradedTool) {
-        assertEquals(upgradedTool, player.getItemFromInventory("Tool", upgradedTool));
+    public void theInventoryShouldContainAnInstead(Item i) {
+        assertEquals(i, player.getItemFromInventory(i));
     }
 
 
 
 
     @Given("the player has {string} and {string} in their inventory")
-    public void thePlayerHasAndInTheirInventory(String item1, String item2) {
+    public void thePlayerHasAndInTheirInventory() {
         player = new Player();
         player.initializeInventory();
-        player.addItem("Tools", item1);
-        player.addItem("Tools", item2);
+        Item a = new Sword();
+        Item b = new Pickaxe();
+        player.addItem(a);
+        player.addItem(b);
     }
 
     @When("the player selects the {string}")
-    public void thePlayerSelectsThe(String item) {
+    public void thePlayerSelectsThe(Item item) {
         player.setSelectedItem(item);
     }
 
     @Then("the selected item should be {string}")
-    public void theSelectedItemShouldBe(String item) {
+    public void theSelectedItemShouldBe(Item item) {
         assertEquals(item, player.getSelectedItem());
     }
 
@@ -126,20 +138,20 @@ public class InventorySteps {
 
 
     @Given("the player has a {string} in {string} in their inventory")
-    public void thePlayerHasAInSpecificInventory(String item,  String section) {
+    public void thePlayerHasAInSpecificInventory(Sword a) {
         player = new Player();
         player.initializeInventory();
-        player.addItem(section, item);
+        player.addItem(a);
     }
 
     @When("the player tries to pick up another {string} in {string} section")
-    public void thePlayerTriesToPickUpAnotherInSection(String item,  String section) {
-        player.addItem(section, item);
+    public void thePlayerTriesToPickUpAnotherInSection(Sword b) {
+        player.addItem(b);
     }
 
     @Then("the inventory should still contain only one {string} in {string} section")
-    public void theInventoryShouldStillContainOnlyOneInSection(String item,  String section) {
-        assertEquals(1, player.countItem(section, item));
+    public void theInventoryShouldStillContainOnlyOneInSection(Item i) {
+        assertEquals(1, player.countItem(i));
     }
 
 }

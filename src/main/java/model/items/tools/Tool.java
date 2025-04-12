@@ -5,15 +5,17 @@ import model.items.Item;
 public class Tool extends Item {
     private String material; // Wood,Stone, Iron, Diamond
 
-    public Tool(String name, String material) {
-        super(name, "Tool");
-        this.material = material;
+
+
+    public Tool() {
+        super("Tool");
+        this.count = 1;
+        this.material = "Wood";
     }
 
     public String getMaterial() {
         return material;
     }
-
     public void upgrade() {
         switch (material) {
             case "Wood":
