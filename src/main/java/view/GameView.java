@@ -17,13 +17,13 @@ public class GameView extends JPanel {
     private OptionsMenuView optionsMenuView;
 
     // Screen settings
-    private final int originalTileSize = 16; // 16x16 px
-    private final int scale = 1;
-    private final int tileSize = originalTileSize * scale; // 48x48 px
-    private final int maxScreenCol = 70;
-    private final int maxScreenRow = 40;
-    private int screenWidth = tileSize * maxScreenCol;
-    private int screenHeight = tileSize * maxScreenRow;
+    private static final int originalTileSize = 16; // 16x16 px
+    private static final int scale = 1;
+    private static final int tileSize = originalTileSize * scale; // 48x48 px
+    private static final int maxScreenCol = 70;
+    private static final int maxScreenRow = 40;
+    private static int screenWidth = tileSize * maxScreenCol;
+    private static int screenHeight = tileSize * maxScreenRow;
 
     // Player drawing position on screen (centered)
     private final int playerScreenX = screenWidth / 2;
@@ -92,11 +92,11 @@ public class GameView extends JPanel {
         return optionsMenuView;
     }
 
-    public int getScreenWidth() {
+    public static int getScreenWidth() {
         return screenWidth;
     }
 
-    public int getScreenHeight() {
+    public static int getScreenHeight() {
         return screenHeight;
     }
 
