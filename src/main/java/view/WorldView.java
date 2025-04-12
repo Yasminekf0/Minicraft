@@ -16,16 +16,19 @@ import static view.ScreenSettings.*;
 
 public class WorldView extends GameElementView {
 
-    private World world;
-    private Player player;
-    private Tile[][] tiles;
+    private final World world;
+    private final Player player;
+    private final Tile[][] tiles;
+
+    private final Block[][] blocks;
     private HashMap<Tile, BufferedImage> tileImageMap;
     private HashMap<Block, BufferedImage> blockImageMap;
 
     public WorldView(World world, Player player) {
         this.world = world;
         this.player = player;
-        tiles = world.getMap();
+        tiles = world.getTileMap();
+        blocks = world.getBlockMap();
         loadTiles();
         loadBlocks();
     }
@@ -51,8 +54,8 @@ public class WorldView extends GameElementView {
                 if (i>=0 & i<size & j>=0 & j<size) {
                     BufferedImage tileImg = tileImageMap.get(tiles[i][j]);
                     g2.drawImage(tileImg, screenX, screenY, tileSize, tileSize, null);
-                    if (tiles[i][j].getBlock() != null) {
-                        BufferedImage blockImg = blockImageMap.get(tiles[i][j].getBlock());
+                    if (blocks[i][j] != null) {
+                        BufferedImage blockImg = blockImageMap.get(blocks[i][j]);
                         g2.drawImage(blockImg, screenX, screenY, tileSize, tileSize, null);
                     }
                 }

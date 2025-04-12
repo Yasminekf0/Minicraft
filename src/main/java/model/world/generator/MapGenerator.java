@@ -14,6 +14,8 @@ public class MapGenerator {
 
     private final Tile[][] tileArray;
 
+    private final Block[][] blockArray;
+
 
 
     int size;
@@ -29,19 +31,21 @@ public class MapGenerator {
         noiseGenerator = new NoiseGenerator(size, seed);
         noiseArray = noiseGenerator.getNoiseArray();
         tileArray = new Tile[size][size];
+        blockArray = new Block[size][size];
 
-        generateTileArray();
+        generateMapArrays();
     }
 
 
-    private void generateTileArray(){
+    private void generateMapArrays(){
         for (int i=0; i<size; i++){
             for (int j=0; j<size; j++){
                 Noise noise = noiseArray[i][j];
                 Tile tile = selectTile(noise);
                 Block block = selectBlock(noise,tile);
-                tile.setBlock(block);
-                tileArray[ i][ j] = tile;
+                tileArray[i][j] = tile;
+                blockArray[i][j] = block;
+
             }
 
         }
@@ -66,10 +70,16 @@ public class MapGenerator {
         double i = 0;
         for (var entry: blockWeightMap.entrySet()){
             Block block = entry.getKey();
-            if (noise.getTileNoise() <= noiseGenerator.getBlockPerlinThreshold(entry.getValue() + i)) {
-                if (block.isSpawnableTile(tile)) return entry.getKey();
+            if (noise.getBlockNoise() <= noiseGenerator.getBlockPerlinThreshold(entry.getValue() + i)) {
+
+                if (block.isSpawnableTile(tile)) {
+                    return entry.getKey();
+
+                }
+
             }
             else i += entry.getValue();
+
         }
         return null;
     }
@@ -77,6 +87,11 @@ public class MapGenerator {
     public Tile[][] getTiles() {
         return tileArray;
     }
+
+    public Block[][] getBlocks(){
+        return blockArray;
+    }
+
     public int getSize() {
         return size;
     }

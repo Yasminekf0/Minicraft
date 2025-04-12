@@ -9,6 +9,7 @@ import de.articdive.jnoise.pipeline.JNoise;
 import de.articdive.jnoise.pipeline.JNoiseDetailed;
 import model.position.WorldPosition;
 import model.world.Biome;
+import model.world.Block;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import java.util.Random;
 
 
 public class NoiseGenerator {
+
 
     private final Noise[][] noiseArray;
     private final Random randomBiomes;
@@ -45,11 +47,12 @@ public class NoiseGenerator {
         blockPerlinArray = new double[size*size];
         randomBiomes = new Random(seed);
         randomTilePerlin = new Random(seed);
-        randomBlockPerlin = new Random(seed+69-420);
+        randomBlockPerlin = new Random(seed+69);
 
         generateWorleyNoise();
         generateNoiseArray();
         Arrays.sort(tilePerlinArray);
+        Arrays.sort(blockPerlinArray);
 
     }
     private JNoise generatePerlinNoise(long seed){

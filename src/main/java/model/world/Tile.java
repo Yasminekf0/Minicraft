@@ -16,7 +16,7 @@ public enum Tile {
 
     private final boolean isBlockPlaceable;
 
-    private Block block;
+
 
 
 
@@ -24,13 +24,4 @@ public enum Tile {
         this.isBlockPlaceable = isBlockPlaceable;
     }
 
-
-
-    public void setBlock(Block block) {
-        this.block = block;
-    }
-
-    public Block getBlock() {
-        return block;
-    }
 }
