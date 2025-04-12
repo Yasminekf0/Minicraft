@@ -19,15 +19,15 @@ public class GameView extends JPanel {
     // Screen settings
     private final int originalTileSize = 16; // 16x16 px
     private final int scale = 1;
-    public final int tileSize = originalTileSize * scale; // 48x48 px
-    public final int maxScreenCol = 70;
-    public final int maxScreenRow = 40;
-    public int screenWidth = tileSize * maxScreenCol;
-    public int screenHeight = tileSize * maxScreenRow;
+    private final int tileSize = originalTileSize * scale; // 48x48 px
+    private final int maxScreenCol = 70;
+    private final int maxScreenRow = 40;
+    private int screenWidth = tileSize * maxScreenCol;
+    private int screenHeight = tileSize * maxScreenRow;
 
     // Player drawing position on screen (centered)
-    public final int playerScreenX = screenWidth / 2;
-    public final int playerScreenY = screenHeight / 2;
+    private final int playerScreenX = screenWidth / 2;
+    private final int playerScreenY = screenHeight / 2;
     Tile[][] tiles;
 
     public GameView(WorldGenerator world, Player player) {
@@ -90,6 +90,14 @@ public class GameView extends JPanel {
 
     public OptionsMenuView getOptionsMenuView() {
         return optionsMenuView;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
     }
 
 }
