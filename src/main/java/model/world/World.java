@@ -8,7 +8,7 @@ public class World {
     private final Block[][] blockMap;
 
     private final int size;
-    public World(int size, int seed){
+    public World(int size, long seed){
         MapGenerator map = new MapGenerator(size, seed);
         this.tileMap = map.getTiles();
         this.blockMap = map.getBlocks();

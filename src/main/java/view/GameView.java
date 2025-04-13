@@ -12,21 +12,17 @@ import java.awt.image.BufferedImage;
 import static view.ScreenSettings.*;
 
 public class GameView extends JPanel {
-    private World world;
-    private Player player;
-    private PlayerView playerView;
-    private WorldView worldView;
-    private OptionsMenuView optionsMenuView;
+    private final PlayerView playerView;
+    private final WorldView worldView;
+    private final OptionsMenuView optionsMenuView;
 
     public GameView(World world, Player player) {
-        this.world = world;
-        this.player = player;
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.WHITE);
         setDoubleBuffered(true);
 
         // Create the PlayerView to handle the player's sprites
-        playerView = new PlayerView(player, tileSize, playerScreenX, playerScreenY);
+        playerView = new PlayerView();
         worldView = new WorldView(world, player);
         optionsMenuView = new OptionsMenuView(screenWidth, screenHeight);
     }
@@ -47,12 +43,5 @@ public class GameView extends JPanel {
         return optionsMenuView;
     }
 
-    public static int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public static int getScreenHeight() {
-        return screenHeight;
-    }
 
 }

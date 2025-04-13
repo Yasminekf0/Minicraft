@@ -20,12 +20,12 @@ public class MapGenerator {
 
     int size;
 
-    int seed;
+    long seed;
 
 
     NoiseGenerator noiseGenerator;
 
-    public MapGenerator(int size, int seed){
+    public MapGenerator(int size, long seed){
         this.size = size;
         this.seed = seed;
         noiseGenerator = new NoiseGenerator(size, seed);

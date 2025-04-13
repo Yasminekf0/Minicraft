@@ -24,7 +24,7 @@ public class NoiseGenerator {
     private final Random randomTilePerlin;
     private final Random randomBlockPerlin;
     private JNoiseDetailed<WorleyNoiseResult<Vector>> worleyNoise;
-    private final int seed;
+    private final long seed;
     private final int size;
 
     private final double[] tilePerlinArray;
@@ -38,7 +38,7 @@ public class NoiseGenerator {
 
     private final HashMap<Vector,JNoise> blockHashMap = new HashMap<>();
 
-    public NoiseGenerator(int size, int seed){
+    public NoiseGenerator(int size, long seed){
         this.size = size;
         this.seed = seed;
         biomes = Biome.values();
@@ -65,6 +65,13 @@ public class NoiseGenerator {
 
     }
 
+    private JNoise generateValueNoise(long seed){
+        return JNoise.newBuilder().white(seed)
+                .scale(1)
+                .addModifier(v -> (v + 1) / 2.0)
+                .build();
+    }
+
     private void generateWorleyNoise(){
         worleyNoise = JNoise.newBuilder().worley(WorleyNoiseGenerator.newBuilder().setSeed(seed).build())
                 .scale(1 / 60.0)
@@ -86,8 +93,11 @@ public class NoiseGenerator {
                 worleyNoiseResult = worleyNoise.evaluateNoiseResult(i, j);
                 worleyClosestPoint = worleyNoiseResult.getClosestPoint();
                 biome = getBiome(worleyClosestPoint);
+
                 tileNoise = getTileNoise(worleyClosestPoint);
+
                 blockNoise = getBlockNoise(worleyClosestPoint);
+
                 position = new WorldPosition(i,j);
 
                 noiseArray[(int) i][(int) j] = new Noise(biome,tileNoise,blockNoise, position);
@@ -110,7 +120,7 @@ public class NoiseGenerator {
     }
 
     private JNoise getBlockNoise(Vector closestPoint){
-        blockHashMap.putIfAbsent(closestPoint,generatePerlinNoise(randomBlockPerlin.nextLong()));
+        blockHashMap.putIfAbsent(closestPoint,generateValueNoise(randomBlockPerlin.nextLong()));
         return blockHashMap.get(closestPoint);
     }
 

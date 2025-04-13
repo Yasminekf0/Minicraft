@@ -1,19 +1,21 @@
 package view;
 
-import model.entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
+
+import static view.ScreenSettings.*;
 
 /**
  * Handles all rendering/animation logic for the Player, including
  * sprite switching and rotation, separate from the model.
  */
 public class PlayerView extends GameElementView {
-    private Player player;
+
 
     // Sprite images
     private BufferedImage stand, walk1, walk2, use;
@@ -22,24 +24,17 @@ public class PlayerView extends GameElementView {
     private double angle = Math.PI / 2; // default facing angle
 
     // Where and how large to draw the player on screen
-    private int tileSize;
-    private int screenX;
-    private int screenY;
 
-    public PlayerView(Player player, int tileSize, int screenX, int screenY) {
-        this.player = player;
-        this.tileSize = tileSize;
-        this.screenX = screenX;
-        this.screenY = screenY;
+    public PlayerView() {
         loadImages();
     }
 
     protected void loadImages() {
         try {
-            stand = ImageIO.read(getClass().getResourceAsStream("/player/stand.png"));
-            walk1 = ImageIO.read(getClass().getResourceAsStream("/player/walk1.png"));
-            walk2 = ImageIO.read(getClass().getResourceAsStream("/player/walk2.png"));
-            use = ImageIO.read(getClass().getResourceAsStream("/player/use.png"));
+            stand = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/stand.png")));
+            walk1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/walk1.png")));
+            walk2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/walk2.png")));
+            use = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/use.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,15 +85,13 @@ public class PlayerView extends GameElementView {
         AffineTransform at = new AffineTransform();
 
         // Translate to the player's screen position
-        at.translate(screenX, screenY);
+        at.translate(playerScreenX, playerScreenY);
 
         // Rotate around the sprite center
         at.rotate(angle);
 
         // Scale the sprite to tileSize
-        double scaleX = (double) tileSize / image.getWidth();
-        double scaleY = (double) tileSize / image.getHeight();
-        at.scale(scaleX, scaleY);
+        at.scale(scale, scale);
 
         // Center the rotation on the sprite
         at.translate(-image.getWidth() / 2.0, -image.getHeight() / 2.0);

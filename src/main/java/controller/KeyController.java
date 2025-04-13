@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 
 public class KeyController implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed;
-    private GameView gameView;
+    private final GameView gameView;
 
     public KeyController(GameView gameView){
         this.gameView = gameView;
