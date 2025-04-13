@@ -51,9 +51,9 @@ public class PlayerView extends GameElementView {
      * @param newAngle the angle (in radians) representing the player's direction
      */
     public void update(boolean moving, double newAngle) {
-        this.angle = newAngle;
 
         if (moving) {
+            this.angle = newAngle;
             spriteCounter++;
             // Increase or decrease this threshold to adjust animation speed
             if (spriteCounter > 11) {

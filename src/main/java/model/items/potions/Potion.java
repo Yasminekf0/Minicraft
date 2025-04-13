@@ -1,4 +1,9 @@
 package model.items.potions;
 
-public class Potion {
+import model.items.Item;
+
+public class Potion extends Item {
+    public Potion() {
+        super("Potion");
+    }
 }

@@ -47,4 +47,12 @@ public class GameView extends JPanel {
         return optionsMenuView;
     }
 
+    public static int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public static int getScreenHeight() {
+        return screenHeight;
+    }
+
 }
