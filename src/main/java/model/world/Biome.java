@@ -10,14 +10,14 @@ public enum Biome {
             new LinkedHashMap<>(){{
                 put(Block.Tree,0.02);}}),
     DESERT(new LinkedHashMap<>(){{
-        put(Tile.SAND,0.9); put(Tile.LAVA,0.1);}},
+        put(Tile.SAND,0.99); put(Tile.LAVA,0.01);}},
             new LinkedHashMap<>()),
     FOREST(new LinkedHashMap<>(){{
         put(Tile.GRASS,1.0);}},
             new LinkedHashMap<>(){{
                 put(Block.Tree,0.1);}}),
     MOUNTAIN(new LinkedHashMap<>(){{
-        put(Tile.LAVA,0.1);put(Tile.STONE,0.8); put(Tile.DIRT,0.1);}},
+        put(Tile.LAVA,0.01);put(Tile.STONE,0.94); put(Tile.DIRT,0.05);}},
             new LinkedHashMap<>(){{
                 put(Block.Rock,0.3);}}),
     SNOWY(new LinkedHashMap<>(){{

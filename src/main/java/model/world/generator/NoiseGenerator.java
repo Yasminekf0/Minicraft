@@ -20,8 +20,8 @@ public class NoiseGenerator {
 
     private final Noise[][] noiseArray;
     private final Random randomBiomes;
-    private final Random randomTilePerlin;
-    private final Random randomBlockPerlin;
+    private final Random randomTileNoise;
+    private final Random randomBlockNoise;
     private JNoiseDetailed<WorleyNoiseResult<Vector>> worleyNoise;
     private final long seed;
     private final int size;
@@ -33,9 +33,9 @@ public class NoiseGenerator {
     private final Biome[] biomes;
     private final HashMap<Vector,Biome> biomeHashMap = new HashMap<>();
 
-    private final HashMap<Vector,JNoise> tileHashMap = new HashMap<>();
+    private final HashMap<Biome,JNoise> tileHashMap = new HashMap<>();
 
-    private final HashMap<Vector,JNoise> blockHashMap = new HashMap<>();
+    private final HashMap<Biome,JNoise> blockHashMap = new HashMap<>();
 
     public NoiseGenerator(int size, long seed){
         this.size = size;
@@ -45,8 +45,8 @@ public class NoiseGenerator {
         tilePerlinArray = new double[size*size];
         blockPerlinArray = new double[size*size];
         randomBiomes = new Random(seed);
-        randomTilePerlin = new Random(seed);
-        randomBlockPerlin = new Random(seed+69);
+        randomTileNoise = new Random(seed);
+        randomBlockNoise = new Random(seed+69);
 
         generateWorleyNoise();
         generateNoiseArray();
@@ -93,9 +93,9 @@ public class NoiseGenerator {
                 worleyClosestPoint = worleyNoiseResult.getClosestPoint();
                 biome = getBiome(worleyClosestPoint);
 
-                tileNoise = getTileNoise(worleyClosestPoint);
+                tileNoise = getTileNoise(biome);
 
-                blockNoise = getBlockNoise(worleyClosestPoint);
+                blockNoise = getBlockNoise(biome);
 
                 position = new WorldPosition(i,j);
 
@@ -113,14 +113,15 @@ public class NoiseGenerator {
         return biomeHashMap.get(closestPoint);
     }
 
-    private JNoise getTileNoise(Vector closestPoint){
-        tileHashMap.putIfAbsent(closestPoint,generatePerlinNoise(randomTilePerlin.nextLong()));
-        return tileHashMap.get(closestPoint);
+    private JNoise getTileNoise(Biome biome){
+        tileHashMap.putIfAbsent(biome,generatePerlinNoise(randomTileNoise.nextLong()));
+        return tileHashMap.get(biome);
     }
 
-    private JNoise getBlockNoise(Vector closestPoint){
-        blockHashMap.putIfAbsent(closestPoint,generateValueNoise(randomBlockPerlin.nextLong()));
-        return blockHashMap.get(closestPoint);
+    private JNoise getBlockNoise(Biome biome){
+        if (biome == Biome.MOUNTAIN | biome == Biome.SNOWY) blockHashMap.putIfAbsent(biome,generatePerlinNoise(randomBlockNoise.nextLong()));
+        else blockHashMap.putIfAbsent(biome,generateValueNoise(randomBlockNoise.nextLong()));
+        return blockHashMap.get(biome);
     }
 
     public Noise[][] getNoiseArray() {
