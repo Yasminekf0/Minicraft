@@ -3,23 +3,20 @@ package view;
 import model.entity.Player;
 import model.world.Tile;
 import model.world.WorldGenerator;
-import view.hud.OptionsMenuView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 public class GameView extends JPanel {
     private WorldGenerator world;
     private Player player;
     private PlayerView playerView;
-    private OptionsMenuView optionsMenuView;
 
     // Screen settings
     private static final int originalTileSize = 16; // 16x16 px
     private static final int scale = 1;
-    private static final int tileSize = originalTileSize * scale; // 48x48 px
+    private static final int tileSize = originalTileSize * scale;
     private static final int maxScreenCol = 70;
     private static final int maxScreenRow = 40;
     private static int screenWidth = tileSize * maxScreenCol;
@@ -41,7 +38,6 @@ public class GameView extends JPanel {
         // Create the PlayerView to handle the player's sprites
         playerView = new PlayerView(player, tileSize, playerScreenX, playerScreenY);
 
-        optionsMenuView = new OptionsMenuView(screenWidth, screenHeight);
     }
 
     @Override
@@ -49,7 +45,6 @@ public class GameView extends JPanel {
         super.paintComponent(g);
         drawWorld(g);
         playerView.draw((Graphics2D) g);
-        optionsMenuView.draw((Graphics2D) g);
     }
 
     private void drawWorld(Graphics g) {
@@ -86,10 +81,6 @@ public class GameView extends JPanel {
 
     public PlayerView getPlayerView() {
         return playerView;
-    }
-
-    public OptionsMenuView getOptionsMenuView() {
-        return optionsMenuView;
     }
 
     public static int getScreenWidth() {
