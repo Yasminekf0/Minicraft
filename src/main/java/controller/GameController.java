@@ -1,7 +1,6 @@
 package controller;
 
 import model.entity.Player;
-import model.world.World;
 import view.GameView;
 
 import javax.swing.Timer;

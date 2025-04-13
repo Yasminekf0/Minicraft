@@ -1,6 +1,5 @@
 package view;
 
-import io.cucumber.java.hu.Ha;
 import model.entity.Player;
 import model.world.Block;
 import model.world.Tile;
@@ -18,7 +17,6 @@ import static view.ScreenSettings.*;
 
 public class WorldView extends GameElementView {
 
-    private final World world;
     private final Player player;
     private final Tile[][] tiles;
 
@@ -27,7 +25,6 @@ public class WorldView extends GameElementView {
     private HashMap<Block, BufferedImage> blockImageMap;
 
     public WorldView(World world, Player player) {
-        this.world = world;
         this.player = player;
         tiles = world.getTileMap();
         blocks = world.getBlockMap();

@@ -78,7 +78,7 @@ public class StartView extends JPanel {
         int fadeDelay = 10; // milliseconds per update
         int duration = 500; // total duration in ms
         int steps = duration / fadeDelay;
-        fadeTimer = new Timer(fadeDelay, e -> {
+        fadeTimer = new Timer(fadeDelay, _ -> {
             alpha += 1f / steps;
             if (alpha >= 1f) {
                 alpha = 1f;
