@@ -9,15 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameController {
-    private Player player;
-    private World world;
-    private GameView gameView;
-    private KeyController keyController;
+    private final Player player;
+    private final GameView gameView;
+    private final KeyController keyController;
 
     private final int FPS = 60;
 
-    public GameController(World world, Player player, GameView gameView, KeyController keyController) {
-        this.world = world;
+    public GameController( Player player, GameView gameView, KeyController keyController) {
         this.player = player;
         this.gameView = gameView;
         this.keyController = keyController;

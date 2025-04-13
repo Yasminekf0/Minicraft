@@ -1,10 +1,8 @@
 package model.world;
 
 
-import io.cucumber.java.eo.Do;
-
 import java.util.LinkedHashMap;
-import java.util.Map;
+
 
 public enum Biome {
     PLAINS(new LinkedHashMap<>(){{

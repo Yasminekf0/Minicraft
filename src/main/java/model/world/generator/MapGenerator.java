@@ -92,7 +92,4 @@ public class MapGenerator {
         return blockArray;
     }
 
-    public int getSize() {
-        return size;
-    }
 }

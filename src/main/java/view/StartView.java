@@ -6,17 +6,18 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class StartView extends JPanel {
     private BufferedImage wallpaper;
     private BufferedImage titleImage;
-    private JLabel titleLabel;
+    private final JLabel titleLabel;
     private float alpha = 0f;
     private Timer fadeTimer;
 
-    private Buttons newGameButton;
-    private Buttons loadGameButton;
-    private Buttons quitButton;
+    private final Buttons newGameButton;
+    private final Buttons loadGameButton;
+    private final Buttons quitButton;
 
     // Field to scale the title image (1.0 = original size)
     private double titleScale = 0.9;
@@ -24,8 +25,8 @@ public class StartView extends JPanel {
     public StartView() {
         // Load wallpaper and title images.
         try {
-            wallpaper = ImageIO.read(getClass().getResourceAsStream("/start/wallpaper.jpg"));
-            titleImage = ImageIO.read(getClass().getResourceAsStream("/start/title.png"));
+            wallpaper = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/start/wallpaper.jpg")));
+            titleImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/start/title.png")));
         } catch(IOException e) {
             e.printStackTrace();
         }

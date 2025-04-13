@@ -1,9 +1,5 @@
 package model.world;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
 public enum Tile {
     GRASS( true),
     DIRT( true),

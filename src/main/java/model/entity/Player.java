@@ -16,6 +16,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static model.world.WorldSettings.worldSize;
+import static view.ScreenSettings.tileSize;
+
 public class Player extends Entity {
 
 
@@ -24,7 +27,7 @@ public class Player extends Entity {
     private Item selectedItem;
 
     public Player() {
-        this.worldPos = new WorldPosition(8000,8000);
+        this.worldPos = new WorldPosition((worldSize*tileSize) /2.0,(worldSize*tileSize) /2.0);
         this.speed = 15;
         //maybe max speed?
         this.health = 10;
@@ -43,7 +46,7 @@ public class Player extends Entity {
         inventory.put("Potions", new ArrayList<Item>());
         inventory.put("Tools", new ArrayList<Item>(Arrays.asList(new Sword(), new Pickaxe(), new Axe())));
         currentSection = "Tools";
-        selectedItem = (getInventorySection(currentSection)).get(0);;
+        selectedItem = (getInventorySection(currentSection)).getFirst();
     }
 
     public void addItem(Item i) {

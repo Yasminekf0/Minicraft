@@ -23,12 +23,12 @@ public class StartController {
         StartView startView = mainView.getStartView();
 
         // New Game Listener
-        startView.addNewGameListener(e -> startNewGame());
+        startView.addNewGameListener(_ -> startNewGame());
 
 
         // TODO: Should call method in View instead
         // Load Game Listener
-        startView.addLoadGameListener(e -> JOptionPane.showMessageDialog(
+        startView.addLoadGameListener(_ -> JOptionPane.showMessageDialog(
                 mainView.getWindow(),
                 "Load Game is not implemented yet.",
                 "Warning",
@@ -36,7 +36,7 @@ public class StartController {
         ));
 
         // Quit Game Listener
-        startView.addQuitListener(e -> System.exit(0));
+        startView.addQuitListener(_ -> System.exit(0));
     }
     private void startNewGame(){
         World world = new World(worldSize, seed);
@@ -47,6 +47,6 @@ public class StartController {
 
         // Instantiate controllers for the game.
         KeyController keyController = new KeyController(gameView);
-        new GameController(world, player, gameView, keyController);
+        new GameController(player, gameView, keyController);
     }
 }

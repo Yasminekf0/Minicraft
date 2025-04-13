@@ -9,7 +9,6 @@ import de.articdive.jnoise.pipeline.JNoise;
 import de.articdive.jnoise.pipeline.JNoiseDetailed;
 import model.position.WorldPosition;
 import model.world.Biome;
-import model.world.Block;
 
 import java.util.Arrays;
 import java.util.HashMap;

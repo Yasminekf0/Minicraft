@@ -11,7 +11,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
+import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.*;
 
 public class WorldView extends GameElementView {
@@ -36,7 +38,7 @@ public class WorldView extends GameElementView {
     @Override
     public void draw(Graphics2D g2) {
 
-        int size = world.getSize();
+        int size = worldSize;
         int playerWorldX = player.getWorldPos().getX().intValue();
         int playerWorldY = player.getWorldPos().getY().intValue();
 
@@ -84,7 +86,7 @@ public class WorldView extends GameElementView {
 
     private BufferedImage getBufferedImage(String path){
         try {
-            return ImageIO.read(getClass().getResourceAsStream(path));
+            return ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path)));
         } catch (IOException e) {
             e.printStackTrace();
         }
