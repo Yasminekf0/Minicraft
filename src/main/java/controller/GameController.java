@@ -96,6 +96,7 @@ public class GameController {
         gamePaused = false;
         if(optionsView != null)
             optionsView.setVisible(false);
+        keyController.resetKeyState();
         gameView.requestFocusInWindow();
     }
 }

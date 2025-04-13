@@ -26,12 +26,15 @@ public class OptionsController {
         });
 
         // "Save Game": show a message (saving not implemented).
-        optionsView.addSaveListener(e -> JOptionPane.showMessageDialog(
-                null,
-                "Save Game is not implemented yet.",
-                "Information",
-                JOptionPane.INFORMATION_MESSAGE
-        ));
+        optionsView.addSaveListener(e -> {
+            JOptionPane.showMessageDialog(
+            null,
+            "Save Game is not implemented yet.",
+            "Information",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        optionsView.requestFocusInWindow();
+        });
 
         // "Quit Game": exit the application.
         optionsView.addQuitListener(e -> System.exit(0));

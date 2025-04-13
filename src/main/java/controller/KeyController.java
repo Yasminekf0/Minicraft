@@ -31,6 +31,15 @@ public class KeyController implements KeyListener {
 
     public boolean isEscPressed() { return  escPressed; }
 
+    public void resetKeyState() {
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+        escPressed = false;
+    }
+
+
     @Override
     public void keyTyped(KeyEvent e) { }
 
