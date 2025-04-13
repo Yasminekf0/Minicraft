@@ -2,6 +2,7 @@ package view;
 
 import controller.GameController;
 import controller.KeyController;
+import controller.OptionsController;
 import model.entity.Player;
 import model.world.WorldGenerator;
 
@@ -44,26 +45,37 @@ public class MainView {
 
     // This method is called only when the "New Game" button is pressed.
     public void startNewGame() {
-        // Generate a new random seed (between 1000 and 9999).
+        // Generate a new random seed and create the game world.
         Random random = new Random();
         int seed = random.nextInt(100000);
-
-        // Create the game world and player.
         world = new WorldGenerator(worldSize, seed);
         player = new Player();
 
-        // Create the game view. Note that GameView uses its own getters for screen size.
+        // Create the GameView.
         gameView = new GameView(world, player);
         container.add(gameView, "game");
+
+        // Instantiate controllers for the game.
+        KeyController keyController = new KeyController(gameView);
+        GameController gameController = new GameController(world, player, gameView, keyController);
+
+        // Instead of adding OptionsView to container, add it as an overlay.
+        OptionsView optionsView = new OptionsView();
+        optionsView.setBounds(0, 0, window.getWidth(), window.getHeight());
+        optionsView.setVisible(false);
+        window.getLayeredPane().add(optionsView, JLayeredPane.MODAL_LAYER);
+
+        gameController.setOptionsView(optionsView);
+
+        // Optionally, create an OptionsController to handle its events.
+        new OptionsController(optionsView, gameController);
 
         // Switch to the game view.
         CardLayout cl = (CardLayout) container.getLayout();
         cl.show(container, "game");
-
-        // Instantiate controllers for the game.
-        KeyController keyController = new KeyController(gameView);
-        new GameController(world, player, gameView, keyController);
+        gameView.requestFocusInWindow();
     }
+
 
     public StartView getStartView() {
         return startView;

@@ -23,8 +23,8 @@ public class StartController {
         startView.addLoadGameListener(e -> JOptionPane.showMessageDialog(
                 mainView.getWindow(),
                 "Load Game is not implemented yet.",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE
+                "Information",
+                JOptionPane.INFORMATION_MESSAGE
         ));
 
         // Quit Game Listener
