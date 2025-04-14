@@ -1,6 +1,7 @@
 package controller;
 
 import model.entity.Player;
+import model.world.World;
 import view.GameView;
 
 import javax.swing.Timer;
@@ -9,13 +10,16 @@ import java.awt.event.ActionListener;
 
 public class GameController {
     private final Player player;
+
+    private final World world;
     private final GameView gameView;
     private final KeyController keyController;
 
     private final int FPS = 60;
 
-    public GameController( Player player, GameView gameView, KeyController keyController) {
+    public GameController(World world, Player player, GameView gameView, KeyController keyController) {
         this.player = player;
+        this.world = world;
         this.gameView = gameView;
         this.keyController = keyController;
 
@@ -26,6 +30,7 @@ public class GameController {
 
         startGameLoop();
     }
+
 
     private void startGameLoop() {
         int delay = 1000 / FPS; // ms per frame
@@ -62,7 +67,7 @@ public class GameController {
             double length = Math.sqrt(dx * dx + dy * dy);
             dx /= length;
             dy /= length;
-            player.move(dx, dy);
+            player.moveUntil(dx, dy, world);
         }
 
         // Update the PlayerView's animation

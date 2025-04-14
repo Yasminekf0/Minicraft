@@ -1,9 +1,9 @@
 package model.entity;
-
 import model.position.WorldPosition;
 
 public abstract class Entity {
     protected WorldPosition worldPos;
+
     protected int speed;
     protected int health;
     protected int maxHealth;

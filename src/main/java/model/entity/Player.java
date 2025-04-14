@@ -10,12 +10,14 @@ import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
 import model.items.tools.Tool;
 import model.position.WorldPosition;
+import model.world.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.function.Predicate.not;
 import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.tileSize;
 
@@ -28,15 +30,19 @@ public class Player extends Entity {
 
     public Player() {
         this.worldPos = new WorldPosition((worldSize*tileSize) /2.0,(worldSize*tileSize) /2.0);
-        this.speed = 15;
+        this.speed = 10;
         //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;
         initializeInventory();
     }
 
-    public void move(double dx, double dy) {
-        worldPos.increment(dx * speed, dy * speed);
+    public void moveUntil(double dx, double dy, World world) {
+        for (int x = 0; x<speed; x++) {
+            if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
+            if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
+            worldPos.increment(dx, dy);
+        }
     }
 
 
