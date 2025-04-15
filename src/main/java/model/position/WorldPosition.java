@@ -24,8 +24,6 @@ public class WorldPosition extends Position<Double>{
         else if ((dx < 0) & (dy < 0)) directionFacing = Direction.UPLEFT;
         else if ((dx > 0) & (dy > 0)) directionFacing = Direction.DOWNRIGHT;
         else if ((dx < 0) & (dy > 0)) directionFacing = Direction.DOWNLEFT;
-
-        System.out.println(directionFacing);
     }
 
     public int getTileXPos(){
@@ -42,5 +40,12 @@ public class WorldPosition extends Position<Double>{
 
     public int getNextYTilePos(double dy){
         return (int) ((y+dy)/tileSize);
+    }
+
+    public int getFocusedTileX(){
+        return (int) ((x+tileSize*directionFacing.getX())/tileSize);
+    }
+    public int getFocusedTileY(){
+        return (int) ((y+tileSize*directionFacing.getY())/tileSize);
     }
 }

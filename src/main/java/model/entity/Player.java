@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.function.Predicate.not;
 import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.tileSize;
 
@@ -45,23 +44,19 @@ public class Player extends Entity {
             if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
             worldPos.increment(dx, dy);
         }
-        updateFocusedBlockCoords(dx,dy);
     }
 
-    private void updateFocusedBlockCoords(double dx, double dy){
 
-    }
 
-    private int focusedBlockX;
-    private int focusedBlockY;
     private int tempBlockDurability;
     public void startBreakingBlock(World world) {
-        Block block = world.getBlock(focusedBlockX, focusedBlockY);
+        Block block = world.getBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
         tempBlockDurability = block.getBlockDurabilty();
     }
 
     public void keepBreakingBlock(World world){
-        if (tempBlockDurability <= 0) world.breakBlock(focusedBlockX, focusedBlockY);
+        if (tempBlockDurability <= 0) world.breakBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
+        else tempBlockDurability -= 10;
     }
 
 
