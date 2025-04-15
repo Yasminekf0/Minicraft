@@ -15,6 +15,7 @@ public class GameController {
     private final GameView gameView;
     private final KeyController keyController;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final int FPS = 60;
 
     public GameController(World world, Player player, GameView gameView, KeyController keyController) {

@@ -1,13 +1,11 @@
 package view;
 
 import model.entity.Player;
-import model.world.Tile;
 import model.world.World;
 import view.hud.OptionsMenuView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import static view.ScreenSettings.*;
 

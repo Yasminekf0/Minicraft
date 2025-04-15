@@ -4,7 +4,8 @@ import view.GameElementView;
 
 public abstract class HUDView extends GameElementView {
 
-    protected int screenWidth, screenHeight;
+    protected final int screenWidth;
+    protected final int screenHeight;
 
     public HUDView(int screenWidth, int screenHeight) {
         this.screenWidth = screenWidth;

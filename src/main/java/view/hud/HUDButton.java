@@ -5,6 +5,7 @@ import model.position.ScreenPosition;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public enum HUDButton {
     BACKTOGAME("/hud/backToGameButton.png", 400, 50, 0),
@@ -19,7 +20,7 @@ public enum HUDButton {
 
     HUDButton(String imagePath, int w, int h, int index) {
         try {
-            this.img = ImageIO.read(getClass().getResourceAsStream(imagePath));
+            this.img = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,7 +31,7 @@ public enum HUDButton {
 
     HUDButton(String imagePath, int index) {
         try {
-            this.img = ImageIO.read(getClass().getResourceAsStream(imagePath));
+            this.img = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         } catch (IOException e) {
             e.printStackTrace();
         }

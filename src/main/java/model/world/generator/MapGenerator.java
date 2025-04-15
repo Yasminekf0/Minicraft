@@ -18,16 +18,14 @@ public class MapGenerator {
 
 
 
-    int size;
-
-    long seed;
+    final int size;
 
 
-    NoiseGenerator noiseGenerator;
+
+    final NoiseGenerator noiseGenerator;
 
     public MapGenerator(int size, long seed){
         this.size = size;
-        this.seed = seed;
         noiseGenerator = new NoiseGenerator(size, seed);
         noiseArray = noiseGenerator.getNoiseArray();
         tileArray = new Tile[size][size];

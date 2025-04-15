@@ -67,14 +67,11 @@ public class PlayerView extends GameElementView {
      * Draws the player sprite with rotation and scaling.
      */
     public void draw(Graphics2D g2) {
-        BufferedImage image;
-        switch (spriteNum) {
-            case 2:  image = walk1; break;
-            case 4:  image = walk2; break;
-            case 1:
-            case 3:
-            default: image = stand; break;
-        }
+        BufferedImage image = switch (spriteNum) {
+            case 2 -> walk1;
+            case 4 -> walk2;
+            default -> stand;
+        };
         if (image == null) return;
 
         AffineTransform at = createAffineTransform(image);

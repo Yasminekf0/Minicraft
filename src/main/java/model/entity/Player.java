@@ -63,9 +63,9 @@ public class Player extends Entity {
 
     public void initializeInventory() {
         inventory = new HashMap<>();
-        inventory.put("Blocks", new ArrayList<Item>());
-        inventory.put("Potions", new ArrayList<Item>());
-        inventory.put("Tools", new ArrayList<Item>(Arrays.asList(new Sword(), new Pickaxe(), new Axe())));
+        inventory.put("Blocks", new ArrayList<>());
+        inventory.put("Potions", new ArrayList<>());
+        inventory.put("Tools", new ArrayList<>(Arrays.asList(new Sword(), new Pickaxe(), new Axe())));
         currentSection = "Tools";
         selectedItem = (getInventorySection(currentSection)).getFirst();
     }
@@ -160,19 +160,24 @@ public class Player extends Entity {
     }
 
     public void usePotion() {
-        if (!(selectedItem instanceof Potion)) return;
+        if (!(selectedItem instanceof Potion potion)) return;
 
-        Potion potion = (Potion) selectedItem;
+        switch (potion) {
+            case HealthPotion healthPotion -> {
+                int heal = healthPotion.getHealingAmount();
+                health = Math.min(health + heal, maxHealth);
+            }
+            case SpeedPotion speedPotion -> {
+                int boost = speedPotion.getSpeedBoost();
+                speed += boost; // maybe set a timer to revert speed back?
 
-        if (potion instanceof HealthPotion) {
-            int heal = ((HealthPotion) potion).getHealingAmount();
-            health = Math.min(health + heal, maxHealth);
-        } else if (potion instanceof SpeedPotion) {
-            int boost = ((SpeedPotion) potion).getSpeedBoost();
-            speed += boost; // maybe set a timer to revert speed back?
-        } else if (potion instanceof StrengthPotion) {
-            int boost = ((StrengthPotion) potion).getStrengthBoost();
-            // to do. maybe make CurrentStrength?
+            }
+            case StrengthPotion strengthPotion -> {
+                int boost = strengthPotion.getStrengthBoost();
+                // to do. maybe make CurrentStrength?
+            }
+            default -> {
+            }
         }
 
         potion.setCount(potion.getCount() - 1);

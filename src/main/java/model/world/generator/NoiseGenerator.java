@@ -22,6 +22,7 @@ public class NoiseGenerator {
     private final Random randomBiomes;
     private final Random randomTileNoise;
     private final Random randomBlockNoise;
+    @SuppressWarnings("NullableProblems")
     private JNoiseDetailed<WorleyNoiseResult<Vector>> worleyNoise;
     private final long seed;
     private final int size;
