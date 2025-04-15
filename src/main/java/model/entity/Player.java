@@ -10,6 +10,7 @@ import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
 import model.items.tools.Tool;
 import model.position.WorldPosition;
+import model.world.Block;
 import model.world.World;
 
 import java.util.ArrayList;
@@ -38,12 +39,31 @@ public class Player extends Entity {
     }
 
     public void moveUntil(double dx, double dy, World world) {
+        worldPos.updateDirection(dx,dy);
         for (int x = 0; x<speed; x++) {
             if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
             if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
             worldPos.increment(dx, dy);
         }
+        updateFocusedBlockCoords(dx,dy);
     }
+
+    private void updateFocusedBlockCoords(double dx, double dy){
+
+    }
+
+    private int focusedBlockX;
+    private int focusedBlockY;
+    private int tempBlockDurability;
+    public void startBreakingBlock(World world) {
+        Block block = world.getBlock(focusedBlockX, focusedBlockY);
+        tempBlockDurability = block.getBlockDurabilty();
+    }
+
+    public void keepBreakingBlock(World world){
+        if (tempBlockDurability <= 0) world.breakBlock(focusedBlockX, focusedBlockY);
+    }
+
 
 
     public void initializeInventory() {
