@@ -43,8 +43,8 @@ public class StartController {
         World world = new World(worldSize, seed);
         Player player = new Player();
         GameView gameView = new GameView(world, player);
-        OptionsView optionsView = new OptionsView();
 
+        OptionsView optionsView = mainView.getOptionsView();
         mainView.startGameView(gameView);
 
         // Instantiate controllers for the game.

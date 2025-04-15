@@ -12,6 +12,7 @@ public class MainView {
     private final StartView startView;
     private final JPanel container;
     private final JFrame window;
+    private final OptionsView optionsView;
 
     public MainView() {
         // Set up CardLayout
@@ -31,6 +32,10 @@ public class MainView {
         window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
+        optionsView = new OptionsView();
+        window.setGlassPane(optionsView);
+        optionsView.setVisible(false);
     }
 
     // This method is called only when the "New Game" button is pressed.
@@ -38,10 +43,6 @@ public class MainView {
 
         // Create the game view. Note that GameView uses its own getters for screen size.
         container.add(gameView, "game");
-
-        OptionsView optionsView = new OptionsView();
-        window.setGlassPane(optionsView);
-        optionsView.setVisible(false);
 
         // Switch to the game view.
         CardLayout cl = (CardLayout) container.getLayout();
@@ -55,5 +56,7 @@ public class MainView {
     public JFrame getWindow() {
         return window;
     }
+
+    public OptionsView getOptionsView() { return optionsView; }
 
 }
