@@ -10,7 +10,6 @@ import model.items.blocks.Wood;
 import model.items.potions.HealthPotion;
 import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
-import model.items.tools.Tool;
 
 
 import java.util.ArrayList;

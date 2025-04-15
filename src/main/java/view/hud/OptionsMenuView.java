@@ -2,17 +2,14 @@ package view.hud;
 
 import model.position.ScreenPosition;
 
-import javax.imageio.ImageIO;
-import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class OptionsMenuView extends HUDView {
 
-    private HUDButton[] buttons;
+    private final HUDButton[] buttons;
     private HUDButton selectedButton;
-    private ButtonSelectionBorderView buttonSelectionBorder;
+    private final ButtonSelectionBorderView buttonSelectionBorder;
+    @SuppressWarnings("FieldCanBeLocal")
     private final int buttonCentersGap = 100;
 
     public OptionsMenuView(int screenWidth, int screenHeight) {

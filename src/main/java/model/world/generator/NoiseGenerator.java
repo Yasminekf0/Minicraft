@@ -7,7 +7,7 @@ import de.articdive.jnoise.generators.noisegen.worley.WorleyNoiseGenerator;
 import de.articdive.jnoise.generators.noisegen.worley.WorleyNoiseResult;
 import de.articdive.jnoise.pipeline.JNoise;
 import de.articdive.jnoise.pipeline.JNoiseDetailed;
-import model.position.WorldPosition;
+
 import model.world.Biome;
 
 import java.util.Arrays;
@@ -22,6 +22,7 @@ public class NoiseGenerator {
     private final Random randomBiomes;
     private final Random randomTileNoise;
     private final Random randomBlockNoise;
+    @SuppressWarnings("NullableProblems")
     private JNoiseDetailed<WorleyNoiseResult<Vector>> worleyNoise;
     private final long seed;
     private final int size;
@@ -85,10 +86,9 @@ public class NoiseGenerator {
 
         JNoise tileNoise;
         JNoise blockNoise;
-        WorldPosition position;
 
-        for (double i = 0, k = 0; i<size; i++){
-            for (double j=0; j<size; j++, k++){
+        for (int i = 0, k = 0; i<size; i++){
+            for (int j=0; j<size; j++, k++){
                 worleyNoiseResult = worleyNoise.evaluateNoiseResult(i, j);
                 worleyClosestPoint = worleyNoiseResult.getClosestPoint();
                 biome = getBiome(worleyClosestPoint);
@@ -97,12 +97,11 @@ public class NoiseGenerator {
 
                 blockNoise = getBlockNoise(biome);
 
-                position = new WorldPosition(i,j);
 
-                noiseArray[(int) i][(int) j] = new Noise(biome,tileNoise,blockNoise, position);
+                noiseArray[i][j] = new Noise(biome,tileNoise,blockNoise, i, j);
 
-                tilePerlinArray[(int) k] = tileNoise.evaluateNoise(i, j);
-                blockPerlinArray[(int) k] = blockNoise.evaluateNoise(i, j);
+                tilePerlinArray[k] = tileNoise.evaluateNoise(i, j);
+                blockPerlinArray[k] = blockNoise.evaluateNoise(i, j);
             }
 
         }

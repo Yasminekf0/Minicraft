@@ -1,7 +1,7 @@
 package model.items;
 
 public abstract class Item {
-    protected String section;
+    protected final String section;
     protected int count;
     public Item(String section) {
         this.section = section;

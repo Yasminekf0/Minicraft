@@ -1,5 +1,6 @@
 package model.world;
 
+
 import model.world.generator.MapGenerator;
 
 public class World {
@@ -19,6 +20,18 @@ public class World {
 
     public Block[][] getBlockMap() {
         return blockMap;
+    }
+
+    public boolean isWalkable(int x, int y){
+        return (tileMap[x][y].isTileWalkable() & blockMap[x][y] == null);
+    }
+
+    public Block getBlock(int x , int y){
+        return blockMap[x][y];
+    }
+
+    public void breakBlock(int x, int y){
+        blockMap[x][y] = null;
     }
 
 }

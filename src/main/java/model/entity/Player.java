@@ -10,6 +10,8 @@ import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
 import model.items.tools.Tool;
 import model.position.WorldPosition;
+import model.world.Block;
+import model.world.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,23 +30,42 @@ public class Player extends Entity {
 
     public Player() {
         this.worldPos = new WorldPosition((worldSize*tileSize) /2.0,(worldSize*tileSize) /2.0);
-        this.speed = 15;
+        this.speed = 10;
         //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;
         initializeInventory();
     }
 
-    public void move(double dx, double dy) {
-        worldPos.increment(dx * speed, dy * speed);
+    public void moveUntil(double dx, double dy, World world) {
+        worldPos.updateDirection(dx,dy);
+        for (int x = 0; x<speed; x++) {
+            if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
+            if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
+            worldPos.increment(dx, dy);
+        }
     }
+
+
+
+    private int tempBlockDurability;
+    public void startBreakingBlock(World world) {
+        Block block = world.getBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
+        tempBlockDurability = block.getBlockDurabilty();
+    }
+
+    public void keepBreakingBlock(World world){
+        if (tempBlockDurability <= 0) world.breakBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
+        else tempBlockDurability -= 10;
+    }
+
 
 
     public void initializeInventory() {
         inventory = new HashMap<>();
-        inventory.put("Blocks", new ArrayList<Item>());
-        inventory.put("Potions", new ArrayList<Item>());
-        inventory.put("Tools", new ArrayList<Item>(Arrays.asList(new Sword(), new Pickaxe(), new Axe())));
+        inventory.put("Blocks", new ArrayList<>());
+        inventory.put("Potions", new ArrayList<>());
+        inventory.put("Tools", new ArrayList<>(Arrays.asList(new Sword(), new Pickaxe(), new Axe())));
         currentSection = "Tools";
         selectedItem = (getInventorySection(currentSection)).getFirst();
     }
@@ -139,19 +160,24 @@ public class Player extends Entity {
     }
 
     public void usePotion() {
-        if (!(selectedItem instanceof Potion)) return;
+        if (!(selectedItem instanceof Potion potion)) return;
 
-        Potion potion = (Potion) selectedItem;
+        switch (potion) {
+            case HealthPotion healthPotion -> {
+                int heal = healthPotion.getHealingAmount();
+                health = Math.min(health + heal, maxHealth);
+            }
+            case SpeedPotion speedPotion -> {
+                int boost = speedPotion.getSpeedBoost();
+                speed += boost; // maybe set a timer to revert speed back?
 
-        if (potion instanceof HealthPotion) {
-            int heal = ((HealthPotion) potion).getHealingAmount();
-            health = Math.min(health + heal, maxHealth);
-        } else if (potion instanceof SpeedPotion) {
-            int boost = ((SpeedPotion) potion).getSpeedBoost();
-            speed += boost; // maybe set a timer to revert speed back?
-        } else if (potion instanceof StrengthPotion) {
-            int boost = ((StrengthPotion) potion).getStrengthBoost();
-            // to do. maybe make CurrentStrength?
+            }
+            case StrengthPotion strengthPotion -> {
+                int boost = strengthPotion.getStrengthBoost();
+                // to do. maybe make CurrentStrength?
+            }
+            default -> {
+            }
         }
 
         potion.setCount(potion.getCount() - 1);

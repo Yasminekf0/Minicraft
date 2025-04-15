@@ -47,6 +47,6 @@ public class StartController {
 
         // Instantiate controllers for the game.
         KeyController keyController = new KeyController(gameView);
-        new GameController(player, gameView, keyController);
+        new GameController(world, player, gameView, keyController);
     }
 }

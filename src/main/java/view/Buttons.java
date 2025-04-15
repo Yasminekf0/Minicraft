@@ -6,9 +6,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 public class Buttons extends JButton {
-    private String buttonText; // the text to be drawn with a shadow
+    private final String buttonText; // the text to be drawn with a shadow
 
     // Static defaults used by all buttons.
     private static BufferedImage defaultNormal;
@@ -19,14 +20,14 @@ public class Buttons extends JButton {
     // Static initializer loads resources once.
     static {
         try {
-            defaultNormal = ImageIO.read(Buttons.class.getResourceAsStream("/start/buttons/button.png"));
-            defaultRollover = ImageIO.read(Buttons.class.getResourceAsStream("/start/buttons/button_highlighted.png"));
+            defaultNormal = ImageIO.read(Objects.requireNonNull(Buttons.class.getResourceAsStream("/start/buttons/button.png")));
+            defaultRollover = ImageIO.read(Objects.requireNonNull(Buttons.class.getResourceAsStream("/start/buttons/button_highlighted.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try (InputStream fontStream = Buttons.class.getResourceAsStream("/font/minecraftFont.ttf")) {
-            Font baseFont = Font.createFont(Font.TRUETYPE_FONT, fontStream);
+            Font baseFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(fontStream));
             defaultFont = baseFont.deriveFont(Font.BOLD, 18f);
         } catch (Exception e) {
             e.printStackTrace();

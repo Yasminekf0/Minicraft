@@ -5,8 +5,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import model.entity.Player;
-import controller.GameController;
-import controller.KeyController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

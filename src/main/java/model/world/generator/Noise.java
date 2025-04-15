@@ -1,7 +1,6 @@
 package model.world.generator;
 
 import de.articdive.jnoise.pipeline.JNoise;
-import model.position.WorldPosition;
 import model.world.Biome;
 
 public class Noise {
@@ -11,15 +10,15 @@ public class Noise {
 
     private final JNoise blockNoise;
 
-    private final double worldX;
+    private final int X;
 
-    private final double worldY;
+    private final int Y;
 
-    public Noise(Biome biome, JNoise tileNoise, JNoise blockNoise, WorldPosition position){
+    public Noise(Biome biome, JNoise tileNoise, JNoise blockNoise, int x, int y){
         this.biome = biome;
         this.tileNoise = tileNoise;
-        this.worldX = position.getX();
-        this.worldY = position.getY();
+        X = x;
+        Y = y;
         this.blockNoise = blockNoise;
 
     }
@@ -29,10 +28,10 @@ public class Noise {
     }
 
     public double getTileNoise() {
-        return tileNoise.evaluateNoise(worldX,worldY);
+        return tileNoise.evaluateNoise(X,Y);
     }
 
     public double getBlockNoise() {
-        return blockNoise.evaluateNoise(worldX,worldY);
+        return blockNoise.evaluateNoise(X,Y);
     }
 }
