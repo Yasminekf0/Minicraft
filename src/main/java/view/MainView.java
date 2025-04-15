@@ -39,28 +39,13 @@ public class MainView {
         // Create the game view. Note that GameView uses its own getters for screen size.
         container.add(gameView, "game");
 
-        // Instantiate controllers for the game.
-        KeyController keyController = new KeyController(gameView);
-        GameController gameController = new GameController(world, player, gameView, keyController);
-
-        // Instead of adding OptionsView to container, add it as an overlay.
         OptionsView optionsView = new OptionsView();
-        optionsView.setBounds(0, 0, window.getWidth(), window.getHeight());
+        window.setGlassPane(optionsView);
         optionsView.setVisible(false);
-        window.getLayeredPane().add(optionsView, JLayeredPane.MODAL_LAYER);
-
-        gameController.setOptionsView(optionsView);
-
-        // Optionally, create an OptionsController to handle its events.
-        new OptionsController(optionsView, gameController);
 
         // Switch to the game view.
         CardLayout cl = (CardLayout) container.getLayout();
         cl.show(container, "game");
-
-        // Instantiate controllers for the game.
-        KeyController keyController = new KeyController(gameView);
-        new GameController(world, player, gameView, keyController);
     }
 
     public StartView getStartView() {

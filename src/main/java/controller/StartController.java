@@ -5,6 +5,7 @@ import model.world.World;
 import view.GameView;
 import view.MainView;
 import view.StartView;
+import view.OptionsView;
 
 import javax.swing.*;
 
@@ -42,11 +43,16 @@ public class StartController {
         World world = new World(worldSize, seed);
         Player player = new Player();
         GameView gameView = new GameView(world, player);
+        OptionsView optionsView = new OptionsView();
 
         mainView.startGameView(gameView);
 
         // Instantiate controllers for the game.
         KeyController keyController = new KeyController(gameView);
-        new GameController(player, gameView, keyController);
+        GameController gameController = new GameController(player, gameView, keyController);
+        OptionsController optionsController = new OptionsController(optionsView, gameController);
+
+        gameController.setOptionsView(optionsView);
+
     }
 }
