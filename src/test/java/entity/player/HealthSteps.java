@@ -1,4 +1,4 @@
-package steps;
+package entity.player;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
