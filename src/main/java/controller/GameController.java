@@ -7,6 +7,8 @@ import view.OptionsView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameController {
     private final Player player;
