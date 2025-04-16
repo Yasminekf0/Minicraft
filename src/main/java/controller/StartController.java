@@ -5,6 +5,7 @@ import model.world.World;
 import view.GameView;
 import view.MainView;
 import view.StartView;
+import view.OptionsView;
 
 import javax.swing.*;
 
@@ -31,8 +32,8 @@ public class StartController {
         startView.addLoadGameListener(_ -> JOptionPane.showMessageDialog(
                 mainView.getWindow(),
                 "Load Game is not implemented yet.",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE
+                "Information",
+                JOptionPane.INFORMATION_MESSAGE
         ));
 
         // Quit Game Listener
@@ -43,10 +44,15 @@ public class StartController {
         Player player = new Player();
         GameView gameView = new GameView(world, player);
 
+        OptionsView optionsView = mainView.getOptionsView();
         mainView.startGameView(gameView);
 
         // Instantiate controllers for the game.
         KeyController keyController = new KeyController(gameView);
-        new GameController(world, player, gameView, keyController);
+        GameController gameController = new GameController(world, player, gameView, keyController);
+        OptionsController optionsController = new OptionsController(optionsView, gameController);
+
+        gameController.setOptionsView(optionsView);
+
     }
 }

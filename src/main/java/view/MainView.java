@@ -12,6 +12,7 @@ public class MainView {
     private final StartView startView;
     private final JPanel container;
     private final JFrame window;
+    private final OptionsView optionsView;
 
     public MainView() {
         // Set up CardLayout
@@ -31,6 +32,10 @@ public class MainView {
         window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
+        optionsView = new OptionsView();
+        window.setGlassPane(optionsView);
+        optionsView.setVisible(false);
     }
 
     // This method is called only when the "New Game" button is pressed.
@@ -42,7 +47,6 @@ public class MainView {
         // Switch to the game view.
         CardLayout cl = (CardLayout) container.getLayout();
         cl.show(container, "game");
-
     }
 
     public StartView getStartView() {
@@ -52,5 +56,7 @@ public class MainView {
     public JFrame getWindow() {
         return window;
     }
+
+    public OptionsView getOptionsView() { return optionsView; }
 
 }
