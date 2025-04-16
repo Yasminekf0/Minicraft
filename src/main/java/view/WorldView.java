@@ -77,7 +77,7 @@ public class WorldView extends GameElementView {
         blockImageMap = new HashMap<>();
         blockImageMap.put(Block.Wood,getBufferedImage("/tiles/plank.png"));
         blockImageMap.put(Block.Tree,getBufferedImage("/tiles/tree.png"));
-        blockImageMap.put(Block.Rock,getBufferedImage("/tiles/breaking.png"));
+        blockImageMap.put(Block.Rock,getBufferedImage("/tiles/rock.png"));
         blockImageMap.put(Block.Chest,getBufferedImage("/tiles/chest.png"));
     }
 
