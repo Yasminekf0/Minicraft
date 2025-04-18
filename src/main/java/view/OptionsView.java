@@ -1,5 +1,7 @@
 package view;
 
+import controller.KeyController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;

@@ -15,7 +15,7 @@ public class OptionsController {
         this.gameController = gameController;
 
         initListeners();
-        initKeyListener();
+        //initKeyListener();
     }
 
     private void initListeners() {
@@ -40,7 +40,7 @@ public class OptionsController {
         optionsView.addQuitListener(e -> System.exit(0));
     }
 
-    private void initKeyListener() {
+    /*private void initKeyListener() {
         optionsView.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -51,5 +51,5 @@ public class OptionsController {
             }
         });
         optionsView.setFocusable(true);
-    }
+    }*/
 }

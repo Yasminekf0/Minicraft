@@ -29,11 +29,8 @@ public class GameView extends JPanel {
         playerView.draw((Graphics2D) g);
     }
 
-
-
     public PlayerView getPlayerView() {
         return playerView;
     }
-
 
 }
