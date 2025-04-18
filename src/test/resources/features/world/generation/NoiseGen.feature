@@ -1,4 +1,4 @@
-Feature: Implementing intelligent noisy world generation
+Feature: Implementing intelligent noisy Noise generation
 
   Scenario: Generation of 2D array
     Given a noise size 50
