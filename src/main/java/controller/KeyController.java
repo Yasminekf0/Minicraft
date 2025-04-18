@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 
 public class KeyController implements KeyListener {
     private final PlayerController playerController;
-    private boolean upPressed, downPressed, leftPressed, rightPressed, escPressed;
     private final GameController gameController;
 
     public KeyController(GameController gameController, PlayerController playerController){
@@ -13,30 +12,6 @@ public class KeyController implements KeyListener {
         this.playerController = playerController;
 
         gameController.getGameView().addKeyListener(this);
-    }
-
-    public boolean isUpPressed() {
-        return upPressed;
-    }
-
-    public boolean isDownPressed() {
-        return downPressed;
-    }
-
-    public boolean isLeftPressed() {
-        return leftPressed;
-    }
-
-    public boolean isRightPressed() {return rightPressed;}
-
-    //public boolean isEscPressed() { return  escPressed; }
-
-    public void resetKeyState() {
-        upPressed = false;
-        downPressed = false;
-        leftPressed = false;
-        rightPressed = false;
-        //escPressed = false;
     }
 
     @Override
@@ -59,7 +34,6 @@ public class KeyController implements KeyListener {
         }
         if (code == KeyEvent.VK_ESCAPE) {
             gameController.pauseGame();
-            resetKeyState();
         }
     }
 

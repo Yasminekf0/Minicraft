@@ -11,7 +11,7 @@ public class PlayerController {
 
     private final int delay = 1000 / 60;
 
-    private double dx = 0, dy = 0;
+    private int dx = 0, dy = 0;
 
     private final Timer timer;
 
@@ -27,8 +27,8 @@ public class PlayerController {
 
     void updateMoving(int ddx, int ddy){
 
-        dx += ddx;
-        dy += ddy;
+        if (dx + ddx <= 1 && dx + ddx >= -1) dx += ddx;
+        if (dy + ddy <= 1 && dy + ddy >= -1) dy += ddy;
 
         if (dx == 0 && dy == 0) {
             timer.stop();
@@ -40,8 +40,8 @@ public class PlayerController {
 
     private void updatePlayer() {
         double length = Math.sqrt(dx * dx + dy * dy);
-        double normalizedDx = dx / length;
-        double normalizedDy = dy / length;
+        double normalizedDx = (double) dx / length;
+        double normalizedDy = (double) dy / length;
         player.moveUntil(normalizedDx, normalizedDy);
 
         double angle = Math.atan2(dy, dx);
