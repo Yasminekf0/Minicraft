@@ -32,7 +32,5 @@ public abstract class Tool extends Item {
     public void upgrade() {
         this.material = this.material.upgrade();
     }
-
-    public abstract void use();
 };
 

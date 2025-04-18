@@ -1,29 +1,16 @@
 package model.entity;
 
 import model.Inventory;
-import model.items.Item;
-import model.items.potions.HealthPotion;
-import model.items.potions.Potion;
-import model.items.potions.SpeedPotion;
-import model.items.tools.Axe;
-import model.items.tools.Pickaxe;
-import model.items.tools.Sword;
-import model.items.tools.Tool;
 import model.position.WorldPosition;
 import model.world.Block;
 import model.world.World;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.tileSize;
 
 public class Player extends Entity {
 
-    Inventory inventory;
+    private Inventory inventory;
 
     private final World world;
 
@@ -37,6 +24,8 @@ public class Player extends Entity {
         this.maxHealth = 10;
         inventory = new Inventory();
     }
+
+    public Inventory getInventory() { return inventory; }
 
     private void getSpawnPos(){
         while (!world.isWalkable(worldPos.getTileXPos(),worldPos.getTileYPos())){

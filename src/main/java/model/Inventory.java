@@ -14,6 +14,8 @@ public class Inventory {
     private Item selectedItem;
     private String currentSection;
 
+
+
     public Inventory() {
         inventory = new HashMap<>();
         initializeInventory();

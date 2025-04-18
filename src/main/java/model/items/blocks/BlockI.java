@@ -2,10 +2,11 @@ package model.items.blocks;
 
 import model.items.Item;
 
-public class Block extends Item {
+public abstract class BlockI extends Item {
 
-    public Block() {
+    public BlockI() {
         super("Block");
+
     }
 
 }

@@ -1,5 +1,7 @@
 package model.items;
 
+import model.entity.Player;
+
 public abstract class Item {
     protected final String section;
     protected int count;
@@ -19,4 +21,5 @@ public abstract class Item {
     public String getSection() {
         return section;
     }
+
 }

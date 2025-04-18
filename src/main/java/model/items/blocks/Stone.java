@@ -1,4 +1,4 @@
 package model.items.blocks;
 
-public class Stone extends Block {
+public class Stone extends BlockI {
 }
