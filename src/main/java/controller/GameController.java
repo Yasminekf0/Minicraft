@@ -6,14 +6,12 @@ import view.GameView;
 import view.OptionsView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameController {
     private final Player player;
 
-    private final World world;
     private final GameView gameView;
     private final KeyController keyController;
 
@@ -26,7 +24,6 @@ public class GameController {
 
     public GameController(World world, Player player, GameView gameView, KeyController keyController) {
         this.player = player;
-        this.world = world;
         this.gameView = gameView;
         this.keyController = keyController;
 
@@ -94,7 +91,7 @@ public class GameController {
                 double length = Math.sqrt(dx * dx + dy * dy);
                 dx /= length;
                 dy /= length;
-                player.moveUntil(dx, dy, world);
+                player.moveUntil(dx, dy);
             }
             gameView.getPlayerView().update(moving, angle);
         }
