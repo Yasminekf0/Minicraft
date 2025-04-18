@@ -1,6 +1,7 @@
 package controller;
 
 import model.DayCycleManager;
+import model.MobManager;
 import model.entity.Player;
 import model.world.World;
 import view.GameView;
@@ -15,7 +16,7 @@ public class GameController {
     private final GameView gameView;
 
     private final DayCycleManager dayCycleManager;
-    //private final MobManager mobManager;
+    private final MobManager mobManager;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final int FPS = 60;
@@ -27,7 +28,7 @@ public class GameController {
         this.gameView = gameView;
 
         this.dayCycleManager = new DayCycleManager(gameView.getNightFilterView(), 1000/FPS);
-        // this.mobManager = new MobManager();
+        this.mobManager = new MobManager();
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
@@ -46,7 +47,7 @@ public class GameController {
         Timer timer = new Timer(delay, _ -> {
 
             dayCycleManager.tick();
-            //mobManager.tick();
+            mobManager.tick();
 
             gameView.repaint();
         });
