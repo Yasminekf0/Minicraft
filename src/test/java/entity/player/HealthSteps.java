@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import model.entity.Player;
+import model.world.World;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +14,7 @@ public class HealthSteps {
 
     @Given("the player starts with {int} health")
     public void thePlayerStartsWithHealth(int health) {
-        player = new Player();
+        player = new Player(new World(1,1));
         player.setHealth(health);
 
     }
@@ -30,7 +31,7 @@ public class HealthSteps {
 
     @Given("the player has {int} health")
     public void thePlayerHasHealth(int health) {
-        player = new Player();
+        player = new Player(new World(1,1));
         player.setHealth(health);
     }
 
