@@ -41,7 +41,7 @@ public class StartController {
     }
     private void startNewGame(){
         World world = new World(worldSize, seed);
-        Player player = new Player();
+        Player player = new Player(world);
         GameView gameView = new GameView(world, player);
 
         OptionsView optionsView = mainView.getOptionsView();

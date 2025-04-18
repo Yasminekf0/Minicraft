@@ -1,4 +1,4 @@
-package steps;
+package entity.player;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -10,6 +10,7 @@ import model.items.blocks.Wood;
 import model.items.potions.HealthPotion;
 import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
+import model.world.World;
 
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class InventorySteps {
 
     @Given("the player has an empty inventory")
     public void thePlayerHasAnEmptyInventory() { // sus
-        player = new Player();
+        player = new Player(new World(1,1));
         player.initializeInventory();
 
 
@@ -45,7 +46,7 @@ public class InventorySteps {
 
     @Given("the player has items in all inventory sections")
     public void thePlayerHasItemsInAllInventorySections() {
-        player = new Player();
+        player = new Player(new World(1,1));
         player.initializeInventory();
         Item a = new Sword();
         Item b = new Wood();
@@ -74,7 +75,7 @@ public class InventorySteps {
 
     @Given("the player has a {string} in {string} section in their inventory")
     public void thePlayerHasAInSectionInTheirInventory(Item i) {
-        player = new Player();
+        player = new Player(new World(1,1));
         player.initializeInventory();
         player.addItem(i);
     }
@@ -99,7 +100,7 @@ public class InventorySteps {
 
     @Given("the player has {string} and {string} in their inventory")
     public void thePlayerHasAndInTheirInventory() {
-        player = new Player();
+        player = new Player(new World(1,1));
         player.initializeInventory();
         Item a = new Sword();
         Item b = new Pickaxe();
@@ -123,7 +124,7 @@ public class InventorySteps {
 
     @Given("the player is in the {string} inventory section")
     public void thePlayerIsInTheInventorySection(String section) {
-        player = new Player();
+        player = new Player(new World(1,1));
         player.initializeInventory();
         player.setCurrentSection(section);
     }
@@ -138,7 +139,7 @@ public class InventorySteps {
 
     @Given("the player has a {string} in {string} in their inventory")
     public void thePlayerHasAInSpecificInventory(Sword a) {
-        player = new Player();
+        player = new Player(new World(1,1));
         player.initializeInventory();
         player.addItem(a);
     }
