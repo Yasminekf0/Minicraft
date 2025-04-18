@@ -1,11 +1,12 @@
 package model.items.potions;
 
+import model.entity.Player;
+
 public class SpeedPotion extends Potion {
     private int speedBoost;
 
     public SpeedPotion() {
         super();
-        this.count = 1;
         this.speedBoost = 5;
     }
 
@@ -15,5 +16,9 @@ public class SpeedPotion extends Potion {
     }
     public void setSpeedBoost(int speedBoost) {
         this.speedBoost = speedBoost;
+    }
+
+    public void applyEffect(Player player) {
+        player.setSpeed(player.getSpeed() + speedBoost);
     }
 }

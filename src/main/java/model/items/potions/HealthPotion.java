@@ -1,11 +1,12 @@
 package model.items.potions;
 
+import model.entity.Player;
+
 public class HealthPotion extends Potion {
 
     private int healingAmount;
     public HealthPotion() {
         super();
-        this.count = 1;
         this.healingAmount = 5;
     }
 
@@ -15,5 +16,10 @@ public class HealthPotion extends Potion {
 
     public void setHealingAmount(int healingAmount) {
         this.healingAmount = healingAmount;
+    }
+
+
+    public void applyEffect(Player player) {
+        player.heal(healingAmount);
     }
 }

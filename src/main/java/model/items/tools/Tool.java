@@ -2,33 +2,37 @@ package model.items.tools;
 
 import model.items.Item;
 
-public class Tool extends Item {
-    private String material; // Wood,Stone, Iron, Diamond
 
+enum Material {
+    WOOD, STONE, IRON, DIAMOND;
 
+    public Material upgrade() {
+        return switch (this) {
+            case WOOD -> STONE;
+            case STONE -> IRON;
+            case IRON -> DIAMOND;
+            case DIAMOND -> DIAMOND;
+        };
+    }
+}
+
+public abstract class Tool extends Item {
+    protected Material material;
 
     public Tool() {
         super("Tool");
+        this.material = Material.WOOD;
         this.count = 1;
-        this.material = "Wood";
     }
 
     public String getMaterial() {
-        return material;
+        return material.toString();
     }
+
     public void upgrade() {
-        switch (material) {
-            case "Wood":
-                material = "Stone";
-                break;
-            case "Stone":
-                material = "Iron";
-                break;
-            case "Iron":
-                material = "Diamond";
-                break;
-            case "Diamond":
-                break;
-        }
+        this.material = this.material.upgrade();
     }
-}
+
+    public abstract void use();
+};
+
