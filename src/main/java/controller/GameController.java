@@ -11,11 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameController {
-    private final Player player;
 
-    private final World world;
     private final GameView gameView;
-    private final KeyController keyController;
+    //private final KeyController keyController;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final int FPS = 60;
@@ -24,13 +22,10 @@ public class GameController {
     // Reference to the OptionsView overlay.
     private OptionsView optionsView;
 
-    public GameController(World world, Player player, GameView gameView, KeyController keyController) {
-        this.player = player;
-        this.world = world;
+    public GameController(GameView gameView) {
         this.gameView = gameView;
-        this.keyController = keyController;
 
-        gameView.addKeyListener(keyController);
+        // Not sure what this line does
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
 
@@ -43,22 +38,20 @@ public class GameController {
     }
 
     private void startGameLoop() {
+
         int delay = 1000 / FPS; // ms per frame
-        Timer timer = new Timer(delay, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                update();
-                gameView.repaint();
-            }
+        Timer timer = new Timer(delay, _ -> {
+            //update();
+            gameView.repaint();
         });
         timer.start();
     }
 
     private void update() {
-        boolean currentEscPressed = keyController.isEscPressed();
+        //boolean currentEscPressed = keyController.isEscPressed();
 
         // When Escape is pressed, toggle the overlay.
-        if (currentEscPressed && !escPressedPreviously) {
+        /*if (currentEscPressed && !escPressedPreviously) {
             if (!gamePaused && optionsView != null) {
                 gamePaused = true;
                 optionsView.setVisible(true);
@@ -68,13 +61,13 @@ public class GameController {
                 optionsView.setVisible(false);
                 gameView.requestFocusInWindow();
             }
-        }
-        escPressedPreviously = currentEscPressed;
+        }*/
+        //escPressedPreviously = currentEscPressed;
 
         // Update game logic only if not paused.
         if (!gamePaused) {
             double dx = 0, dy = 0;
-            if (keyController.isUpPressed()) {
+            /*if (keyController.isUpPressed()) {
                 dy = -1;
             }
             if (keyController.isDownPressed()) {
@@ -85,7 +78,7 @@ public class GameController {
             }
             if (keyController.isRightPressed()) {
                 dx = 1;
-            }
+            }*/
 
             boolean moving = (dx != 0 || dy != 0);
             double angle = Math.atan2(dy, dx);
@@ -100,12 +93,23 @@ public class GameController {
         }
     }
 
-    // Called from OptionsController when resuming.
-    public void resumeGame() {
+    public boolean isGamePaused() {
+        return gamePaused;
+    }
+
+    GameView getGameView(){
+        return gameView;
+    }
+
+    void pauseGame() {
+        gamePaused = true;
+        optionsView.setVisible(true);
+        optionsView.requestFocusInWindow();
+    }
+
+    void resumeGame() {
         gamePaused = false;
-        if(optionsView != null)
-            optionsView.setVisible(false);
-        keyController.resetKeyState();
+        optionsView.setVisible(false);
         gameView.requestFocusInWindow();
     }
 }

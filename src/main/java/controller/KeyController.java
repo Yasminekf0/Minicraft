@@ -9,10 +9,12 @@ import java.awt.event.WindowEvent;
 
 public class KeyController implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed, escPressed;
-    private GameView gameView;
+    private final GameController gameController;
 
-    public KeyController(GameView gameView){
-        this.gameView = gameView;
+    public KeyController(GameController gameController){
+        this.gameController = gameController;
+
+        gameController.getGameView().addKeyListener(this);
     }
 
     public boolean isUpPressed() {
@@ -29,14 +31,14 @@ public class KeyController implements KeyListener {
 
     public boolean isRightPressed() {return rightPressed;}
 
-    public boolean isEscPressed() { return  escPressed; }
+    //public boolean isEscPressed() { return  escPressed; }
 
     public void resetKeyState() {
         upPressed = false;
         downPressed = false;
         leftPressed = false;
         rightPressed = false;
-        escPressed = false;
+        //escPressed = false;
     }
 
     @Override
@@ -58,7 +60,8 @@ public class KeyController implements KeyListener {
             rightPressed = true;
         }
         if (code == KeyEvent.VK_ESCAPE) {
-            escPressed = true;
+            gameController.pauseGame();
+            resetKeyState();
         }
     }
 
@@ -76,9 +79,6 @@ public class KeyController implements KeyListener {
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
-        }
-        if (code == KeyEvent.VK_ESCAPE) {
-            escPressed = false;
         }
     }
 }
