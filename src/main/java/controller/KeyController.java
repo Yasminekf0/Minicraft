@@ -1,18 +1,16 @@
 package controller;
 
-import view.GameView;
-
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
 
 public class KeyController implements KeyListener {
+    private final PlayerController playerController;
     private boolean upPressed, downPressed, leftPressed, rightPressed, escPressed;
     private final GameController gameController;
 
-    public KeyController(GameController gameController){
+    public KeyController(GameController gameController, PlayerController playerController){
         this.gameController = gameController;
+        this.playerController = playerController;
 
         gameController.getGameView().addKeyListener(this);
     }
@@ -48,16 +46,16 @@ public class KeyController implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-            upPressed = true;
+            playerController.updateMoving(0, -1);
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-            downPressed = true;
+            playerController.updateMoving(0, 1);
         }
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-            leftPressed = true;
+            playerController.updateMoving(-1, 0);
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-            rightPressed = true;
+            playerController.updateMoving(1, 0);
         }
         if (code == KeyEvent.VK_ESCAPE) {
             gameController.pauseGame();
@@ -69,16 +67,16 @@ public class KeyController implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-            upPressed = false;
+            playerController.updateMoving(0, 1);
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-            downPressed = false;
+            playerController.updateMoving(0, -1);
         }
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-            leftPressed = false;
+            playerController.updateMoving(1, 0);
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-            rightPressed = false;
+            playerController.updateMoving(-1, 0);
         }
     }
 }

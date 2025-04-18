@@ -49,8 +49,8 @@ public class StartController {
 
         // Instantiate controllers for the game.
         GameController gameController = new GameController(gameView);
-        PlayerController playerController = new PlayerController(player);
-        KeyController keyController = new KeyController(gameController);
+        PlayerController playerController = new PlayerController(player, gameView.getPlayerView());
+        KeyController keyController = new KeyController(gameController, playerController);
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 
         gameController.setOptionsView(optionsView);

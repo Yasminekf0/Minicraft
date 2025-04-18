@@ -86,7 +86,7 @@ public class GameController {
                 double length = Math.sqrt(dx * dx + dy * dy);
                 dx /= length;
                 dy /= length;
-                player.moveUntil(dx, dy);
+                //player.moveUntil(dx, dy);
             }
             gameView.getPlayerView().update(moving, angle);
         }
