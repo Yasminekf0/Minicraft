@@ -1,28 +1,33 @@
 package model;
 
+import view.NightFilterView;
+
 public class DayCycleManager {
 
+    private final NightFilterView nightFilterView;
     private final int delay;
-    private final int cycleDuration = 10 * 2 * 1000;  // day-night cycle duration in ms
-    private final int transitionDuration = 2 * 1000;  // transition period duration in ms
-
-    private final int sunSetStart = cycleDuration / 2 - transitionDuration;
-    private final int sunRiseStart = cycleDuration - transitionDuration;
+    private final int cycleDuration = 10 * 60 * 1000;  // day-night cycle duration in ms
+    private final int transitionDuration = 20 * 1000; // transition period duration in ms
 
     private int time = 0;
 
-    public DayCycleManager(int delay) {
+    public DayCycleManager(NightFilterView nightFilterView, int delay) {
+        this.nightFilterView = nightFilterView;
         this.delay = delay;
     }
 
     public void tick() {
         time = (time + delay) % cycleDuration;
 
-        //System.out.println(getNightFilterLevel());
+        nightFilterView.setLevel(getNightFilterLevel());
 
     }
 
     private double getNightFilterLevel() {
+
+        int sunRiseStart = cycleDuration - transitionDuration;
+        int sunSetStart = cycleDuration / 2 - transitionDuration;
+
         if (time <= sunSetStart) {
             return 0;
         } else if (time < cycleDuration / 2) {

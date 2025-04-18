@@ -26,7 +26,7 @@ public class GameController {
     public GameController(GameView gameView) {
         this.gameView = gameView;
 
-        this.dayCycleManager = new DayCycleManager(1000/FPS);
+        this.dayCycleManager = new DayCycleManager(gameView.getNightFilterView(), 1000/FPS);
         // this.mobManager = new MobManager();
 
         gameView.setFocusable(true);
