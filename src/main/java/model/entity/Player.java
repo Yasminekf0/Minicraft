@@ -28,8 +28,12 @@ public class Player extends Entity {
     private String currentSection;
     private Item selectedItem;
 
-    public Player() {
-        this.worldPos = new WorldPosition((worldSize*tileSize) /2.0,(worldSize*tileSize) /2.0);
+    private final World world;
+
+    public Player(World world) {
+        this.world = world;
+        this.worldPos = new WorldPosition((tileSize/2.0) + (worldSize*tileSize) /2.0,(tileSize/2.0) + (worldSize*tileSize) /2.0);
+        getSpawnPos();
         this.speed = 10;
         //maybe max speed?
         this.health = 10;
@@ -37,7 +41,17 @@ public class Player extends Entity {
         initializeInventory();
     }
 
-    public void moveUntil(double dx, double dy, World world) {
+    private void getSpawnPos(){
+        while (!world.isWalkable(worldPos.getTileXPos(),worldPos.getTileYPos())){
+            worldPos.increment(tileSize,tileSize);
+        }
+        System.out.println(worldPos.getTileXPos());
+        System.out.println(worldPos.getTileYPos());
+    }
+
+
+
+    public void moveUntil(double dx, double dy) {
         worldPos.updateDirection(dx,dy);
         for (int x = 0; x<speed; x++) {
             if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
@@ -49,12 +63,12 @@ public class Player extends Entity {
 
 
     private int tempBlockDurability;
-    public void startBreakingBlock(World world) {
+    public void startBreakingBlock() {
         Block block = world.getBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
         tempBlockDurability = block.getBlockDurabilty();
     }
 
-    public void keepBreakingBlock(World world){
+    public void keepBreakingBlock(){
         if (tempBlockDurability <= 0) world.breakBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
         else tempBlockDurability -= 10;
     }

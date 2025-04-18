@@ -34,4 +34,14 @@ public class Noise {
     public double getBlockNoise() {
         return blockNoise.evaluateNoise(X,Y);
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Noise noise) {
+            return ((noise.getTileNoise() == tileNoise.evaluateNoise(X, Y)) &
+                    noise.getBlockNoise() == blockNoise.evaluateNoise(X, Y)) &
+                    biome.equals(noise.getBiome());
+        }
+        else return false;
+    }
 }
