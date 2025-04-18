@@ -4,9 +4,4 @@ public class Sword extends Tool {
     public Sword() {
         super();
     }
-
-    @Override
-    public void use() { // for attacking mobs
-        return;
-    }
 }
