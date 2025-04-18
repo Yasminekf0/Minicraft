@@ -1,5 +1,6 @@
 package controller;
 
+import model.DayCycleManager;
 import model.entity.Player;
 import model.world.World;
 import view.GameView;
@@ -13,6 +14,9 @@ public class GameController {
 
     private final GameView gameView;
 
+    private final DayCycleManager dayCycleManager;
+    //private final MobManager mobManager;
+
     @SuppressWarnings("FieldCanBeLocal")
     private final int FPS = 60;
     private boolean gamePaused = false;
@@ -21,6 +25,9 @@ public class GameController {
 
     public GameController(GameView gameView) {
         this.gameView = gameView;
+
+        this.dayCycleManager = new DayCycleManager(1000/FPS);
+        // this.mobManager = new MobManager();
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
@@ -37,6 +44,10 @@ public class GameController {
 
         int delay = 1000 / FPS; // ms per frame
         Timer timer = new Timer(delay, _ -> {
+
+            dayCycleManager.tick();
+            //mobManager.tick();
+
             gameView.repaint();
         });
         timer.start();
