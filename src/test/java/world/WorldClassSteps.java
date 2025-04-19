@@ -25,7 +25,7 @@ public class WorldClassSteps {
 
     @Given("a world with seed {int} and size {int}")
     public void aWorldWithSeedAndSize(int seed, int size) {
-        world = new World(size, seed);
+        world = World.getInstance();
     }
 
     @When("We request block at coords {int} {int}")

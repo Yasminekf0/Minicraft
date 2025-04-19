@@ -14,7 +14,7 @@ public class HealthSteps {
 
     @Given("the player starts with {int} health")
     public void thePlayerStartsWithHealth(int health) {
-        player = new Player(new World(1,1));
+        player = Player.getInstance();
         player.setHealth(health);
 
     }
@@ -31,7 +31,7 @@ public class HealthSteps {
 
     @Given("the player has {int} health")
     public void thePlayerHasHealth(int health) {
-        player = new Player(new World(1,1));
+        player = Player.getInstance();
         player.setHealth(health);
     }
 
