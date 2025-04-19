@@ -8,21 +8,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class HealthBar extends JComponent {
     private final Player player;
-    private final BufferedImage fullHeart;
-    private final BufferedImage emptyHeart;
-    private final int heartWidth;
-    private final int heartHeight;
+    private BufferedImage fullHeart;
+    private BufferedImage emptyHeart;
+    private int heartWidth;
+    private int heartHeight;
 
     public HealthBar(Player player) {
         this.player = player;
         try {
-            fullHeart  = ImageIO.read(getClass().getResourceAsStream("/HUD/full.png"));
-            emptyHeart = ImageIO.read(getClass().getResourceAsStream("/HUD/empty_heart.png"));
-        } catch (IOException | NullPointerException e) {
-            throw new RuntimeException("Could not load heart images", e);
+            fullHeart  = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/HUD/full.png")));
+            emptyHeart = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/HUD/empty_heart.png")));
+        } catch(IOException e) {
+            e.printStackTrace();
         }
         heartWidth  = fullHeart.getWidth() * 2;
         heartHeight = fullHeart.getHeight() * 2;
