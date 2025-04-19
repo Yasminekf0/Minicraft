@@ -9,6 +9,4 @@ public abstract class Potion extends Item {
         super("Potion");
         this.count = 1;
     }
-
-    public abstract void applyEffect(Player player); //use
 }

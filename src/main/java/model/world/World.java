@@ -14,6 +14,7 @@ public class World {
     private final WorldBlock[][] worldBlockMap;
 
     private World(){
+        instance = this;
         MapGenerator map = new MapGenerator(worldSize, seed);
         this.tileMap = map.getTiles();
         this.worldBlockMap = map.getBlocks();
@@ -35,8 +36,10 @@ public class World {
     }
 
     public boolean isWalkable(int x, int y){
-        return (tileMap[x][y].isTileWalkable() & worldBlockMap[x][y] == null);
+        return (tileMap[x][y].isTileWalkable() && worldBlockMap[x][y] == null);
     }
+
+    public boolean isPlaceable(int x, int y){ return (tileMap[x][y].isTilePlaceable() & worldBlockMap[x][y] == null);}
 
     public WorldBlock getBlock(int x , int y){
         return worldBlockMap[x][y];
@@ -44,6 +47,10 @@ public class World {
 
     public void breakBlock(int x, int y){
         worldBlockMap[x][y] = null;
+    }
+
+    public void placeBlock(int x, int y, WorldBlock block) {
+        worldBlockMap[x][y] = block;
     }
 
 }

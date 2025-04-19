@@ -25,4 +25,7 @@ public enum Tile {
     public boolean isTileWalkable() {
         return isTileWalkable;
     }
+
+    public boolean isTilePlaceable() { return isBlockPlaceable;
+    }
 }

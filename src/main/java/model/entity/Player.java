@@ -55,16 +55,7 @@ public class Player extends Entity {
         }
     }
 
-
-
-    private int tempBlockDurability;
-    public void startBreakingBlock() {
-        WorldBlock worldBlock = world.getBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
-        tempBlockDurability = worldBlock.getBlockDurabilty();
-    }
-
-    public void keepBreakingBlock(){
-        if (tempBlockDurability <= 0) world.breakBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
-        else tempBlockDurability -= 10;
+    public void use(){
+        inventory.getSelectedItem().use();
     }
 }
