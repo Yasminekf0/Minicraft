@@ -24,8 +24,9 @@ public class WorldView extends GameElementView {
     private HashMap<Tile, BufferedImage> tileImageMap;
     private HashMap<Block, BufferedImage> blockImageMap;
 
-    public WorldView(World world, Player player) {
-        this.player = player;
+    public WorldView() {
+        this.player = Player.getInstance();
+        World world = World.getInstance();
         tiles = world.getTileMap();
         blocks = world.getBlockMap();
         loadTiles();

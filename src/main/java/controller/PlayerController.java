@@ -15,8 +15,8 @@ public class PlayerController {
 
     private final Timer timer;
 
-    PlayerController(Player player, PlayerView playerView){
-        this.player = player;
+    PlayerController(PlayerView playerView){
+        this.player = Player.getInstance();
         this.playerView = playerView;
 
         timer = new Timer(delay, _ -> {

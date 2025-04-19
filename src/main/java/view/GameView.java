@@ -13,14 +13,14 @@ public class GameView extends JPanel {
     private final WorldView worldView;
     private final NightFilterView nightFilterView;
 
-    public GameView(World world, Player player) {
+    public GameView() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.WHITE);
         setDoubleBuffered(true);
 
         // Create the PlayerView to handle the player's sprites
         playerView = new PlayerView();
-        worldView = new WorldView(world, player);
+        worldView = new WorldView();
         nightFilterView = new NightFilterView();
     }
 
