@@ -1,4 +1,3 @@
-// HealthBar.java
 package view;
 
 import model.entity.Player;

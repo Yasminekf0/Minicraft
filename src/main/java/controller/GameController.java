@@ -53,6 +53,7 @@ public class GameController {
             mobManager.tick();
 
             gameView.repaint();
+            hudView.repaint();
         });
         timer.start();
     }
