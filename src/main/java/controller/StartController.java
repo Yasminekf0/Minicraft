@@ -1,6 +1,7 @@
 package controller;
 
 import model.entity.Player;
+import model.items.tools.Axe;
 import model.world.World;
 import view.GameView;
 import view.MainView;

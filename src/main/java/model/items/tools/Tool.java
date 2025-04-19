@@ -8,7 +8,7 @@ public abstract class Tool extends Item {
     Material material;
 
     public Tool() {
-        super("Tool");
+        super("Tools");
         this.material = Material.WOOD;
         this.count = 1;
     }

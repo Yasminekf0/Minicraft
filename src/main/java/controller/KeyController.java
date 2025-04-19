@@ -35,6 +35,15 @@ public class KeyController implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             gameController.pauseGame();
         }
+        if (code == KeyEvent.VK_SPACE) {
+            playerController.doAction();
+        }
+        if (code == KeyEvent.VK_Q) {
+            playerController.switchInventorySection();
+        }
+        if (code == KeyEvent.VK_E) {
+            playerController.switchSelectedItem();
+        }
     }
 
     @Override
@@ -51,6 +60,9 @@ public class KeyController implements KeyListener {
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             playerController.updateMoving(-1, 0);
+        }
+        if (code == KeyEvent.VK_SPACE) {
+            playerController.stopAction();
         }
     }
 }

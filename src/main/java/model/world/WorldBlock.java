@@ -1,7 +1,6 @@
 package model.world;
 
 import model.items.Item;
-import model.items.blocks.BlockItem;
 import model.items.blocks.RockItem;
 import model.items.blocks.WoodItem;
 import model.items.potions.HealthPotion;
@@ -58,11 +57,16 @@ public enum WorldBlock {
     public Item getDrop(){
         double randomDouble = dropRandomizer.nextDouble(1);
         double accumulator = 0;
+        Item item = null;
         for (Item i : drops.keySet()){
-            if (drops.get(i)+accumulator >= randomDouble) return i;
+            item = i;
+            if (drops.get(i)+accumulator >= randomDouble) {
+                break;
+            }
             else accumulator += drops.get(i);
         }
-        return null;
+        return item;
+
     }
 
     public boolean isCorrectTool(Item i){

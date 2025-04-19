@@ -21,7 +21,7 @@ public abstract class BreakingTools extends Tool{
     public void use() {
         Player player = Player.getInstance();
         World world = World.getInstance();
-        if (currentBlockHealth < 0) {
+        if (currentBlockHealth > 0) {
             if (player.getWorldPos().getFocusedTileX() == targetedX && player.getWorldPos().getFocusedTileY() == targetedY) {
                 if (world.getBlock(targetedX, targetedY) != null && world.getBlock(targetedX, targetedY).isCorrectTool(this)) {
                     currentBlockHealth -= (breakingPower + material.addedPower);
@@ -35,7 +35,11 @@ public abstract class BreakingTools extends Tool{
                 }
             }
         }
-        else world.breakBlock(targetedX,targetedY);
+        else {
+            player.getInventory().addItem(world.getBlock(targetedX,targetedY).getDrop());
+            world.breakBlock(targetedX,targetedY);
+            currentBlockHealth = 500;
+        }
     }
 
 }

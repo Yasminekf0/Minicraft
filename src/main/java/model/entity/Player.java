@@ -40,8 +40,6 @@ public class Player extends Entity {
         while (!world.isWalkable(worldPos.getTileXPos(),worldPos.getTileYPos())){
             worldPos.increment(tileSize,tileSize);
         }
-        System.out.println(worldPos.getTileXPos());
-        System.out.println(worldPos.getTileYPos());
     }
 
 
@@ -56,6 +54,8 @@ public class Player extends Entity {
     }
 
     public void use(){
-        inventory.getSelectedItem().use();
+        if (inventory.getSelectedItem() != null) {
+            inventory.getSelectedItem().use();
+        }
     }
 }
