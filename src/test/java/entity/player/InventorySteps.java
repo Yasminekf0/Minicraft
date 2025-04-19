@@ -6,11 +6,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import model.entity.Player;
 import model.items.Item;
-import model.items.blocks.Wood;
+import model.items.blocks.WoodItem;
 import model.items.potions.HealthPotion;
 import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
-import model.world.World;
 
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class InventorySteps {
     public void thePlayerHasItemsInAllInventorySections() {
         player = Player.getInstance();
         Item a = new Sword();
-        Item b = new Wood();
+        Item b = new WoodItem();
         Item c = new HealthPotion();
         player.getInventory().addItem(a);
         player.getInventory().addItem(b);

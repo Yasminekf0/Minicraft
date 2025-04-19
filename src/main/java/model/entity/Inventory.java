@@ -1,5 +1,4 @@
-package model;
-import model.entity.Player;
+package model.entity;
 import model.items.Item;
 import model.items.potions.Potion;
 import model.items.tools.Axe;
@@ -118,19 +117,6 @@ public class Inventory {
     public void setCurrentSection(String section) {
         if (inventory.containsKey(section)) {
             currentSection = section;
-        }
-    }
-
-
-    public void useSelectedPotion(Player player) {
-        if (!(selectedItem instanceof Potion potion)) return;
-
-        potion.applyEffect(player); // ← potion modifies the player
-
-        potion.setCount(potion.getCount() - 1);
-        if (potion.getCount() <= 0) {
-            inventory.get("Potions").removeIf(item -> item.getClass().equals(potion.getClass()));
-            selectedItem = null;
         }
     }
 

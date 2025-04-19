@@ -11,12 +11,12 @@ public class World {
     private static World instance;
 
     private final Tile[][] tileMap;
-    private final Block[][] blockMap;
+    private final WorldBlock[][] worldBlockMap;
 
     private World(){
         MapGenerator map = new MapGenerator(worldSize, seed);
         this.tileMap = map.getTiles();
-        this.blockMap = map.getBlocks();
+        this.worldBlockMap = map.getBlocks();
     }
 
     public static World getInstance() {
@@ -30,20 +30,20 @@ public class World {
         return tileMap;
     }
 
-    public Block[][] getBlockMap() {
-        return blockMap;
+    public WorldBlock[][] getBlockMap() {
+        return worldBlockMap;
     }
 
     public boolean isWalkable(int x, int y){
-        return (tileMap[x][y].isTileWalkable() & blockMap[x][y] == null);
+        return (tileMap[x][y].isTileWalkable() & worldBlockMap[x][y] == null);
     }
 
-    public Block getBlock(int x , int y){
-        return blockMap[x][y];
+    public WorldBlock getBlock(int x , int y){
+        return worldBlockMap[x][y];
     }
 
     public void breakBlock(int x, int y){
-        blockMap[x][y] = null;
+        worldBlockMap[x][y] = null;
     }
 
 }

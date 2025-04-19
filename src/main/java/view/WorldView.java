@@ -1,7 +1,7 @@
 package view;
 
 import model.entity.Player;
-import model.world.Block;
+import model.world.WorldBlock;
 import model.world.Tile;
 import model.world.World;
 
@@ -20,14 +20,14 @@ public class WorldView extends GameElementView {
     private final Player player;
     private final Tile[][] tiles;
 
-    private final Block[][] blocks;
+    private final WorldBlock[][] worldBlocks;
     private HashMap<Tile, BufferedImage> tileImageMap;
-    private HashMap<Block, BufferedImage> blockImageMap;
+    private HashMap<WorldBlock, BufferedImage> blockImageMap;
 
     public WorldView(World world, Player player) {
         this.player = player;
         tiles = world.getTileMap();
-        blocks = world.getBlockMap();
+        worldBlocks = world.getBlockMap();
         loadTiles();
         loadBlocks();
     }
@@ -53,8 +53,8 @@ public class WorldView extends GameElementView {
                 if (i>=0 & i<size & j>=0 & j<size) {
                     BufferedImage tileImg = tileImageMap.get(tiles[i][j]);
                     g2.drawImage(tileImg, screenX, screenY, tileSize, tileSize, null);
-                    if (blocks[i][j] != null) {
-                        BufferedImage blockImg = blockImageMap.get(blocks[i][j]);
+                    if (worldBlocks[i][j] != null) {
+                        BufferedImage blockImg = blockImageMap.get(worldBlocks[i][j]);
                         g2.drawImage(blockImg, screenX, screenY, tileSize, tileSize, null);
                     }
                 }
@@ -75,10 +75,10 @@ public class WorldView extends GameElementView {
 
     private void loadBlocks() {
         blockImageMap = new HashMap<>();
-        blockImageMap.put(Block.Wood,getBufferedImage("/tiles/plank.png"));
-        blockImageMap.put(Block.Tree,getBufferedImage("/tiles/tree.png"));
-        blockImageMap.put(Block.Rock,getBufferedImage("/tiles/rock.png"));
-        blockImageMap.put(Block.Chest,getBufferedImage("/tiles/chest.png"));
+        blockImageMap.put(WorldBlock.Wood,getBufferedImage("/tiles/plank.png"));
+        blockImageMap.put(WorldBlock.Tree,getBufferedImage("/tiles/tree.png"));
+        blockImageMap.put(WorldBlock.Rock,getBufferedImage("/tiles/rock.png"));
+        blockImageMap.put(WorldBlock.Chest,getBufferedImage("/tiles/chest.png"));
     }
 
     private BufferedImage getBufferedImage(String path){

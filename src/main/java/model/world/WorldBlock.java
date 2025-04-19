@@ -2,7 +2,7 @@ package model.world;
 
 import java.util.Arrays;
 
-public enum Block {
+public enum WorldBlock {
 
     Wood(new Tile[]{},25),
     Rock(new Tile[]{Tile.STONE}, 50),
@@ -14,7 +14,7 @@ public enum Block {
     private final int blockDurability;
 
 
-    Block(Tile[] spawnableTiles, int blockDurabilty){
+    WorldBlock(Tile[] spawnableTiles, int blockDurabilty){
         this.spawnableTiles = spawnableTiles;
         this.blockDurability = blockDurabilty;
     }

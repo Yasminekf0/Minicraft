@@ -4,7 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import model.world.Block;
+import model.world.WorldBlock;
 import model.world.Tile;
 import model.world.World;
 
@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class WorldClassSteps {
 
     World world;
-    Block block;
+    WorldBlock worldBlock;
 
     Tile[][] tiles;
 
-    Block[][] blocks;
+    WorldBlock[][] worldBlocks;
 
     int x;
 
@@ -30,12 +30,12 @@ public class WorldClassSteps {
 
     @When("We request block at coords {int} {int}")
     public void weRequestBlockAtCoords(int x, int y) {
-        block = world.getBlock(x,y);
+        worldBlock = world.getBlock(x,y);
     }
 
     @Then("a block is returned if it exists")
     public void aBlockIsReturnedIfItExists() {
-        assertTrue(block instanceof Block | block == null);
+        assertTrue(worldBlock instanceof WorldBlock | worldBlock == null);
     }
 
     @And("the Tile at coords {int} {int} is walkable")
@@ -60,7 +60,7 @@ public class WorldClassSteps {
     public void thereIsABlockAt(int x, int y) {
         this.x = x;
         this.y = y;
-        world.getBlockMap()[x][y] = Block.Wood;
+        world.getBlockMap()[x][y] = WorldBlock.Wood;
         System.out.println(world.getBlockMap()[x][y]);
     }
 
@@ -86,12 +86,12 @@ public class WorldClassSteps {
 
     @When("We request the blocks")
     public void weRequestTheBlocks() {
-        blocks = world.getBlockMap();
+        worldBlocks = world.getBlockMap();
     }
 
     @Then("the array of blocks is returned")
     public void theArrayOfBlocksIsReturned() {
-        assertInstanceOf(Block[][].class, blocks);
+        assertInstanceOf(WorldBlock[][].class, worldBlocks);
     }
 
 

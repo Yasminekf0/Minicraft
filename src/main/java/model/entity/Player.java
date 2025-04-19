@@ -1,8 +1,7 @@
 package model.entity;
 
-import model.Inventory;
 import model.position.WorldPosition;
-import model.world.Block;
+import model.world.WorldBlock;
 import model.world.World;
 
 import static model.world.WorldSettings.worldSize;
@@ -12,11 +11,12 @@ public class Player extends Entity {
 
     private static Player instance;
 
-    private Inventory inventory;
+    private final Inventory inventory;
 
     private final World world;
 
     private Player() {
+        instance = this;
         this.world = World.getInstance();
         this.worldPos = new WorldPosition((tileSize/2.0) + (worldSize*tileSize) /2.0,(tileSize/2.0) + (worldSize*tileSize) /2.0);
         getSpawnPos();
@@ -59,8 +59,8 @@ public class Player extends Entity {
 
     private int tempBlockDurability;
     public void startBreakingBlock() {
-        Block block = world.getBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
-        tempBlockDurability = block.getBlockDurabilty();
+        WorldBlock worldBlock = world.getBlock(worldPos.getFocusedTileX(), worldPos.getFocusedTileY());
+        tempBlockDurability = worldBlock.getBlockDurabilty();
     }
 
     public void keepBreakingBlock(){
