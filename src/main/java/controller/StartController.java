@@ -3,10 +3,7 @@ package controller;
 import model.entity.Player;
 import model.items.tools.Axe;
 import model.world.World;
-import view.GameView;
-import view.MainView;
-import view.StartView;
-import view.OptionsView;
+import view.*;
 
 import javax.swing.*;
 
@@ -41,9 +38,10 @@ public class StartController {
         World world = World.getInstance();
         Player player = Player.getInstance();
         GameView gameView = new GameView();
+        HUDView hudView = new HUDView(player);
 
         OptionsView optionsView = mainView.getOptionsView();
-        mainView.startGameView(gameView);
+        mainView.startGameView(gameView, hudView);
 
         // Instantiate controllers for the game.
         GameController gameController = new GameController(gameView);
