@@ -36,7 +36,11 @@ public class World {
     }
 
     public boolean isWalkable(int x, int y){
-        return (tileMap[x][y].isTileWalkable() && worldBlockMap[x][y] == null);
+        return (tileMap[x][y].isTileWalkable());
+    }
+
+    public boolean hasBlock(int x, int y){
+        return worldBlockMap[x][y] != null;
     }
 
     public boolean isPlaceable(int x, int y){ return (tileMap[x][y].isTilePlaceable() & worldBlockMap[x][y] == null);}
