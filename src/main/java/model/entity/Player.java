@@ -10,12 +10,14 @@ import static view.ScreenSettings.tileSize;
 
 public class Player extends Entity {
 
+    private static Player instance;
+
     private Inventory inventory;
 
     private final World world;
 
-    public Player(World world) {
-        this.world = world;
+    private Player() {
+        this.world = World.getInstance();
         this.worldPos = new WorldPosition((tileSize/2.0) + (worldSize*tileSize) /2.0,(tileSize/2.0) + (worldSize*tileSize) /2.0);
         getSpawnPos();
         this.speed = 10;
@@ -23,6 +25,13 @@ public class Player extends Entity {
         this.health = 10;
         this.maxHealth = 10;
         inventory = new Inventory();
+    }
+
+    public static Player getInstance() {
+        if (instance == null) {
+            instance = new Player();
+        }
+        return instance;
     }
 
     public Inventory getInventory() { return inventory; }

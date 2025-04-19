@@ -9,9 +9,6 @@ import view.OptionsView;
 
 import javax.swing.*;
 
-import static model.world.WorldSettings.seed;
-import static model.world.WorldSettings.worldSize;
-
 public class StartController {
     private final MainView mainView;
 
@@ -40,8 +37,8 @@ public class StartController {
         startView.addQuitListener(_ -> System.exit(0));
     }
     private void startNewGame(){
-        World world = new World(worldSize, seed);
-        Player player = new Player(world);
+        World world = World.getInstance();
+        Player player = Player.getInstance();
         GameView gameView = new GameView(world, player);
 
         OptionsView optionsView = mainView.getOptionsView();
