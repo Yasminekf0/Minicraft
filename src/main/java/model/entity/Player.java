@@ -40,7 +40,7 @@ public class Player extends Entity {
     public Inventory getInventory() { return inventory; }
 
     private void getSpawnPos(){
-        while (!world.isWalkable(worldPos.getTileXPos(),worldPos.getTileYPos())){
+        while (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getTileYPos())) | world.hasBlock(worldPos.getTileXPos(),worldPos.getTileYPos())){
             worldPos.increment(tileSize,tileSize);
         }
     }
