@@ -1,6 +1,7 @@
 package controller;
 
 import model.entity.Player;
+import model.items.tools.Axe;
 import view.PlayerView;
 
 import javax.swing.*;
@@ -13,14 +14,20 @@ public class PlayerController {
 
     private int dx = 0, dy = 0;
 
-    private final Timer timer;
+    private final Timer movementTimer;
 
-    PlayerController(Player player, PlayerView playerView){
-        this.player = player;
+    private final Timer actionTimer;
+
+    PlayerController(PlayerView playerView){
+        this.player = Player.getInstance();
         this.playerView = playerView;
 
-        timer = new Timer(delay, _ -> {
+        movementTimer = new Timer(delay, _ -> {
             updatePlayer();
+        });
+
+        actionTimer = new Timer(100, _ -> {
+            player.use();
         });
 
     }
@@ -31,10 +38,10 @@ public class PlayerController {
         if (dy + ddy <= 1 && dy + ddy >= -1) dy += ddy;
 
         if (dx == 0 && dy == 0) {
-            timer.stop();
+            movementTimer.stop();
             playerView.update(false, 0);
-        } else if (!timer.isRunning()){
-            timer.start();
+        } else if (!movementTimer.isRunning()){
+            movementTimer.start();
         }
     }
 
@@ -49,5 +56,25 @@ public class PlayerController {
     }
 
 
+    public void doAction() {
+        if (!actionTimer.isRunning()){
+            player.use();
+            actionTimer.start();
+        }
+    }
 
+    public void stopAction(){
+        actionTimer.stop();
+    }
+
+    public void switchInventorySection() {
+        player.getInventory().cycleCurrentSection();
+        System.out.println(player.getInventory().getCurrentSection());
+        System.out.println(player.getInventory().getSelectedItem());
+    }
+
+    public void switchSelectedItem() {
+        player.getInventory().cycleCurrentItem();
+        System.out.println(player.getInventory().getSelectedItem());
+    }
 }

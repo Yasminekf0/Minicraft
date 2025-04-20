@@ -18,7 +18,9 @@ public class SpeedPotion extends Potion {
         this.speedBoost = speedBoost;
     }
 
-    public void applyEffect(Player player) {
+    public void use() {
+        Player player = Player.getInstance();
+
         player.setSpeed(player.getSpeed() + speedBoost);
     }
 }

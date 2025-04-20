@@ -25,7 +25,7 @@ public class StartView extends JPanel {
     public StartView() {
         // Load wallpaper and title images.
         try {
-            wallpaper = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/start/wallpaper.jpg")));
+            wallpaper = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/start/wallpaper.png")));
             titleImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/start/title.png")));
         } catch(IOException e) {
             e.printStackTrace();

@@ -35,11 +35,11 @@ public class WorldPosition extends Position<Double>{
     }
 
     public int getNextXTilePos(double dx){
-        return (int) ((x+dx)/tileSize);
+        return (int) (((x+dx)/tileSize));
     }
 
     public int getNextYTilePos(double dy){
-        return (int) ((y+dy)/tileSize);
+        return (int) (((y+dy)/tileSize));
     }
 
     public int getFocusedTileX(){

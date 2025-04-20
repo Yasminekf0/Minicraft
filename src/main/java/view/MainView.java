@@ -39,14 +39,23 @@ public class MainView {
     }
 
     // This method is called only when the "New Game" button is pressed.
-    public void startGameView(GameView gameView) {
+    public void startGameView(GameView gameView, HUDView hudView) {
 
-        // Create the game view. Note that GameView uses its own getters for screen size.
-        container.add(gameView, "game");
+        JLayeredPane gameLayer = new JLayeredPane();
+        Dimension sz = new Dimension(screenWidth, screenHeight);
+        gameLayer.setPreferredSize(sz);
 
-        // Switch to the game view.
+        gameView.setBounds(0, 0, sz.width, sz.height);
+        hudView.setBounds(0, 0, sz.width, sz.height);
+
+        gameLayer.add(gameView, JLayeredPane.DEFAULT_LAYER);
+        gameLayer.add(hudView,  JLayeredPane.PALETTE_LAYER);
+
+        container.add(gameLayer, "game");
+
         CardLayout cl = (CardLayout) container.getLayout();
         cl.show(container, "game");
+
     }
 
     public StartView getStartView() {

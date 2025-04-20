@@ -6,11 +6,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import model.entity.Player;
 import model.items.Item;
-import model.items.blocks.Wood;
+import model.items.blocks.WoodItem;
 import model.items.potions.HealthPotion;
 import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
-import model.world.World;
 
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class InventorySteps {
 
     @Given("the player has an empty inventory")
     public void thePlayerHasAnEmptyInventory() { // sus
-        player = new Player(new World(1,1));
+        player = Player.getInstance();
 
 
     }
@@ -45,9 +44,9 @@ public class InventorySteps {
 
     @Given("the player has items in all inventory sections")
     public void thePlayerHasItemsInAllInventorySections() {
-        player = new Player(new World(1,1));
+        player = Player.getInstance();
         Item a = new Sword();
-        Item b = new Wood();
+        Item b = new WoodItem();
         Item c = new HealthPotion();
         player.getInventory().addItem(a);
         player.getInventory().addItem(b);
@@ -73,7 +72,7 @@ public class InventorySteps {
 
     @Given("the player has a {string} in {string} section in their inventory")
     public void thePlayerHasAInSectionInTheirInventory(Item i) {
-        player = new Player(new World(1,1));
+        player = Player.getInstance();
         player.getInventory().addItem(i);
     }
 
@@ -97,7 +96,7 @@ public class InventorySteps {
 
     @Given("the player has {string} and {string} in their inventory")
     public void thePlayerHasAndInTheirInventory() {
-        player = new Player(new World(1,1));
+        player = Player.getInstance();
         Item a = new Sword();
         Item b = new Pickaxe();
         player.getInventory().addItem(a);
@@ -120,7 +119,7 @@ public class InventorySteps {
 
     @Given("the player is in the {string} inventory section")
     public void thePlayerIsInTheInventorySection(String section) {
-        player = new Player(new World(1,1));
+        player = Player.getInstance();
         player.getInventory().setCurrentSection(section);
     }
 
@@ -134,7 +133,7 @@ public class InventorySteps {
 
     @Given("the player has a {string} in {string} in their inventory")
     public void thePlayerHasAInSpecificInventory(Sword a) {
-        player = new Player(new World(1,1));
+        player = Player.getInstance();
         player.getInventory().addItem(a);
     }
 

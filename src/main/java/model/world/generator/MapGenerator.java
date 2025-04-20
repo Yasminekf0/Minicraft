@@ -2,7 +2,7 @@ package model.world.generator;
 
 
 import model.world.Biome;
-import model.world.Block;
+import model.world.WorldBlock;
 import model.world.Tile;
 
 import java.util.Map;
@@ -14,7 +14,7 @@ public class MapGenerator {
 
     private final Tile[][] tileArray;
 
-    private final Block[][] blockArray;
+    private final WorldBlock[][] worldBlockArray;
 
 
 
@@ -29,7 +29,7 @@ public class MapGenerator {
         noiseGenerator = new NoiseGenerator(size, seed);
         noiseArray = noiseGenerator.getNoiseArray();
         tileArray = new Tile[size][size];
-        blockArray = new Block[size][size];
+        worldBlockArray = new WorldBlock[size][size];
 
         generateMapArrays();
     }
@@ -40,9 +40,9 @@ public class MapGenerator {
             for (int j=0; j<size; j++){
                 Noise noise = noiseArray[i][j];
                 Tile tile = selectTile(noise);
-                Block block = selectBlock(noise,tile);
+                WorldBlock worldBlock = selectBlock(noise,tile);
                 tileArray[i][j] = tile;
-                blockArray[i][j] = block;
+                worldBlockArray[i][j] = worldBlock;
 
             }
 
@@ -62,15 +62,15 @@ public class MapGenerator {
         return Tile.WATER;
     }
 
-    private Block selectBlock(Noise noise, Tile tile){
+    private WorldBlock selectBlock(Noise noise, Tile tile){
         Biome biome = noise.getBiome();
-        Map<Block, Double> blockWeightMap = biome.getBlockWeightMap();
+        Map<WorldBlock, Double> blockWeightMap = biome.getBlockWeightMap();
         double i = 0;
         for (var entry: blockWeightMap.entrySet()){
-            Block block = entry.getKey();
+            WorldBlock worldBlock = entry.getKey();
             if (noise.getBlockNoise() <= noiseGenerator.getBlockPerlinThreshold(entry.getValue() + i)) {
 
-                if (block.isSpawnableTile(tile)) {
+                if (worldBlock.isSpawnableTile(tile)) {
                     return entry.getKey();
 
                 }
@@ -86,8 +86,8 @@ public class MapGenerator {
         return tileArray;
     }
 
-    public Block[][] getBlocks(){
-        return blockArray;
+    public WorldBlock[][] getBlocks(){
+        return worldBlockArray;
     }
 
 }

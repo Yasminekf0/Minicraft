@@ -5,24 +5,24 @@ public enum Direction {
     DOWN(0,1),
     LEFT(-1,0),
     RIGHT(1,0),
-    UPRIGHT(1,-1),
-    UPLEFT(-1,-1),
-    DOWNRIGHT(1,1),
-    DOWNLEFT(-1,1)
+    UPRIGHT(0.5,-0.5),
+    UPLEFT(-0.5,-0.5),
+    DOWNRIGHT(0.5,0.5),
+    DOWNLEFT(-0.5,0.5)
     ;
 
-    private final int x;
-    private final int y;
-    Direction(int x, int y) {
+    private final double x;
+    private final double y;
+    Direction(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 }

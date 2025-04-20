@@ -19,7 +19,9 @@ public class HealthPotion extends Potion {
     }
 
 
-    public void applyEffect(Player player) {
+    public void use() {
+        Player player = Player.getInstance();
+
         player.heal(healingAmount);
     }
 }

@@ -4,7 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import model.world.Block;
+import model.world.WorldBlock;
 import model.world.Tile;
 import model.world.generator.MapGenerator;
 
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class WorldGenSteps {
 
     Tile[][] tiles;
-    Block[][] blocks;
+    WorldBlock[][] worldBlocks;
 
 
     MapGenerator map;
@@ -42,7 +42,7 @@ public class WorldGenSteps {
     public void worldGenerationIsCalled() {
         map = new MapGenerator(size,seed);
         tiles =  map.getTiles();
-        blocks = map.getBlocks();
+        worldBlocks = map.getBlocks();
     }
 
 
@@ -53,16 +53,16 @@ public class WorldGenSteps {
 
     @Then("a Block 2D array is returned")
     public void aBlockArrayIsReturned() {
-        assertInstanceOf(Block[][].class, blocks);
+        assertInstanceOf(WorldBlock[][].class, worldBlocks);
     }
 
     @Then("two square arrays of the correct size is returned")
     public void twoSquareArraysOfTheCorrectSizeIsReturned() {
         assertEquals(tiles.length,size);
-        assertEquals(blocks.length,size);
+        assertEquals(worldBlocks.length,size);
         for (int i = 0; i<size; i++ ){
             assertEquals(tiles[i].length,size);
-            assertEquals(blocks[i].length,size);
+            assertEquals(worldBlocks[i].length,size);
         }
     }
 
@@ -78,7 +78,7 @@ public class WorldGenSteps {
 
     @Then("Both block arrays are the same")
     public void bothBlockArraysAreTheSame() {
-        assertTrue(Arrays.deepEquals(blocks, map2.getBlocks()));
+        assertTrue(Arrays.deepEquals(worldBlocks, map2.getBlocks()));
     }
 
     @And("a different world object with different seed")
@@ -93,6 +93,6 @@ public class WorldGenSteps {
 
     @Then("Both block arrays are not the same")
     public void bothBlockArraysAreNotTheSame() {
-        assertFalse(Arrays.deepEquals(blocks, map2.getBlocks()));
+        assertFalse(Arrays.deepEquals(worldBlocks, map2.getBlocks()));
     }
 }

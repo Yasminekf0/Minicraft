@@ -6,9 +6,7 @@ import model.items.Item;
 
 public abstract class Potion extends Item {
     public Potion() {
-        super("Potion");
-        this.count = 1;
+        super("Potions");
+        this.count = 0;
     }
-
-    public abstract void applyEffect(Player player); //use
 }
