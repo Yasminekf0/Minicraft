@@ -17,6 +17,7 @@ public class InventoryView extends JComponent {
         this.inventory = inventory;
         setOpaque(false);
         loadSectionImages();
+        ItemLoader.init();
     }
 
     private void loadSectionImages() {
