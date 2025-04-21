@@ -43,7 +43,6 @@ public class ItemLoader {
     }
 
     public static BufferedImage getIcon(Item item) {
-        if (!initialized) init();
         return ICONS.get(item.getClass());
     }
 }
