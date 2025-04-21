@@ -5,26 +5,32 @@ import model.entity.Player;
 import javax.swing.*;
 import java.awt.*;
 
-// HUDView.java
 public class HUDView extends JPanel {
     public HUDView(Player player) {
         setOpaque(false);
-        setLayout(new BorderLayout());
+        setLayout(new GridBagLayout());
 
-        // Widgets
-        HealthBar healthBar = new HealthBar(player);
-        //InventoryView inventoryView = new InventoryView(player.getInventory());
+        // Setting up stack
+        JPanel stack = new JPanel(new GridBagLayout());
+        stack.setOpaque(false);
+        GridBagConstraints sc = new GridBagConstraints();
+        sc.anchor = GridBagConstraints.WEST;
 
-        // Health Bar Placement
-        JPanel bottomCenter = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
-        bottomCenter.setOpaque(false);
-        bottomCenter.add(healthBar);
-        add(bottomCenter, BorderLayout.SOUTH);
+        //Adding Widgets
+        sc.gridy = 0;
+        sc.insets = new Insets(0, 15, 10, 0);
+        stack.add(new InventoryView(player.getInventory()), sc);
 
-        // Inventory Placement
-        //JPanel bottomRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
-        //bottomRight.setOpaque(false);
-        //bottomRight.add(inventoryView);
-        //add(bottomRight, BorderLayout.SOUTH);
+        sc.gridy = 1;
+        sc.insets = new Insets(0, 15, 15, 0);
+        stack.add(new HealthBarView(player), sc);
+
+        // Adding Stack to Bottom
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.SOUTHWEST;
+
+        add(stack, gbc);
     }
 }
