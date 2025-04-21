@@ -1,10 +1,8 @@
 package model.entity;
 
+import model.Inventory;
 import model.position.WorldPosition;
-import model.world.WorldBlock;
 import model.world.World;
-
-import javax.swing.*;
 
 import static java.lang.Math.round;
 import static model.world.WorldSettings.worldSize;

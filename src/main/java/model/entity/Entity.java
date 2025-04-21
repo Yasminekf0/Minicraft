@@ -1,7 +1,9 @@
 package model.entity;
+import controller.GameController;
 import model.position.WorldPosition;
 
 public abstract class Entity {
+    GameController gameController;
     protected WorldPosition worldPos;
 
     protected int speed;
@@ -42,4 +44,10 @@ public abstract class Entity {
     public void heal(int healAmount) {
         this.health = Math.min(maxHealth, this.health + healAmount);
     }
+
+
+    /*public Entity(GameController gameController) {
+        this.gameController = gameController;
+
+    }*/
 }

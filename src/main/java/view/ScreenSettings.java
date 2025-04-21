@@ -14,4 +14,7 @@ public class ScreenSettings {
     final static int playerScreenX = screenWidth / 2;
     final static int playerScreenY = screenHeight / 2;
 
+    final static int npcScreenX = (screenWidth / 2);
+    final static int npcScreenY = screenHeight / 2 ;
+
 }

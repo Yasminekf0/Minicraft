@@ -6,6 +6,7 @@ import model.entity.Player;
 import model.world.World;
 import view.GameView;
 import view.HUDView;
+import view.NPCView;
 import view.OptionsView;
 
 import javax.swing.*;
@@ -15,6 +16,8 @@ import java.awt.event.ActionListener;
 public class GameController {
 
     private final GameView gameView;
+
+    private final NPCView npcView;
 
     private final DayCycleManager dayCycleManager;
     private final MobManager mobManager;
@@ -26,22 +29,31 @@ public class GameController {
     private OptionsView optionsView;
     private final HUDView hudView;
 
-    public GameController(GameView gameView, HUDView hudView) {
+    private final AssetSetter aSetter;
+
+    public GameController(GameView gameView, NPCView npcView, HUDView hudView) {
         this.gameView = gameView;
+        this.npcView = npcView;
         this.hudView = hudView;
 
         this.dayCycleManager = new DayCycleManager(gameView.getNightFilterView(), 1000/FPS);
         this.mobManager = new MobManager();
+        this.aSetter = new AssetSetter(this);
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
 
         startGameLoop();
+        setupGame();
     }
 
     // Called from MainView after instantiating OptionsView.
     public void setOptionsView(OptionsView optionsView) {
         this.optionsView = optionsView;
+    }
+
+    public void setupGame(){
+        aSetter.setNPC();
     }
 
     private void startGameLoop() {
