@@ -6,10 +6,12 @@ import java.awt.event.KeyListener;
 public class KeyController implements KeyListener {
     private final PlayerController playerController;
     private final GameController gameController;
+    private final NPCController npcController;
 
-    public KeyController(GameController gameController, PlayerController playerController){
+    public KeyController(GameController gameController, PlayerController playerController,  NPCController npcController) {
         this.gameController = gameController;
         this.playerController = playerController;
+        this.npcController = npcController;
 
         gameController.getGameView().addKeyListener(this);
     }
@@ -22,15 +24,19 @@ public class KeyController implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             playerController.updateMoving(0, -1);
+            npcController.updateMoving();
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             playerController.updateMoving(0, 1);
+            npcController.updateMoving();
         }
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
             playerController.updateMoving(-1, 0);
+            npcController.updateMoving();
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             playerController.updateMoving(1, 0);
+            npcController.updateMoving();
         }
         if (code == KeyEvent.VK_ESCAPE) {
             gameController.pauseGame();
@@ -51,15 +57,19 @@ public class KeyController implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             playerController.updateMoving(0, 1);
+            npcController.updateMoving();
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             playerController.updateMoving(0, -1);
+            npcController.updateMoving();
         }
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
             playerController.updateMoving(1, 0);
+            npcController.updateMoving();
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             playerController.updateMoving(-1, 0);
+            npcController.updateMoving();
         }
         if (code == KeyEvent.VK_SPACE) {
             playerController.stopAction();

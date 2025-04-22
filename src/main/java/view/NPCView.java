@@ -19,14 +19,12 @@ import model.position.WorldPosition;
 
 public class NPCView extends GameElementView{
     // Sprite images
-    private BufferedImage up1,  up2, down1, down2, right1, right2, left1, left2, image;
+    private BufferedImage up1,  up2, up3, down1, down2, right1, right2, left1, left2;
     private final Player player;
     private final NPC npc;
     private int spriteCounter = 0;
     private int spriteNum = 1;
-    private double angle = Math.PI / 2; // default facing angle
-
-    private int tileX, tileY;
+    private double angle = 0;//Math.PI ; // default facing angle
 
 
     // Where and how large to draw the player on screen
@@ -47,6 +45,7 @@ public class NPCView extends GameElementView{
             right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_right_2.png")));
             up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_up_1.png")));
             up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_up_2.png")));
+            up3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/merchant/merchant_down_2.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,7 +95,7 @@ public class NPCView extends GameElementView{
 
             BufferedImage image = switch (spriteNum) {
                 case 2 -> right1;
-                case 4 -> right2;
+                case 4 -> up2;
                 default -> down1;
             };
             if (image == null) return;
