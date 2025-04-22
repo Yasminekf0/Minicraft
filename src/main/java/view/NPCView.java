@@ -82,7 +82,7 @@ public class NPCView extends GameElementView{
         int playerWorldX = player.getWorldPos().getX().intValue();
         int playerWorldY = player.getWorldPos().getY().intValue();
         int worldX = npc.getWorldPos().getX().intValue();
-        int worldY = npc.getWorldPos().getX().intValue();
+        int worldY = npc.getWorldPos().getY().intValue();
 
         int screenX = worldX - playerWorldX + playerScreenX;
         int screenY = worldY - playerWorldY + playerScreenY;
@@ -95,8 +95,8 @@ public class NPCView extends GameElementView{
 
             BufferedImage image = switch (spriteNum) {
                 case 2 -> right1;
-                case 4 -> up2;
-                default -> down1;
+                case 4 -> right2;
+                default -> right1;
             };
             if (image == null) return;
 
