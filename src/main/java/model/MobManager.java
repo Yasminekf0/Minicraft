@@ -16,29 +16,32 @@ public class MobManager {
     private final double mobsPerSecond = 0.1;
     private final double spawnProbability;
 
-    private ArrayList<MobController> mobControllers;
+    private final DayCycleManager dayCycleManager;
+    private final ArrayList<MobController> mobControllers;
 
-    public MobManager(int delay) {
+    public MobManager(DayCycleManager dayCycleManager, int delay) {
+        this.dayCycleManager = dayCycleManager;
         spawnProbability = delay * 0.001 * mobsPerSecond;
+        mobControllers = new ArrayList<>();
     }
 
     public void tick() {
-        // spawn new mobs
+        spawnMobs();
         // despawn mobs that are too far
         // update all existing mobs
     }
 
     private void spawnMobs() {
-        if (Math.random() < spawnProbability) {
-            WorldPosition spawnPos = getSpawnPoint();
-            if (spawnPos != null) { // TODO: Do proper exception handling!!!
-                MobController mobController = new MobController(spawnPos);
+        if (dayCycleManager.isNight() && Math.random() < spawnProbability) {
+
+            try {
+                MobController mobController = new MobController(getSpawnPoint());
                 mobControllers.add(mobController);
-            }
+            } catch (NoSpawnpointFoundException _) {}
         }
     }
 
-    private WorldPosition getSpawnPoint() {
+    private WorldPosition getSpawnPoint() throws NoSpawnpointFoundException {
         WorldPosition playerPos = Player.getInstance().getWorldPos();
 
         // Try spawing 10 times, then give up
@@ -50,12 +53,16 @@ public class MobManager {
             WorldPosition spawnPos = new WorldPosition(playerPos.getX() + relativeSpawnX, playerPos.getY() + relativeSpawnY);
             if (!(World.getInstance().isWalkable(spawnPos.getTileXPos(),spawnPos.getTileYPos())) |
                     World.getInstance().hasBlock(spawnPos.getTileXPos(),spawnPos.getTileYPos())) {
+                System.out.println(relativeSpawnX);
+                System.out.println(relativeSpawnY);
+                System.out.println();
                 return spawnPos;
             }
         }
 
-        // TODO: Throw an exception instead!!!
-        return null;
+        throw new NoSpawnpointFoundException();
     }
 
 }
+
+class NoSpawnpointFoundException extends Exception {}
