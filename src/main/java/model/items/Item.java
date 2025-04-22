@@ -1,6 +1,7 @@
 package model.items;
+import java.io.Serializable;
 
-public abstract class Item {
+public abstract class Item implements Serializable {
     protected final String section;
     protected int count;
     public Item(String section) {

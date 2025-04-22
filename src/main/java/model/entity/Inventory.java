@@ -11,9 +11,10 @@ import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
 import model.items.tools.Tool;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Inventory {
+public class Inventory implements Serializable {
     private final Map<String, ArrayList<Item>> inventory;
     private Item selectedItem;
     private int selectedIndex;
