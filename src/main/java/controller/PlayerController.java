@@ -2,7 +2,11 @@ package controller;
 
 import model.entity.Player;
 import model.items.tools.Axe;
+import model.items.tools.Tool;
 import view.PlayerView;
+
+import model.items.Item;
+import model.items.tools.Tool;
 
 import javax.swing.*;
 
@@ -69,12 +73,31 @@ public class PlayerController {
 
     public void switchInventorySection() {
         player.getInventory().cycleCurrentSection();
-        System.out.println(player.getInventory().getCurrentSection());
-        System.out.println(player.getInventory().getSelectedItem());
+
+        String section = player.getInventory().getCurrentSection();
+        System.out.println("Section → " + section);
+
+        Item selected = player.getInventory().getSelectedItem();
+        System.out.println("Selected Item → " + selected);
+
+        if (selected instanceof Tool) {
+            // cast to Tool and print its material
+            String mat = ((Tool) selected).getMaterial();
+            System.out.println("Tool material → " + mat);
+        }
+
     }
 
     public void switchSelectedItem() {
         player.getInventory().cycleCurrentItem();
-        System.out.println(player.getInventory().getSelectedItem());
+
+        Item selected = player.getInventory().getSelectedItem();
+        System.out.println("Selected Item → " + selected);
+
+        if (selected instanceof Tool) {
+            // cast to Tool and print its material
+            String mat = ((Tool) selected).getMaterial();
+            System.out.println("Tool material → " + mat);
+        }
     }
 }

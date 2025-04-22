@@ -136,7 +136,6 @@ public class Inventory {
         switch (currentSection) {
             case "Tools" -> setCurrentSection("Blocks");
             case "Blocks" -> setCurrentSection("Potions");
-            case "Potions" -> setCurrentSection("Tools");
             default -> setCurrentSection("Tools");
         };
     }
