@@ -7,10 +7,13 @@ import model.world.World;
 import view.GameView;
 import view.HUDView;
 import view.OptionsView;
+import controller.GameSettings;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static controller.GameSettings.FPS;
 
 public class GameController {
 
@@ -19,8 +22,6 @@ public class GameController {
     private final DayCycleManager dayCycleManager;
     private final MobManager mobManager;
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final int FPS = 60;
     private boolean gamePaused = false;
     // Reference to the OptionsView overlay.
     private OptionsView optionsView;
@@ -29,9 +30,8 @@ public class GameController {
     public GameController(GameView gameView, HUDView hudView) {
         this.gameView = gameView;
         this.hudView = hudView;
-
-        dayCycleManager = new DayCycleManager(gameView.getNightFilterView(), 1000/FPS);
-        mobManager = new MobManager(dayCycleManager, 1000/FPS);
+        this.dayCycleManager = DayCycleManager.getInstance();
+        this.mobManager = new MobManager();
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
