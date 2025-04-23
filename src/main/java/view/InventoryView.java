@@ -89,8 +89,8 @@ public class InventoryView extends JComponent {
             if (itemToDraw instanceof Tool) {
                 BufferedImage icon = ItemLoader.getIcon(itemToDraw);
                 if (icon != null) {
-                    int width =  icon.getWidth() * 2;
-                    int height = icon.getHeight() * 2;
+                    int width =  icon.getWidth() * 3;
+                    int height = icon.getHeight() * 3;
 
                     int x = /* col0 */ 0 * cellW + (cellW - width)  / 2;
                     int y = /* row */ row * cellH + (cellH - height) / 2;
@@ -102,12 +102,7 @@ public class InventoryView extends JComponent {
                     g2d.setColor(Color.YELLOW);
                     g2d.setStroke(new BasicStroke(3));
                     // inset by 1px so the stroke sits inside the slot edges
-                    g2d.drawRect(
-                            /* x */ 1,
-                            /* y */ row * cellH + 1,
-                            cellW - 2,
-                            cellH - 2
-                    );
+                    g2d.drawRect(1, row * cellH + 1, cellW - 2, cellH - 2);
                 }
             }
         }

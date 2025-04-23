@@ -29,6 +29,10 @@ public enum WorldBlock {
     Chest(new Tile[]{Tile.STONE,Tile.SAND,Tile.SNOW,Tile.DIRT,Tile.GRASS}, 50,
             new LinkedHashMap<>(){{put(new HealthPotion(), 0.2); put(new SpeedPotion(), 0.2); put(new Axe(), 0.2); put(new Pickaxe(), 0.2); put(new Sword(), 0.2);}},
             new Axe()
+            ),
+    StoneBrick(new Tile[]{},50,
+            new LinkedHashMap<>(){{put(new RockItem(), 1.0);}},
+            new Pickaxe()
             );
 
     private final Tile[] spawnableTiles;
