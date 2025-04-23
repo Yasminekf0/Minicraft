@@ -1,7 +1,6 @@
 package controller;
 
 import model.DayCycleManager;
-import model.MobManager;
 import model.entity.Player;
 import model.world.World;
 import view.GameView;
@@ -33,7 +32,7 @@ public class GameController {
         this.gameView = gameView;
         this.hudView = hudView;
 
-        this.dayCycleManager = new DayCycleManager(gameView.getNightFilterView(), 1000/FPS);
+        this.dayCycleManager = DayCycleManager.getInstance();
         this.npcController = new NPCController(npcView);
 
 
