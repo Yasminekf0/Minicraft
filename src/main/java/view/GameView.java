@@ -19,7 +19,6 @@ public class GameView extends JPanel {
         setBackground(Color.WHITE);
         setDoubleBuffered(true);
 
-        // Create the PlayerView to handle the player's sprites
         playerView = new PlayerView();
         npcView = new NPCView();
         worldView = new WorldView();

@@ -1,8 +1,12 @@
 package controller;
 
 import model.entity.NPC;
+import model.entity.Player;
+import model.position.WorldPosition;
+import model.world.World;
 import view.NPCView;
 import view.PlayerView;
+import view.ScreenSettings;
 
 import javax.swing.*;
 import java.util.Random;
@@ -15,78 +19,69 @@ public class NPCController {
     private final double speed = 0.1;
 
     private int pathStage = 0; // 0 = right, 1 = down, 2 = left, 3 = up
-    private int stepsRemaining = 5;
+    private int stepsRemaining = 100;
 
-    private int dx = 0, dy = 0;
-    private int ddx = 0, ddy = 1;
+    private double dx = 1, dy = 0;
 
-    private final Timer movementTimer;
+    private final int innerSpawnRadius = ScreenSettings.tileSize * 20;
+    private final int outerSpawnRadius = ScreenSettings.tileSize * 30;
 
-    //private final Timer actionTimer;
 
-    NPCController(NPCView npcView){
+
+    private final int despawnRadius = ScreenSettings.tileSize * 40;
+    private final double mobsPerSecond = 0.1;
+    private final double spawnProbability = 0;
+    private boolean spawned = false;
+
+    NPCController(NPCView npcView) {
         this.npc = NPC.getInstance();
         this.npcView = npcView;
 
-        movementTimer = new Timer(delay, _ -> {
-            updateNPC(); // this will be in mobmanaager
-        }); //---no timer
-
-        /*actionTimer = new Timer(100, _ -> {
-            npc.setAction();
-        });*/
 
     }
 
-    void updateMoving(){
+    public void tick() {
+        if (!spawned) {
+            try {
+                WorldPosition spawnPos = getSpawnPoint();
+                npc.setWorldPos(spawnPos);
+                spawned = true;
+            } catch (NoSpawnpointFoundException e) {
+                System.err.println("Failed to find spawn point for NPC.");
+                return;
+            }
+        }
+        updateNPC();
+        // despawn mobs that are too far
+        // update all existing mobs
 
+    }
+
+    void updateNPC() {
         if (stepsRemaining <= 0) {
             pathStage = (pathStage + 1) % 4; // loop through 0 -> 1 -> 2 -> 3 -> 0
-            stepsRemaining = 5; // reset steps for new side
+            stepsRemaining = 100; // reset steps for new side
         }
 
         switch (pathStage) {
             case 0: // Move right
-                ddx = 1;
-                ddy = 0;
+                dx = 1;
+                dy = 0;
                 break;
             case 1: // Move down
-                ddx = 0;
-                ddy = 1;
+                dx = 0;
+                dy = 1;
                 break;
             case 2: // Move left
-                ddx = -1;
-                ddy = 0;
+                dx = -1;
+                dy = 0;
                 break;
             case 3: // Move up
-                ddx = 0;
-                ddy = -1;
+                dx = 0;
+                dy = -1;
                 break;
         }
 
-
-        if (dx + ddx <= 1 && dx + ddx >= -1) dx += ddx;
-        if (dy + ddy <= 1 && dy + ddy >= -1) dy += ddy;
-
-        if (dx == 0 && dy == 0) {
-            if (movementTimer.isRunning()) {
-                movementTimer.stop();
-            }
-            npcView.update(false, 0); // Not moving
-        } else {
-            if (!movementTimer.isRunning()) {
-                movementTimer.start();
-            }
-            double newAngle = Math.atan2(dy, dx);
-            npcView.update(true, newAngle);
-            // Moving, update direction
-        }
-
-        stepsRemaining--;
-
-    }
-
-    private void updateNPC() {
         double length = Math.sqrt(dx * dx + dy * dy);
         double normalizedDx = (double) dx / length;
         double normalizedDy = (double) dy / length;
@@ -94,7 +89,42 @@ public class NPCController {
 
         double angle = Math.atan2(dy, dx);
         npcView.update(true, angle);
+        stepsRemaining--;
     }
+
+    private WorldPosition getSpawnPoint() throws NoSpawnpointFoundException {
+        WorldPosition playerPos = Player.getInstance().getWorldPos();
+        World world = World.getInstance();
+
+        // Try spawing 10 times, then give up
+        for (int i = 0; i < 30; i++) {
+            double spawnDistance = Math.random() * (outerSpawnRadius - innerSpawnRadius) + innerSpawnRadius;
+            double spawnAngle = Math.random() * 2 * Math.PI;
+
+            double relativeSpawnX = Math.cos(spawnAngle) * spawnDistance;
+            double relativeSpawnY = Math.sin(spawnAngle) * spawnDistance;
+
+            WorldPosition spawnPos = new WorldPosition(
+                    playerPos.getX() + relativeSpawnX,
+                    playerPos.getY() + relativeSpawnY
+            );
+
+            int tileX = spawnPos.getTileXPos();
+            int tileY = spawnPos.getTileYPos();
+
+            // Check if tile is walkable and doesn't have a block
+            if (world.isWalkable(tileX, tileY) && !world.hasBlock(tileX, tileY)) {
+                System.out.println("x" + tileX);
+                System.out.println("y" + tileY);
+                return spawnPos;
+            }
+        }
+
+        throw new NoSpawnpointFoundException();
+    }
+}
+class NoSpawnpointFoundException extends Exception {}
+
 
 
     /*public void doAction() {
@@ -108,7 +138,7 @@ public class NPCController {
         actionTimer.stop();
     }*/
 
-}
+
 
 
 //Random rand = new Random();

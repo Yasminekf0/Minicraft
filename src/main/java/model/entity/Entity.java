@@ -45,13 +45,4 @@ public abstract class Entity {
         this.health = Math.min(maxHealth, this.health + healAmount);
     }
 
-    public void update(){
-
-    }
-
-
-    /*public Entity(GameController gameController) {
-        this.gameController = gameController;
-
-    }*/
 }

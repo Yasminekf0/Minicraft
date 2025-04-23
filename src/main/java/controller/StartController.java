@@ -38,7 +38,7 @@ public class StartController {
         World world = World.getInstance();
         Player player = Player.getInstance();
         GameView gameView = new GameView();
-        NPCView npcView = new NPCView();
+        NPCView npcView = gameView.getNpcView();
         HUDView hudView = new HUDView(player);
 
         OptionsView optionsView = mainView.getOptionsView();
@@ -48,7 +48,7 @@ public class StartController {
         GameController gameController = new GameController(gameView, npcView,hudView);
         PlayerController playerController = new PlayerController(gameView.getPlayerView());
         NPCController npcController = new NPCController(gameView.getNpcView());
-        KeyController keyController = new KeyController(gameController, playerController, npcController);
+        KeyController keyController = new KeyController(gameController, playerController);
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 
         gameController.setOptionsView(optionsView);

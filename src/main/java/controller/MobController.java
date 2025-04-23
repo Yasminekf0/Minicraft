@@ -1,4 +1,4 @@
-package model.entity;
+package controller;
 
 import model.position.WorldPosition;
 

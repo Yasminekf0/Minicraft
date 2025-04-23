@@ -9,8 +9,6 @@ public abstract class Mob extends Entity {
         this.moving = false;
     }
 
-    public abstract void update();
-
     public boolean isMoving() {
         return moving;
     }

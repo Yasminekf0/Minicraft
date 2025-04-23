@@ -1,44 +1,33 @@
 package controller;
 
 import model.DayCycleManager;
-import model.MobManager;
-import model.entity.Player;
-import model.world.World;
 import view.GameView;
 import view.HUDView;
 import view.NPCView;
 import view.OptionsView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GameController {
 
     private final GameView gameView;
 
-    private final NPCView npcView;
-
     private final DayCycleManager dayCycleManager;
-    private final MobManager mobManager;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final int FPS = 60;
     private boolean gamePaused = false;
-    // Reference to the OptionsView overlay.
     private OptionsView optionsView;
     private final HUDView hudView;
-
-    private final AssetSetter aSetter;
+    private final NPCController npcController;
 
     public GameController(GameView gameView, NPCView npcView, HUDView hudView) {
         this.gameView = gameView;
-        this.npcView = npcView;
         this.hudView = hudView;
 
         this.dayCycleManager = new DayCycleManager(gameView.getNightFilterView(), 1000/FPS);
-        this.mobManager = new MobManager(dayCycleManager, 1000/FPS);
-        this.aSetter = new AssetSetter(this);
+        this.npcController = new NPCController(npcView);
+
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
@@ -46,14 +35,9 @@ public class GameController {
         startGameLoop();
     }
 
-    // Called from MainView after instantiating OptionsView.
     public void setOptionsView(OptionsView optionsView) {
         this.optionsView = optionsView;
     }
-
-    //public void setupGame(){
-        //aSetter.setNPC();
-    //}
 
     private void startGameLoop() {
 
@@ -61,7 +45,7 @@ public class GameController {
         Timer timer = new Timer(delay, _ -> {
 
             dayCycleManager.tick();
-            mobManager.tick();
+            npcController.tick();
 
             gameView.repaint();
             hudView.repaint();
