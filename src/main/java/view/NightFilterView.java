@@ -1,5 +1,7 @@
 package view;
 
+import model.DayCycleManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,6 +14,9 @@ public class NightFilterView extends GameElementView {
 
     @Override
     public void draw(Graphics2D g2) {
+
+        level = DayCycleManager.getInstance().getNightFilterLevel();
+
         if (level != 0) {
             int alpha = (int) (166 * level);
             Color oldColor = g2.getColor();

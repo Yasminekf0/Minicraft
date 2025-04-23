@@ -10,13 +10,12 @@ public class DayCycleManager {
     //TODO nightfilterview
     //private final NightFilterView nightFilterView;
     private final int delay;
-    private final int cycleDuration = 10 * 60 * 1000;  // day-night cycle duration in ms
-    private final int transitionDuration = 20 * 1000; // transition period duration in ms
+    private final int cycleDuration = 30 * 1000;  // day-night cycle duration in ms
+    private final int transitionDuration = 10 * 1000; // transition period duration in ms
 
     private int time = 0;
 
     private DayCycleManager() {
-        //this.nightFilterView = nightFilterView;
         this.delay = 1000/ GameSettings.FPS;
     }
 
@@ -33,11 +32,9 @@ public class DayCycleManager {
     public void tick() {
         time = (time + delay) % cycleDuration;
 
-        //nightFilterView.setLevel(getNightFilterLevel());
-
     }
 
-    private double getNightFilterLevel() {
+    public double getNightFilterLevel() {
 
         int sunRiseStart = cycleDuration - transitionDuration;
         int sunSetStart = cycleDuration / 2 - transitionDuration;
