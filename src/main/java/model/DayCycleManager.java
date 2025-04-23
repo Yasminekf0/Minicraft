@@ -4,7 +4,9 @@ import controller.GameSettings;
 import view.NightFilterView;
 import view.ScreenSettings;
 
-public class DayCycleManager {
+import java.io.Serializable;
+
+public class DayCycleManager implements Serializable {
 
     private static DayCycleManager instance;
     //TODO nightfilterview
