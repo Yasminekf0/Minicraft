@@ -60,11 +60,16 @@ public class PlayerController {
         if (!actionTimer.isRunning()){
             player.use();
             actionTimer.start();
+            double currentAngle = player.getFacingAngle();
+            player.lockDirection(currentAngle);
+            playerView.startUse();
         }
     }
 
     public void stopAction(){
         actionTimer.stop();
+        player.unlockDirection();
+        playerView.stopUse();
     }
 
     public void switchInventorySection() {

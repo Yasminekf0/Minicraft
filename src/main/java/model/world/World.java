@@ -3,10 +3,12 @@ package model.world;
 
 import model.world.generator.MapGenerator;
 
+import java.io.Serializable;
+
 import static model.world.WorldSettings.seed;
 import static model.world.WorldSettings.worldSize;
 
-public class World {
+public class World implements Serializable {
 
     private static World instance;
 
@@ -25,6 +27,9 @@ public class World {
             instance = new World();
         }
         return instance;
+    }
+    public static void setInstance(World instance) {
+        World.instance = instance;
     }
 
     public Tile[][] getTileMap() {

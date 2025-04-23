@@ -1,9 +1,13 @@
 package controller;
 
+import model.DayCycleManager;
 import model.entity.Player;
 import model.items.tools.Axe;
 import model.world.World;
 import view.*;
+import model.saveloadmanager.*;
+import java.io.*;
+
 
 import javax.swing.*;
 
@@ -24,12 +28,28 @@ public class StartController {
 
         // TODO: Should call method in View instead
         // Load Game Listener
-        startView.addLoadGameListener(_ -> JOptionPane.showMessageDialog(
-                mainView.getWindow(),
-                "Load Game is not implemented yet.",
-                "Information",
-                JOptionPane.INFORMATION_MESSAGE
-        ));
+        startView.addLoadGameListener(_ -> {
+            try {
+                GameState loadedState = SaveLoadManager.loadGame("saves/save1.dat");
+
+                // restores the player instance and world instance from file
+                Player.setInstance(loadedState.getPlayer());
+                World.setInstance(loadedState.getWorld());
+                DayCycleManager.setInstance(loadedState.getDayCycleManager());
+
+
+                startNewGame(); // transitions to the game view using the newly loaded state
+
+            } catch (IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        mainView.getWindow(),
+                        "Failed to load the saved game.",
+                        "Load Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        });
 
         // Quit Game Listener
         startView.addQuitListener(_ -> System.exit(0));
@@ -37,8 +57,12 @@ public class StartController {
     private void startNewGame(){
         World world = World.getInstance();
         Player player = Player.getInstance();
+        DayCycleManager dayCycleManager = DayCycleManager.getInstance();
         GameView gameView = new GameView();
         HUDView hudView = new HUDView(player);
+
+
+
 
         OptionsView optionsView = mainView.getOptionsView();
         mainView.startGameView(gameView, hudView);

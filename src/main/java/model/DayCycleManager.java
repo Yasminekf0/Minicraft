@@ -1,29 +1,43 @@
 package model;
 
+import controller.GameSettings;
+import io.cucumber.java.et.Eeldades;
 import view.NightFilterView;
+import view.ScreenSettings;
 
-public class DayCycleManager {
+import java.io.Serializable;
 
-    private final NightFilterView nightFilterView;
+public class DayCycleManager implements Serializable {
+
+    private static DayCycleManager instance;
+    //TODO nightfilterview
+    //private final NightFilterView nightFilterView;
     private final int delay;
-    private final int cycleDuration = 10 * 60 * 1000;  // day-night cycle duration in ms
-    private final int transitionDuration = 20 * 1000; // transition period duration in ms
+    private final int cycleDuration = 30 * 1000;  // day-night cycle duration in ms
+    private final int transitionDuration = 10 * 1000; // transition period duration in ms
 
     private int time = 0;
 
-    public DayCycleManager(NightFilterView nightFilterView, int delay) {
-        this.nightFilterView = nightFilterView;
-        this.delay = delay;
+    private DayCycleManager() {
+        this.delay = 1000/ GameSettings.FPS;
+    }
+
+    public static DayCycleManager getInstance() {
+        if (instance == null) {
+            instance = new DayCycleManager();
+        }
+        return instance;
+    }
+    public static void setInstance(DayCycleManager instance) {
+        DayCycleManager.instance = instance;
     }
 
     public void tick() {
         time = (time + delay) % cycleDuration;
 
-        nightFilterView.setLevel(getNightFilterLevel());
-
     }
 
-    private double getNightFilterLevel() {
+    public double getNightFilterLevel() {
 
         int sunRiseStart = cycleDuration - transitionDuration;
         int sunSetStart = cycleDuration / 2 - transitionDuration;
@@ -37,6 +51,24 @@ public class DayCycleManager {
         } else {
             return (double) (cycleDuration - time) / transitionDuration;
         }
+    }
+
+    public boolean isNight() {
+        return time > cycleDuration / 2;
+    }
+
+    public void setTime(int time) {
+        if (time >= 0 && time < cycleDuration) {
+            this.time = time;
+        }
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getCycleDuration() {
+        return cycleDuration;
     }
 
 }

@@ -5,6 +5,9 @@ import view.OptionsView;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import model.saveloadmanager.SaveLoadManager;
+import model.saveloadmanager.GameState;
+import java.io.*;
 
 public class OptionsController {
     private OptionsView optionsView;
@@ -27,13 +30,25 @@ public class OptionsController {
 
         // "Save Game": show a message (saving not implemented).
         optionsView.addSaveListener(e -> {
-            JOptionPane.showMessageDialog(
-            null,
-            "Save Game is not implemented yet.",
-            "Information",
-            JOptionPane.INFORMATION_MESSAGE
-        );
-        optionsView.requestFocusInWindow();
+            try {
+                GameState state = new GameState();
+                SaveLoadManager.saveGame(state, "saves/save1.dat"); // possiblity for multiple saves
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Game saved successfully!",
+                        "Save Game",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Failed to save the game.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+            optionsView.requestFocusInWindow();
         });
 
         // "Quit Game": exit the application.

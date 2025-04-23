@@ -7,8 +7,11 @@ import model.world.World;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -21,10 +24,14 @@ public class WorldView extends GameElementView {
     private final Tile[][] tiles;
 
     private final WorldBlock[][] worldBlocks;
-    private HashMap<Tile, BufferedImage> tileImageMap;
-    private HashMap<WorldBlock, BufferedImage> blockImageMap;
+    private EnumMap<Tile, BufferedImage> tileImageMap;
+    private EnumMap<WorldBlock, BufferedImage> blockImageMap;
 
     public WorldView() {
+
+        tileImageMap  = new EnumMap<>(Tile.class);
+        blockImageMap = new EnumMap<>(WorldBlock.class);
+
         this.player = Player.getInstance();
         World world = World.getInstance();
         tiles = world.getTileMap();
@@ -64,7 +71,6 @@ public class WorldView extends GameElementView {
     }
 
     private void loadTiles() {
-        tileImageMap = new HashMap<>();
         tileImageMap.put(Tile.GRASS,getBufferedImage("/tiles/grass.png"));
         tileImageMap.put(Tile.DIRT,getBufferedImage("/tiles/dirt.png"));
         tileImageMap.put(Tile.STONE,getBufferedImage("/tiles/stone.png"));
@@ -75,20 +81,25 @@ public class WorldView extends GameElementView {
     }
 
     private void loadBlocks() {
-        blockImageMap = new HashMap<>();
         blockImageMap.put(WorldBlock.Wood,getBufferedImage("/tiles/plank.png"));
         blockImageMap.put(WorldBlock.Tree,getBufferedImage("/tiles/tree.png"));
         blockImageMap.put(WorldBlock.Rock,getBufferedImage("/tiles/rock.png"));
         blockImageMap.put(WorldBlock.Chest,getBufferedImage("/tiles/chest.png"));
     }
 
-    private BufferedImage getBufferedImage(String path){
+
+    private BufferedImage getBufferedImage(String path) {
+        BufferedImage src = null;
         try {
-            return ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+            src = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path)));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
+        AffineTransform at = AffineTransform.getScaleInstance(scale, scale);
+        AffineTransformOp op = new AffineTransformOp(
+                at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR
+        );
+        return op.filter(src, null);
     }
 
     private int[] getTopLeftTileCoords(){

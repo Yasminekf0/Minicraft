@@ -1,10 +1,8 @@
 package model.entity;
 
+import model.position.Direction;
 import model.position.WorldPosition;
-import model.world.WorldBlock;
 import model.world.World;
-
-import javax.swing.*;
 
 import static java.lang.Math.round;
 import static model.world.WorldSettings.worldSize;
@@ -14,10 +12,10 @@ import static view.ScreenSettings.tileSize;
 public class Player extends Entity {
 
     private static Player instance;
-
     private final Inventory inventory;
-
     private final World world;
+    private boolean directionLocked = false;
+    private double lockedAngle = Math.PI/2;
 
     private Player() {
         instance = this;
@@ -38,6 +36,10 @@ public class Player extends Entity {
         return instance;
     }
 
+    public static void setInstance(Player player) {
+        Player.instance = player;
+    }
+
     public Inventory getInventory() { return inventory; }
 
     private void getSpawnPos(){
@@ -46,10 +48,10 @@ public class Player extends Entity {
         }
     }
 
-
-
     public void moveUntil(double dx, double dy) {
-        worldPos.updateDirection(dx,dy);
+        if (!directionLocked){
+            worldPos.updateDirection(dx,dy);
+        }
         for (int x = 0; x<speed; x++) {
             if (world.hasBlock(worldPos.getTileXPos(),worldPos.getNextYTilePos( round(dy)*4*scale))) dy = 0;
             else if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
@@ -65,5 +67,21 @@ public class Player extends Entity {
         if (inventory.getSelectedItem() != null) {
             inventory.getSelectedItem().use();
         }
+    }
+
+    public void lockDirection(double currentAngle){
+        this.lockedAngle = currentAngle;
+        this.directionLocked = true;
+    }
+
+    public void unlockDirection(){
+        directionLocked = false;
+    }
+
+    public double getFacingAngle() {
+        if (directionLocked) return lockedAngle;
+
+        Direction d = worldPos.getDirectionFacing();
+        return Math.atan2(d.getY(), d.getX());
     }
 }
