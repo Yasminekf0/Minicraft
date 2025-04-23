@@ -48,4 +48,6 @@ public class WorldPosition extends Position<Double>{
     public int getFocusedTileY(){
         return (int) ((y+tileSize*directionFacing.getY())/tileSize);
     }
+
+    public Direction getDirectionFacing() {return directionFacing;}
 }

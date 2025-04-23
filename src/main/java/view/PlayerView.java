@@ -10,10 +10,6 @@ import java.util.Objects;
 
 import static view.ScreenSettings.*;
 
-/**
- * Handles all rendering/animation logic for the Player, including
- * sprite switching and rotation, separate from the model.
- */
 public class PlayerView extends GameElementView {
 
 
@@ -23,7 +19,7 @@ public class PlayerView extends GameElementView {
     private int spriteNum = 1;
     private double angle = Math.PI / 2; // default facing angle
 
-    // Where and how large to draw the player on screen
+    private boolean usingAction = false;
 
     public PlayerView() {
         loadImages();
@@ -46,6 +42,9 @@ public class PlayerView extends GameElementView {
      * @param newAngle the angle (in radians) representing the player's direction
      */
     public void update(boolean moving, double newAngle) {
+        if (usingAction) {
+            return;
+        }
 
         if (moving) {
             this.angle = newAngle;
@@ -63,15 +62,30 @@ public class PlayerView extends GameElementView {
         }
     }
 
-    /**
-     * Draws the player sprite with rotation and scaling.
-     */
+    public void startUse() {
+        usingAction = true;
+        spriteNum = 1;
+        spriteCounter = 0;
+    }
+
+    public void stopUse() {
+        usingAction = false;
+        spriteNum = 1;
+        spriteCounter = 0;
+    }
+
+    // Draw Sprite with Rotation and Scaling
     public void draw(Graphics2D g2) {
-        BufferedImage image = switch (spriteNum) {
-            case 2 -> walk1;
-            case 4 -> walk2;
-            default -> stand;
-        };
+        BufferedImage image;
+        if (usingAction) {
+            image = use;
+        } else {
+            image = switch (spriteNum) {
+                case 2 -> walk1;
+                case 4 -> walk2;
+                default -> stand;
+            };
+        }
         if (image == null) return;
 
         AffineTransform at = createAffineTransform(image);
