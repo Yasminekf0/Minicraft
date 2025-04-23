@@ -60,7 +60,6 @@ public class Player extends Entity {
             else if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
 
             worldPos.increment(dx, dy);
-            System.out.println(getFacingAngle());
         }
     }
 
