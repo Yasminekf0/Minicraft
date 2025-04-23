@@ -8,6 +8,7 @@ public class WorldPosition extends Position<Double>{
 
     public WorldPosition(double x, double y) {
         super(x, y);
+        this.directionFacing = Direction.DOWN;
     }
 
     public void increment(double dx, double dy) {
