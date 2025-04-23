@@ -44,6 +44,15 @@ public class KeyController implements KeyListener {
         if (code == KeyEvent.VK_E) {
             playerController.switchSelectedItem();
         }
+        if (code == KeyEvent.VK_L) {
+            playerController.upgradeSelectedTool();
+        }
+        if (code == KeyEvent.VK_J) {
+            playerController.adjustHealth(1);
+        }
+        if (code == KeyEvent.VK_K) {
+            playerController.adjustHealth(-1);
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package controller;
 
+import model.entity.Inventory;
 import model.entity.Player;
 import model.items.tools.Axe;
 import model.items.tools.Tool;
@@ -9,6 +10,7 @@ import model.items.Item;
 import model.items.tools.Tool;
 
 import javax.swing.*;
+import java.util.List;
 
 public class PlayerController {
     private final Player player;
@@ -98,6 +100,21 @@ public class PlayerController {
             // cast to Tool and print its material
             String mat = ((Tool) selected).getMaterial();
             System.out.println("Tool material → " + mat);
+        }
+    }
+
+    public void adjustHealth(int delta) {
+        if (delta > 0) {
+            player.takeDamage(delta);
+        } else if (delta < 0) {
+            player.heal(-delta);
+        }
+    }
+
+    public void upgradeSelectedTool() {
+        Item sel = player.getInventory().getSelectedItem();
+        if (sel instanceof Tool t) {
+            t.upgrade();
         }
     }
 }
