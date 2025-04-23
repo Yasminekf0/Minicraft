@@ -40,8 +40,8 @@ public class HUDView extends JPanel {
 
         // Draw a border around the focused tile
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setColor(Color.YELLOW);
-        g2.setStroke(new BasicStroke(2));
+        g2.setColor(Color.DARK_GRAY);
+        g2.setStroke(new BasicStroke(1));
 
         // Tile indices of the targeted block
         int focusedX = player.getWorldPos().getFocusedTileX();
