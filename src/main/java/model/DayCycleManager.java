@@ -39,4 +39,8 @@ public class DayCycleManager {
         }
     }
 
+    public boolean isNight() {
+        return time > cycleDuration / 2;
+    }
+
 }
