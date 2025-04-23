@@ -49,7 +49,9 @@ public class Player extends Entity {
     }
 
     public void moveUntil(double dx, double dy) {
-        worldPos.updateDirection(dx,dy);
+        if (!directionLocked){
+            worldPos.updateDirection(dx,dy);
+        }
         for (int x = 0; x<speed; x++) {
             if (world.hasBlock(worldPos.getTileXPos(),worldPos.getNextYTilePos( round(dy)*4*scale))) dy = 0;
             else if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
@@ -58,6 +60,7 @@ public class Player extends Entity {
             else if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
 
             worldPos.increment(dx, dy);
+            System.out.println(getFacingAngle());
         }
     }
 
