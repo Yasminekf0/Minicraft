@@ -38,6 +38,10 @@ public class Player extends Entity {
         return instance;
     }
 
+    public static void setInstance(Player player) {
+        Player.instance = player;
+    }
+
     public Inventory getInventory() { return inventory; }
 
     private void getSpawnPos(){

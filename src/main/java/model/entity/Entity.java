@@ -1,7 +1,9 @@
 package model.entity;
 import model.position.WorldPosition;
 
-public abstract class Entity {
+import java.io.Serializable;
+
+public abstract class Entity implements Serializable {
     protected WorldPosition worldPos;
 
     protected int speed;

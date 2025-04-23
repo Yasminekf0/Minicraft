@@ -30,8 +30,8 @@ public class GameController {
         this.gameView = gameView;
         this.hudView = hudView;
 
-        this.dayCycleManager = new DayCycleManager(gameView.getNightFilterView(), 1000/FPS);
-        this.mobManager = new MobManager();
+        dayCycleManager = new DayCycleManager(gameView.getNightFilterView(), 1000/FPS);
+        mobManager = new MobManager(dayCycleManager, 1000/FPS);
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
