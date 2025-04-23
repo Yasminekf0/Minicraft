@@ -1,6 +1,7 @@
 package model;
 
 import controller.GameSettings;
+import io.cucumber.java.et.Eeldades;
 import view.NightFilterView;
 import view.ScreenSettings;
 
@@ -54,6 +55,20 @@ public class DayCycleManager implements Serializable {
 
     public boolean isNight() {
         return time > cycleDuration / 2;
+    }
+
+    public void setTime(int time) {
+        if (time >= 0 && time < cycleDuration) {
+            this.time = time;
+        }
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getCycleDuration() {
+        return cycleDuration;
     }
 
 }
