@@ -1,5 +1,6 @@
 package controller;
 
+import model.DayCycleManager;
 import model.entity.Player;
 import model.items.tools.Axe;
 import model.world.World;
@@ -34,6 +35,7 @@ public class StartController {
                 // restores the player instance and world instance from file
                 Player.setInstance(loadedState.getPlayer());
                 World.setInstance(loadedState.getWorld());
+                DayCycleManager.setInstance(loadedState.getDayCycleManager());
 
 
                 startNewGame(); // transitions to the game view using the newly loaded state
@@ -55,8 +57,12 @@ public class StartController {
     private void startNewGame(){
         World world = World.getInstance();
         Player player = Player.getInstance();
+        DayCycleManager dayCycleManager = DayCycleManager.getInstance();
         GameView gameView = new GameView();
         HUDView hudView = new HUDView(player);
+
+
+
 
         OptionsView optionsView = mainView.getOptionsView();
         mainView.startGameView(gameView, hudView);
