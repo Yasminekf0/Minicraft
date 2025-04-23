@@ -1,9 +1,9 @@
 package model.entity;
+import controller.GameController;
 import model.position.WorldPosition;
 
-import java.io.Serializable;
-
-public abstract class Entity implements Serializable {
+public abstract class Entity {
+    GameController gameController;
     protected WorldPosition worldPos;
 
     protected int speed;
@@ -44,4 +44,5 @@ public abstract class Entity implements Serializable {
     public void heal(int healAmount) {
         this.health = Math.min(maxHealth, this.health + healAmount);
     }
+
 }

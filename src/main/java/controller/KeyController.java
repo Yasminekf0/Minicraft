@@ -7,7 +7,7 @@ public class KeyController implements KeyListener {
     private final PlayerController playerController;
     private final GameController gameController;
 
-    public KeyController(GameController gameController, PlayerController playerController){
+    public KeyController(GameController gameController, PlayerController playerController) {
         this.gameController = gameController;
         this.playerController = playerController;
 

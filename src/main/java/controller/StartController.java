@@ -59,6 +59,7 @@ public class StartController {
         Player player = Player.getInstance();
         DayCycleManager dayCycleManager = DayCycleManager.getInstance();
         GameView gameView = new GameView();
+        NPCView npcView = gameView.getNpcView();
         HUDView hudView = new HUDView(player);
 
 
@@ -68,8 +69,9 @@ public class StartController {
         mainView.startGameView(gameView, hudView);
 
         // Instantiate controllers for the game.
-        GameController gameController = new GameController(gameView, hudView);
+        GameController gameController = new GameController(gameView, npcView,hudView);
         PlayerController playerController = new PlayerController(gameView.getPlayerView());
+        NPCController npcController = new NPCController(gameView.getNpcView());
         KeyController keyController = new KeyController(gameController, playerController);
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 

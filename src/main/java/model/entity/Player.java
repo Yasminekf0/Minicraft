@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Inventory;
 import model.position.Direction;
 import model.position.WorldPosition;
 import model.world.World;
@@ -12,7 +13,9 @@ import static view.ScreenSettings.tileSize;
 public class Player extends Entity {
 
     private static Player instance;
+
     private final Inventory inventory;
+
     private final World world;
     private boolean directionLocked = false;
     private double lockedAngle = Math.PI/2;
