@@ -44,7 +44,6 @@ public class GameController {
         gameView.requestFocusInWindow();
 
         startGameLoop();
-        setupGame();
     }
 
     // Called from MainView after instantiating OptionsView.
@@ -52,9 +51,9 @@ public class GameController {
         this.optionsView = optionsView;
     }
 
-    public void setupGame(){
-        aSetter.setNPC();
-    }
+    //public void setupGame(){
+        //aSetter.setNPC();
+    //}
 
     private void startGameLoop() {
 

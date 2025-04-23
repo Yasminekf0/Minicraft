@@ -29,8 +29,8 @@ public class NPCController {
         this.npcView = npcView;
 
         movementTimer = new Timer(delay, _ -> {
-            updateNPC();
-        });
+            updateNPC(); // this will be in mobmanaager
+        }); //---no timer
 
         /*actionTimer = new Timer(100, _ -> {
             npc.setAction();
