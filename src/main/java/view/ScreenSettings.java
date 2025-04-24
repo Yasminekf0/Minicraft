@@ -4,6 +4,7 @@ public class ScreenSettings {
     // Screen settings
     final static int originalTileSize = 16;
     public final static int scale = 4;
+    public final static int scaleHUD = 3;
     public final static int tileSize = originalTileSize * scale;
     final static int maxScreenCol = 17;
     final static int maxScreenRow = 17;

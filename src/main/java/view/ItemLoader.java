@@ -15,9 +15,14 @@ import model.items.potions.HealthPotion;
 import model.items.potions.SpeedPotion;
 
 import javax.imageio.ImageIO;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
+
+import static view.ScreenSettings.scale;
+import static view.ScreenSettings.scaleHUD;
 
 
 public class ItemLoader {
