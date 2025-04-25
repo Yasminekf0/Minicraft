@@ -17,7 +17,9 @@ public class PlayerView extends GameElementView {
     private BufferedImage stand, walk1, walk2, use;
     private int spriteCounter = 0;
     private int spriteNum = 1;
-    private double angle = Math.PI / 2; // default facing angle
+    private double angle = Math.PI / 2;
+
+    SoundManager soundManager = SoundManager.getInstance();// default facing angle
 
     private boolean usingAction = false;
 
@@ -52,6 +54,7 @@ public class PlayerView extends GameElementView {
             // Increase or decrease this threshold to adjust animation speed
             if (spriteCounter > 11) {
                 spriteNum++;
+                soundManager.playSound("footstep");
                 if (spriteNum > 4) {
                     spriteNum = 1;
                 }

@@ -57,16 +57,16 @@ public class StartController {
     private void startNewGame(){
         World world = World.getInstance();
         Player player = Player.getInstance();
+        SoundManager soundManager = SoundManager.getInstance();
         DayCycleManager dayCycleManager = DayCycleManager.getInstance();
         GameView gameView = new GameView();
         NPCView npcView = gameView.getNpcView();
         HUDView hudView = new HUDView(player);
 
-
-
-
         OptionsView optionsView = mainView.getOptionsView();
         mainView.startGameView(gameView, hudView);
+
+        soundManager.loadAllSounds();
 
         // Instantiate controllers for the game.
         GameController gameController = new GameController(gameView, npcView,hudView);

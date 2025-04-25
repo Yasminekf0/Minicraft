@@ -3,12 +3,15 @@ package controller;
 import model.entity.Player;
 import model.items.tools.Axe;
 import view.PlayerView;
+import view.SoundManager;
 
 import javax.swing.*;
 
 public class PlayerController {
     private final Player player;
     private final PlayerView playerView;
+
+    SoundManager soundManager = SoundManager.getInstance();
 
     private final int delay = 1000 / 60;
 
@@ -53,6 +56,7 @@ public class PlayerController {
 
         double angle = Math.atan2(dy, dx);
         playerView.update(true, angle);
+
     }
 
 
@@ -63,6 +67,7 @@ public class PlayerController {
             double currentAngle = player.getFacingAngle();
             player.lockDirection(currentAngle);
             playerView.startUse();
+            soundManager.playRandomSound("villager1","villager2","villager3");
         }
     }
 
