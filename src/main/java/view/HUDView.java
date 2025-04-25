@@ -40,23 +40,20 @@ public class HUDView extends JPanel {
 
         // Draw a border around the focused tile
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setColor(Color.DARK_GRAY);
+
+        // Determine day/night to pick border color
+        g2.setColor(Color.GRAY);
         g2.setStroke(new BasicStroke(1));
 
-        // Tile indices of the targeted block
+        // Compute focused tile screen coordinates
         int focusedX = player.getWorldPos().getFocusedTileX();
         int focusedY = player.getWorldPos().getFocusedTileY();
-        // World‐pixel coords of the player
-        Double playerPx = player.getWorldPos().getX();
-        Double playerPy = player.getWorldPos().getY();
-
-        // Convert world‐tile → world‐pixel → screen‐pixel
         int worldX = focusedX * tileSize;
         int worldY = focusedY * tileSize;
-        int screenX = (int) (worldX - playerPx + playerScreenX);
-        int screenY = (int) (worldY - playerPy + playerScreenY);
+        int screenX = (int) (worldX - player.getWorldPos().getX() + playerScreenX);
+        int screenY = (int) (worldY - player.getWorldPos().getY() + playerScreenY);
 
-        // Draw the rectangle
+        // Draw the targeting box
         g2.drawRect(screenX, screenY, tileSize, tileSize);
         g2.dispose();
     }
