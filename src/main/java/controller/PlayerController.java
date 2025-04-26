@@ -67,7 +67,6 @@ public class PlayerController {
             double currentAngle = player.getFacingAngle();
             player.lockDirection(currentAngle);
             playerView.startUse();
-            soundManager.playRandomSound("villager1","villager2","villager3");
         }
     }
 

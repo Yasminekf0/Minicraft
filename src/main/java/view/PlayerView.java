@@ -54,7 +54,6 @@ public class PlayerView extends GameElementView {
             // Increase or decrease this threshold to adjust animation speed
             if (spriteCounter > 11) {
                 spriteNum++;
-                soundManager.playSound("footstep");
                 if (spriteNum > 4) {
                     spriteNum = 1;
                 }
