@@ -5,6 +5,8 @@ import model.position.Direction;
 import model.position.WorldPosition;
 import model.world.World;
 
+import java.awt.*;
+
 import static java.lang.Math.round;
 import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.scale;
@@ -15,21 +17,22 @@ public class Player extends Entity {
     private static Player instance;
 
     private final Inventory inventory;
-
-    private final World world;
+    private CollisionChecker collisionChecker;
     private boolean directionLocked = false;
     private double lockedAngle = Math.PI/2;
 
     private Player() {
         instance = this;
-        this.world = World.getInstance();
         this.worldPos = new WorldPosition((tileSize/2.0) + (worldSize*tileSize) /2.0,(tileSize/2.0) + (worldSize*tileSize) /2.0);
-        getSpawnPos();
+        //getSpawnPos();
         this.speed = 10;
         //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;
+        collisionChecker = new CollisionChecker();
         inventory = new Inventory();
+        solidArea = new Rectangle(0,0,0,0);//(tileSize/2, tileSize/2, tileSize/2, tileSize/2); //(8, 8, 16, 16)
+
     }
 
     public static Player getInstance() {
@@ -45,24 +48,18 @@ public class Player extends Entity {
 
     public Inventory getInventory() { return inventory; }
 
-    private void getSpawnPos(){
-        while (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getTileYPos())) | world.hasBlock(worldPos.getTileXPos(),worldPos.getTileYPos())){
-            worldPos.increment(tileSize,tileSize);
-        }
-    }
-
     public void moveUntil(double dx, double dy) {
-        if (!directionLocked){
-            worldPos.updateDirection(dx,dy);
-        }
-        for (int x = 0; x<speed; x++) {
-            if (world.hasBlock(worldPos.getTileXPos(),worldPos.getNextYTilePos( round(dy)*4*scale))) dy = 0;
-            else if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
+        collisionOn = false;
+        double moveDx = dx * speed;
+        double moveDy = dy * speed;
 
-            if (world.hasBlock(worldPos.getNextXTilePos( round(dx)*4*scale),worldPos.getTileYPos())) dx = 0;
-            else if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
+        collisionChecker.checkTile(this, moveDx, moveDy);
 
-            worldPos.increment(dx, dy);
+        if (!collisionOn){
+            if (!directionLocked){
+                worldPos.updateDirection(moveDx,moveDy);
+            }
+            worldPos.increment(moveDx, moveDy);
         }
     }
 

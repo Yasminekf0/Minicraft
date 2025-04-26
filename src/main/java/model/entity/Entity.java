@@ -2,13 +2,16 @@ package model.entity;
 import controller.GameController;
 import model.position.WorldPosition;
 
+import java.awt.*;
+
 public abstract class Entity {
-    GameController gameController;
     protected WorldPosition worldPos;
 
     protected int speed;
     protected int health;
     protected int maxHealth;
+    protected Rectangle solidArea;
+    public boolean collisionOn;
 
     public WorldPosition getWorldPos() {
         return worldPos;
