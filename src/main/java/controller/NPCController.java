@@ -58,9 +58,11 @@ public class NPCController {
     }
 
     void updateNPC() {
+        Random rand = new Random();
         if (stepsRemaining <= 0) {
-            pathStage = (pathStage + 1) % 4; // loop through 0 -> 1 -> 2 -> 3 -> 0
-            stepsRemaining = 100; // reset steps for new side
+            pathStage = rand.nextInt(8);;//(pathStage + 1) % 4; // loop through 0 -> 1 -> 2 -> 3 -> 0
+
+            stepsRemaining = 300; // reset steps for new side
         }
 
         switch (pathStage) {
@@ -79,6 +81,22 @@ public class NPCController {
             case 3: // Move up
                 dx = 0;
                 dy = -1;
+                break;
+            case 4: // Move right
+                dx = 0.5;
+                dy = 0.5;
+                break;
+            case 5: // Move down
+                dx = -0.5;
+                dy = -0.5;
+                break;
+            case 6: // Move left
+                dx = -0.5;
+                dy = 0.5;
+                break;
+            case 7: // Move up
+                dx = 0.5;
+                dy = -0.5;
                 break;
         }
 
@@ -155,16 +173,3 @@ class NoSpawnpointFoundException extends Exception {}
             }
             x++;
         }*/
-
-
-
-        /*if (dx == 0 && dy == 0) {
-            movementTimer.stop();
-            npcView.update(false, 0);
-        } else if (!movementTimer.isRunning()){
-            movementTimer.start();
-        }*/
-
-
-//if (Math.abs(dx + ddx) <= 1) dx += ddx;
-//if (Math.abs(dy + ddy) <= 1) dy += ddy;
