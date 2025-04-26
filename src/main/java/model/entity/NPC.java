@@ -3,6 +3,7 @@ package model.entity;
 import model.position.WorldPosition;
 import model.world.World;
 
+import java.awt.*;
 import java.util.Random;
 
 import static java.lang.Math.round;
@@ -18,10 +19,12 @@ public class NPC extends Mob {
         instance = this;
         this.world = World.getInstance();
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
-        this.speed = 10;
+        this.speed = 15;
         //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;
+        this.collisionChecker = new CollisionChecker();
+        this.solidArea = new Rectangle(0,0,0,0);
     }
 
 
@@ -33,32 +36,15 @@ public class NPC extends Mob {
     }
 
     public void moveUntil(double dx, double dy) {
-        worldPos.updateDirection(dx,dy);
+        collisionOn = false;
+        double moveDx = dx * speed;
+        double moveDy = dy * speed;
 
-        for (int x = 0; x<speed; x++) {
-            if (world.hasBlock(worldPos.getTileXPos(),worldPos.getNextYTilePos( round(dy)*4*scale))) dy = 0;
-            else if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
+        collisionChecker.checkTile(this, moveDx, moveDy);
 
-            if (world.hasBlock(worldPos.getNextXTilePos( round(dx)*4*scale),worldPos.getTileYPos())) dx = 0;
-            else if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
-
-            worldPos.increment(dx, dy);
+        if (!collisionOn){
+            worldPos.updateDirection(moveDx,moveDy);
+            worldPos.increment(moveDx, moveDy);
         }
     }
-
-    /*for (int i = 0; i < speed; i++) {
-            double stepX = dx;
-            double stepY = dy;
-
-            if (!collisionChecker.canMoveY(worldPos, stepY)) {
-                stepY = 0;
-            }
-            if (!collisionChecker.canMoveX(worldPos, stepX)) {
-                stepX = 0;
-            }
-
-            worldPos.increment(stepX, stepY);
-        }*/
-
-
 }

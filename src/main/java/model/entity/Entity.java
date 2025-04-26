@@ -10,8 +10,9 @@ public abstract class Entity {
     protected int speed;
     protected int health;
     protected int maxHealth;
+    protected CollisionChecker collisionChecker;
     protected Rectangle solidArea;
-    public boolean collisionOn;
+    public boolean collisionOn = false;
 
     public WorldPosition getWorldPos() {
         return worldPos;

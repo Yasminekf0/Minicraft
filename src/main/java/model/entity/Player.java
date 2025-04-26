@@ -17,7 +17,6 @@ public class Player extends Entity {
     private static Player instance;
 
     private final Inventory inventory;
-    private CollisionChecker collisionChecker;
     private boolean directionLocked = false;
     private double lockedAngle = Math.PI/2;
 
