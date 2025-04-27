@@ -107,13 +107,13 @@ public class InventoryView extends JComponent {
                 BufferedImage icon = ItemLoader.getIcon(itemToDraw);
                 if (icon == null) continue;
 
-                // 7) Scale it (and optionally shrink to 90%)
-                int iconW = Math.round(icon.getWidth()  * scaleHUD * 0.9f);
-                int iconH = Math.round(icon.getHeight() * scaleHUD * 0.9f);
+                // Scale to HUD and shrink slightly
+                int iconW = Math.round(icon.getWidth()  * scaleHUD * 0.8f);
+                int iconH = Math.round(icon.getHeight() * scaleHUD * 0.8f);
 
                 // 8) Compute the exact pixel position inside the (col,row) cell
                 int x = margin + col * cellW + (cellW - iconW) / 2;
-                int y = margin + row * cellH + (cellH - iconH) / 2;
+                int y = margin + row * cellH - 1 + (cellH - iconH) / 2;
 
                 g2d.drawImage(icon, x, y, iconW, iconH, null);
             }

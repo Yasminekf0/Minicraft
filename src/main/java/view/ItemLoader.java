@@ -49,7 +49,7 @@ public class ItemLoader {
 
         // Blocks
         OTHER_ICONS.put(WoodItem.class, getBufferedImage("/tiles/plank.png"));
-        OTHER_ICONS.put(RockItem.class, getBufferedImage("/tiles/rock.png"));
+        OTHER_ICONS.put(RockItem.class, getBufferedImage("/tiles/stone_brick.png"));
 
         // Potions
         OTHER_ICONS.put(HealthPotion.class, getBufferedImage("/potions/health_potion.png"));
