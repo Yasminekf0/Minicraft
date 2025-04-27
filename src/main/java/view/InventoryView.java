@@ -108,8 +108,12 @@ public class InventoryView extends JComponent {
                     itemToDraw = selectedInSec;
                 }
 
-                // Draw icon
+                // Draw icon (checking if null or 0 count)
                 if (itemToDraw == null) continue;
+                if (!(itemToDraw instanceof Tool) && itemToDraw.getCount() == 0) {
+                    continue;
+                }
+
                 BufferedImage icon = ItemLoader.getIcon(itemToDraw);
                 if (icon == null) continue;
 
