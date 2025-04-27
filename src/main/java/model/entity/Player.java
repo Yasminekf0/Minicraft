@@ -21,16 +21,23 @@ public class Player extends Entity {
     private double lockedAngle = Math.PI/2;
 
     private Player() {
+
         instance = this;
         this.worldPos = new WorldPosition((tileSize/2.0) + (worldSize*tileSize) /2.0,(tileSize/2.0) + (worldSize*tileSize) /2.0);
-        //getSpawnPos();
         this.speed = 10;
         //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;
         collisionChecker = new CollisionChecker();
         inventory = new Inventory();
-        solidArea = new Rectangle(0,0,0,0);//(tileSize/2, tileSize/2, tileSize/2, tileSize/2); //(8, 8, 16, 16)
+        this.solidArea = new Rectangle(1,1,1,1 );//(tileSize/2, tileSize/2, tileSize/2, tileSize/2); //(8, 8, 16, 16) tilesize=16
+        this.solidAreaDefault = new Rectangle(
+                solidArea.x,
+                solidArea.y,
+                solidArea.width,
+                solidArea.height
+        );
+        collisionChecker.getSpawnPos(this);
 
     }
 
@@ -53,12 +60,20 @@ public class Player extends Entity {
         double moveDy = dy * speed;
 
         collisionChecker.checkTile(this, moveDx, moveDy);
+        int npcIndex = collisionChecker.checkEntity(this,moveDx, moveDy);
+        interactNPC(npcIndex);
 
         if (!collisionOn){
             if (!directionLocked){
                 worldPos.updateDirection(moveDx,moveDy);
             }
             worldPos.increment(moveDx, moveDy);
+        }
+    }
+
+    public void interactNPC(int i){
+        if (i!=999){
+            System.out.println('x');
         }
     }
 

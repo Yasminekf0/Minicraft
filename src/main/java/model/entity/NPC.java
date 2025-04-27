@@ -19,12 +19,18 @@ public class NPC extends Mob {
         instance = this;
         this.world = World.getInstance();
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
-        this.speed = 15;
+        this.speed = 10;
         //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;
         this.collisionChecker = new CollisionChecker();
-        this.solidArea = new Rectangle(0,0,0,0);
+        this.solidArea = new Rectangle(1,1,tileSize,tileSize );
+        this.solidAreaDefault = new Rectangle(
+                solidArea.x,
+                solidArea.y,
+                solidArea.width,
+                solidArea.height
+        );
     }
 
 
@@ -39,8 +45,8 @@ public class NPC extends Mob {
         collisionOn = false;
         double moveDx = dx * speed;
         double moveDy = dy * speed;
-
         collisionChecker.checkTile(this, moveDx, moveDy);
+        collisionChecker.checkPlayer(this,moveDx, moveDy);
 
         if (!collisionOn){
             worldPos.updateDirection(moveDx,moveDy);

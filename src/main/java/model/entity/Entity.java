@@ -11,7 +11,8 @@ public abstract class Entity {
     protected int health;
     protected int maxHealth;
     protected CollisionChecker collisionChecker;
-    protected Rectangle solidArea;
+    public Rectangle solidArea;
+    public Rectangle solidAreaDefault;// = new Rectangle(8,8,8,8);
     public boolean collisionOn = false;
 
     public WorldPosition getWorldPos() {
