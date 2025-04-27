@@ -126,8 +126,38 @@ public class Inventory {
     }
 
     public void addItem(Item i) {
-        // ... your existing logic for adding & stacking ...
+        String section = i.getSection();
+        // 1) ignore unknown sections
+        List<Item> list = inventory.get(section);
+        if (list == null) return;
+
+        // 2) Tools get “upgrade if exists, else add & select”
+        if ("Tools".equals(section)) {
+            for (Item existing : list) {
+                if (existing.getClass().equals(i.getClass())) {
+                    // upgrade the existing tool
+                    ((model.items.tools.Tool) existing).upgrade();
+                    return;
+                }
+            }
+            // new tool type: add it and select it
+            list.add(i);
+            selectedIndexMap.put(section, list.size() - 1);
+            return;
+        }
+
+        // 3) Blocks & Potions stack counts if exists
+        for (Item existing : list) {
+            if (existing.getClass().equals(i.getClass())) {
+                existing.setCount(existing.getCount() + 1);
+                return;
+            }
+        }
+        // 4) brand-new block/potion: add it and select it
+        list.add(i);
+        selectedIndexMap.put(section, list.size() - 1);
     }
+
 
     public void openChest() {
         // TODO
