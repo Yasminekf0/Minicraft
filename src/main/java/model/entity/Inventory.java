@@ -13,8 +13,8 @@ import java.util.*;
 
 public class Inventory {
     private final Map<String, ArrayList<Item>> inventory;
-    private final Map<String,Integer>          selectedIndexMap = new HashMap<>();
-    private String                             currentSection;
+    private final Map<String,Integer> selectedIndexMap = new HashMap<>();
+    private String currentSection;
 
     public Inventory() {
         inventory = new HashMap<>();
@@ -27,13 +27,9 @@ public class Inventory {
     }
 
     private void initializeInventory() {
-        inventory.put("Blocks",   new ArrayList<>(List.of(new RockItem(), new WoodItem())));
-        inventory.put("Potions",  new ArrayList<>(List.of(new HealthPotion(), new SpeedPotion())));
-        inventory.put("Tools",    new ArrayList<>(List.of(new Axe(), new Pickaxe(), new Sword())));
-    }
-
-    public Map<String, ArrayList<Item>> getInventory() {
-        return inventory;
+        inventory.put("Blocks", new ArrayList<>(List.of(new RockItem())));
+        inventory.put("Potions", new ArrayList<>());
+        inventory.put("Tools", new ArrayList<>(List.of(new Sword(), new Pickaxe(), new Axe())));
     }
 
     public ArrayList<Item> getInventorySection(String section) {
@@ -42,9 +38,9 @@ public class Inventory {
 
     public void cycleCurrentSection() {
         switch (currentSection) {
-            case "Tools"  -> currentSection = "Blocks";
+            case "Tools" -> currentSection = "Blocks";
             case "Blocks" -> currentSection = "Potions";
-            default       -> currentSection = "Tools";
+            default -> currentSection = "Tools";
         }
     }
 
@@ -124,15 +120,10 @@ public class Inventory {
         if ("Tools".equals(section)) {
             for (Item existing : list) {
                 if (existing.getClass().equals(i.getClass())) {
-                    // upgrade the existing tool
                     ((model.items.tools.Tool) existing).upgrade();
                     return;
                 }
             }
-
-            list.add(i);
-            selectedIndexMap.put(section, list.size() - 1);
-            return;
         }
 
         for (Item existing : list) {
@@ -142,6 +133,7 @@ public class Inventory {
             }
         }
 
+        i.setCount(1);
         list.add(i);
         selectedIndexMap.put(section, list.size() - 1);
     }
