@@ -5,8 +5,15 @@ import model.entity.Player;
 import javax.swing.*;
 import java.awt.*;
 
+import static view.ScreenSettings.*;
+import static view.ScreenSettings.tileSize;
+
 public class HUDView extends JPanel {
+    private final Player player;
+
     public HUDView(Player player) {
+        this.player = player;
+
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -32,5 +39,29 @@ public class HUDView extends JPanel {
         gbc.anchor = GridBagConstraints.SOUTHWEST;
 
         add(stack, gbc);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Draw a border around the focused tile
+        Graphics2D g2 = (Graphics2D) g.create();
+
+        // Determine day/night to pick border color
+        g2.setColor(Color.GRAY);
+        g2.setStroke(new BasicStroke(1));
+
+        // Compute focused tile screen coordinates
+        int focusedX = player.getWorldPos().getFocusedTileX();
+        int focusedY = player.getWorldPos().getFocusedTileY();
+        int worldX = focusedX * tileSize;
+        int worldY = focusedY * tileSize;
+        int screenX = (int) (worldX - player.getWorldPos().getX() + playerScreenX);
+        int screenY = (int) (worldY - player.getWorldPos().getY() + playerScreenY);
+
+        // Draw the targeting box
+        g2.drawRect(screenX, screenY, tileSize, tileSize);
+        g2.dispose();
     }
 }
