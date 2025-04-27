@@ -40,9 +40,11 @@ public class KeyController implements KeyListener {
         }
         if (code == KeyEvent.VK_Q) {
             playerController.switchInventorySection();
+            gameController.getHudView().repaint();
         }
         if (code == KeyEvent.VK_E) {
             playerController.switchSelectedItem();
+            gameController.getHudView().repaint();
         }
     }
 

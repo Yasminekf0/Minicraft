@@ -1,4 +1,5 @@
-package model;
+package model.entity;
+
 import model.items.Item;
 import model.items.blocks.RockItem;
 import model.items.blocks.WoodItem;
@@ -7,116 +8,60 @@ import model.items.potions.SpeedPotion;
 import model.items.tools.Axe;
 import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
-import model.items.tools.Tool;
 
-import java.io.Serializable;
 import java.util.*;
 
-public class Inventory implements Serializable {
+public class Inventory {
     private final Map<String, ArrayList<Item>> inventory;
-    private Item selectedItem;
-    private int selectedIndex;
+    private final Map<String,Integer> selectedIndexMap = new HashMap<>();
     private String currentSection;
 
     public Inventory() {
         inventory = new HashMap<>();
         initializeInventory();
+
+        for (String sec : inventory.keySet()) {
+            selectedIndexMap.put(sec, 0);
+        }
+        currentSection = "Tools";
     }
 
     private void initializeInventory() {
-        inventory.put("Blocks", new ArrayList<>(Arrays.asList(
-                new RockItem(),
-                new WoodItem())));
-        inventory.put("Potions", new ArrayList<>(Arrays.asList(
-                new HealthPotion(),
-                new SpeedPotion())));
-        inventory.put("Tools", new ArrayList<>(Arrays.asList(
-                new Axe(),
-                new Pickaxe(),
-                new Sword())));
-
-        currentSection = "Tools";
-        selectedItem = getInventorySection(currentSection).getFirst();
-    }
-
-    public void addItem(Item i) {
-        String section = i.getSection();
-        if (!inventory.containsKey(section)) return;
-
-        ArrayList<Item> items = inventory.get(section);
-        if (items == null) return;
-        if (section.equals("Tool")){
-            upgradeTool(i);
-            return;
-        }
-
-        for (Item existing : items) {
-            if (existing.getClass().equals(i.getClass())) {
-                if (section.equals("Potions") || section.equals("Blocks")) {
-                    existing.setCount(existing.getCount() + 1);
-                }
-                return;
-            }
-        }
-        if (selectedItem == null) cycleCurrentItem();
+        inventory.put("Blocks", new ArrayList<>(List.of(new RockItem())));
+        inventory.put("Potions", new ArrayList<>());
+        inventory.put("Tools", new ArrayList<>(List.of(new Sword(), new Pickaxe(), new Axe())));
     }
 
     public ArrayList<Item> getInventorySection(String section) {
         return inventory.get(section);
     }
 
-    public Item getItemFromInventory(Item i) {
-        String section = i.getSection();
-        if (!inventory.containsKey(section)) return null;
+    public void cycleCurrentSection() {
+        switch (currentSection) {
+            case "Tools" -> currentSection = "Blocks";
+            case "Blocks" -> currentSection = "Potions";
+            default -> currentSection = "Tools";
+        }
+    }
 
-        ArrayList<Item> items = inventory.get(section);
-        if (items == null) return null;
+    public void cycleCurrentItem() {
+        List<Item> list = inventory.get(currentSection);
+        if (list == null || list.isEmpty()) return;
+        int idx = selectedIndexMap.getOrDefault(currentSection, 0);
+        idx = (idx + 1) % list.size();
+        selectedIndexMap.put(currentSection, idx);
+    }
 
-        for (Item existing : items) {
-            if (existing.getClass().equals(i.getClass())) {
+    public Item getItemFromInventory(Item probe) {
+        String sec = probe.getSection();
+        List<Item> list = inventory.get(sec);
+        if (list == null) return null;
+        for (Item existing : list) {
+            if (existing.getClass().equals(probe.getClass())) {
                 return existing;
             }
         }
-
         return null;
-    }
-
-    public int countItem(Item i) {
-        return i.getCount();
-    }
-
-    public void upgradeTool(Item i) {
-        String section = i.getSection();
-        if (!inventory.containsKey(section)) return;
-
-        ArrayList<Item> items = inventory.get(section);
-        if (items == null) return;
-
-        for (Item existing : items) {
-            if (existing instanceof Tool && i instanceof Tool) {
-                ((Tool) existing).upgrade();
-            }
-        }
-    }
-
-    public Item getSelectedItem() {
-        return selectedItem;
-    }
-
-    public void setSelectedItem(Item i) {
-        String section = i.getSection();
-        if (!inventory.containsKey(section)) return;
-
-        ArrayList<Item> items = inventory.get(section);
-        if (items == null) return;
-
-        for (Item existing : items) {
-            if (existing.getClass().equals(i.getClass())) {
-                selectedItem = existing;
-                currentSection = section;
-                return;
-            }
-        }
     }
 
     public String getCurrentSection() {
@@ -126,41 +71,74 @@ public class Inventory implements Serializable {
     public void setCurrentSection(String section) {
         if (inventory.containsKey(section)) {
             currentSection = section;
-            selectedIndex = -1;
-            cycleCurrentItem();
         }
     }
 
-    public void cycleCurrentSection(){
-        switch (currentSection) {
-            case "Tools" -> setCurrentSection("Blocks");
-            case "Blocks" -> setCurrentSection("Potions");
-            case "Potions" -> setCurrentSection("Tools");
-            default -> setCurrentSection("Tools");
-        };
+    public Item getSelectedItem() {
+        return getSelectedItem(currentSection);
     }
 
-    public void cycleCurrentItem(){
-        ArrayList<Item> currentArray = inventory.get(currentSection);
-        selectedIndex += 1;
-        if (selectedIndex >= currentArray.size()){
-            selectedIndex = 0;
-        }
-        selectedItem = currentArray.get(selectedIndex);
-        if (selectedItem.getCount() == 0 && currentArray.stream().anyMatch(i -> i.getCount() > 0)){
-            cycleCurrentItem();
-        } else if (selectedItem.getCount() != 0) {
-            return;
+    public Item getSelectedItem(String section) {
+        List<Item> list = inventory.get(section);
+        int idx = selectedIndexMap.getOrDefault(section, 0);
+        return (list != null && idx >= 0 && idx < list.size())
+                ? list.get(idx)
+                : null;
+    }
 
-        } else selectedItem = null;
+    public void setSelectedItem(Item probe) {
+        String sec = probe.getSection();
+        List<Item> list = inventory.get(sec);
+        if (list == null) return;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getClass().equals(probe.getClass())) {
+                selectedIndexMap.put(sec, i);
+                break;
+            }
+        }
+    }
+
+    public void upgradeTool() {
+        if (!"Tools".equals(currentSection)) return;
+        Item sel = getSelectedItem("Tools");
+        if (sel instanceof model.items.tools.Tool t) {
+            t.upgrade();
+        }
+    }
+
+    public int countItem(Item probe) {
+        Item existing = getItemFromInventory(probe);
+        return existing != null ? existing.getCount() : 0;
+    }
+
+    public void addItem(Item i) {
+        String section = i.getSection();
+
+        List<Item> list = inventory.get(section);
+        if (list == null) return;
+
+        if ("Tools".equals(section)) {
+            for (Item existing : list) {
+                if (existing.getClass().equals(i.getClass())) {
+                    ((model.items.tools.Tool) existing).upgrade();
+                    return;
+                }
+            }
+        }
+
+        for (Item existing : list) {
+            if (existing.getClass().equals(i.getClass())) {
+                existing.setCount(existing.getCount() + 1);
+                return;
+            }
+        }
+
+        i.setCount(1);
+        list.add(i);
+        selectedIndexMap.put(section, list.size() - 1);
     }
 
     public void openChest() {
-        // To be implemented
-    }
-
-    public Map<String, ArrayList<Item>> getInventory() {
-        return inventory;
+        // TODO
     }
 }
-

@@ -19,8 +19,6 @@ public abstract class BlockItem extends Item {
 
         int focusedX = player.getWorldPos().getFocusedTileX();
         int focusedY = player.getWorldPos().getFocusedTileY();
-        System.out.println(worldBlock);
-        System.out.println(count);
 
         if (world.isPlaceable(focusedX,focusedY) & count > 0) {
             world.placeBlock(focusedX,focusedY,worldBlock);

@@ -2,8 +2,12 @@ package controller;
 
 import model.entity.Player;
 import model.items.tools.Axe;
+import model.items.tools.Tool;
 import view.PlayerView;
 import view.SoundManager;
+
+import model.items.Item;
+import model.items.tools.Tool;
 
 import javax.swing.*;
 
@@ -78,12 +82,13 @@ public class PlayerController {
 
     public void switchInventorySection() {
         player.getInventory().cycleCurrentSection();
-        System.out.println(player.getInventory().getCurrentSection());
-        System.out.println(player.getInventory().getSelectedItem());
     }
 
     public void switchSelectedItem() {
         player.getInventory().cycleCurrentItem();
-        System.out.println(player.getInventory().getSelectedItem());
+    }
+
+    public void upgradeSelectedTool(){
+        player.getInventory().upgradeTool();
     }
 }

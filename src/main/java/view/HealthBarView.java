@@ -9,14 +9,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class HealthBar extends JComponent {
+public class HealthBarView extends JComponent {
     private final Player player;
     private BufferedImage fullHeart;
     private BufferedImage emptyHeart;
     private int heartWidth;
     private int heartHeight;
 
-    public HealthBar(Player player) {
+    public HealthBarView(Player player) {
         this.player = player;
         try {
             fullHeart  = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/HUD/full.png")));
@@ -24,8 +24,8 @@ public class HealthBar extends JComponent {
         } catch(IOException e) {
             e.printStackTrace();
         }
-        heartWidth  = fullHeart.getWidth() * 2;
-        heartHeight = fullHeart.getHeight() * 2;
+        heartWidth  = fullHeart.getWidth() * 3;
+        heartHeight = fullHeart.getHeight() * 3;
 
         // Use player's maxHealth to size the component
         int totalHearts = player.getMaxHealth();

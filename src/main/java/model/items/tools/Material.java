@@ -1,6 +1,6 @@
 package model.items.tools;
 
-enum Material {
+public enum Material {
     WOOD(0),
     STONE(10),
     IRON(15),
@@ -18,8 +18,7 @@ enum Material {
         return switch (this) {
             case WOOD -> STONE;
             case STONE -> IRON;
-            case IRON -> DIAMOND;
-            case DIAMOND -> DIAMOND;
+            case IRON, DIAMOND -> DIAMOND;
         };
     }
 }

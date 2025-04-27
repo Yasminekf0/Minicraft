@@ -82,8 +82,8 @@ public class InventorySteps {
     }
 
     @When("the player upgrades the {string}")
-    public void thePlayerUpgradesThe(Item i) {
-        player.getInventory().upgradeTool(i);
+    public void thePlayerUpgradesThe() {
+        player.getInventory().upgradeTool();
     }
 
     @Then("the inventory should contain an {string} instead")
