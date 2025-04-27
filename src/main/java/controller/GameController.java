@@ -53,7 +53,6 @@ public class GameController {
             mobManager.tick();
 
             gameView.repaint();
-            hudView.repaint();
         });
         timer.start();
     }
@@ -72,5 +71,9 @@ public class GameController {
         gamePaused = false;
         optionsView.setVisible(false);
         gameView.requestFocusInWindow();
+    }
+
+    public HUDView getHudView() {
+        return hudView;
     }
 }

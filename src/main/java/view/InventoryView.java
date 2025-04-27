@@ -21,8 +21,8 @@ public class InventoryView extends JComponent {
     private final Inventory inventory;
     private BufferedImage toolsInv, blocksInv, potionsInv;
 
-    private static final int BORDER_RAW = 2;
-    private static final int CELLS      = 3;
+    private static final int borderRaw = 2;
+    private static final int cells      = 3;
 
     public InventoryView(Inventory inventory) {
         this.inventory = inventory;
@@ -58,7 +58,7 @@ public class InventoryView extends JComponent {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
 
-        // 1) Draw the background for the current section
+        // 1) Draw the HUD background for whatever tab is active
         BufferedImage bg = switch (inventory.getCurrentSection()) {
             case "Blocks"  -> blocksInv;
             case "Potions" -> potionsInv;
@@ -66,60 +66,60 @@ public class InventoryView extends JComponent {
         };
         g2d.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
 
-        // 2) Compute the scaled outer-border margin (2 raw px × scaleHUD)
-        int margin = BORDER_RAW * scaleHUD;
+        // 2) Carve out the 2px-raw border (scaled) before splitting into 3×3
+        int margin = borderRaw * scaleHUD;
+        int gridW  = getWidth()  - 2 * margin;
+        int gridH  = getHeight() - 2 * margin;
+        int cellW  = gridW / cells;  // cells = 3
+        int cellH  = gridH / cells;
 
-        // 3) Compute the interior grid size (excluding that margin)
-        int gridW = getWidth()  - 2 * margin;
-        int gridH = getHeight() - 2 * margin;
+        // 3) Our three sections in left→right order
+        String[] sections = {"Tools", "Blocks", "Potions"};
 
-        // 4) Divide that interior into 3×3 cells
-        int cellW = gridW / CELLS;
-        int cellH = gridH / CELLS;
+        // 4) For each column…
+        for (int col = 0; col < cells; col++) {
+            String sec       = sections[col];
+            boolean isActive = sec.equals(inventory.getCurrentSection());
 
-        // 5) Fetch the tools list and the selected item
-        List<Item> tools    = inventory.getInventorySection("Tools");
-        Item       selected = inventory.getSelectedItem();
-        boolean    active   = "Tools".equals(inventory.getCurrentSection());
+            List<Item> list           = inventory.getInventorySection(sec);
+            Item       selectedInSec  = inventory.getSelectedItem(sec);
+            int        size           = list.size();
+            int        selIdx         = list.indexOf(selectedInSec);
 
-        // 5a) Precompute selected index and list size
-        int selIdx = tools.indexOf(selected);
-        int size   = tools.size();
-
-        // 6) Loop over the three rows in column 0
-        for (int row = 0; row < CELLS; row++) {
-            Item itemToDraw = null;
-
-            if (active) {
-                // rotate so that selected always lands in row 2 (bottom)
-                int offset = (CELLS - 1) - row; // -2, -1, 0
-                int idx    = (selIdx + offset + size) % size;
-                itemToDraw = tools.get(idx);
-            } else if (row == CELLS - 1) {
-                // when inactive, only draw selected in bottom slot
-                itemToDraw = selected;
-            }
-
-            if (itemToDraw instanceof Tool) {
-                BufferedImage icon = ItemLoader.getIcon(itemToDraw);
-                if (icon != null) {
-                    // 7) Scale icon (16×16 → 48×48 if scaleHUD==3), then shrink slightly
-                    int iconW = Math.round(icon.getWidth()  * scaleHUD * 0.9f);
-                    int iconH = Math.round(icon.getHeight() * scaleHUD * 0.9f);
-
-                    // 8) Center inside its cell, offset by the outer margin
-                    int x = margin
-                            + /* col 0 */ 0 * cellW
-                            + (cellW - iconW) / 2;
-                    int y = margin
-                            + row * cellH
-                            + (cellH - iconH) / 2;
-
-                    g2d.drawImage(icon, x, y, iconW, iconH, null);
+            // 5) And for each of the 3 rows in that column…
+            for (int row = 0; row < cells; row++) {
+                // pick the item to draw:
+                Item itemToDraw;
+                if (isActive) {
+                    // DOWN rotation: bottom row (row=2) shows selIdx,
+                    // row=1 shows selIdx+1, row=0 shows selIdx+2, wrapping
+                    int offset = (cells - 1) - row;           // 2,1,0
+                    int idx    = (selIdx + offset + size) % size;
+                    itemToDraw = list.get(idx);
+                } else if (row == cells - 1) {
+                    // inactive: only bottom slot
+                    itemToDraw = selectedInSec;
+                } else {
+                    continue;
                 }
+
+                // 6) Draw its icon if we have one
+                BufferedImage icon = ItemLoader.getIcon(itemToDraw);
+                if (icon == null) continue;
+
+                // 7) Scale it (and optionally shrink to 90%)
+                int iconW = Math.round(icon.getWidth()  * scaleHUD * 0.9f);
+                int iconH = Math.round(icon.getHeight() * scaleHUD * 0.9f);
+
+                // 8) Compute the exact pixel position inside the (col,row) cell
+                int x = margin + col * cellW + (cellW - iconW) / 2;
+                int y = margin + row * cellH + (cellH - iconH) / 2;
+
+                g2d.drawImage(icon, x, y, iconW, iconH, null);
             }
         }
 
         g2d.dispose();
     }
+
 }

@@ -11,18 +11,10 @@ import model.items.tools.Sword;
 import model.items.blocks.WoodItem;
 import model.items.blocks.RockItem;
 
-import model.items.potions.HealthPotion;
-import model.items.potions.SpeedPotion;
-
 import javax.imageio.ImageIO;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
-
-import static view.ScreenSettings.scale;
-import static view.ScreenSettings.scaleHUD;
 
 
 public class ItemLoader {
@@ -33,24 +25,24 @@ public class ItemLoader {
 
         // Tools with Materials
         EnumMap<Material, BufferedImage> axeMap = new EnumMap<>(Material.class);
-        axeMap.put(Material.WOOD, getBufferedImage("/items/wood_axe.png"));
-        axeMap.put(Material.STONE, getBufferedImage("/items/stone_axe.png"));
-        axeMap.put(Material.IRON, getBufferedImage("/items/iron_axe.png"));
-        axeMap.put(Material.DIAMOND, getBufferedImage("/items/diamond_axe.png"));
+        axeMap.put(Material.WOOD, getBufferedImage("/tools/wood_axe.png"));
+        axeMap.put(Material.STONE, getBufferedImage("/tools/stone_axe.png"));
+        axeMap.put(Material.IRON, getBufferedImage("/tools/iron_axe.png"));
+        axeMap.put(Material.DIAMOND, getBufferedImage("/tools/diamond_axe.png"));
         TOOL_ICONS.put(Axe.class, axeMap);
 
         EnumMap<Material, BufferedImage> pickMap = new EnumMap<>(Material.class);
-        pickMap.put(Material.WOOD, getBufferedImage("/items/wood_pickaxe.png"));
-        pickMap.put(Material.STONE, getBufferedImage("/items/stone_pickaxe.png"));
-        pickMap.put(Material.IRON, getBufferedImage("/items/iron_pickaxe.png"));
-        pickMap.put(Material.DIAMOND, getBufferedImage("/items/diamond_pickaxe.png"));
+        pickMap.put(Material.WOOD, getBufferedImage("/tools/wood_pickaxe.png"));
+        pickMap.put(Material.STONE, getBufferedImage("/tools/stone_pickaxe.png"));
+        pickMap.put(Material.IRON, getBufferedImage("/tools/iron_pickaxe.png"));
+        pickMap.put(Material.DIAMOND, getBufferedImage("/tools/diamond_pickaxe.png"));
         TOOL_ICONS.put(Pickaxe.class, pickMap);
 
         EnumMap<Material, BufferedImage> swordMap = new EnumMap<>(Material.class);
-        swordMap.put(Material.WOOD, getBufferedImage("/items/wood_sword.png"));
-        swordMap.put(Material.STONE, getBufferedImage("/items/stone_sword.png"));
-        swordMap.put(Material.IRON, getBufferedImage("/items/iron_sword.png"));
-        swordMap.put(Material.DIAMOND, getBufferedImage("/items/diamond_sword.png"));
+        swordMap.put(Material.WOOD, getBufferedImage("/tools/wood_sword.png"));
+        swordMap.put(Material.STONE, getBufferedImage("/tools/stone_sword.png"));
+        swordMap.put(Material.IRON, getBufferedImage("/tools/iron_sword.png"));
+        swordMap.put(Material.DIAMOND, getBufferedImage("/tools/diamond_sword.png"));
         TOOL_ICONS.put(Sword.class, swordMap);
 
         // Blocks

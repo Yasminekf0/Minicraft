@@ -15,9 +15,11 @@ import java.util.*;
 
 public class Inventory {
     private final Map<String, ArrayList<Item>> inventory;
+    private final Map<String,Integer> selectedIndexMap = new HashMap<>();
     private Item selectedItem;
     private int selectedIndex;
     private String currentSection;
+
 
     public Inventory() {
         inventory = new HashMap<>();
@@ -64,6 +66,15 @@ public class Inventory {
 
     public ArrayList<Item> getInventorySection(String section) {
         return inventory.get(section);
+    }
+
+    public Item getSelectedItem(String section) {
+        ArrayList<Item> list = inventory.get(section);
+        int idx = selectedIndexMap.getOrDefault(section, 0);
+        if (list != null && idx >= 0 && idx < list.size()) {
+            return list.get(idx);
+        }
+        return null;
     }
 
     public Item getItemFromInventory(Item i) {
