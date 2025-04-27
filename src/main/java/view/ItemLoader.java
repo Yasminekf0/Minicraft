@@ -2,6 +2,8 @@ package view;
 
 import model.items.Item;
 
+import model.items.potions.HealthPotion;
+import model.items.potions.SpeedPotion;
 import model.items.tools.Tool;
 import model.items.tools.Material;
 import model.items.tools.Axe;
@@ -50,8 +52,8 @@ public class ItemLoader {
         OTHER_ICONS.put(RockItem.class, getBufferedImage("/tiles/rock.png"));
 
         // Potions
-        //OTHER_ICONS.put(HealthPotion.class, getBufferedImage("/items/health_potion.png"));
-        //OTHER_ICONS.put(SpeedPotion.class, getBufferedImage("/items/speed_potion.png"));
+        OTHER_ICONS.put(HealthPotion.class, getBufferedImage("/potions/health_potion.png"));
+        OTHER_ICONS.put(SpeedPotion.class, getBufferedImage("/potions/speed_potion.png"));
     }
 
     private static BufferedImage getBufferedImage(String path){

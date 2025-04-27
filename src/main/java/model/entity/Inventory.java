@@ -68,15 +68,6 @@ public class Inventory {
         return inventory.get(section);
     }
 
-    public Item getSelectedItem(String section) {
-        ArrayList<Item> list = inventory.get(section);
-        int idx = selectedIndexMap.getOrDefault(section, 0);
-        if (list != null && idx >= 0 && idx < list.size()) {
-            return list.get(idx);
-        }
-        return null;
-    }
-
     public Item getItemFromInventory(Item i) {
         String section = i.getSection();
         if (!inventory.containsKey(section)) return null;
@@ -113,6 +104,15 @@ public class Inventory {
 
     public Item getSelectedItem() {
         return selectedItem;
+    }
+
+    public Item getSelectedItem(String section) {
+        ArrayList<Item> list = inventory.get(section);
+        int idx = selectedIndexMap.getOrDefault(section, 0);
+        if (list != null && idx >= 0 && idx < list.size()) {
+            return list.get(idx);
+        }
+        return null;
     }
 
     public void setSelectedItem(Item i) {
