@@ -73,31 +73,10 @@ public class PlayerController {
 
     public void switchInventorySection() {
         player.getInventory().cycleCurrentSection();
-
-        String section = player.getInventory().getCurrentSection();
-        System.out.println("Section → " + section);
-
-        Item selected = player.getInventory().getSelectedItem();
-        System.out.println("Selected Item → " + selected);
-
-        if (selected instanceof Tool) {
-            // cast to Tool and print its material
-            String mat = ((Tool) selected).getMaterial();
-            System.out.println("Tool material → " + mat);
-        }
     }
 
     public void switchSelectedItem() {
         player.getInventory().cycleCurrentItem();
-
-        Item selected = player.getInventory().getSelectedItem();
-        System.out.println("Selected Item → " + selected);
-
-        if (selected instanceof Tool) {
-            // cast to Tool and print its material
-            String mat = ((Tool) selected).getMaterial();
-            System.out.println("Tool material → " + mat);
-        }
     }
 
     public void upgradeSelectedTool(){
