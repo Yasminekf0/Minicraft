@@ -1,4 +1,4 @@
-package model.entity;
+package model;
 
 import model.items.Item;
 import model.items.blocks.RockItem;
