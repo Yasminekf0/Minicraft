@@ -20,7 +20,6 @@ public class Inventory {
         inventory = new HashMap<>();
         initializeInventory();
 
-        // seed a 0‐index for each section
         for (String sec : inventory.keySet()) {
             selectedIndexMap.put(sec, 0);
         }
@@ -41,7 +40,6 @@ public class Inventory {
         return inventory.get(section);
     }
 
-    /** Rotate which section is active (Tools→Blocks→Potions→Tools…) */
     public void cycleCurrentSection() {
         switch (currentSection) {
             case "Tools"  -> currentSection = "Blocks";
@@ -50,18 +48,12 @@ public class Inventory {
         }
     }
 
-    /** Bump the selected‐index of the *active* section only */
     public void cycleCurrentItem() {
-        cycleItemInSection(currentSection);
-    }
-
-    /** Bump the selected‐index of any section by name */
-    public void cycleItemInSection(String section) {
-        List<Item> list = inventory.get(section);
+        List<Item> list = inventory.get(currentSection);
         if (list == null || list.isEmpty()) return;
-        int idx = selectedIndexMap.getOrDefault(section, 0);
+        int idx = selectedIndexMap.getOrDefault(currentSection, 0);
         idx = (idx + 1) % list.size();
-        selectedIndexMap.put(section, idx);
+        selectedIndexMap.put(currentSection, idx);
     }
 
     public Item getItemFromInventory(Item probe) {
@@ -86,12 +78,10 @@ public class Inventory {
         }
     }
 
-    /** Returns the selected item for the *active* section */
     public Item getSelectedItem() {
         return getSelectedItem(currentSection);
     }
 
-    /** Returns the selected item for the named section */
     public Item getSelectedItem(String section) {
         List<Item> list = inventory.get(section);
         int idx = selectedIndexMap.getOrDefault(section, 0);
@@ -127,11 +117,10 @@ public class Inventory {
 
     public void addItem(Item i) {
         String section = i.getSection();
-        // 1) ignore unknown sections
+
         List<Item> list = inventory.get(section);
         if (list == null) return;
 
-        // 2) Tools get “upgrade if exists, else add & select”
         if ("Tools".equals(section)) {
             for (Item existing : list) {
                 if (existing.getClass().equals(i.getClass())) {
@@ -140,20 +129,19 @@ public class Inventory {
                     return;
                 }
             }
-            // new tool type: add it and select it
+
             list.add(i);
             selectedIndexMap.put(section, list.size() - 1);
             return;
         }
 
-        // 3) Blocks & Potions stack counts if exists
         for (Item existing : list) {
             if (existing.getClass().equals(i.getClass())) {
                 existing.setCount(existing.getCount() + 1);
                 return;
             }
         }
-        // 4) brand-new block/potion: add it and select it
+
         list.add(i);
         selectedIndexMap.put(section, list.size() - 1);
     }
