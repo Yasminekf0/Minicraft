@@ -22,7 +22,16 @@ public class InventoryView extends JComponent {
     private BufferedImage toolsInv, blocksInv, potionsInv;
 
     private static final int borderRaw = 2;
-    private static final int cells      = 3;
+    private static final int cells = 3;
+
+    private static final Font countFont;
+    private static final int shadow = 1 * scaleHUD;
+    private static final Color shadowC = new Color(0,0,0,150);
+    private static final Color textC = Color.WHITE;
+
+    static {
+        countFont = new Buttons(" ").getFont();
+    }
 
     public InventoryView(Inventory inventory) {
         this.inventory = inventory;
@@ -112,6 +121,25 @@ public class InventoryView extends JComponent {
                 int y = margin + row * cellH + (cellH - iconH) / 2;
 
                 g2d.drawImage(icon, x, y, iconW, iconH, null);
+
+                // Stack counter
+                if (!(itemToDraw instanceof Tool) && itemToDraw.getCount() >= 1) {
+                    String text = String.valueOf(itemToDraw.getCount());
+                    g2d.setFont(countFont);
+                    FontMetrics fm = g2d.getFontMetrics();
+
+                    int tw = fm.stringWidth(text);
+
+                    // Bottom right of cell text
+                    int px = margin + col * cellW + cellW - tw - shadow;
+                    int py = margin + row * cellH + cellH - fm.getDescent() - shadow;
+
+                    g2d.setColor(shadowC);
+                    g2d.drawString(text, px + shadow, py + shadow);
+
+                    g2d.setColor(textC);
+                    g2d.drawString(text, px, py);
+                }
             }
         }
         g2d.dispose();
