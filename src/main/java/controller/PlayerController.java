@@ -85,7 +85,6 @@ public class PlayerController {
             String mat = ((Tool) selected).getMaterial();
             System.out.println("Tool material → " + mat);
         }
-
     }
 
     public void switchSelectedItem() {
@@ -99,5 +98,9 @@ public class PlayerController {
             String mat = ((Tool) selected).getMaterial();
             System.out.println("Tool material → " + mat);
         }
+    }
+
+    public void upgradeSelectedTool(){
+        player.getInventory().upgradeTool();
     }
 }
