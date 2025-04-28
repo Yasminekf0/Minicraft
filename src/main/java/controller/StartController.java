@@ -7,28 +7,35 @@ import model.world.World;
 import view.*;
 import model.saveloadmanager.*;
 import java.io.*;
+import view.SoundManager;
 
 
 import javax.swing.*;
 
 public class StartController {
     private final MainView mainView;
+    private final SoundManager soundManager = SoundManager.getInstance();
 
     public StartController(MainView mainView) {
         this.mainView = mainView;
         initListeners();
+        soundManager.loadAllSounds();
     }
 
     private void initListeners() {
         StartView startView = mainView.getStartView();
 
         // New Game Listener
-        startView.addNewGameListener(_ -> startNewGame());
+        startView.addNewGameListener(_ -> {
+            soundManager.playSound("button");
+            startNewGame();
+        });
 
 
         // TODO: Should call method in View instead
         // Load Game Listener
         startView.addLoadGameListener(_ -> {
+            soundManager.playSound("button");
             try {
                 GameState loadedState = SaveLoadManager.loadGame("saves/save1.dat");
 
@@ -52,12 +59,14 @@ public class StartController {
         });
 
         // Quit Game Listener
-        startView.addQuitListener(_ -> System.exit(0));
+        startView.addQuitListener(_ -> {
+            soundManager.playSound("button");
+            System.exit(0);
+        });
     }
     private void startNewGame(){
         World world = World.getInstance();
         Player player = Player.getInstance();
-        SoundManager soundManager = SoundManager.getInstance();
         DayCycleManager dayCycleManager = DayCycleManager.getInstance();
         GameView gameView = new GameView();
         NPCView npcView = gameView.getNpcView();
@@ -66,7 +75,6 @@ public class StartController {
         OptionsView optionsView = mainView.getOptionsView();
         mainView.startGameView(gameView, hudView);
 
-        soundManager.loadAllSounds();
 
         // Instantiate controllers for the game.
         GameController gameController = new GameController(gameView, npcView,hudView);
@@ -76,6 +84,8 @@ public class StartController {
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 
         gameController.setOptionsView(optionsView);
+        
+        soundManager.loopSoundContinuously("background");
 
     }
 }
