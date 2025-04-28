@@ -1,0 +1,20 @@
+package model.position;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+class ScreenPositionTest {
+    @Test
+    void testConstructorAndInheritedMethods() {
+        ScreenPosition sp = new ScreenPosition(7, 9);
+        assertEquals(7, sp.getX());
+        assertEquals(9, sp.getY());
+
+        // Test inherited setters
+        sp.setX(10);
+        sp.setY(11);
+        assertEquals(10, sp.getX());
+        assertEquals(11, sp.getY());
+    }
+
+}

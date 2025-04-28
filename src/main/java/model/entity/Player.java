@@ -72,6 +72,7 @@ public class Player extends Entity {
         }
     }
 
+
     public void lockDirection(double currentAngle){
         this.lockedAngle = currentAngle;
         this.directionLocked = true;

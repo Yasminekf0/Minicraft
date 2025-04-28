@@ -14,9 +14,7 @@ public abstract class Entity {
         return worldPos;
     }
 
-    public void setWorldPos(WorldPosition worldPos) {
-        this.worldPos = worldPos;
-    }
+
 
     public int getSpeed() {
         return speed;
@@ -29,8 +27,8 @@ public abstract class Entity {
     public void setHealth(int health) {
         this.health = health;
     }
-    public void setSpeed(int health) {
-        this.health = health;
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public int getMaxHealth() {

@@ -44,7 +44,7 @@ public class NPCController {
         if (!spawned) {
             try {
                 WorldPosition spawnPos = getSpawnPoint();
-                npc.setWorldPos(spawnPos);
+                // npc.setWorldPos(spawnPos);
                 spawned = true;
             } catch (NoSpawnpointFoundException e) {
                 System.err.println("Failed to find spawn point for NPC.");
