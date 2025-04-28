@@ -33,15 +33,28 @@ public class EnemyView extends GameElementView{
         // Sprite images
         private BufferedImage up1,  up2, up3,up4,up5, down1, down2, right1, right2, left1, left2, z, z1, z2, sk1, sk2, sk, v, v1, v2;
         private final Player player;
-        private final Enemy enemy;
+        private final Enemy[] enemies; //***************************************
         private int spriteCounter = 0;
         private int spriteNum;
         private double angle = 0;
+        private final double[] angles = new double[3];
+        //private double angles[0] = 0;
 
-        public EnemyView() {
+        //this.enemies[1] = Enemy.getInstance();
+        //this.enemies[2] = Enemy.getInstance();
+
+
+    public EnemyView() {
             this.player = Player.getInstance();
-            this.enemy = Enemy.getInstance();
+            this.enemies = new Enemy[3]; //***********************************
+            this.enemies[0] = new Enemy();
+            this.enemies[1] = new Enemy();
+            this.enemies[2] = new Enemy();
+
             loadImages();
+        }
+        public Enemy[ ] getEnemies() {
+            return enemies;
         }
 
         protected void loadImages() {
@@ -75,10 +88,11 @@ public class EnemyView extends GameElementView{
          * @param moving   true if the player is moving, false otherwise
          * @param newAngle the angle (in radians) representing the player's direction
          */
-        public void update(boolean moving, double newAngle) {
+        public void update(int index, boolean moving, double newAngle) {
 
             if (moving) {
-                this.angle = newAngle;
+                //this.angle = newAngle;
+                angles[index] = newAngle;
                 spriteCounter++;
                 // Increase or decrease this threshold to adjust animation speed
                 if (spriteCounter > 19) {
@@ -97,41 +111,45 @@ public class EnemyView extends GameElementView{
          * Draws the player sprite with rotation and scaling.
          */
         public void draw(Graphics2D g2) {
+            for(int i = 0; i < this.enemies.length; ++i) {
+                if (this.enemies[i] != null) {
+                    int playerWorldX = player.getWorldPos().getX().intValue();
+                    int playerWorldY = player.getWorldPos().getY().intValue();
+                    int worldX = enemies[i].getWorldPos().getX().intValue();
+                    int worldY = enemies[i].getWorldPos().getY().intValue();
 
-            int playerWorldX = player.getWorldPos().getX().intValue();
-            int playerWorldY = player.getWorldPos().getY().intValue();
-            int worldX = enemy.getWorldPos().getX().intValue();
-            int worldY = enemy.getWorldPos().getY().intValue();
-
-            int screenX = worldX - playerWorldX + playerScreenX;
-            int screenY = worldY - playerWorldY + playerScreenY;
+                    int screenX = worldX - playerWorldX + playerScreenX;
+                    int screenY = worldY - playerWorldY + playerScreenY;
 
 
-            if (worldX + tileSize > playerWorldX - playerScreenX &&
-                    worldX - tileSize < playerWorldX + playerScreenX &&
-                    worldY + tileSize > playerWorldY - playerScreenY &&
-                    worldY - tileSize < playerWorldY + playerScreenY) {
+                    if (worldX + tileSize > playerWorldX - playerScreenX &&
+                            worldX - tileSize < playerWorldX + playerScreenX &&
+                            worldY + tileSize > playerWorldY - playerScreenY &&
+                            worldY - tileSize < playerWorldY + playerScreenY) {
 
-                BufferedImage image = switch (spriteNum) {
-                    case 2 -> z1;
-                    case 4 -> z2;
-                    default -> z;
-                };
-                if (image == null) return;
+                        BufferedImage image = switch (spriteNum) {
+                            case 2 -> z1;
+                            case 4 -> z2;
+                            default -> z;
+                        };
+                        if (image == null) return;
 
-                AffineTransform at = createAffineTransform(image, screenX, screenY);
-                g2.drawImage(image, at, null);
+                        AffineTransform at = createAffineTransform(image, screenX, screenY, angles[i]);
+                        g2.drawImage(image, at, null);
+                    }
+                }
             }
+
         }
 
-        private AffineTransform createAffineTransform(BufferedImage image, int screenX, int screenY) {
+        private AffineTransform createAffineTransform(BufferedImage image, int screenX, int screenY,  double rotationangle) {
             AffineTransform at = new AffineTransform();
 
             // Translate to screen position first
             at.translate(screenX + tileSize / 2.0, screenY + tileSize / 2.0);
 
             // Rotate around the center
-            at.rotate(angle);
+            at.rotate(rotationangle);
 
             // Scale to fit the tileSize
             double scaleX = tileSize / (double) image.getWidth();

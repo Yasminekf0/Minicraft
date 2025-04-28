@@ -21,7 +21,7 @@ public class Enemy extends Mob {
         instance = this;
         this.world = World.getInstance();
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
-        this.speed = 10;
+        this.speed = 5;
         //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;

@@ -11,7 +11,7 @@ import static view.ScreenSettings.*;
 public class GameView extends JPanel {
     private final PlayerView playerView;
     private final NPCView npcView;
-    private final EnemyView enemyView;
+    private final EnemyView enemyView; //***************************************
     private final WorldView worldView;
     private final NightFilterView nightFilterView;
 
@@ -22,7 +22,7 @@ public class GameView extends JPanel {
 
         playerView = new PlayerView();
         npcView = new NPCView();
-        enemyView = new EnemyView();
+        enemyView = new EnemyView(); //**************************************
         worldView = new WorldView();
         nightFilterView = new NightFilterView();
     }
@@ -33,7 +33,12 @@ public class GameView extends JPanel {
         worldView.draw((Graphics2D) g);
         npcView.draw((Graphics2D) g);
         playerView.draw((Graphics2D) g);
-        enemyView.draw((Graphics2D) g);
+        enemyView.draw((Graphics2D) g); //****************************************
+        //for(int i = 0; i < enemyView.getEnemies.length; ++i) { //**************************************************
+          //  if (enemyView.getEnemies[i] != null) {
+            //    enemyView.getEnemies[i].draw((Graphics2D) g);
+            //}
+        //}
         nightFilterView.draw((Graphics2D) g);
     }
 
