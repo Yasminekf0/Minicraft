@@ -3,10 +3,7 @@ package controller;
 import model.DayCycleManager;
 import model.entity.Player;
 import model.world.World;
-import view.GameView;
-import view.HUDView;
-import view.NPCView;
-import view.OptionsView;
+import view.*;
 import controller.GameSettings;
 
 import javax.swing.*;
@@ -27,13 +24,16 @@ public class GameController {
     private OptionsView optionsView;
     private final HUDView hudView;
     private final NPCController npcController;
+    private final EnemyController enemyController;
 
-    public GameController(GameView gameView, NPCView npcView, HUDView hudView) {
+    public GameController(GameView gameView, NPCView npcView, EnemyView enemyView, HUDView hudView) {
         this.gameView = gameView;
         this.hudView = hudView;
 
         this.dayCycleManager = DayCycleManager.getInstance();
         this.npcController = new NPCController(npcView);
+        this.enemyController = new EnemyController(enemyView);
+
 
 
         gameView.setFocusable(true);
@@ -54,6 +54,7 @@ public class GameController {
 
             dayCycleManager.tick();
             npcController.tick();
+            enemyController.tick();
 
             gameView.repaint();
             hudView.repaint();

@@ -101,9 +101,9 @@ public class NPCView extends GameElementView{
             worldY - tileSize < playerWorldY + playerScreenY) {
 
             BufferedImage image = switch (spriteNum) {
-                case 2 -> z1;
-                case 4 -> z2;
-                default -> z;
+                case 2 -> v1;
+                case 4 -> v2;
+                default -> v;
             };
             if (image == null) return;
 

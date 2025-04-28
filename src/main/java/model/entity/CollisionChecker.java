@@ -12,11 +12,13 @@ public class CollisionChecker {
 
     private final World world;
     private final NPC npc;
+    private final Enemy enemy;
     private final Player player;
 
     public CollisionChecker() {
         this.world = World.getInstance();
         this.npc = NPC.getInstance();
+        this.enemy = Enemy.getInstance();
         this.player = Player.getInstance();
     }
 
@@ -104,16 +106,23 @@ public class CollisionChecker {
                 npc.solidArea.height
         );
 
+        Rectangle enemyCollisionBox = new Rectangle(
+                enemy.getWorldPos().getX().intValue() + enemy.solidArea.x,
+                enemy.getWorldPos().getY().intValue() + enemy.solidArea.y,
+                enemy.solidArea.width,
+                enemy.solidArea.height
+        );
+
                 if (dy < 0){//up
                         entityCollisionBox.y -= entity.speed;
-                        if (entityCollisionBox.intersects(npcCollisionBox)) {
+                        if ((entityCollisionBox.intersects(npcCollisionBox)) || (entityCollisionBox.intersects(enemyCollisionBox))) {
                             entity.collisionOn = true;
                             index = 1;
                         }
 
                 } else if (dy > 0) {//down
                     entityCollisionBox.y += entity.speed;
-                    if (entityCollisionBox.intersects(npcCollisionBox)) {
+                    if ((entityCollisionBox.intersects(npcCollisionBox)) || (entityCollisionBox.intersects(enemyCollisionBox))) {
                         entity.collisionOn = true;
                         index = 1;
                     }
@@ -121,13 +130,13 @@ public class CollisionChecker {
 
                 if (dx<0) {//left
                     entityCollisionBox.x -= entity.speed;
-                    if (entityCollisionBox.intersects(npcCollisionBox)) {
+                    if ((entityCollisionBox.intersects(npcCollisionBox)) || (entityCollisionBox.intersects(enemyCollisionBox))) {
                         entity.collisionOn = true;
                         index = 1;
                     }
                 } else if (dx>0) { //right
                     entityCollisionBox.x += entity.speed;
-                    if (entityCollisionBox.intersects(npcCollisionBox)) {
+                    if ((entityCollisionBox.intersects(npcCollisionBox)) || (entityCollisionBox.intersects(enemyCollisionBox))) {
                         entity.collisionOn = true;
                         index = 1;
                     }

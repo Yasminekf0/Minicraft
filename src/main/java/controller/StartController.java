@@ -61,6 +61,7 @@ public class StartController {
         DayCycleManager dayCycleManager = DayCycleManager.getInstance();
         GameView gameView = new GameView();
         NPCView npcView = gameView.getNpcView();
+        EnemyView enemyView = gameView.getEnemyView();
         HUDView hudView = new HUDView(player);
 
         OptionsView optionsView = mainView.getOptionsView();
@@ -69,9 +70,10 @@ public class StartController {
         soundManager.loadAllSounds();
 
         // Instantiate controllers for the game.
-        GameController gameController = new GameController(gameView, npcView,hudView);
+        GameController gameController = new GameController(gameView, npcView,enemyView, hudView);
         PlayerController playerController = new PlayerController(gameView.getPlayerView());
         NPCController npcController = new NPCController(gameView.getNpcView());
+        EnemyController enemyController = new EnemyController(gameView.getEnemyView());
         KeyController keyController = new KeyController(gameController, playerController);
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 
