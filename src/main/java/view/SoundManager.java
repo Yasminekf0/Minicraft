@@ -20,6 +20,7 @@ public class SoundManager {
         SOUND_REGISTRY.put("villager3", "/sounds/villager3.wav");
         SOUND_REGISTRY.put("background", "/sounds/background.wav");
         SOUND_REGISTRY.put("footstep", "/sounds/footstep.wav");
+        SOUND_REGISTRY.put("dead", "/sounds/dead.wav");
         // TODO: add additional entries here
     }
 

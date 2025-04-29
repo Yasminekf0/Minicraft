@@ -46,6 +46,10 @@ public class KeyController implements KeyListener {
             playerController.switchSelectedItem();
             gameController.getHudView().repaint();
         }
+
+        if (code == KeyEvent.VK_P) {
+            playerController.takeDamage(1);
+        }
     }
 
     @Override

@@ -75,6 +75,10 @@ public class StartController {
         KeyController keyController = new KeyController(gameController, playerController);
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 
+        DeathView deathView = mainView.getDeathView();
+        gameController.setDeathView(deathView);
+        deathView.addQuitListener(e -> { System.exit(0); });
+
         gameController.setOptionsView(optionsView);
 
     }

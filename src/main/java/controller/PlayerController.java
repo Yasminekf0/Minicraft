@@ -91,4 +91,8 @@ public class PlayerController {
     public void upgradeSelectedTool(){
         player.getInventory().upgradeTool();
     }
+
+    public void takeDamage(int damage) {
+        player.takeDamage(damage);
+    }
 }

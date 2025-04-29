@@ -13,6 +13,7 @@ public class MainView {
     private final JPanel container;
     private final JFrame window;
     private final OptionsView optionsView;
+    private DeathView deathView;
 
     public MainView() {
         // Set up CardLayout
@@ -51,6 +52,11 @@ public class MainView {
         gameLayer.add(gameView, JLayeredPane.DEFAULT_LAYER);
         gameLayer.add(hudView,  JLayeredPane.PALETTE_LAYER);
 
+        deathView = new DeathView();
+        deathView.setBounds(0, 0, sz.width, sz.height);
+        deathView.setVisible(false);
+        gameLayer.add(deathView, JLayeredPane.POPUP_LAYER);
+
         container.add(gameLayer, "game");
 
         CardLayout cl = (CardLayout) container.getLayout();
@@ -67,5 +73,7 @@ public class MainView {
     }
 
     public OptionsView getOptionsView() { return optionsView; }
+
+    public DeathView getDeathView() { return deathView; }
 
 }

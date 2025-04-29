@@ -3,10 +3,7 @@ package controller;
 import model.DayCycleManager;
 import model.entity.Player;
 import model.world.World;
-import view.GameView;
-import view.HUDView;
-import view.NPCView;
-import view.OptionsView;
+import view.*;
 import controller.GameSettings;
 
 import javax.swing.*;
@@ -25,6 +22,7 @@ public class GameController {
     private final int FPS = 60;
     private boolean gamePaused = false;
     private OptionsView optionsView;
+    private DeathView deathView;
     private final HUDView hudView;
     private final NPCController npcController;
 
@@ -47,15 +45,25 @@ public class GameController {
         this.optionsView = optionsView;
     }
 
+    public void setDeathView(DeathView deathView) { this.deathView = deathView; }
+
     private void startGameLoop() {
 
         int delay = 1000 / FPS; // ms per frame
         Timer timer = new Timer(delay, _ -> {
 
-            dayCycleManager.tick();
-            npcController.tick();
+            if (!gamePaused) {
+                dayCycleManager.tick();
+                npcController.tick();
+                gameView.repaint();
 
-            gameView.repaint();
+                if (Player.getInstance().getHealth() <= 0) {
+                    gamePaused = true;
+                    deathView.setVisible(true);
+                    deathView.requestFocusInWindow();
+                    SoundManager.getInstance().playSound("dead");
+                }
+            }
         });
         timer.start();
     }
