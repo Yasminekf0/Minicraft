@@ -85,6 +85,8 @@ public class EnemyController {
             double length = Math.sqrt(dx * dx + dy * dy);
             double normalizedDx = (double) dx / length;
             double normalizedDy = (double) dy / length;
+
+            if (enemies[i] == null) continue; //************************************************************************************************+
             enemies[i].moveUntil(speed * normalizedDx, speed * normalizedDy);
 
             double angle = Math.atan2(dy, dx);

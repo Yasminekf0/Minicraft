@@ -85,6 +85,9 @@ public class NPCView extends GameElementView{
      * Draws the player sprite with rotation and scaling.
      */
     public void draw(Graphics2D g2) {
+        if (!npc.isAlive()) {
+            return;
+        }
 
         int playerWorldX = player.getWorldPos().getX().intValue();
         int playerWorldY = player.getWorldPos().getY().intValue();

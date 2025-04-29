@@ -15,6 +15,7 @@ public class NPC extends Mob {
     private static NPC instance;
     private CollisionChecker collisionChecker;
     private final World world;
+    private boolean alive = true;
     public NPC(){
         instance = this;
         this.world = World.getInstance();
@@ -73,5 +74,13 @@ public class NPC extends Mob {
             worldPos.increment(moveDx, moveDy);
         }
 
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void kill() {
+        alive = false;
     }
 }
