@@ -204,6 +204,12 @@ public class CollisionChecker {
             entityCollisionBox.y -= entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
+                player.takeDamage(1);
+                System.out.println("Got hit by enemy, health:" + player.health);
+                player.worldPos.increment(
+                        -player.getFacingDirection().getX() * tileSize,
+                        -player.getFacingDirection().getY() * tileSize
+                );
             }
 
 
@@ -211,6 +217,12 @@ public class CollisionChecker {
             entityCollisionBox.y += entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
+                player.takeDamage(1);
+                System.out.println("Got hit by enemy, health:" + player.health);
+                player.worldPos.increment(
+                        -player.getFacingDirection().getX() * tileSize,
+                        -player.getFacingDirection().getY() * tileSize
+                );
             }
         }
 
@@ -218,17 +230,24 @@ public class CollisionChecker {
             entityCollisionBox.x -= entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
+                player.takeDamage(1);
+                System.out.println("Got hit by enemy, health:" + player.health);
+                player.worldPos.increment(
+                        -player.getFacingDirection().getX() * tileSize,
+                        -player.getFacingDirection().getY() * tileSize
+                );
             }
         } else if (dx>0) { //right
             entityCollisionBox.x += entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
+                player.takeDamage(1);
+                System.out.println("Got hit by enemy, health:" + player.health);
+                player.worldPos.increment(
+                        -player.getFacingDirection().getX() * tileSize,
+                        -player.getFacingDirection().getY() * tileSize
+                );
             }
         }
-
-        //entity.solidArea.x = entity.solidAreaDefault.x;
-        //entity.solidArea.y = entity.solidAreaDefault.y;
-        //npc.solidArea.x = npc.solidAreaDefault.x;
-        //npc.solidArea.y = npc.solidAreaDefault.y;
     }
 }

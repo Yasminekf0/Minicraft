@@ -20,6 +20,8 @@ public class Player extends Entity {
     private final Inventory inventory;
     private boolean directionLocked = false;
     private double lockedAngle = Math.PI/2;
+    private long lastDamageTime = 0;
+    private static final long DAMAGE_COOLDOWN = 1000;
 
     private Player() {
 
@@ -56,6 +58,11 @@ public class Player extends Entity {
     public Inventory getInventory() { return inventory; }
 
     public void moveUntil(double dx, double dy) {
+        long now = System.currentTimeMillis();
+        if (now - lastDamageTime < DAMAGE_COOLDOWN) {
+            return;
+        }
+
         collisionOn = false;
         double moveDx = dx * speed;
         double moveDy = dy * speed;
@@ -95,9 +102,16 @@ public class Player extends Entity {
     }
 
     public void interactEnemy(int i){
-        //if (i!=-1){
-            System.out.println('e');
-        //}
+        long now = System.currentTimeMillis();
+        if (now - lastDamageTime >= DAMAGE_COOLDOWN) {
+            takeDamage(i);
+            lastDamageTime = now;
+            System.out.println("Hit by enemy " + i + ", health now " + health);
+            worldPos.increment(
+                    -this.getFacingDirection().getX() * tileSize,
+                    -this.getFacingDirection().getY() * tileSize
+            );
+        }
     }
 
     public void use(){
@@ -120,5 +134,9 @@ public class Player extends Entity {
 
         Direction d = worldPos.getDirectionFacing();
         return Math.atan2(d.getY(), d.getX());
+    }
+
+    protected Direction getFacingDirection() {
+        return worldPos.getDirectionFacing();
     }
 }
