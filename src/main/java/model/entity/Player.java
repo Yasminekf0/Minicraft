@@ -63,62 +63,29 @@ public class Player extends Entity {
         if (!directionLocked){
             worldPos.updateDirection(moveDx,moveDy);
         }
-
-        int steps = (int)Math.ceil(Math.max(Math.abs(moveDx), Math.abs(moveDy)));
-        // Per‐step increments
-        double stepDx = moveDx / steps;
-        double stepDy = moveDy / steps;
-
-        Enemy[] enemies = MobManager.getInstance().getEnemies();
-        Entity[] targets = new Entity[enemies.length + 1];
-
-        targets[0] = NPC.getInstance();
-        System.arraycopy(enemies, 0, targets, 1, enemies.length);
-
-        for (int i = 0; i < steps; i++) {
-            collisionChecker.checkTile(this, 0, stepDy);
-            if (collisionOn) {
-                collisionOn = false;
-                stepDy = 0;
-            }
-
-            collisionChecker.checkTile(this, stepDx, 0);
-            if (collisionOn) {
-                collisionOn = false;
-                stepDx = 0;
-            }
-
-
-            int hit = collisionChecker.checkEntity(this, stepDx, stepDy, targets);
-            if (hit >= 0) {
-                collisionOn = true;
-                if (hit == 0)       interactNPC(hit);
-                else                interactEnemy(hit - 1);
-                break;
-            }
-
-            worldPos.increment(stepDx, stepDy);
+        collisionOn = false;
+        collisionChecker.checkTile(this, moveDx, 0);
+        if (collisionOn) {
+            moveDx = 0;
         }
 
-        /*collisionChecker.checkTile(this, moveDx, moveDy);
-
-
-        int hitIndex = collisionChecker.checkEntity(this, moveDx, moveDy);
-        if (hitIndex >= 0) {
-            // 0 means NPC, 1 means enemy1, 2→enemy2, 3→enemy3
-            if (hitIndex == 0) {
-                interactNPC(hitIndex);
-            } else {
-                interactEnemy(hitIndex - 1);
-            }
+        collisionOn = false;
+        collisionChecker.checkTile(this, 0, moveDy);
+        if (collisionOn) {
+            moveDy = 0;
         }
 
-        if (!collisionOn){
-            if (!directionLocked){
-                worldPos.updateDirection(moveDx,moveDy);
-            }
+        collisionOn = false;
+        int hit = collisionChecker.checkEntity(this, moveDx, moveDy);
+        if (hit >= 0) {
+            collisionOn = true;
+            if (hit == 0)      interactNPC(hit);
+            else               interactEnemy(hit - 1);
+        }
+
+        if (!collisionOn) {
             worldPos.increment(moveDx, moveDy);
-        }*/
+        }
     }
 
     public void interactNPC(int i){

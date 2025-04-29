@@ -24,15 +24,35 @@ public class Enemy extends Mob {
         this.solidArea = new Rectangle(1,1,tileSize,tileSize );
     }
 
-    public void moveUntil(double dx, double dy){//), Enemy[] targets) {
-        collisionOn = false;
+    public void moveUntil(double dx, double dy){
+       collisionOn = false;
         double moveDx = dx * speed;
         double moveDy = dy * speed;
-        collisionChecker.checkTile(this, moveDx, moveDy);
+
+        worldPos.updateDirection(moveDx,moveDy);
+
+        collisionOn = false;
+        collisionChecker.checkTile(this, moveDx, 0);
+        if (collisionOn) {
+            moveDx = 0;
+        }
+
+        collisionOn = false;
+        collisionChecker.checkTile(this, 0, moveDy);
+        if (collisionOn) {
+            moveDy = 0;
+        }
+
+        /*collisionOn = false;
+        int hit = collisionChecker.checkEntity(this, moveDx, moveDy);
+        if (hit >= 0) {
+            collisionOn = true;
+            //if (hit == 0)      interactNPC(hit);
+            //else               interactEnemy(hit - 1);
+        }*/
         collisionChecker.checkPlayer(this,moveDx, moveDy);
 
-        if (!collisionOn){
-            worldPos.updateDirection(moveDx,moveDy);
+        if (!collisionOn) {
             worldPos.increment(moveDx, moveDy);
         }
     }
