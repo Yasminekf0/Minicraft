@@ -22,6 +22,10 @@ public class HealthPotion extends Potion {
     public void use() {
         Player player = Player.getInstance();
 
-        player.heal(healingAmount);
+        if (count > 0) {
+            player.heal(healingAmount);
+            count--;
+        }
+
     }
 }

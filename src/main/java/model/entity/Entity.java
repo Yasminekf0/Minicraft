@@ -7,6 +7,7 @@ public abstract class Entity {
     protected WorldPosition worldPos;
 
     protected int speed;
+    protected int defaultSpeed;
     protected int health;
     protected int maxHealth;
 
@@ -29,8 +30,8 @@ public abstract class Entity {
     public void setHealth(int health) {
         this.health = health;
     }
-    public void setSpeed(int health) {
-        this.health = health;
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public int getMaxHealth() {

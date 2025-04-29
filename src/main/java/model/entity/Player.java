@@ -26,7 +26,6 @@ public class Player extends Entity {
         this.worldPos = new WorldPosition((tileSize/2.0) + (worldSize*tileSize) /2.0,(tileSize/2.0) + (worldSize*tileSize) /2.0);
         getSpawnPos();
         this.speed = 10;
-        //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;
         inventory = new Inventory();
