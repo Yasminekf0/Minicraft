@@ -21,7 +21,9 @@ public class SoundManager {
         SOUND_REGISTRY.put("background", "/sounds/background.wav");
         SOUND_REGISTRY.put("footstep", "/sounds/footstep.wav");
         SOUND_REGISTRY.put("button", "/sounds/button.wav");
-        // TODO: add additional entries here
+        SOUND_REGISTRY.put("wood", "/sounds/wood.wav");
+        SOUND_REGISTRY.put("stone", "/sounds/stone.wav");
+        SOUND_REGISTRY.put("pickup", "/sounds/pickup.wav");
     }
 
     private SoundManager() {}
