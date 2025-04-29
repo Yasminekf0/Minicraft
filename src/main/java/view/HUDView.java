@@ -110,8 +110,8 @@ public class HUDView extends JPanel {
                 BufferedImage icon = ItemLoader.getIcon(sel);
                 if (icon != null) {
                     int iconSize = tileSize / 3;
-                    int ix = sx2 + (tileSize - iconSize) / 2;
-                    int iy = sy2 + (tileSize - iconSize) / 2;
+                    int ix = sx2 + (tileSize) / 2;
+                    int iy = sy2 + (tileSize) / 2;
                     g2.drawImage(icon, ix, iy, iconSize, iconSize, null);
                 }
             }
