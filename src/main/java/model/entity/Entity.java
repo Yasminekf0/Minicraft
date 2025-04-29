@@ -2,7 +2,9 @@ package model.entity;
 import controller.GameController;
 import model.position.WorldPosition;
 
-public abstract class Entity {
+import java.io.Serializable;
+
+public abstract class Entity implements Serializable {
     GameController gameController;
     protected WorldPosition worldPos;
 

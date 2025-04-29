@@ -5,12 +5,14 @@ import model.position.Direction;
 import model.position.WorldPosition;
 import model.world.World;
 
+import java.io.Serializable;
+
 import static java.lang.Math.round;
 import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.scale;
 import static view.ScreenSettings.tileSize;
 
-public class Player extends Entity {
+public class Player extends Entity implements Serializable {
 
     private static Player instance;
 

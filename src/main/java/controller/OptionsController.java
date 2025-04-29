@@ -7,11 +7,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import model.saveloadmanager.SaveLoadManager;
 import model.saveloadmanager.GameState;
+import view.SoundManager;
+
 import java.io.*;
 
 public class OptionsController {
     private OptionsView optionsView;
     private GameController gameController;
+    private final SoundManager soundManager = SoundManager.getInstance();
+
 
     public OptionsController(OptionsView optionsView, GameController gameController) {
         this.optionsView = optionsView;
@@ -24,12 +28,14 @@ public class OptionsController {
     private void initListeners() {
         // "Back to Game": hide the overlay and resume the game.
         optionsView.addBackListener(e -> {
+            soundManager.playSound("button");
             optionsView.setVisible(false);
             gameController.resumeGame();
         });
 
         // "Save Game": show a message (saving not implemented).
         optionsView.addSaveListener(e -> {
+            soundManager.playSound("button");
             try {
                 GameState state = new GameState();
                 SaveLoadManager.saveGame(state, "saves/save1.dat"); // possiblity for multiple saves
@@ -52,7 +58,10 @@ public class OptionsController {
         });
 
         // "Quit Game": exit the application.
-        optionsView.addQuitListener(e -> System.exit(0));
+        optionsView.addQuitListener(e -> {
+            soundManager.playSound("button");
+            System.exit(0);
+        });
     }
 
     /*private void initKeyListener() {
