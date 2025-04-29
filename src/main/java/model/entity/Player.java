@@ -106,7 +106,7 @@ public class Player extends Entity {
         if (now - lastDamageTime >= DAMAGE_COOLDOWN) {
             takeDamage(i);
             lastDamageTime = now;
-            System.out.println("Hit by enemy " + i + ", health now " + health);
+            System.out.println("You hit enemy " + i + ", health: " + health);
             worldPos.increment(
                     -this.getFacingDirection().getX() * tileSize,
                     -this.getFacingDirection().getY() * tileSize

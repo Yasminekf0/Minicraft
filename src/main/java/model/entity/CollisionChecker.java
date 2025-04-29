@@ -40,7 +40,6 @@ public class CollisionChecker {
         int entityTopRow = entityTopWorldY / tileSize;
         int entityBottomRow = entityBottomWorldY / tileSize;
 
-        //System.out.printf("[%d , %d]", entity.solidArea.x, entity.solidArea.y);
 
         boolean tile1_OK;
         boolean tile2_OK;
@@ -84,14 +83,6 @@ public class CollisionChecker {
 
     public int checkEntity(Entity entity, double dx, double dy) {
 
-        //for(int i = 0; i < target.length; ++i) {
-            //if (target[i] != null) {
-                //entity.solidArea.x += entity.getWorldPos().getX().intValue();
-                //entity.solidArea.y += entity.getWorldPos().getY().intValue();
-
-                //npc.solidArea.x += npc.getWorldPos().getX().intValue();
-                //npc.solidArea.y += npc.getWorldPos().getY().intValue();
-
         Rectangle entityCollisionBox = new Rectangle(
                 entity.getWorldPos().getX().intValue() + entity.solidArea.x + (int)dx,
                 entity.getWorldPos().getY().intValue() + entity.solidArea.y + (int)dy,
@@ -123,70 +114,15 @@ public class CollisionChecker {
         }
 
         return -1;
-
-
-        /*Rectangle npcCollisionBox = new Rectangle(
-                npc.getWorldPos().getX().intValue() + npc.solidArea.x,
-                npc.getWorldPos().getY().intValue() + npc.solidArea.y,
-                npc.solidArea.width,
-                npc.solidArea.height
-        );
-
-        Rectangle enemyCollisionBox = new Rectangle(
-                enemy.getWorldPos().getX().intValue() + enemy.solidArea.x,
-                enemy.getWorldPos().getY().intValue() + enemy.solidArea.y,
-                enemy.solidArea.width,
-                enemy.solidArea.height
-        );
-
-                if (dy < 0){//up
-                        entityCollisionBox.y -= entity.speed;
-                        if ((entityCollisionBox.intersects(npcCollisionBox)) || (entityCollisionBox.intersects(enemyCollisionBox))) {
-                            entity.collisionOn = true;
-                            index = 1;
-                        }
-
-                } else if (dy > 0) {//down
-                    entityCollisionBox.y += entity.speed;
-                    if ((entityCollisionBox.intersects(npcCollisionBox)) || (entityCollisionBox.intersects(enemyCollisionBox))) {
-                        entity.collisionOn = true;
-                        index = 1;
-                    }
-                }
-
-                if (dx<0) {//left
-                    entityCollisionBox.x -= entity.speed;
-                    if ((entityCollisionBox.intersects(npcCollisionBox)) || (entityCollisionBox.intersects(enemyCollisionBox))) {
-                        entity.collisionOn = true;
-                        index = 1;
-                    }
-                } else if (dx>0) { //right
-                    entityCollisionBox.x += entity.speed;
-                    if ((entityCollisionBox.intersects(npcCollisionBox)) || (entityCollisionBox.intersects(enemyCollisionBox))) {
-                        entity.collisionOn = true;
-                        index = 1;
-                    }
-                }
-
-                //entity.solidArea.x = entity.solidAreaDefault.x;
-                //entity.solidArea.y = entity.solidAreaDefault.y;
-                //npc.solidArea.x = npc.solidAreaDefault.x;
-                //npc.solidArea.y = npc.solidAreaDefault.y;
-
-        return index;*/
-
     }
 
 
 
     public void checkPlayer ( Entity entity, double dx, double dy) {
-        //entity.solidArea.x += entity.getWorldPos().getX().intValue();
-        //entity.solidArea.y += entity.getWorldPos().getY().intValue();
+        boolean damage = entity instanceof Enemy;
+        int damageAmount = 1;
 
-        //player.solidArea.x += player.getWorldPos().getX().intValue();
-        //player.solidArea.y += player.getWorldPos().getY().intValue();
-
-        Rectangle entityCollisionBox = new Rectangle(
+            Rectangle entityCollisionBox = new Rectangle(
                 entity.getWorldPos().getX().intValue() + entity.solidArea.x,
                 entity.getWorldPos().getY().intValue() + entity.solidArea.y,
                 entity.solidArea.width,
@@ -204,12 +140,14 @@ public class CollisionChecker {
             entityCollisionBox.y -= entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
-                player.takeDamage(1);
-                System.out.println("Got hit by enemy, health:" + player.health);
-                player.worldPos.increment(
-                        -player.getFacingDirection().getX() * tileSize,
-                        -player.getFacingDirection().getY() * tileSize
-                );
+                if (damage) {
+                    player.takeDamage(1);
+                    System.out.println("Got hit by enemy, health:" + player.health);
+                    player.worldPos.increment(
+                            -player.getFacingDirection().getX() * tileSize,
+                            -player.getFacingDirection().getY() * tileSize
+                    );
+                }
             }
 
 
@@ -217,12 +155,14 @@ public class CollisionChecker {
             entityCollisionBox.y += entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
-                player.takeDamage(1);
-                System.out.println("Got hit by enemy, health:" + player.health);
-                player.worldPos.increment(
-                        -player.getFacingDirection().getX() * tileSize,
-                        -player.getFacingDirection().getY() * tileSize
-                );
+                if (damage) {
+                    player.takeDamage(1);
+                    System.out.println("Got hit by enemy, health:" + player.health);
+                    player.worldPos.increment(
+                            -player.getFacingDirection().getX() * tileSize,
+                            -player.getFacingDirection().getY() * tileSize
+                    );
+                }
             }
         }
 
@@ -230,23 +170,27 @@ public class CollisionChecker {
             entityCollisionBox.x -= entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
-                player.takeDamage(1);
-                System.out.println("Got hit by enemy, health:" + player.health);
-                player.worldPos.increment(
-                        -player.getFacingDirection().getX() * tileSize,
-                        -player.getFacingDirection().getY() * tileSize
-                );
+                if (damage) {
+                    player.takeDamage(1);
+                    System.out.println("Got hit by enemy, health:" + player.health);
+                    player.worldPos.increment(
+                            -player.getFacingDirection().getX() * tileSize,
+                            -player.getFacingDirection().getY() * tileSize
+                    );
+                }
             }
         } else if (dx>0) { //right
             entityCollisionBox.x += entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
-                player.takeDamage(1);
-                System.out.println("Got hit by enemy, health:" + player.health);
-                player.worldPos.increment(
-                        -player.getFacingDirection().getX() * tileSize,
-                        -player.getFacingDirection().getY() * tileSize
-                );
+                if (damage) {
+                    player.takeDamage(1);
+                    System.out.println("Got hit by enemy, health:" + player.health);
+                    player.worldPos.increment(
+                            -player.getFacingDirection().getX() * tileSize,
+                            -player.getFacingDirection().getY() * tileSize
+                    );
+                }
             }
         }
     }
