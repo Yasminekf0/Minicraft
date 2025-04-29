@@ -28,28 +28,24 @@ import static view.ScreenSettings.scale;
 import model.entity.Enemy;
 import model.entity.Player;
 import model.position.WorldPosition;
+import model.world.MobManager;
 
 public class EnemyView extends GameElementView{
         // Sprite images
-        private BufferedImage up1,  up2, up3,up4,up5, down1, down2, right1, right2, left1, left2, z, z1, z2, sk1, sk2, sk, v, v1, v2;
+        private BufferedImage  z, z1, z2, sk1, sk2, sk, v, v1, v2;
         private final Player player;
-        private final Enemy[] enemies; //***************************************
+        private final Enemy[] enemies;
         private int spriteCounter = 0;
         private int spriteNum;
         private double angle = 0;
         private final double[] angles = new double[3];
         //private double angles[0] = 0;
-
         //this.enemies[1] = Enemy.getInstance();
-        //this.enemies[2] = Enemy.getInstance();
 
 
     public EnemyView() {
             this.player = Player.getInstance();
-            this.enemies = new Enemy[3]; //***********************************
-            this.enemies[0] = new Enemy();
-            this.enemies[1] = new Enemy();
-            this.enemies[2] = new Enemy();
+            this.enemies = MobManager.getInstance().getEnemies();
 
             loadImages();
         }
@@ -59,14 +55,6 @@ public class EnemyView extends GameElementView{
 
         protected void loadImages() {
             try {
-                down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_down_1.png")));
-                down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_down_2.png")));
-                left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_left_1.png")));
-                left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_left_2.png")));
-                right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_right_1.png")));
-                right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_right_2.png")));
-                up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_up_1.png")));
-                up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_up_2.png")));
                 v = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager.png")));
                 v2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager2.png")));
                 v1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager1.png")));

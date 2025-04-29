@@ -3,6 +3,7 @@ package controller;
 import model.DayCycleManager;
 import model.entity.Player;
 import model.items.tools.Axe;
+import model.world.MobManager;
 import model.world.World;
 import view.*;
 import model.saveloadmanager.*;
@@ -59,6 +60,7 @@ public class StartController {
         Player player = Player.getInstance();
         SoundManager soundManager = SoundManager.getInstance();
         DayCycleManager dayCycleManager = DayCycleManager.getInstance();
+        MobManager mobManager = MobManager.getInstance();
         GameView gameView = new GameView();
         NPCView npcView = gameView.getNpcView();
         EnemyView enemyView = gameView.getEnemyView();
@@ -70,8 +72,8 @@ public class StartController {
         soundManager.loadAllSounds();
 
         // Instantiate controllers for the game.
-        GameController gameController = new GameController(gameView, npcView,enemyView, hudView);
-        PlayerController playerController = new PlayerController(gameView.getPlayerView(), gameView.getEnemyView().getEnemies());
+        GameController gameController = new GameController(gameView, npcView, enemyView, hudView);
+        PlayerController playerController = new PlayerController(gameView.getPlayerView());
         NPCController npcController = new NPCController(gameView.getNpcView());
         EnemyController enemyController = new EnemyController(gameView.getEnemyView());
         KeyController keyController = new KeyController(gameController, playerController);

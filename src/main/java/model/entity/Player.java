@@ -54,7 +54,7 @@ public class Player extends Entity {
 
     public Inventory getInventory() { return inventory; }
 
-    public void moveUntil(double dx, double dy, Entity[] targets) {
+    public void moveUntil(double dx, double dy) {
         collisionOn = false;
         double moveDx = dx * speed;
         double moveDy = dy * speed;
@@ -64,7 +64,7 @@ public class Player extends Entity {
 
         //Entity[] targets = new Entity[]{NPC.getInstance(),enemy1, enemy2, enemy3    // however you get references to your 3 enemies};
 
-        int hitIndex = collisionChecker.checkEntity(this, moveDx, moveDy, targets);
+        int hitIndex = collisionChecker.checkEntity(this, moveDx, moveDy);
         if (hitIndex >= 0) {
             // 0 means NPC, 1 means enemy1, 2→enemy2, 3→enemy3
             if (hitIndex == 0) {

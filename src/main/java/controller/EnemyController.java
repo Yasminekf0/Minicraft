@@ -36,14 +36,12 @@ public class EnemyController {
     private boolean spawned = false;
 
     EnemyController(EnemyView enemyView) {
-        //this.enemy = Enemy.getInstance();
         this.enemyView = enemyView;
         this.enemies = enemyView.getEnemies();
-        int n = enemies.length;
-        pathStage      = new int[n];
-        stepsRemaining = new int[n];
+        pathStage      = new int[enemies.length];
+        stepsRemaining = new int[enemies.length];
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < enemies.length; i++) {
             pathStage[i]      = rand.nextInt(8);
             stepsRemaining[i] = rand.nextInt(200) + 100; // between 100–300 steps
         }

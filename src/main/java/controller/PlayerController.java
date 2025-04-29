@@ -3,6 +3,7 @@ package controller;
 import model.entity.Enemy;
 import model.entity.Player;
 import model.items.tools.Axe;
+import model.world.MobManager;
 import view.PlayerView;
 import view.SoundManager;
 
@@ -15,7 +16,6 @@ public class PlayerController {
     SoundManager soundManager = SoundManager.getInstance();
 
     private final int delay = 1000 / 60;
-    private final Enemy[] enemies;
 
     private int dx = 0, dy = 0;
 
@@ -23,10 +23,9 @@ public class PlayerController {
 
     private final Timer actionTimer;
 
-    PlayerController(PlayerView playerView, Enemy[] enemies){
+    PlayerController(PlayerView playerView){
         this.player = Player.getInstance();
         this.playerView = playerView;
-        this.enemies = enemies;
 
         movementTimer = new Timer(delay, _ -> {
             updatePlayer();
@@ -55,7 +54,7 @@ public class PlayerController {
         double length = Math.sqrt(dx * dx + dy * dy);
         double normalizedDx = (double) dx / length;
         double normalizedDy = (double) dy / length;
-        player.moveUntil(normalizedDx, normalizedDy, enemies);
+        player.moveUntil(normalizedDx, normalizedDy);
 
         double angle = Math.atan2(dy, dx);
         playerView.update(true, angle);
