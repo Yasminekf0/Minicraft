@@ -14,9 +14,6 @@ import javax.swing.*;
 public class PlayerController {
     private final Player player;
     private final PlayerView playerView;
-
-    SoundManager soundManager = SoundManager.getInstance();
-
     private final int delay = 1000 / 60;
 
     private int dx = 0, dy = 0;
@@ -63,7 +60,6 @@ public class PlayerController {
 
     }
 
-
     public void doAction() {
         if (!actionTimer.isRunning()){
             player.use();
@@ -90,5 +86,9 @@ public class PlayerController {
 
     public void upgradeSelectedTool(){
         player.getInventory().upgradeTool();
+    }
+
+    public void takeDamage(int damage) {
+        player.takeDamage(damage);
     }
 }

@@ -38,11 +38,6 @@ public class PlayerView extends GameElementView {
         }
     }
 
-    /**
-     * Updates animation frames and rotation.
-     * @param moving   true if the player is moving, false otherwise
-     * @param newAngle the angle (in radians) representing the player's direction
-     */
     public void update(boolean moving, double newAngle) {
         if (usingAction) {
             return;
@@ -54,6 +49,7 @@ public class PlayerView extends GameElementView {
             // Increase or decrease this threshold to adjust animation speed
             if (spriteCounter > 11) {
                 spriteNum++;
+                SoundManager.getInstance().playSound("footstep");
                 if (spriteNum > 4) {
                     spriteNum = 1;
                 }
@@ -97,16 +93,11 @@ public class PlayerView extends GameElementView {
     private AffineTransform createAffineTransform(BufferedImage image) {
         AffineTransform at = new AffineTransform();
 
-        // Translate to the player's screen position
         at.translate(playerScreenX, playerScreenY);
-
-        // Rotate around the sprite center
         at.rotate(angle);
 
-        // Scale the sprite to tileSize
         at.scale(scale, scale);
 
-        // Center the rotation on the sprite
         at.translate(-image.getWidth() / 2.0, -image.getHeight() / 2.0);
 
         return at;
