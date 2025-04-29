@@ -3,6 +3,7 @@ package model.entity;
 import model.Inventory;
 import model.position.Direction;
 import model.position.WorldPosition;
+import model.world.MobManager;
 import model.world.World;
 
 import java.awt.*;
@@ -59,10 +60,48 @@ public class Player extends Entity {
         double moveDx = dx * speed;
         double moveDy = dy * speed;
 
-        collisionChecker.checkTile(this, moveDx, moveDy);
+        if (!directionLocked){
+            worldPos.updateDirection(moveDx,moveDy);
+        }
+
+        int steps = (int)Math.ceil(Math.max(Math.abs(moveDx), Math.abs(moveDy)));
+        // Per‐step increments
+        double stepDx = moveDx / steps;
+        double stepDy = moveDy / steps;
+
+        Enemy[] enemies = MobManager.getInstance().getEnemies();
+        Entity[] targets = new Entity[enemies.length + 1];
+
+        targets[0] = NPC.getInstance();
+        System.arraycopy(enemies, 0, targets, 1, enemies.length);
+
+        for (int i = 0; i < steps; i++) {
+            collisionChecker.checkTile(this, 0, stepDy);
+            if (collisionOn) {
+                collisionOn = false;
+                stepDy = 0;
+            }
+
+            collisionChecker.checkTile(this, stepDx, 0);
+            if (collisionOn) {
+                collisionOn = false;
+                stepDx = 0;
+            }
 
 
-        //Entity[] targets = new Entity[]{NPC.getInstance(),enemy1, enemy2, enemy3    // however you get references to your 3 enemies};
+            int hit = collisionChecker.checkEntity(this, stepDx, stepDy, targets);
+            if (hit >= 0) {
+                collisionOn = true;
+                if (hit == 0)       interactNPC(hit);
+                else                interactEnemy(hit - 1);
+                break;
+            }
+
+            worldPos.increment(stepDx, stepDy);
+        }
+
+        /*collisionChecker.checkTile(this, moveDx, moveDy);
+
 
         int hitIndex = collisionChecker.checkEntity(this, moveDx, moveDy);
         if (hitIndex >= 0) {
@@ -74,15 +113,12 @@ public class Player extends Entity {
             }
         }
 
-        //int npcIndex = collisionChecker.checkEntity(this,moveDx, moveDy);
-        //interactNPC(npcIndex);
-
         if (!collisionOn){
             if (!directionLocked){
                 worldPos.updateDirection(moveDx,moveDy);
             }
             worldPos.increment(moveDx, moveDy);
-        }
+        }*/
     }
 
     public void interactNPC(int i){

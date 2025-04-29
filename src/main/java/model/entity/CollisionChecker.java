@@ -82,7 +82,7 @@ public class CollisionChecker {
     }
 
 
-    public int checkEntity(Entity entity, double dx, double dy) {
+    public int checkEntity(Entity entity, double dx, double dy, Entity[] targets) {
 
         //for(int i = 0; i < target.length; ++i) {
             //if (target[i] != null) {
@@ -99,11 +99,7 @@ public class CollisionChecker {
                 entity.solidArea.height
         );
 
-        Enemy[] enemies = MobManager.getInstance().getEnemies();
-        Entity[] targets = new Entity[enemies.length + 1];
 
-        targets[0] = NPC.getInstance();
-        System.arraycopy(enemies, 0, targets, 1, enemies.length);
 
         for (int i = 0; i < targets.length; i++) {
             if (targets[i] != null) {
