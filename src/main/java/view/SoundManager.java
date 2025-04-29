@@ -25,6 +25,7 @@ public class SoundManager {
         SOUND_REGISTRY.put("stone", "/sounds/stone.wav");
         SOUND_REGISTRY.put("pickup", "/sounds/pickup.wav");
         SOUND_REGISTRY.put("dead", "/sounds/dead.wav");
+        SOUND_REGISTRY.put("potion", "/sounds/potion.wav");
     }
 
     private SoundManager() {}
