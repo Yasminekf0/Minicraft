@@ -81,8 +81,7 @@ public class CollisionChecker {
     }
 
 
-    public int checkEntity(Entity entity, double dx, double dy) {
-        int index = 999;
+    public int checkEntity(Entity entity, double dx, double dy, Entity[] targets) {
 
         //for(int i = 0; i < target.length; ++i) {
             //if (target[i] != null) {
@@ -99,7 +98,27 @@ public class CollisionChecker {
                 entity.solidArea.height
         );
 
-        Rectangle npcCollisionBox = new Rectangle(
+        for (int i = 0; i < targets.length; i++) {
+            if (targets[i] != null) {
+                Entity t = targets[i];
+                Rectangle tBox = new Rectangle(
+                        t.getWorldPos().getX().intValue() + t.solidArea.x,
+                        t.getWorldPos().getY().intValue() + t.solidArea.y,
+                        t.solidArea.width,
+                        t.solidArea.height
+                );
+
+                if (entityCollisionBox.intersects(tBox)) {
+                    entity.collisionOn = true;
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+
+
+        /*Rectangle npcCollisionBox = new Rectangle(
                 npc.getWorldPos().getX().intValue() + npc.solidArea.x,
                 npc.getWorldPos().getY().intValue() + npc.solidArea.y,
                 npc.solidArea.width,
@@ -147,7 +166,7 @@ public class CollisionChecker {
                 //npc.solidArea.x = npc.solidAreaDefault.x;
                 //npc.solidArea.y = npc.solidAreaDefault.y;
 
-        return index;
+        return index;*/
 
     }
 

@@ -54,14 +54,28 @@ public class Player extends Entity {
 
     public Inventory getInventory() { return inventory; }
 
-    public void moveUntil(double dx, double dy) {
+    public void moveUntil(double dx, double dy, Entity[] targets) {
         collisionOn = false;
         double moveDx = dx * speed;
         double moveDy = dy * speed;
 
         collisionChecker.checkTile(this, moveDx, moveDy);
-        int npcIndex = collisionChecker.checkEntity(this,moveDx, moveDy);
-        interactNPC(npcIndex);
+
+
+        //Entity[] targets = new Entity[]{NPC.getInstance(),enemy1, enemy2, enemy3    // however you get references to your 3 enemies};
+
+        int hitIndex = collisionChecker.checkEntity(this, moveDx, moveDy, targets);
+        if (hitIndex >= 0) {
+            // 0 means NPC, 1 means enemy1, 2→enemy2, 3→enemy3
+            if (hitIndex == 0) {
+                interactNPC(hitIndex);
+            } else {
+                interactEnemy(hitIndex - 1);
+            }
+        }
+
+        //int npcIndex = collisionChecker.checkEntity(this,moveDx, moveDy);
+        //interactNPC(npcIndex);
 
         if (!collisionOn){
             if (!directionLocked){
@@ -72,9 +86,15 @@ public class Player extends Entity {
     }
 
     public void interactNPC(int i){
-        if (i!=999){
+        //if (i!=-1){
             System.out.println('x');
-        }
+        //}
+    }
+
+    public void interactEnemy(int i){
+        //if (i!=-1){
+            System.out.println('e');
+        //}
     }
 
     public void use(){
