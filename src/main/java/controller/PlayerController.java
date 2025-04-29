@@ -3,6 +3,7 @@ package controller;
 import model.entity.Player;
 import model.items.tools.Axe;
 import model.items.tools.Tool;
+import view.HUDView;
 import view.PlayerView;
 import view.SoundManager;
 
@@ -14,6 +15,8 @@ import javax.swing.*;
 public class PlayerController {
     private final Player player;
     private final PlayerView playerView;
+    private final HUDView hudView;
+
     private final int delay = 1000 / 60;
 
     private int dx = 0, dy = 0;
@@ -22,9 +25,10 @@ public class PlayerController {
 
     private final Timer actionTimer;
 
-    PlayerController(PlayerView playerView){
+    PlayerController(PlayerView playerView, HUDView hudView) {
         this.player = Player.getInstance();
         this.playerView = playerView;
+        this.hudView = hudView;
 
         movementTimer = new Timer(delay, _ -> {
             updatePlayer();
@@ -67,6 +71,10 @@ public class PlayerController {
             double currentAngle = player.getFacingAngle();
             player.lockDirection(currentAngle);
             playerView.startUse();
+
+            int tx = player.getWorldPos().getFocusedTileX();
+            int ty = player.getWorldPos().getFocusedTileY();
+            hudView.slashAt(tx, ty);
         }
     }
 
