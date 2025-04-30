@@ -98,5 +98,6 @@ public class PlayerController {
 
     public void takeDamage(int damage) {
         player.takeDamage(damage);
+        SoundManager.getInstance().playSound("damage");
     }
 }
