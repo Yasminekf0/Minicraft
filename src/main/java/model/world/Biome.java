@@ -20,11 +20,11 @@ public enum Biome {
     MOUNTAIN(new LinkedHashMap<>(){{
         put(Tile.LAVA,0.01);put(Tile.STONE,0.94); put(Tile.DIRT,chestRate);}},
             new LinkedHashMap<>(){{
-                put(WorldBlock.Rock,0.3); put(WorldBlock.Chest,chestRate);}}),
+                put(WorldBlock.Rock,0.3); }}),
     SNOWY(new LinkedHashMap<>(){{
         put(Tile.SNOW,0.9); put(Tile.STONE,0.1);}},
             new LinkedHashMap<>(){{
-                put(WorldBlock.Rock,0.2); put(WorldBlock.Chest,chestRate);}}),
+                put(WorldBlock.Rock,0.2); }}),
     OCEAN(new LinkedHashMap<>(){{
         put(Tile.WATER,0.9); put(Tile.SAND,0.1);}},
             new LinkedHashMap<>(){{
