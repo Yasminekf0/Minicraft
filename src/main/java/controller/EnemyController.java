@@ -1,4 +1,5 @@
 package controller;
+import model.Pathfinder;
 import model.entity.Enemy;
 import model.entity.Player;
 import model.position.WorldPosition;
@@ -9,6 +10,8 @@ import view.ScreenSettings;
 
 import javax.swing.*;
 import java.util.Random;
+
+import static view.ScreenSettings.tileSize;
 
 public class EnemyController {
     //private final Enemy enemy;
@@ -25,19 +28,25 @@ public class EnemyController {
 
     private double dx = 1, dy = 0;
 
-    private final int innerSpawnRadius = ScreenSettings.tileSize * 20;
-    private final int outerSpawnRadius = ScreenSettings.tileSize * 30;
+    private final int innerSpawnRadius = tileSize * 20;
+    private final int outerSpawnRadius = tileSize * 30;
 
     private final Random rand = new Random();
 
-    private final int despawnRadius = ScreenSettings.tileSize * 40;
+    private final int despawnRadius = tileSize * 40;
     private final double mobsPerSecond = 0.1;
     private final double spawnProbability = 0;
     private boolean spawned = false;
+    public Pathfinder pFinder =  new Pathfinder();
+    Player player = Player.getInstance();
+    WorldPosition playerPos = player.getWorldPos();
+    World world = World.getInstance();
 
     EnemyController(EnemyView enemyView) {
         this.enemyView = enemyView;
         this.enemies = enemyView.getEnemies();
+
+
         pathStage      = new int[enemies.length];
         stepsRemaining = new int[enemies.length];
 
@@ -61,46 +70,105 @@ public class EnemyController {
             spawned = true;
         }
 
+        for (int i = 0; i < enemies.length; i++) {
+            if (enemies[i] == null) continue;
+            chaseOrWander(enemies[i]);
+            enemyView.update(i, true,
+                    Math.atan2(enemies[i].getWorldPos().getDirectionFacing().getY(),
+                            enemies[i].getWorldPos().getDirectionFacing().getX()));
+        }
+
+    }
 
 
-        for (int i = 0; i < enemies.length; ++i) {
-            //updateEnemy(enemies[i], i);
-            if (--stepsRemaining[i] <= 0) {
-                pathStage[i]      = rand.nextInt(8);
-                stepsRemaining[i] = rand.nextInt(200) + 100;
+    private void chaseOrWander(Enemy e) {
+        WorldPosition ep = e.getWorldPos();
+        WorldPosition pp = player.getWorldPos();
+
+        // decide if we should chase
+        double dx = pp.getX() - ep.getX();
+        double dy = pp.getY() - ep.getY();
+        double dist = Math.hypot(dx, dy);
+
+        if (dist < tileSize * 6) {
+            // within chase range
+            e.onPath = true;
+        } else if (dist > tileSize * 20) {
+            // out of chase range
+            e.onPath = false;
+        }
+
+        if (e.onPath) {
+            // compute path toward the player's tile
+            int goalCol = (playerPos.getX().intValue()+player.solidArea.x)/tileSize;
+            int goalRow = (playerPos.getX().intValue()+player.solidArea.x)/tileSize;
+            e.searchPath(goalCol, goalRow);
+
+            // if path exists, step to the next node
+            if (!e.pFinder.pathList.isEmpty()) {
+                int nextCol = e.pFinder.pathList.get(0).col;
+                int nextRow = e.pFinder.pathList.get(0).row;
+
+                double targetX = nextCol * tileSize + tileSize/2.0;
+                double targetY = nextRow * tileSize + tileSize/2.0;
+
+                double vx = targetX - ep.getX();
+                double vy = targetY - ep.getY();
+                double len = Math.hypot(vx, vy);
+
+                if (len > 0) {
+                    e.moveUntil(speed * vx/len, speed* vy/len);
+                }
             }
-
-            double dx = 0, dy = 0;
-            switch (pathStage[i]) {
-                case 0 -> { dx =  1; dy =  0; }  // right
-                case 1 -> { dx =  0; dy =  1; }  // down
-                case 2 -> { dx = -1; dy =  0; }  // left
-                case 3 -> { dx =  0; dy = -1; }  // up
-                case 4 -> { dx =  0.5; dy =  0.5; }
-                case 5 -> { dx = -0.5; dy = -0.5; }
-                case 6 -> { dx = -0.5; dy =  0.5; }
-                case 7 -> { dx =  0.5; dy = -0.5; }
+        } else {
+            if (--e.wanderSteps <= 0) {
+                e.wanderSteps = 50 + rand.nextInt(100);;
+                e.pathStage = rand.nextInt(8);
+            }
+            dx = 0;
+            dy = 0;
+            switch (e.pathStage) {
+                case 0 -> {
+                    dx = 1;
+                    dy = 0;
+                }  // right
+                case 1 -> {
+                    dx = 0;
+                    dy = 1;
+                }  // down
+                case 2 -> {
+                    dx = -1;
+                    dy = 0;
+                }  // left
+                case 3 -> {
+                    dx = 0;
+                    dy = -1;
+                }  // up
+                case 4 -> {
+                    dx = 0.5;
+                    dy = 0.5;
+                }
+                case 5 -> {
+                    dx = -0.5;
+                    dy = -0.5;
+                }
+                case 6 -> {
+                    dx = -0.5;
+                    dy = 0.5;
+                }
+                case 7 -> {
+                    dx = 0.5;
+                    dy = -0.5;
+                }
             }
 
             double length = Math.sqrt(dx * dx + dy * dy);
             double normalizedDx = (double) dx / length;
             double normalizedDy = (double) dy / length;
-
-            if (enemies[i] == null) continue; //************************************************************************************************+
-            enemies[i].moveUntil(speed * normalizedDx, speed * normalizedDy);
-
-            double angle = Math.atan2(dy, dx);
-            enemyView.update(i,true, angle); //*****************
-            //stepsRemaining--;
+            e.moveUntil(speed * normalizedDx, speed * normalizedDy);
         }
-
-        //updateEnemy(enemies[0]);
-        //updateEnemy(enemies[1]);
-        //updateEnemy(enemies[2]);
-                // despawn mobs that are too far
-                // update all existing mobs
-
     }
+
 
     /*void updateEnemy(Enemy enemy, int index) {
         if (stepsRemaining <= 0) {
@@ -157,8 +225,7 @@ public class EnemyController {
     }*/
 
     private WorldPosition getSpawnPoint() throws NoSpawnpointFoundException {
-        WorldPosition playerPos = Player.getInstance().getWorldPos();
-        World world = World.getInstance();
+
 
         // Try spawing 10 times, then give up
         for (int i = 0; i < 30; i++) {
@@ -187,3 +254,49 @@ public class EnemyController {
         throw new NoSpawnpointFoundException();
     }
 }
+
+
+/*for (int i = 0; i < enemies.length; ++i) {
+            //updateEnemy(enemies[i], i);
+            if (enemies[i] == null) continue;+++++++++++++++++++++++++++++++++++++++++++++
+            if (enemies[i].onPath){
+                int goalCol = (playerPos.getX().intValue()+player.solidArea.x)/tileSize;
+                int goalRow = (playerPos.getY().intValue()+player.solidArea.y)/tileSize;
+
+                enemies[i].searchPath(goalCol, goalRow);
+            } else {
+                if (--stepsRemaining[i] <= 0) {
+                    pathStage[i] = rand.nextInt(8);
+                    stepsRemaining[i] = rand.nextInt(200) + 100;
+                }
+
+            double dx = 0, dy = 0;
+            switch (pathStage[i]) {
+                case 0 -> { dx =  1; dy =  0; }  // right
+                case 1 -> { dx =  0; dy =  1; }  // down
+                case 2 -> { dx = -1; dy =  0; }  // left
+                case 3 -> { dx =  0; dy = -1; }  // up
+                case 4 -> { dx =  0.5; dy =  0.5; }
+                case 5 -> { dx = -0.5; dy = -0.5; }
+                case 6 -> { dx = -0.5; dy =  0.5; }
+                case 7 -> { dx =  0.5; dy = -0.5; }
+            }
+
+                double length = Math.sqrt(dx * dx + dy * dy);
+                double normalizedDx = (double) dx / length;
+                double normalizedDy = (double) dy / length;
+
+                //************************************************************************************************+
+                enemies[i].moveUntil(speed * normalizedDx, speed * normalizedDy);
+
+                double angle = Math.atan2(dy, dx);
+                enemyView.update(i, true, angle);
+            }
+        }*/
+
+    //updateEnemy(enemies[0]);
+    //updateEnemy(enemies[1]);
+    //updateEnemy(enemies[2]);
+    // despawn mobs that are too far
+    // update all existing mobs
+

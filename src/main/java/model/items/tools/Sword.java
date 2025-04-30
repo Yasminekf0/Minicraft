@@ -8,9 +8,13 @@ import model.world.MobManager;
 import model.world.World;
 
 public class Sword extends Tool {
-    private final int breakingPower = 10; //DEPENDS ON MATERIAL
+    private final int damage = 10; //DEPENDS ON MATERIAL
     public Sword() {
         super();
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     @Override
@@ -34,7 +38,7 @@ public class Sword extends Tool {
             int ex = e.getWorldPos().getTileXPos();
             int ey = e.getWorldPos().getTileYPos();
             if (ex == targetX && ey == targetY) {
-                e.takeDamage(this.breakingPower);
+                e.takeDamage(10);
                 if (e instanceof Enemy && e.getHealth() <= 0) {
                     MobManager.getInstance().removeEnemy((Enemy) e);
                     System.out.println("Enemy defeated!");
