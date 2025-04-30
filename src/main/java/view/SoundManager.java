@@ -27,6 +27,11 @@ public class SoundManager {
         SOUND_REGISTRY.put("dead", "/sounds/dead.wav");
         SOUND_REGISTRY.put("potion", "/sounds/potion.wav");
         SOUND_REGISTRY.put("damage", "/sounds/damage.wav");
+        SOUND_REGISTRY.put("bomboclat", "/sounds/bomboclat.wav");
+        SOUND_REGISTRY.put("zombie", "/sounds/zombie.wav");
+        SOUND_REGISTRY.put("zombieDeath", "/sounds/zombieDeath.wav");
+        SOUND_REGISTRY.put("skeleton", "/sounds/skeleton.wav");
+        SOUND_REGISTRY.put("skeletonDeath", "/sounds/skeletonDeath.wav");
     }
 
     private SoundManager() {}
