@@ -1,9 +1,11 @@
 package controller;
 
+import model.entity.Enemy;
 import model.entity.Player;
 import model.items.tools.Axe;
 import model.items.tools.Tool;
 import view.HUDView;
+import model.world.MobManager;
 import view.PlayerView;
 import view.SoundManager;
 
@@ -63,6 +65,7 @@ public class PlayerController {
         playerView.update(true, angle);
 
     }
+
 
     public void doAction() {
         if (!actionTimer.isRunning()){

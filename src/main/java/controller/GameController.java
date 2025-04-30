@@ -25,13 +25,16 @@ public class GameController {
     private DeathView deathView;
     private final HUDView hudView;
     private final NPCController npcController;
+    private final EnemyController enemyController;
 
-    public GameController(GameView gameView, NPCView npcView, HUDView hudView) {
+    public GameController(GameView gameView, NPCView npcView, EnemyView enemyView, HUDView hudView) {
         this.gameView = gameView;
         this.hudView = hudView;
 
         this.dayCycleManager = DayCycleManager.getInstance();
         this.npcController = new NPCController(npcView);
+        this.enemyController = new EnemyController(enemyView);
+
 
 
         gameView.setFocusable(true);
@@ -55,6 +58,7 @@ public class GameController {
             if (!gamePaused) {
                 dayCycleManager.tick();
                 npcController.tick();
+                enemyController.tick();
                 gameView.repaint();
 
                 if (Player.getInstance().getHealth() <= 0) {

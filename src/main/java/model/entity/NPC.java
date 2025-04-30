@@ -3,6 +3,7 @@ package model.entity;
 import model.position.WorldPosition;
 import model.world.World;
 
+import java.awt.*;
 import java.util.Random;
 
 import static java.lang.Math.round;
@@ -14,6 +15,7 @@ public class NPC extends Mob {
     private static NPC instance;
     private CollisionChecker collisionChecker;
     private final World world;
+    private boolean alive = true;
     public NPC(){
         instance = this;
         this.world = World.getInstance();
@@ -22,6 +24,14 @@ public class NPC extends Mob {
         //maybe max speed?
         this.health = 10;
         this.maxHealth = 10;
+        this.collisionChecker = new CollisionChecker();
+        this.solidArea = new Rectangle(1,1,tileSize,tileSize );
+        this.solidAreaDefault = new Rectangle(
+                solidArea.x,
+                solidArea.y,
+                solidArea.width,
+                solidArea.height
+        );
     }
 
 
@@ -33,32 +43,44 @@ public class NPC extends Mob {
     }
 
     public void moveUntil(double dx, double dy) {
-        worldPos.updateDirection(dx,dy);
+        collisionOn = false;
+        double moveDx = dx * speed;
+        double moveDy = dy * speed;
 
-        for (int x = 0; x<speed; x++) {
-            if (world.hasBlock(worldPos.getTileXPos(),worldPos.getNextYTilePos( round(dy)*4*scale))) dy = 0;
-            else if (!(world.isWalkable(worldPos.getTileXPos(),worldPos.getNextYTilePos(dy)))) dy = 0;
+        worldPos.updateDirection(moveDx,moveDy);
 
-            if (world.hasBlock(worldPos.getNextXTilePos( round(dx)*4*scale),worldPos.getTileYPos())) dx = 0;
-            else if (!(world.isWalkable(worldPos.getNextXTilePos(dx),worldPos.getTileYPos()))) dx = 0;
-
-            worldPos.increment(dx, dy);
+        collisionOn = false;
+        collisionChecker.checkTile(this, moveDx, 0);
+        if (collisionOn) {
+            moveDx = 0;
         }
+
+        collisionOn = false;
+        collisionChecker.checkTile(this, 0, moveDy);
+        if (collisionOn) {
+            moveDy = 0;
+        }
+
+        /*collisionOn = false;
+        int hit = collisionChecker.checkEntity(this, moveDx, moveDy);
+        if (hit >= 0) {
+            collisionOn = true;
+            //if (hit == 0)      interactNPC(hit);
+            //else               interactEnemy(hit - 1);
+        }*/
+        collisionChecker.checkPlayer(this,moveDx, moveDy);
+
+        if (!collisionOn) {
+            worldPos.increment(moveDx, moveDy);
+        }
+
     }
 
-    /*for (int i = 0; i < speed; i++) {
-            double stepX = dx;
-            double stepY = dy;
+    public boolean isAlive() {
+        return alive;
+    }
 
-            if (!collisionChecker.canMoveY(worldPos, stepY)) {
-                stepY = 0;
-            }
-            if (!collisionChecker.canMoveX(worldPos, stepX)) {
-                stepX = 0;
-            }
-
-            worldPos.increment(stepX, stepY);
-        }*/
-
-
+    public void kill() {
+        alive = false;
+    }
 }

@@ -3,6 +3,7 @@ package controller;
 import model.DayCycleManager;
 import model.entity.Player;
 import model.items.tools.Axe;
+import model.world.MobManager;
 import model.world.World;
 import view.*;
 import model.saveloadmanager.*;
@@ -68,8 +69,10 @@ public class StartController {
         World world = World.getInstance();
         Player player = Player.getInstance();
         DayCycleManager dayCycleManager = DayCycleManager.getInstance();
+        MobManager mobManager = MobManager.getInstance();
         GameView gameView = new GameView();
         NPCView npcView = gameView.getNpcView();
+        EnemyView enemyView = gameView.getEnemyView();
         HUDView hudView = new HUDView(player);
 
         OptionsView optionsView = mainView.getOptionsView();
@@ -77,9 +80,10 @@ public class StartController {
 
 
         // Instantiate controllers for the game.
-        GameController gameController = new GameController(gameView, npcView,hudView);
+        GameController gameController = new GameController(gameView, npcView,enemyView, hudView);
         PlayerController playerController = new PlayerController(gameView.getPlayerView(), hudView);
         NPCController npcController = new NPCController(gameView.getNpcView());
+        EnemyController enemyController = new EnemyController(gameView.getEnemyView());
         KeyController keyController = new KeyController(gameController, playerController);
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 
@@ -88,7 +92,7 @@ public class StartController {
         deathView.addQuitListener(e -> { System.exit(0); });
 
         gameController.setOptionsView(optionsView);
-        
+
         soundManager.loopSoundContinuously("background");
 
     }

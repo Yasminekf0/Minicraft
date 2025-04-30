@@ -19,7 +19,7 @@ public class DayCycleManager implements Serializable {
     private int time = 0;
 
     private DayCycleManager() {
-        this.delay = 1000/ GameSettings.FPS;
+        this.delay = 100/ GameSettings.FPS;
     }
 
     public static DayCycleManager getInstance() {
