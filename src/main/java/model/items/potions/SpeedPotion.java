@@ -7,7 +7,6 @@ import javax.swing.Timer;
 
 public class SpeedPotion extends Potion {
     private int speedBoost;
-    private int originalSpeed;
 
     public SpeedPotion() {
         super();
@@ -26,8 +25,6 @@ public class SpeedPotion extends Potion {
         Player player = Player.getInstance();
 
         if (count > 0) {
-            originalSpeed = player.getSpeed();
-
             player.setSpeed(player.getSpeed() + speedBoost);
 
             SoundManager.getInstance().playSound("potion");
@@ -35,7 +32,7 @@ public class SpeedPotion extends Potion {
             count--;
 
             Timer revert = new Timer(15_000, e -> {
-                player.setSpeed(originalSpeed);
+                player.setSpeed(player.getDefaultSpeed());
                 ((Timer)e.getSource()).stop();
             });
             revert.setRepeats(false);

@@ -28,6 +28,7 @@ public class Player extends Entity implements Serializable {
         this.worldPos = new WorldPosition((tileSize/2.0) + (worldSize*tileSize) /2.0,(tileSize/2.0) + (worldSize*tileSize) /2.0);
         getSpawnPos();
         this.speed = 10;
+        this.defaultSpeed = 10;
         this.health = 10;
         this.maxHealth = 10;
         inventory = new Inventory();
@@ -87,5 +88,9 @@ public class Player extends Entity implements Serializable {
 
         Direction d = worldPos.getDirectionFacing();
         return Math.atan2(d.getY(), d.getX());
+    }
+
+    public int getDefaultSpeed() {
+        return defaultSpeed;
     }
 }
