@@ -2,6 +2,8 @@ package model.entity;
 import controller.GameController;
 import model.Pathfinder;
 import model.position.WorldPosition;
+import view.SoundManager;
+
 import java.awt.*;
 import static view.ScreenSettings.tileSize;
 
@@ -51,6 +53,7 @@ public abstract class Entity implements Serializable {
 
     public void takeDamage(int damage) {
         this.health = Math.max(0, this.health - damage);
+        SoundManager.getInstance().playSound("damage");
     }
 
     public void heal(int healAmount) {
