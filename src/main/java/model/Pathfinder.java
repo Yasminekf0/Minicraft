@@ -3,6 +3,7 @@ package model;
 import model.world.World;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static model.world.WorldSettings.worldSize;
 
@@ -16,6 +17,7 @@ public class Pathfinder {
     int step = 0;
     int bestNodeIndex = 0;
     int bestNodefCost  = Integer.MAX_VALUE;
+    private List<Node> dirtyNodes = new ArrayList<>();
 
     public Pathfinder() {
         this.world= World.getInstance();
@@ -29,7 +31,7 @@ public class Pathfinder {
         int row = 0;
 
         while(col < worldSize && row < worldSize){
-            nodes[row][col] = new Node(col, row);
+            nodes[col][row] = new Node(col, row);
 
             col++;
             if (col == worldSize){
@@ -44,9 +46,9 @@ public class Pathfinder {
         int row = 0;
 
         while(col < worldSize && row < worldSize){
-            nodes[row][col].open = false;
-            nodes[row][col].checked = false;
-            nodes[row][col].solid = false;
+            nodes[col][row].open = false;
+            nodes[col][row].checked = false;
+            nodes[col][row].solid = false;
 
             col++;
             if (col == worldSize){
@@ -64,6 +66,26 @@ public class Pathfinder {
 
 
     public void setNode(int startCol, int startRow, int goalCol, int goalRow){
+        /*int R = 20; // chase radius in tiles
+        int minC = Math.max(0,  Math.min(startCol, goalCol) - R);
+        int maxC = Math.min(worldSize-1, Math.max(startCol, goalCol) + R);
+        int minR = Math.max(0,  Math.min(startRow, goalRow) - R);
+        int maxR = Math.min(worldSize-1, Math.max(startRow, goalRow) + R);
+
+        int w = maxC - minC + 1;
+        int h = maxR - minR + 1;
+        Node[][] local = new Node[w][h];
+
+        for (int dc = 0; dc < w; dc++) {
+            for (int dr = 0; dr < h; dr++) {
+                Node global = nodes[minC + dc][minR + dr];
+                local[dc][dr] = new Node(dc, dr, global.walkable);
+            }
+        }
+
+        startNode = local[startCol - minC][startRow - minR];
+        goalNode  = local[goalCol  - minC][goalRow  - minR];
+*/
         resetNodes();
         startNode = nodes[startCol][startRow];
         currentNode = startNode;
@@ -75,7 +97,7 @@ public class Pathfinder {
 
         while(col < worldSize && row < worldSize){
             if (world.hasBlock(col, row) || !world.isWalkable(col,row)){
-                nodes[row][col].solid = true;
+                nodes[col][row].solid = true;
             }
 
             getCost(nodes[col][row]);
@@ -164,9 +186,10 @@ public class Pathfinder {
     }
 
     public void trackPath(){
+        if (goalNode == startNode) return;
         Node current = goalNode;
 
-        while (current.parent != startNode){
+        while (current != null && current.parent != startNode){
             pathList.add(0,current);
             current = current.parent;
         }

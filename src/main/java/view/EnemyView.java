@@ -83,7 +83,7 @@ public class EnemyView extends GameElementView{
                 angles[index] = newAngle;
                 spriteCounter++;
                 // Increase or decrease this threshold to adjust animation speed
-                if (spriteCounter > 19) {
+                if (spriteCounter > 40) {
                     spriteNum++;
                     if (spriteNum > 4) {
                         spriteNum = 1;
