@@ -174,6 +174,7 @@ public class Pathfinder {
             }
             step++;
         }
+
         return goalReached;
     }
 

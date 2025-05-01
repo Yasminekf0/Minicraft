@@ -1,4 +1,5 @@
 package controller;
+import model.Node;
 import model.Pathfinder;
 import model.entity.Enemy;
 import model.entity.Player;
@@ -9,6 +10,7 @@ import view.PlayerView;
 import view.ScreenSettings;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static view.ScreenSettings.tileSize;
@@ -24,7 +26,9 @@ public class EnemyController {
     //private int pathStage; // 0 = right, 1 = down, 2 = left, 3 = up
     //private int stepsRemaining = 100;
 
-    private double dx = 1, dy = 0;
+    private double dx = 0, dy = 0;
+    private double angle = 0;
+    private ArrayList<Node> pathList;
 
     private final int innerSpawnRadius = tileSize * 20;
     private final int outerSpawnRadius = tileSize * 30;
@@ -58,13 +62,14 @@ public class EnemyController {
 
         for (int i = 0; i < enemies.length; i++) {
             if (enemies[i] == null) continue;
-            enemyView.update(i, true, chaseOrWander(enemies[i]));
+            chaseOrWander(enemies[i]);
+            enemyView.update(i, true, angle);
         }
 
     }
 
 
-    private double chaseOrWander(Enemy e) {
+    private void chaseOrWander(Enemy e) {
         WorldPosition ep = e.getWorldPos();
         WorldPosition pp = player.getWorldPos();
 
@@ -86,8 +91,28 @@ public class EnemyController {
             // compute path toward the player's tile
             int goalCol = (pp.getX().intValue()+player.solidArea.x)/tileSize;
             int goalRow = (pp.getY().intValue()+player.solidArea.y)/tileSize;
-            //; //if()then (moveuntil) //dx,dy lost
-            return e.searchPath(goalCol, goalRow);
+            pathList = e.searchPath(goalCol, goalRow); //if()then (moveuntil) //dx,dy lost
+
+            if (pathList != null && !pathList.isEmpty()) {
+                double entityCenterX = e.getWorldPos().getX() + e.solidArea.x + e.solidArea.width  / 2.0;
+                double entityCenterY = e.getWorldPos().getY() + e.solidArea.y + e.solidArea.height / 2.0;
+
+                double targetCenterX = pathList.get(0).col * tileSize + tileSize / 2.0;
+                double targetCenterY = pathList.get(0).row * tileSize + tileSize / 2.0;
+
+                double ux = targetCenterX - entityCenterX;
+                double uy = targetCenterY - entityCenterY;
+                double distance = Math.hypot(ux, uy);
+                if (distance > 0) {
+                    dx = ux / dist;
+                    dy = uy / dist;
+
+                    e.moveUntil(dx, dy);
+                    e.collisionChecker.checkTile(e, ux, uy);
+                }
+            }
+
+
             // if path exists, step to the next node
             /*if (!e.pFinder.pathList.isEmpty()) {
                 int nextCol = e.pFinder.pathList.get(0).col;
@@ -194,9 +219,7 @@ public class EnemyController {
             double normalizedDy = dy / length;
             e.moveUntil(normalizedDx, normalizedDy);
             e.collisionChecker.checkPlayer(e, 0, 0);
-
-            return Math.atan2(dy, dx);
-
+            angle = Math.atan2(dy, dx);
         }
     }
 

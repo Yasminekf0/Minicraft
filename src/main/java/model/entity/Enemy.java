@@ -1,5 +1,7 @@
 package model.entity;
 
+import model.Node;
+import model.Pathfinder;
 import model.position.WorldPosition;
 import model.world.World;
 
@@ -7,6 +9,7 @@ import java.awt.*;
 
 import static view.ScreenSettings.tileSize;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Math.round;
@@ -18,6 +21,7 @@ public class Enemy extends Mob {
     public int wanderSteps = new Random().nextInt(100)+100;
     public int pathStage = new Random().nextInt(8);
     private int lastGoalCol = -1, lastGoalRow = -1;
+    public Pathfinder pFinder =  new Pathfinder();
     private double dx, dy;
     public Enemy(){
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
@@ -62,20 +66,21 @@ public class Enemy extends Mob {
     }
 
 
-    public double searchPath(int goalCol, int goalRow) {
-        if (onPath
+    public ArrayList<Node> searchPath(int goalCol, int goalRow) {
+        /*if (onPath
                 && goalCol == lastGoalCol
                 && goalRow == lastGoalRow
                 && !pFinder.pathList.isEmpty()) {
             return Math.atan2(dy, dx);
         }
         lastGoalCol = goalCol;
-        lastGoalRow = goalRow;
+        lastGoalRow = goalRow;*/
 
         int startCol = (this.getWorldPos().getX().intValue()+ this.solidArea.x)/tileSize;
         int startRow = (this.getWorldPos().getY().intValue()+ this.solidArea.y)/tileSize;
         pFinder.setNode(startCol, startRow, goalCol, goalRow);
         if (pFinder.search() && !pFinder.pathList.isEmpty()){
+            return pFinder.pathList;
             /*int nextX = pFinder.pathList.get(0).col*tileSize;
             int nextY = pFinder.pathList.get(0).row*tileSize;
 
@@ -123,23 +128,7 @@ public class Enemy extends Mob {
                 }
             }*/
 
-            double entityCenterX = this.getWorldPos().getX() + solidArea.x + solidArea.width  / 2.0;
-            double entityCenterY = this.getWorldPos().getY() + solidArea.y + solidArea.height / 2.0;
 
-            double targetCenterX = pFinder.pathList.get(0).col * tileSize + tileSize / 2.0;
-            double targetCenterY = pFinder.pathList.get(0).row * tileSize + tileSize / 2.0;
-
-            double ux = targetCenterX - entityCenterX;
-            double uy = targetCenterY - entityCenterY;
-            double dist = Math.hypot(ux, uy);
-            if (dist > 0) {
-                dx = ux / dist;
-                dy = uy / dist;
-
-                this.moveUntil(dx, dy);
-                this.collisionChecker.checkTile(this, ux, uy);
-                return Math.atan2(dy, dx);
-            }
 
 
             //this is disabled when the goal is a player
@@ -150,7 +139,7 @@ public class Enemy extends Mob {
             }*/
 
         }
-        return Math.atan2(dx, dy);
+        return null;
     }
 
     /*public void searchPath(int goalCol, int goalRow) {

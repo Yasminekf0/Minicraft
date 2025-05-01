@@ -22,7 +22,7 @@ public abstract class Entity implements Serializable {
     public Rectangle solidAreaDefault;// = new Rectangle(8,8,8,8);
     public boolean collisionOn = false;
     public boolean onPath = false;
-    public Pathfinder pFinder =  new Pathfinder();
+
 
     public WorldPosition getWorldPos() {
         return worldPos;
