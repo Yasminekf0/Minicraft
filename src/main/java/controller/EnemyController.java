@@ -11,6 +11,7 @@ import view.ScreenSettings;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static view.ScreenSettings.tileSize;
@@ -28,7 +29,7 @@ public class EnemyController {
 
     private double dx = 0, dy = 0;
     private double angle = 0;
-    private ArrayList<Node> pathList;
+    private List<Node> pathList;
 
     private final int innerSpawnRadius = tileSize * 20;
     private final int outerSpawnRadius = tileSize * 30;
@@ -87,12 +88,16 @@ public class EnemyController {
         }
 
         if (e.onPath) {
-            System.out.println("pathfinding");
+
             // compute path toward the player's tile
             int goalCol = (pp.getX().intValue()+player.solidArea.x)/tileSize;
             int goalRow = (pp.getY().intValue()+player.solidArea.y)/tileSize;
             pathList = e.searchPath(goalCol, goalRow); //if()then (moveuntil) //dx,dy lost
+            //e.moveUntil(dx, dy);
+            //angle = Math.atan2(dy, dx);
 
+
+            //angle =  Math.atan2(dy, dx);
             if (pathList != null && !pathList.isEmpty()) {
                 double entityCenterX = e.getWorldPos().getX() + e.solidArea.x + e.solidArea.width  / 2.0;
                 double entityCenterY = e.getWorldPos().getY() + e.solidArea.y + e.solidArea.height / 2.0;
@@ -102,13 +107,18 @@ public class EnemyController {
 
                 double ux = targetCenterX - entityCenterX;
                 double uy = targetCenterY - entityCenterY;
+
                 double distance = Math.hypot(ux, uy);
                 if (distance > 0) {
-                    dx = ux / dist;
-                    dy = uy / dist;
+                    dx = ux / distance;
+                    dy = uy / distance;
+                    System.out.printf("pathfinding: %.4f, %.4f%n", dx, dy);
 
                     e.moveUntil(dx, dy);
-                    e.collisionChecker.checkTile(e, ux, uy);
+                    //e.collisionChecker.checkTile(e, dx, dy);
+                    angle = Math.atan2(dy, dx);
+
+
                 }
             }
 

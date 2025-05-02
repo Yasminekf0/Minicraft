@@ -10,6 +10,7 @@ import java.awt.*;
 import static view.ScreenSettings.tileSize;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.round;
@@ -66,7 +67,7 @@ public class Enemy extends Mob {
     }
 
 
-    public ArrayList<Node> searchPath(int goalCol, int goalRow) {
+    public List<Node> searchPath(int goalCol, int goalRow) {
         /*if (onPath
                 && goalCol == lastGoalCol
                 && goalRow == lastGoalRow
