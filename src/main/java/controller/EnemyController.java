@@ -137,13 +137,9 @@ public class EnemyController {
                     if (distt <= e.getSpeed()) {
                         double snapX = tileCenterX - (e.solidArea.x + e.solidArea.width * 0.5);
                         double snapY = tileCenterY - (e.solidArea.y + e.solidArea.height * 0.5);
-                        //e.getWorldPos().set(snapX, snapY);
-                        e.getWorldPos().lerpTo(snapX, snapY, 0.3);
-
-                        // Only remove the waypoint once we're very close:
-                        if (e.getWorldPos().isWithin(0.5, snapX, snapY)) {
+                        e.getWorldPos().set(snapX, snapY);
                             chasePath.remove(0);
-                        }
+                        //}
                     }
 
                     angle = Math.atan2(e.dy, e.dx);
