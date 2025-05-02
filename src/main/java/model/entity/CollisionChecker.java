@@ -12,13 +12,11 @@ import static view.ScreenSettings.tileSize;
 public class CollisionChecker {
 
     private final World world;
-    private final NPC npc;
     private final Player player;
     //private final Enemy[] targets;
 
     public CollisionChecker() {
         this.world = World.getInstance();
-        this.npc = NPC.getInstance();
         //this.targets = MobManager.getInstance().getEnemies();
         this.player = Player.getInstance();
     }

@@ -31,7 +31,7 @@ public class Enemy extends Mob {
         this.dx = 0;
         this.dy = 1;
         this.collisionChecker = new CollisionChecker();
-        this.solidArea = new Rectangle(1,1,tileSize,tileSize );
+        this.solidArea = new Rectangle(1,1,tileSize-1,tileSize-1 );
         this.skinType = Math.random() < 0.5;
 
     }

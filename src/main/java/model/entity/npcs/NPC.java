@@ -20,7 +20,7 @@ public class NPC extends Mob {
         this.health = 10;
         this.maxHealth = 10;
         this.collisionChecker = new CollisionChecker();
-        this.solidArea = new Rectangle(1,1,tileSize,tileSize );
+        this.solidArea = new Rectangle(1,1,tileSize-1,tileSize-1 );
         this.solidAreaDefault = new Rectangle(
                 solidArea.x,
                 solidArea.y,
