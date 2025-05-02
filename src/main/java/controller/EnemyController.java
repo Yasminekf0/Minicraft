@@ -27,7 +27,8 @@ public class EnemyController {
     //private int pathStage; // 0 = right, 1 = down, 2 = left, 3 = up
     //private int stepsRemaining = 100;
 
-    private double dx = 0, dy = 0;
+    private final double dx = 0;
+    private final double dy = 0;
     private double angle = 0;
     private List<Node> pathList;
 
@@ -245,7 +246,7 @@ public class EnemyController {
 
         } else {
             if (--e.wanderSteps <= 0) {
-                e.wanderSteps = 50 + rand.nextInt(100);;
+                e.wanderSteps = 50 + rand.nextInt(100);
                 e.pathStage = rand.nextInt(8);
             }
             dx = 0;

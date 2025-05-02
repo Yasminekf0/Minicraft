@@ -24,8 +24,8 @@ public class WorldView extends GameElementView {
     private final Tile[][] tiles;
 
     private final WorldBlock[][] worldBlocks;
-    private EnumMap<Tile, BufferedImage> tileImageMap;
-    private EnumMap<WorldBlock, BufferedImage> blockImageMap;
+    private final EnumMap<Tile, BufferedImage> tileImageMap;
+    private final EnumMap<WorldBlock, BufferedImage> blockImageMap;
 
     public WorldView() {
 

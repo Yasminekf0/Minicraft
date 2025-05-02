@@ -7,9 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class OptionsView extends JPanel {
-    private Buttons backButton;
-    private Buttons saveButton;
-    private Buttons quitButton;
+    private final Buttons backButton;
+    private final Buttons saveButton;
+    private final Buttons quitButton;
     private JLabel titleLabel;
 
     public OptionsView(){

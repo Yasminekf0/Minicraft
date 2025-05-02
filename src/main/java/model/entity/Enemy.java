@@ -22,7 +22,8 @@ public class Enemy extends Mob {
     public CollisionChecker collisionChecker;
     public int wanderSteps = new Random().nextInt(100)+100;
     public int pathStage = new Random().nextInt(8);
-    private int lastGoalCol = -1, lastGoalRow = -1;
+    private final int lastGoalCol = -1;
+    private final int lastGoalRow = -1;
     public Pathfinder pFinder =  new Pathfinder();
     public double dx, dy;
     public Enemy(){
@@ -34,7 +35,7 @@ public class Enemy extends Mob {
         this.dy = 1;
         this.collisionChecker = new CollisionChecker();
         this.solidArea = new Rectangle(1,1,tileSize,tileSize );
-        this.skinType = Math.random() < 0.5 ? true : false;
+        this.skinType = Math.random() < 0.5;
 
     }
 

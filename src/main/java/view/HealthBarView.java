@@ -13,8 +13,8 @@ public class HealthBarView extends JComponent {
     private final Player player;
     private BufferedImage fullHeart;
     private BufferedImage emptyHeart;
-    private int heartWidth;
-    private int heartHeight;
+    private final int heartWidth;
+    private final int heartHeight;
 
     public HealthBarView(Player player) {
         this.player = player;

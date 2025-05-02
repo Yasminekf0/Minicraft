@@ -25,7 +25,7 @@ public class InventoryView extends JComponent {
     private static final int cells = 3;
 
     private static final Font countFont;
-    private static final int shadow = 1 * scaleHUD;
+    private static final int shadow = scaleHUD;
     private static final Color shadowC = new Color(0,0,0,150);
     private static final Color textC = Color.WHITE;
 

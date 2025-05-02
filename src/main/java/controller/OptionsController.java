@@ -12,8 +12,8 @@ import view.SoundManager;
 import java.io.*;
 
 public class OptionsController {
-    private OptionsView optionsView;
-    private GameController gameController;
+    private final OptionsView optionsView;
+    private final GameController gameController;
     private final SoundManager soundManager = SoundManager.getInstance();
 
 

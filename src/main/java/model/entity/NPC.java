@@ -13,7 +13,7 @@ import static view.ScreenSettings.tileSize;
 
 public class NPC extends Mob {
     private static NPC instance;
-    private CollisionChecker collisionChecker;
+    private final CollisionChecker collisionChecker;
     private final World world;
     private boolean alive = true;
     public NPC(){

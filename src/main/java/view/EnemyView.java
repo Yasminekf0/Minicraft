@@ -37,7 +37,7 @@ public class EnemyView extends GameElementView{
         private final Enemy[] enemies;
         private int spriteCounter = 0;
         private int spriteNum;
-        private double angle = 0;
+        private final double angle = 0;
         private final double[] angles = new double[3];
         //private double angles[0] = 0;
         //this.enemies[1] = Enemy.getInstance();

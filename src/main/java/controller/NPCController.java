@@ -60,7 +60,7 @@ public class NPCController {
     void updateNPC() {
         Random rand = new Random();
         if (stepsRemaining <= 0) {
-            pathStage = rand.nextInt(8);;//(pathStage + 1) % 4; // loop through 0 -> 1 -> 2 -> 3 -> 0
+            pathStage = rand.nextInt(8);//(pathStage + 1) % 4; // loop through 0 -> 1 -> 2 -> 3 -> 0
 
             stepsRemaining = 300; // reset steps for new side
         }
@@ -101,8 +101,8 @@ public class NPCController {
         }
 
         double length = Math.sqrt(dx * dx + dy * dy);
-        double normalizedDx = (double) dx / length;
-        double normalizedDy = (double) dy / length;
+        double normalizedDx = dx / length;
+        double normalizedDy = dy / length;
         npc.moveUntil(speed * normalizedDx, speed * normalizedDy);
 
         double angle = Math.atan2(dy, dx);
