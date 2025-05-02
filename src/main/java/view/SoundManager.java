@@ -81,6 +81,15 @@ public class SoundManager {
         }
     }
 
+    public void playBlockSound(Item drop) {
+
+        switch (drop) {
+            case WoodItem w -> playSound("wood");
+            case RockItem r -> playSound("stone");
+            default -> playSound("pickup");
+        }
+    }
+
     public void playSound(String key) {
         Clip clip = clips.get(key);
         if (clip == null) return;

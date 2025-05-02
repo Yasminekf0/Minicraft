@@ -4,11 +4,13 @@ import model.entity.Player;
 import model.items.Item;
 import model.items.tools.BreakingTools;
 import model.world.World;
+import model.world.WorldBlock;
 import view.HUDView;
 import view.PlayerView;
 import view.SoundManager;
 
 import javax.swing.*;
+import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PlayerController {
@@ -29,14 +31,21 @@ public class PlayerController {
         this.playerView = playerView;
         this.hudView = hudView;
 
-        movementTimer = new Timer(delay, _ -> {
-            updatePlayer();
-        });
+        movementTimer = new Timer(delay, _ -> {updatePlayer();});
 
-        actionTimer = new Timer(100, _ -> {
-            player.use();
-        });
+        actionTimer = new Timer(100, _ -> {performAction();});
 
+        List<Item> tools = player.getInventory().getInventorySection("Tools");
+        for (Item i : tools) {
+            if (i instanceof BreakingTools bt) {
+                bt.setOnBlockBroken((WorldBlock block, Item drop) -> {
+                    if (drop != null) {
+                        player.getInventory().addItem(drop);
+                    }
+                    SoundManager.getInstance().playBlockSound(drop);
+                });
+            }
+        }
     }
 
     void updateMoving(int ddx, int ddy){
@@ -63,23 +72,30 @@ public class PlayerController {
 
     }
 
+    private void performAction() {
+        Item selected = player.getInventory().getSelectedItem();
+
+        if (selected instanceof BreakingTools bt) {
+            bt.use();
+        }
+        else if (selected != null && selected.getCount() > 0) {
+            selected.use();
+            SoundManager.getInstance().playUseSound(selected);
+        }
+
+        double angle = player.getFacingAngle();
+        player.lockDirection(angle);
+        playerView.startUse();
+
+        int tx = player.getWorldPos().getFocusedTileX();
+        int ty = player.getWorldPos().getFocusedTileY();
+        hudView.slashAt(tx, ty);
+    }
 
     public void doAction() {
         if (!actionTimer.isRunning()){
-            Item selected = player.getInventory().getSelectedItem();
-
-            if (selected != null && selected.getCount() > 0) {
-                selected.use();
-                SoundManager.getInstance().playUseSound(selected);
-            }
-
+            performAction();
             actionTimer.start();
-            player.lockDirection(player.getFacingAngle());
-            playerView.startUse();
-
-            int tx = player.getWorldPos().getFocusedTileX();
-            int ty = player.getWorldPos().getFocusedTileY();
-            hudView.slashAt(tx, ty);
         }
     }
 

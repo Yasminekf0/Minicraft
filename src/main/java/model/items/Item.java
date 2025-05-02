@@ -21,7 +21,7 @@ public abstract class Item implements Serializable {
         return section;
     }
 
-    public abstract Item use();
+    public abstract void use();
 
 
 }

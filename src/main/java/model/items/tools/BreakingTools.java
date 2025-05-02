@@ -5,11 +5,11 @@ import model.items.Item;
 import model.world.World;
 import model.world.WorldBlock;
 
-public abstract class BreakingTools extends Tool{
+public abstract class BreakingTools extends Tool {
 
     private final int breakingPower = 10;
 
-    public BreakingTools(){
+    public BreakingTools() {
         super();
         currentBlockHealth = 500; //Any big value to begin if statements
     }
@@ -17,10 +17,20 @@ public abstract class BreakingTools extends Tool{
     private int targetedX;
     private int targetedY;
 
-    private int currentBlockHealth ;
+    private int currentBlockHealth;
+
+    public interface BlockBrokenListener {
+        void onBlockBroken(WorldBlock block, Item drop);
+    }
+
+    private BlockBrokenListener brokenListener;
+
+    public void setOnBlockBroken(BlockBrokenListener l) {
+        this.brokenListener = l;
+    }
 
     @Override
-    public Item use() {
+    public void use() {
         Player player = Player.getInstance();
         World world = World.getInstance();
         if (currentBlockHealth > 0) {
@@ -36,16 +46,17 @@ public abstract class BreakingTools extends Tool{
                     currentBlockHealth = world.getBlock(targetedX, targetedY).getBlockDurabilty();
                 }
             }
-            return null;
-        }
-        else {
+        } else {
             WorldBlock block = world.getBlock(targetedX, targetedY);
-            Item drop = block.getDrop();
-            player.getInventory().addItem(drop);
-            world.breakBlock(targetedX,targetedY);
-            currentBlockHealth = 500;
-            return drop;
+            if (block != null) {
+                Item drop = block.getDrop();
+                world.breakBlock(targetedX, targetedY);
+                currentBlockHealth = 500;
+
+                if (brokenListener != null) {
+                    brokenListener.onBlockBroken(block, drop);
+                }
+            }
         }
     }
-
 }

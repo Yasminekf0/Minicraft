@@ -5,7 +5,6 @@ import model.entity.Entity;
 import model.entity.npcs.NPC;
 import model.entity.Player;
 import model.entity.npcs.MobManager;
-import model.items.Item;
 import model.world.World;
 import view.SoundManager;
 
@@ -21,7 +20,7 @@ public class Sword extends Tool {
     }
 
     @Override
-    public Item use() {
+    public void use() {
         Player player = Player.getInstance();
         World world = World.getInstance();
         int targetX = player.getWorldPos().getFocusedTileX();
@@ -63,9 +62,7 @@ public class Sword extends Tool {
                 } else if (e instanceof NPC && e.getHealth() <=0) {
                     ((NPC) e).kill();
                 }
-                return null;
             }
         }
-        return null;
     }
 }

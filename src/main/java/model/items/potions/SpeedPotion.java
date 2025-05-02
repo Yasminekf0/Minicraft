@@ -1,8 +1,6 @@
 package model.items.potions;
 
 import model.entity.Player;
-import model.items.Item;
-import view.SoundManager;
 
 import javax.swing.Timer;
 
@@ -22,15 +20,11 @@ public class SpeedPotion extends Potion {
         this.speedBoost = speedBoost;
     }
 
-    public Item use() {
+    public void use() {
         Player player = Player.getInstance();
 
         if (count > 0) {
             player.setSpeed(player.getSpeed() + speedBoost);
-
-
-            // TODO: Same thing for both potions, Sounds should be in View
-            SoundManager.getInstance().playSound("potion");
 
             count--;
 
@@ -41,6 +35,5 @@ public class SpeedPotion extends Potion {
             revert.setRepeats(false);
             revert.start();
         }
-        return null;
     }
 }
