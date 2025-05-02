@@ -2,17 +2,12 @@ package model.entity.npcs;
 
 import model.entity.npcs.pathfinding.Node;
 import model.entity.npcs.pathfinding.Pathfinder;
-import model.entity.CollisionChecker;
-import model.position.WorldPosition;
-
-import java.awt.*;
 
 import static view.ScreenSettings.tileSize;
 
 import java.util.List;
 import java.util.Random;
 
-import static java.lang.Math.round;
 
 public class Enemy extends Mob {
     public boolean skinType;

@@ -32,12 +32,6 @@ public class Player extends Entity implements Serializable {
         collisionChecker = new CollisionChecker();
         inventory = new Inventory();
         this.solidArea = new Rectangle(1,1,1,1 );//(tileSize/2, tileSize/2, tileSize/2, tileSize/2); //(8, 8, 16, 16) tilesize=16
-        this.solidAreaDefault = new Rectangle(
-                solidArea.x,
-                solidArea.y,
-                solidArea.width,
-                solidArea.height
-        );
         collisionChecker.getSpawnPos(this);
 
     }

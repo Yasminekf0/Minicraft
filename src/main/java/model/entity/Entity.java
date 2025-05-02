@@ -15,7 +15,6 @@ public abstract class Entity implements Serializable {
     protected int maxHealth;
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
-    public Rectangle solidAreaDefault;// = new Rectangle(8,8,8,8);
     public boolean collisionOn = false;
     public boolean onPath = false;
 
