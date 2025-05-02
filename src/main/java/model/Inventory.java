@@ -9,9 +9,10 @@ import model.items.tools.Axe;
 import model.items.tools.Pickaxe;
 import model.items.tools.Sword;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Inventory {
+public class Inventory implements Serializable {
     private final Map<String, ArrayList<Item>> inventory;
     private final Map<String,Integer> selectedIndexMap = new HashMap<>();
     private String currentSection;

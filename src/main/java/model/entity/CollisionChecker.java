@@ -1,25 +1,197 @@
 package model.entity;
 
 import model.position.WorldPosition;
+import model.world.MobManager;
 import model.world.World;
+
+import java.awt.*;
+
+import static view.ScreenSettings.scale;
+import static view.ScreenSettings.tileSize;
 
 public class CollisionChecker {
 
     private final World world;
-    private final int scale;
+    private final NPC npc;
+    private final Player player;
+    //private final Enemy[] targets;
 
-    public CollisionChecker(World world, int scale) {
-        this.world = world;
-        this.scale = scale;
+    public CollisionChecker() {
+        this.world = World.getInstance();
+        this.npc = NPC.getInstance();
+        //this.targets = MobManager.getInstance().getEnemies();
+        this.player = Player.getInstance();
     }
 
-    public boolean canMoveX(WorldPosition pos, double dx) {
-        int nextTileX = pos.getNextXTilePos(dx * 4 * scale);
-        return !world.hasBlock(nextTileX, pos.getTileYPos()) && world.isWalkable(nextTileX, pos.getTileYPos());
+    public void getSpawnPos(Entity entity){
+        while (!(world.isWalkable(entity.worldPos.getTileXPos(),entity.worldPos.getTileYPos())) | world.hasBlock(entity.worldPos.getTileXPos(),entity.worldPos.getTileYPos())){
+            entity.worldPos.increment(tileSize,tileSize);
+        }
     }
 
-    public boolean canMoveY(WorldPosition pos, double dy) {
-        int nextTileY = pos.getNextYTilePos(dy * 4 * scale);
-        return !world.hasBlock(pos.getTileXPos(), nextTileY) && world.isWalkable(pos.getTileXPos(), nextTileY);
+    public void checkTile(Entity entity, double dx, double dy) {
+        int entityLeftWorldX = entity.getWorldPos().getX().intValue()+ entity.solidArea.x;
+        int entityRightWorldX = entity.getWorldPos().getX().intValue()+ entity.solidArea.x + entity.solidArea.width;
+        int entityTopWorldY = entity.getWorldPos().getY().intValue()+ entity.solidArea.y;
+        int entityBottomWorldY = entity.getWorldPos().getY().intValue()+ entity.solidArea.y + entity.solidArea.height;
+
+        int entityLeftCol = entityLeftWorldX / tileSize;
+        int entityRightCol = entityRightWorldX / tileSize;
+        int entityTopRow = entityTopWorldY / tileSize;
+        int entityBottomRow = entityBottomWorldY / tileSize;
+
+
+        boolean tile1_OK;
+        boolean tile2_OK;
+
+
+
+        if (dy < 0) { //up
+            entityTopRow = (entityTopWorldY + (int) dy) / tileSize;
+            tile1_OK = !world.hasBlock(entityLeftCol, entityTopRow) && world.isWalkable(entityLeftCol, entityTopRow);
+            tile2_OK = !world.hasBlock(entityRightCol, entityTopRow) && world.isWalkable(entityRightCol, entityTopRow);
+            if (!tile1_OK || !tile2_OK) {
+                entity.collisionOn = true;
+            }
+        } else if (dy>0) { //down
+            entityBottomRow = (entityBottomWorldY + (int) dy) / tileSize;
+            tile1_OK = !world.hasBlock(entityLeftCol, entityBottomRow) && world.isWalkable(entityLeftCol, entityBottomRow);
+            tile2_OK = !world.hasBlock(entityRightCol, entityBottomRow) && world.isWalkable(entityRightCol, entityBottomRow);
+            if (!tile1_OK || !tile2_OK) {
+                entity.collisionOn = true;
+            }
+        }
+
+
+        if (dx > 0) { //right
+            entityRightCol = (entityRightWorldX + (int) dx) / tileSize;
+            tile1_OK = !world.hasBlock(entityRightCol, entityTopRow) && world.isWalkable(entityRightCol, entityTopRow);
+            tile2_OK = !world.hasBlock(entityRightCol, entityBottomRow) && world.isWalkable(entityRightCol, entityBottomRow);
+            if (!tile1_OK || !tile2_OK) {
+                entity.collisionOn = true;
+            }
+        } else if (dx < 0) {
+            entityLeftCol = (entityLeftWorldX + (int) dx) / tileSize;
+            tile1_OK = !world.hasBlock(entityLeftCol, entityTopRow) && world.isWalkable(entityLeftCol, entityTopRow);
+            tile2_OK = !world.hasBlock(entityLeftCol, entityBottomRow) && world.isWalkable(entityLeftCol, entityBottomRow);
+            if (!tile1_OK || !tile2_OK) {
+                entity.collisionOn = true;
+            }
+        }
+    }
+
+
+    public int checkEntity(Entity entity, double dx, double dy) {
+
+        Rectangle entityCollisionBox = new Rectangle(
+                entity.getWorldPos().getX().intValue() + entity.solidArea.x + (int)dx,
+                entity.getWorldPos().getY().intValue() + entity.solidArea.y + (int)dy,
+                entity.solidArea.width,
+                entity.solidArea.height
+        );
+
+        Enemy[] enemies = MobManager.getInstance().getEnemies();
+        Entity[] targets = new Entity[enemies.length + 1];
+
+        targets[0] = NPC.getInstance();
+        System.arraycopy(enemies, 0, targets, 1, enemies.length);
+
+        for (int i = 0; i < targets.length; i++) {
+            if (targets[i] != null) {
+                Entity t = targets[i];
+                Rectangle tBox = new Rectangle(
+                        t.getWorldPos().getX().intValue() + t.solidArea.x,
+                        t.getWorldPos().getY().intValue() + t.solidArea.y,
+                        t.solidArea.width,
+                        t.solidArea.height
+                );
+
+                if (entityCollisionBox.intersects(tBox)) {
+                    entity.collisionOn = true;
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+
+
+    public void checkPlayer ( Entity entity, double dx, double dy) {
+        boolean damage = entity instanceof Enemy;
+        int damageAmount = 1;
+
+            Rectangle entityCollisionBox = new Rectangle(
+                entity.getWorldPos().getX().intValue() + entity.solidArea.x,
+                entity.getWorldPos().getY().intValue() + entity.solidArea.y,
+                entity.solidArea.width,
+                entity.solidArea.height
+        );
+
+        Rectangle playerCollisionBox = new Rectangle(
+                player.getWorldPos().getX().intValue() + player.solidArea.x,
+                player.getWorldPos().getY().intValue() + player.solidArea.y,
+                player.solidArea.width,
+                player.solidArea.height
+        );
+
+        if (dy < 0){//up
+            entityCollisionBox.y -= entity.speed;
+            if (entityCollisionBox.intersects(playerCollisionBox)) {
+                entity.collisionOn = true;
+                if (damage) {
+                    player.takeDamage(1);
+                    System.out.println("Got hit by enemy, health:" + player.health);
+                    player.worldPos.increment(
+                            -player.getFacingDirection().getX() * tileSize,
+                            -player.getFacingDirection().getY() * tileSize
+                    );
+                }
+            }
+
+
+        } else if (dy > 0) {//down
+            entityCollisionBox.y += entity.speed;
+            if (entityCollisionBox.intersects(playerCollisionBox)) {
+                entity.collisionOn = true;
+                if (damage) {
+                    player.takeDamage(1);
+                    System.out.println("Got hit by enemy, health:" + player.health);
+                    player.worldPos.increment(
+                            -player.getFacingDirection().getX() * tileSize,
+                            -player.getFacingDirection().getY() * tileSize
+                    );
+                }
+            }
+        }
+
+        if (dx<0) {//left
+            entityCollisionBox.x -= entity.speed;
+            if (entityCollisionBox.intersects(playerCollisionBox)) {
+                entity.collisionOn = true;
+                if (damage) {
+                    player.takeDamage(1);
+                    System.out.println("Got hit by enemy, health:" + player.health);
+                    player.worldPos.increment(
+                            -player.getFacingDirection().getX() * tileSize,
+                            -player.getFacingDirection().getY() * tileSize
+                    );
+                }
+            }
+        } else if (dx>0) { //right
+            entityCollisionBox.x += entity.speed;
+            if (entityCollisionBox.intersects(playerCollisionBox)) {
+                entity.collisionOn = true;
+                if (damage) {
+                    player.takeDamage(1);
+                    System.out.println("Got hit by enemy, health:" + player.health);
+                    player.worldPos.increment(
+                            -player.getFacingDirection().getX() * tileSize,
+                            -player.getFacingDirection().getY() * tileSize
+                    );
+                }
+            }
+        }
     }
 }

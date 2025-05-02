@@ -20,7 +20,20 @@ public class SoundManager {
         SOUND_REGISTRY.put("villager3", "/sounds/villager3.wav");
         SOUND_REGISTRY.put("background", "/sounds/background.wav");
         SOUND_REGISTRY.put("footstep", "/sounds/footstep.wav");
-        // TODO: add additional entries here
+        SOUND_REGISTRY.put("button", "/sounds/button.wav");
+        SOUND_REGISTRY.put("wood", "/sounds/wood.wav");
+        SOUND_REGISTRY.put("stone", "/sounds/stone.wav");
+        SOUND_REGISTRY.put("pickup", "/sounds/chest.wav");
+        SOUND_REGISTRY.put("dead", "/sounds/dead.wav");
+        SOUND_REGISTRY.put("potion", "/sounds/potion.wav");
+        SOUND_REGISTRY.put("damage", "/sounds/damage.wav");
+        SOUND_REGISTRY.put("bomboclat", "/sounds/bomboclat.wav");
+        SOUND_REGISTRY.put("zombie", "/sounds/zombie.wav");
+        SOUND_REGISTRY.put("zombieDamage", "/sounds/zombieDamage.wav");
+        SOUND_REGISTRY.put("zombieDeath", "/sounds/zombieDeath.wav");
+        SOUND_REGISTRY.put("skeleton", "/sounds/skeleton.wav");
+        SOUND_REGISTRY.put("skeletonDamage", "/sounds/skeletonDamage.wav");
+        SOUND_REGISTRY.put("skeletonDeath", "/sounds/skeletonDeath.wav");
     }
 
     private SoundManager() {}
