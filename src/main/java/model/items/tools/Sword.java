@@ -40,10 +40,12 @@ public class Sword extends Tool {
             int ey = e.getWorldPos().getTileYPos();
             if (ex == targetX && ey == targetY) {
                 e.takeDamage(10);
-                if (((Enemy) e).skinType){
-                    SoundManager.getInstance().playSound("zombieDamage");
-                } else {
-                    SoundManager.getInstance().playSound("skeletonDamage");
+                if (e instanceof Enemy) {
+                    if (((Enemy) e).skinType) {
+                        SoundManager.getInstance().playSound("zombieDamage");
+                    } else {
+                        SoundManager.getInstance().playSound("skeletonDamage");
+                    }
                 }
 
                 if (e instanceof Enemy && e.getHealth() <= 0) {
