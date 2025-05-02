@@ -123,7 +123,7 @@ public class EnemyView extends GameElementView{
 
                         BufferedImage image;
 
-                        if (!enemies[i].getSkinType()) {
+                        if (enemies[i].getSkinType()) {
                             image = switch (spriteNum) {
                                 case 2 -> z1;
                                 case 4 -> z2;

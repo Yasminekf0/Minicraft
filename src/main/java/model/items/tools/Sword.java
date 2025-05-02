@@ -6,6 +6,7 @@ import model.entity.NPC;
 import model.entity.Player;
 import model.world.MobManager;
 import model.world.World;
+import view.SoundManager;
 
 public class Sword extends Tool {
     private final int damage = 10; //DEPENDS ON MATERIAL
@@ -39,8 +40,19 @@ public class Sword extends Tool {
             int ey = e.getWorldPos().getTileYPos();
             if (ex == targetX && ey == targetY) {
                 e.takeDamage(10);
+                if (((Enemy) e).skinType){
+                    SoundManager.getInstance().playSound("zombieDamage");
+                } else {
+                    SoundManager.getInstance().playSound("skeletonDamage");
+                }
+
                 if (e instanceof Enemy && e.getHealth() <= 0) {
                     MobManager.getInstance().removeEnemy((Enemy) e);
+                    if (((Enemy) e).skinType){
+                        SoundManager.getInstance().playSound("zombieDeath");
+                    } else {
+                        SoundManager.getInstance().playSound("skeletonDeath");
+                    }
                     System.out.println("Enemy defeated!");
                 } else if (e instanceof NPC && e.getHealth() <=0) {
                     ((NPC) e).kill();
