@@ -1,8 +1,12 @@
 package controller;
 
 import model.entity.Player;
+import model.items.Item;
+import model.items.tools.BreakingTools;
+import model.world.World;
 import view.HUDView;
 import view.PlayerView;
+import view.SoundManager;
 
 import javax.swing.*;
 
@@ -61,10 +65,15 @@ public class PlayerController {
 
     public void doAction() {
         if (!actionTimer.isRunning()){
-            player.use();
+            Item selected = player.getInventory().getSelectedItem();
+
+            if (selected != null && selected.getCount() > 0) {
+                selected.use();
+                SoundManager.getInstance().playUseSound(selected);
+            }
+
             actionTimer.start();
-            double currentAngle = player.getFacingAngle();
-            player.lockDirection(currentAngle);
+            player.lockDirection(player.getFacingAngle());
             playerView.startUse();
 
             int tx = player.getWorldPos().getFocusedTileX();

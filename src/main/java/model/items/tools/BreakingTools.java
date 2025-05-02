@@ -2,11 +2,8 @@ package model.items.tools;
 
 import model.entity.Player;
 import model.items.Item;
-import model.items.blocks.RockItem;
-import model.items.blocks.WoodItem;
 import model.world.World;
 import model.world.WorldBlock;
-import view.SoundManager;
 
 public abstract class BreakingTools extends Tool{
 
@@ -23,7 +20,7 @@ public abstract class BreakingTools extends Tool{
     private int currentBlockHealth ;
 
     @Override
-    public void use() {
+    public Item use() {
         Player player = Player.getInstance();
         World world = World.getInstance();
         if (currentBlockHealth > 0) {
@@ -39,21 +36,15 @@ public abstract class BreakingTools extends Tool{
                     currentBlockHealth = world.getBlock(targetedX, targetedY).getBlockDurabilty();
                 }
             }
+            return null;
         }
         else {
             WorldBlock block = world.getBlock(targetedX, targetedY);
             Item drop = block.getDrop();
             player.getInventory().addItem(drop);
             world.breakBlock(targetedX,targetedY);
-
-            // TODO: Same again
-            switch (drop) {
-                case WoodItem woodItem -> SoundManager.getInstance().playSound("wood");
-                case RockItem rockItem -> SoundManager.getInstance().playSound("stone");
-                default -> SoundManager.getInstance().playSound("pickup");
-            }
-
             currentBlockHealth = 500;
+            return drop;
         }
     }
 

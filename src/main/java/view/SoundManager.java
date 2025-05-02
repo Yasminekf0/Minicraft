@@ -1,5 +1,14 @@
 package view;
 
+import model.items.Item;
+import model.items.blocks.RockItem;
+import model.items.blocks.WoodItem;
+import model.items.potions.HealthPotion;
+import model.items.potions.SpeedPotion;
+import model.items.tools.Axe;
+import model.items.tools.Pickaxe;
+import model.items.tools.Sword;
+
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -38,9 +47,7 @@ public class SoundManager {
     private SoundManager() {}
 
     public static synchronized SoundManager getInstance() {
-        if (instance == null) {
-            instance = new SoundManager();
-        }
+        if (instance == null) {instance = new SoundManager();}
         return instance;
     }
 
@@ -63,12 +70,21 @@ public class SoundManager {
         }
     }
 
+    public void playUseSound(Item selected){
+
+        switch (selected) {
+            case Sword s -> playSound("villager2");
+            case RockItem r -> playSound("stone");
+            case WoodItem w -> playSound("wood");
+            case HealthPotion _, SpeedPotion _  -> playSound("potion");
+            default -> playSound("generic_use");
+        }
+    }
+
     public void playSound(String key) {
         Clip clip = clips.get(key);
         if (clip == null) return;
-        if (clip.isRunning()) {
-            clip.stop();
-        }
+        if (clip.isRunning()) clip.stop();
         clip.setFramePosition(0);
         clip.start();
     }

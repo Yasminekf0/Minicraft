@@ -14,7 +14,7 @@ public abstract class BlockItem extends Item {
     }
 
     @Override
-    public void use() {
+    public Item use() {
         Player player = Player.getInstance();
         World world = World.getInstance();
 
@@ -31,5 +31,6 @@ public abstract class BlockItem extends Item {
             }
             count--;
         }
+        return null;
     }
 }
