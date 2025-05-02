@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 import java.awt.*;
 
-import static java.lang.Math.round;
 import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.tileSize;
 

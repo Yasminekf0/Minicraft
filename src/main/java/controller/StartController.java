@@ -7,7 +7,6 @@ import model.world.World;
 import view.*;
 import model.saveloadmanager.*;
 import java.io.*;
-import view.SoundManager;
 
 
 import javax.swing.*;

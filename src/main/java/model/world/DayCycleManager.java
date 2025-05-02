@@ -4,6 +4,7 @@ import controller.GameSettings;
 
 import java.io.Serializable;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class DayCycleManager implements Serializable {
 
     private static DayCycleManager instance;

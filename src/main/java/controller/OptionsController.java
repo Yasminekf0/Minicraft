@@ -3,8 +3,7 @@ package controller;
 import view.OptionsView;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
 import model.saveloadmanager.SaveLoadManager;
 import model.saveloadmanager.GameState;
 import view.SoundManager;
@@ -64,16 +63,4 @@ public class OptionsController {
         });
     }
 
-    /*private void initKeyListener() {
-        optionsView.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    optionsView.setVisible(false);
-                    gameController.resumeGame();
-                }
-            }
-        });
-        optionsView.setFocusable(true);
-    }*/
 }

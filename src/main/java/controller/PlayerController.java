@@ -10,6 +10,7 @@ import view.SoundManager;
 
 import javax.swing.*;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class PlayerController {
     private final Player player;
     private final PlayerView playerView;

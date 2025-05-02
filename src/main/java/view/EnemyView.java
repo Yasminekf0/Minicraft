@@ -16,6 +16,7 @@ import static view.ScreenSettings.tileSize;
 import model.entity.npcs.Enemy;
 import model.entity.npcs.MobManager;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class EnemyView extends GameElementView{
         // Sprite images
         private BufferedImage  z, z1, z2, sk1, sk2, sk, v, v1, v2;
@@ -101,11 +102,7 @@ public class EnemyView extends GameElementView{
                             worldY + tileSize > playerWorldY - playerScreenY &&
                             worldY - tileSize < playerWorldY + playerScreenY) {
 
-                        /*BufferedImage image = switch (spriteNum) {
-                            case 2 -> z1;
-                            case 4 -> z2;
-                            default -> z;
-                        };*/
+
 
                         BufferedImage image;
 

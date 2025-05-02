@@ -9,6 +9,7 @@ import model.items.Item;
 import model.world.World;
 import view.SoundManager;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class Sword extends Tool {
     private final int damage = 10; //DEPENDS ON MATERIAL
     public Sword() {

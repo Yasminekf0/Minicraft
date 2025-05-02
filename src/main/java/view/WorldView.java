@@ -12,7 +12,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Objects;
 
 import static model.world.WorldSettings.worldSize;

@@ -1,9 +1,5 @@
 package model.entity.npcs;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class MobManager {
 
     private static MobManager inst = new MobManager();

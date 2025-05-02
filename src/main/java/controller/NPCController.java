@@ -9,6 +9,7 @@ import view.ScreenSettings;
 
 import java.util.Random;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class NPCController {
     private final NPC npc;
     private final NPCView npcView;
@@ -142,23 +143,6 @@ public class NPCController {
 class NoSpawnpointFoundException extends Exception {}
 
 
-
-    /*public void doAction() {
-        if (!actionTimer.isRunning()){
-            npc.setAction();
-            actionTimer.start();
-        }
-    }
-
-    public void stopAction(){
-        actionTimer.stop();
-    }*/
-
-
-
-
-//Random rand = new Random();
-//int x = 0;
 /*while (x<100) {
             int i = rand.nextInt(100) + 1; //random num 1 to 100
 

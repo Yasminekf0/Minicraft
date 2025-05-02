@@ -12,6 +12,7 @@ import java.util.Random;
 
 import static view.ScreenSettings.tileSize;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class EnemyController {
     //private final Enemy enemy;
     private final Enemy[] enemies;
@@ -39,8 +40,8 @@ public class EnemyController {
     private final double spawnProbability = 0;
     private boolean spawned = false;
     public Pathfinder pFinder =  new Pathfinder();
-    Player player = Player.getInstance();
-    World world = World.getInstance();
+    final Player player = Player.getInstance();
+    final World world = World.getInstance();
 
     EnemyController(EnemyView enemyView) {
         this.enemyView = enemyView;
@@ -144,101 +145,7 @@ public class EnemyController {
             }
 
 
-            //angle =  Math.atan2(dy, dx);
-            /*if (pathList != null && !pathList.isEmpty()) {
-                double entityCenterX = e.getWorldPos().getX() + e.solidArea.x + e.solidArea.width  / 2.0;
-                double entityCenterY = e.getWorldPos().getY() + e.solidArea.y + e.solidArea.height / 2.0;
 
-                double targetCenterX = pathList.get(0).col * tileSize + tileSize / 2.0;
-                double targetCenterY = pathList.get(0).row * tileSize + tileSize / 2.0;
-
-                double ux = targetCenterX - entityCenterX;
-                double uy = targetCenterY - entityCenterY;
-
-                double distance = Math.hypot(ux, uy);
-                if (distance > 0) {
-                    dx = ux / distance;
-                    dy = uy / distance;
-                    System.out.printf("pathfinding: %.4f, %.4f%n", dx, dy);
-
-                    e.dx = dx;
-                    e.dy = dy;
-
-                    e.moveUntil(dx, dy);
-                    //e.collisionChecker.checkTile(e, dx, dy);
-                    angle = Math.atan2(e.dy, e.dx);*/
-
-                    /*if (dist < e.getSpeed()) {
-                        // we’re close enough to that tile center → snap & pop it
-                        WorldPosition wp = e.getWorldPos();
-                        double exactX = targetCenterX - e.solidArea.x - e.solidArea.width/2.0;
-                        double exactY = targetCenterY - e.solidArea.y - e.solidArea.height/2.0;
-                        wp.set(exactX, exactY);         // force‐snap to grid
-                        pathList.remove(0);             // consume that node
-                    }*/
-
-                //}
-            //}
-
-
-            // if path exists, step to the next node
-            /*if (!e.pFinder.pathList.isEmpty()) {
-                int nextCol = e.pFinder.pathList.get(0).col;
-                int nextRow = e.pFinder.pathList.get(0).row;
-
-                double targetX = nextCol * tileSize + tileSize / 2.0;
-                double targetY = nextRow * tileSize + tileSize / 2.0;
-
-                double vx = targetX - ep.getX();
-                double vy = targetY - ep.getY();
-                double len = Math.hypot(vx, vy);
-
-                if (len > 0) {
-                    e.moveUntil(vx / len, vy / len);
-                    e.collisionChecker.checkPlayer(e, 0, 0);
-
-                    double angle = Math.atan2(vy, vx);
-                    int dir8 = (int) Math.round(angle / (Math.PI / 4)) + 4;
-                    dir8 = dir8 % 8;
-
-                    switch (dir8) {
-                        case 0: // Move right
-                            dx = 1;
-                            dy = 0;
-                            break;
-                        case 1: // Move down - upright
-                            dx = 1;
-                            dy = -1;
-                            break;
-                        case 2: // Move  up
-                            dx = 0;
-                            dy = -1;
-                            break;
-                        case 3: // Move up - upleft
-                            dx = -1;
-                            dy = -1;
-                            break;
-                        case 4: // Move left
-                            dx = -1;
-                            dy = 0;
-                            break;
-                        case 5: // Move down -downleft
-                            dx = -1;
-                            dy = 1;
-                            break;
-                        case 6: // Move down
-                            dx = 0;
-                            dy = 1;
-                            break;
-                        case 7: // Move up - downright
-                            dx = 1;
-                            dy = 1;
-                            break;
-                    }
-
-                    return Math.atan2(dy, dx);
-                }
-            }*/
 
         } else {
             if (--e.wanderSteps <= 0) {
@@ -295,23 +202,6 @@ public class EnemyController {
         }
     }
 
-
-    /*void updateEnemy(Enemy enemy, int index) {
-        if (stepsRemaining <= 0) {
-            pathStage = new Random().nextInt(8);;//(pathStage + 1) % 4; // loop through 0 -> 1 -> 2 -> 3 -> 0
-
-            stepsRemaining = 300; // reset steps for new side ************************************************************
-        }
-        //switvh/case
-        double length = Math.sqrt(dx * dx + dy * dy);
-        double normalizedDx = (double) dx / length;
-        double normalizedDy = (double) dy / length;
-        enemy.moveUntil(speed * normalizedDx, speed * normalizedDy);
-
-        double angle = Math.atan2(dy, dx);
-        enemyView.update(index,true, angle); //*****************
-        stepsRemaining--;
-    }*/
 
     private WorldPosition getSpawnPoint() throws NoSpawnpointFoundException {
 
