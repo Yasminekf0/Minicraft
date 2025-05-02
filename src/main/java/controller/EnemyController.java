@@ -35,6 +35,7 @@ public class EnemyController {
     private final int outerSpawnRadius = tileSize * 30;
 
     private final Random rand = new Random();
+    private List<Node> chasePath = null;
 
     private final int despawnRadius = tileSize * 40;
     private final double mobsPerSecond = 0.1;
@@ -79,7 +80,7 @@ public class EnemyController {
         double dy = pp.getY() - ep.getY();
         double dist = Math.hypot(dx, dy);
 
-        if (dist < tileSize * 3) {
+        if (dist < tileSize * 6) {
             // within chase range
             e.onPath = true;
         } else if (dist > tileSize * 15) {
@@ -89,16 +90,69 @@ public class EnemyController {
 
         if (e.onPath) {
 
+
             // compute path toward the player's tile
             int goalCol = (pp.getX().intValue()+player.solidArea.x)/tileSize;
             int goalRow = (pp.getY().intValue()+player.solidArea.y)/tileSize;
-            pathList = e.searchPath(goalCol, goalRow); //if()then (moveuntil) //dx,dy lost
-            //e.moveUntil(dx, dy);
-            //angle = Math.atan2(dy, dx);
+
+            if (chasePath == null || chasePath.isEmpty()) {
+                chasePath = e.searchPath(goalCol, goalRow);
+            }
+            //pathList = e.searchPath(goalCol, goalRow); //if()then (moveuntil) //dx,dy lost
+            if (chasePath != null && !chasePath.isEmpty()) {
+                Node next = chasePath.get(0);
+
+                double entityCenterX = e.getWorldPos().getX()
+                        + e.solidArea.x
+                        + e.solidArea.width  * 0.5;
+                double entityCenterY = e.getWorldPos().getY()
+                        + e.solidArea.y
+                        + e.solidArea.height * 0.5;
+
+                double tileCenterX   = next.col * tileSize + tileSize * 0.5;
+                double tileCenterY   = next.row * tileSize + tileSize * 0.5;
+
+                double ux = tileCenterX - entityCenterX;
+                double uy = tileCenterY - entityCenterY;
+
+                double distt = Math.hypot(ux, uy);
+
+                double ndx = 0, ndy = 0;
+                if (distt > 0) {
+                    ndx = ux / distt;
+                    ndy = uy / distt;
+                }
+
+                if (distt <= e.getSpeed()) {
+                    double snapX = next.col*tileSize + tileSize/2.0
+                            - (e.solidArea.x + e.solidArea.width/2.0);
+                    double snapY = next.row*tileSize + tileSize/2.0
+                            - (e.solidArea.y + e.solidArea.height/2.0);
+                    e.getWorldPos().set(snapX, snapY);
+                    chasePath.remove(0);
+                } else {
+                    e.dx = ndx;
+                    e.dy = ndy;
+                    e.moveUntil(ndx, ndy);
+                    if (distt <= e.getSpeed()) {
+                        double snapX = tileCenterX - (e.solidArea.x + e.solidArea.width * 0.5);
+                        double snapY = tileCenterY - (e.solidArea.y + e.solidArea.height * 0.5);
+                        //e.getWorldPos().set(snapX, snapY);
+                        e.getWorldPos().lerpTo(snapX, snapY, 0.3);
+
+                        // Only remove the waypoint once we're very close:
+                        if (e.getWorldPos().isWithin(0.5, snapX, snapY)) {
+                            chasePath.remove(0);
+                        }
+                    }
+
+                    angle = Math.atan2(e.dy, e.dx);
+                }
+            }
 
 
             //angle =  Math.atan2(dy, dx);
-            if (pathList != null && !pathList.isEmpty()) {
+            /*if (pathList != null && !pathList.isEmpty()) {
                 double entityCenterX = e.getWorldPos().getX() + e.solidArea.x + e.solidArea.width  / 2.0;
                 double entityCenterY = e.getWorldPos().getY() + e.solidArea.y + e.solidArea.height / 2.0;
 
@@ -114,13 +168,24 @@ public class EnemyController {
                     dy = uy / distance;
                     System.out.printf("pathfinding: %.4f, %.4f%n", dx, dy);
 
+                    e.dx = dx;
+                    e.dy = dy;
+
                     e.moveUntil(dx, dy);
                     //e.collisionChecker.checkTile(e, dx, dy);
-                    angle = Math.atan2(dy, dx);
+                    angle = Math.atan2(e.dy, e.dx);*/
 
+                    /*if (dist < e.getSpeed()) {
+                        // we’re close enough to that tile center → snap & pop it
+                        WorldPosition wp = e.getWorldPos();
+                        double exactX = targetCenterX - e.solidArea.x - e.solidArea.width/2.0;
+                        double exactY = targetCenterY - e.solidArea.y - e.solidArea.height/2.0;
+                        wp.set(exactX, exactY);         // force‐snap to grid
+                        pathList.remove(0);             // consume that node
+                    }*/
 
-                }
-            }
+                //}
+            //}
 
 
             // if path exists, step to the next node
@@ -224,12 +289,16 @@ public class EnemyController {
                 }
             } //take out 0.5s
 
+            e.dx = dx;
+            e.dy = dy;
+
+
             double length = Math.sqrt(dx * dx + dy * dy);
             double normalizedDx = dx / length;
             double normalizedDy = dy / length;
             e.moveUntil(normalizedDx, normalizedDy);
             e.collisionChecker.checkPlayer(e, 0, 0);
-            angle = Math.atan2(dy, dx);
+            angle = Math.atan2(e.dy, e.dx);
         }
     }
 

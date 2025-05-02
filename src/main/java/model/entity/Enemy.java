@@ -23,12 +23,14 @@ public class Enemy extends Mob {
     public int pathStage = new Random().nextInt(8);
     private int lastGoalCol = -1, lastGoalRow = -1;
     public Pathfinder pFinder =  new Pathfinder();
-    private double dx, dy;
+    public double dx, dy;
     public Enemy(){
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
-        this.speed = 1;
+        this.speed = (1+1);
         this.health = 10;
         this.maxHealth = 10;
+        this.dx = 0;
+        this.dy = 1;
         this.collisionChecker = new CollisionChecker();
         this.solidArea = new Rectangle(1,1,tileSize,tileSize );
 
@@ -38,9 +40,8 @@ public class Enemy extends Mob {
     public void moveUntil(double dx, double dy){
         double moveDx = dx * speed;
         double moveDy = dy * speed;
-        boolean collided = false;
 
-        worldPos.updateDirection(moveDx,moveDy);
+        //worldPos.updateDirection(moveDx,moveDy);
         //System.out.println("CO:" + collisionOn +"Collided:" + collided);
 
         /*int hit = collisionChecker.checkEntity(this, moveDx, moveDy);

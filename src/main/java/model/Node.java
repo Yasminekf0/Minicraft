@@ -9,7 +9,7 @@ public class Node {
 
     // existing one stays if you need it...
     public Node(int col, int row) {
-        this(col, row, true);  // default to solid until set
+        this(col, row, false);  // default to solid until set
     }
 
     // new constructor:
