@@ -1,13 +1,5 @@
 package model.entity.npcs;
 
-import model.entity.CollisionChecker;
-import model.position.WorldPosition;
-
-import java.awt.*;
-
-import static java.lang.Math.round;
-import static view.ScreenSettings.tileSize;
-
 public class NPC extends Mob {
     private static NPC instance;
     private boolean alive = true;

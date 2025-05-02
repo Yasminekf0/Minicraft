@@ -10,11 +10,11 @@ import java.util.Random;
 
 
 public class Enemy extends Mob {
-    public boolean skinType;
+    public final boolean skinType;
 
     public int wanderSteps = new Random().nextInt(100)+100;
     public int pathStage = new Random().nextInt(8);
-    public Pathfinder pFinder =  new Pathfinder();
+    public final Pathfinder pFinder =  new Pathfinder();
     public double dx, dy;
     public Enemy(){
         super();

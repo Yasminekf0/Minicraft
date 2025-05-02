@@ -12,6 +12,7 @@ import static view.ScreenSettings.*;
 import model.entity.npcs.NPC;
 import model.entity.Player;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class NPCView extends GameElementView{
     // Sprite images
     private BufferedImage up1,  up2, up3,up4,up5, down1, down2, right1, right2, left1, left2, z, z1, z2, sk1, sk2, sk, v, v1, v2;

@@ -2,14 +2,12 @@ package model.entity.npcs.pathfinding;
 
 import model.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import java.util.*;
 
 import static model.world.WorldSettings.worldSize;
 
 
+@SuppressWarnings("FieldCanBeLocal")
 public class Pathfinder {
     private final World world = World.getInstance();
     private final Node[][] nodes;

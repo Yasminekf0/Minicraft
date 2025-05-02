@@ -117,9 +117,8 @@ public class CollisionChecker {
 
     public void checkPlayer ( Entity entity, double dx, double dy) {
         boolean damage = entity instanceof Enemy;
-        int damageAmount = 1;
 
-            Rectangle entityCollisionBox = new Rectangle(
+        Rectangle entityCollisionBox = new Rectangle(
                 entity.getWorldPos().getX().intValue() + entity.solidArea.x,
                 entity.getWorldPos().getY().intValue() + entity.solidArea.y,
                 entity.solidArea.width,

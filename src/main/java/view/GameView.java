@@ -1,8 +1,5 @@
 package view;
 
-import model.entity.Player;
-import model.world.World;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,11 +31,6 @@ public class GameView extends JPanel {
         npcView.draw((Graphics2D) g);
         playerView.draw((Graphics2D) g);
         enemyView.draw((Graphics2D) g); //****************************************
-        //for(int i = 0; i < enemyView.getEnemies.length; ++i) { //**************************************************
-          //  if (enemyView.getEnemies[i] != null) {
-            //    enemyView.getEnemies[i].draw((Graphics2D) g);
-            //}
-        //}
         nightFilterView.draw((Graphics2D) g);
     }
 

@@ -2,9 +2,10 @@ package model.entity.npcs.pathfinding;
 
 public class Node {
     Node parent;
-    public int col, row;
+    public final int col;
+    public final int row;
     int gCost, hCost, fCost;
-    boolean solid;   // true = blocked
+    final boolean solid;   // true = blocked
     boolean open, checked;
 
     // existing one stays if you need it...

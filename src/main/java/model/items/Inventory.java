@@ -135,7 +135,5 @@ public class Inventory implements Serializable {
         selectedIndexMap.put(section, list.size() - 1);
     }
 
-    public void openChest() {
-        // TODO
-    }
+
 }

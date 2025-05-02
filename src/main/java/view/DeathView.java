@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class DeathView extends JPanel {
     private final Buttons quitButton;
     private final JLabel gameOverLabel;
