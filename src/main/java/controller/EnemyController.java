@@ -290,7 +290,7 @@ public class EnemyController {
             double normalizedDx = dx / length;
             double normalizedDy = dy / length;
             e.moveUntil(normalizedDx, normalizedDy);
-            e.collisionChecker.checkPlayer(e, 0, 0);
+            e.getCollisionChecker().checkPlayer(e, 0, 0);
             angle = Math.atan2(e.dy, e.dx);
         }
     }
