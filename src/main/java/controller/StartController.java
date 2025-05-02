@@ -30,8 +30,6 @@ public class StartController {
             startNewGame();
         });
 
-
-        // TODO: Should call method in View instead
         // Load Game Listener
         startView.addLoadGameListener(_ -> {
             soundManager.playSound("button");

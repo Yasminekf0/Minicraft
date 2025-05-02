@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class SoundManager {
     private static SoundManager instance;
@@ -50,13 +49,15 @@ public class SoundManager {
     }
 
     public void loadSound(String key, String resourcePath) {
-        try (InputStream is = getClass().getResourceAsStream(resourcePath);
-             BufferedInputStream bis = new BufferedInputStream(is);
-             AudioInputStream ais = AudioSystem.getAudioInputStream(bis)) {
+        try (InputStream is = getClass().getResourceAsStream(resourcePath)) {
+            assert is != null;
+            try (BufferedInputStream bis = new BufferedInputStream(is);
+                 AudioInputStream ais = AudioSystem.getAudioInputStream(bis)) {
 
-            Clip clip = AudioSystem.getClip();
-            clip.open(ais);
-            clips.put(key, clip);
+                Clip clip = AudioSystem.getClip();
+                clip.open(ais);
+                clips.put(key, clip);
+            }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.err.println("Error loading sound '" + key + "': " + e.getMessage());
         }
@@ -72,13 +73,6 @@ public class SoundManager {
         clip.start();
     }
 
-    public void playRandomSound(String... keys) {
-        if (keys == null || keys.length == 0) return;
-        Random rand = new Random();
-        String selectedKey = keys[rand.nextInt(keys.length)];
-        playSound(selectedKey);
-    }
-
     public void loopSoundContinuously(String key) {
         Clip clip = clips.get(key);
         if (clip == null) return;
@@ -88,17 +82,4 @@ public class SoundManager {
         clip.setFramePosition(0);
         clip.loop(Clip.LOOP_CONTINUOUSLY);    }
 
-    public void stopSound(String key) {
-        Clip clip = clips.get(key);
-        if (clip != null && clip.isRunning()) {
-            clip.stop();
-        }
-    }
-
-    public void unloadAll() {
-        for (Clip clip : clips.values()) {
-            clip.close();
-        }
-        clips.clear();
-    }
 }
