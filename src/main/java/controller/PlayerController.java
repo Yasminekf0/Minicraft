@@ -3,7 +3,6 @@ package controller;
 import model.entity.Player;
 import view.HUDView;
 import view.PlayerView;
-import view.SoundManager;
 
 import javax.swing.*;
 
@@ -88,12 +87,4 @@ public class PlayerController {
         player.getInventory().cycleCurrentItem();
     }
 
-    public void upgradeSelectedTool(){
-        player.getInventory().upgradeTool();
-    }
-
-    public void takeDamage(int damage) {
-        player.takeDamage(damage);
-        SoundManager.getInstance().playSound("damage");
-    }
 }
