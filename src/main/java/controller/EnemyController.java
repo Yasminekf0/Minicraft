@@ -1,16 +1,12 @@
 package controller;
-import model.Node;
-import model.Pathfinder;
-import model.entity.Enemy;
+import model.entity.npcs.pathfinding.Node;
+import model.entity.npcs.pathfinding.Pathfinder;
+import model.entity.npcs.Enemy;
 import model.entity.Player;
 import model.position.WorldPosition;
 import model.world.World;
 import view.EnemyView;
-import view.PlayerView;
-import view.ScreenSettings;
 
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 

@@ -23,6 +23,7 @@ public abstract class BlockItem extends Item {
 
         if (world.isPlaceable(focusedX,focusedY) & count > 0) {
             world.placeBlock(focusedX,focusedY,worldBlock);
+            // TODO: this should be in view, Model should not play sounds
             switch (this) {
                 case WoodItem woodItem   -> SoundManager.getInstance().playSound("wood");
                 case RockItem rockItem   -> SoundManager.getInstance().playSound("stone");      // or "stone_place"

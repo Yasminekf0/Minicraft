@@ -1,6 +1,5 @@
 package view;
 
-import model.entity.NPC;
 import model.entity.Player;
 
 import javax.imageio.ImageIO;
@@ -10,25 +9,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static view.ScreenSettings.*;
 import static view.ScreenSettings.playerScreenX;
 import static view.ScreenSettings.playerScreenY;
 import static view.ScreenSettings.tileSize;
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 
-import static model.world.WorldSettings.worldSize;
-import static view.ScreenSettings.*;
-import static view.ScreenSettings.scale;
-
-import model.entity.Enemy;
-import model.entity.Player;
-import model.position.WorldPosition;
-import model.world.MobManager;
+import model.entity.npcs.Enemy;
+import model.entity.npcs.MobManager;
 
 public class EnemyView extends GameElementView{
         // Sprite images

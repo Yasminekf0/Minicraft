@@ -1,16 +1,12 @@
 package model.entity;
-import controller.GameController;
-import model.Pathfinder;
 import model.position.WorldPosition;
 import view.SoundManager;
 
 import java.awt.*;
-import static view.ScreenSettings.tileSize;
 
 import java.io.Serializable;
 
 public abstract class Entity implements Serializable {
-    GameController gameController;
     protected WorldPosition worldPos;
 
     protected int speed;

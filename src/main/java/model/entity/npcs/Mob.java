@@ -1,4 +1,6 @@
-package model.entity;
+package model.entity.npcs;
+
+import model.entity.Entity;
 
 public abstract class Mob extends Entity {
 

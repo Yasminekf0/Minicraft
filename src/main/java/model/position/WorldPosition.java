@@ -20,17 +20,6 @@ public class WorldPosition extends Position<Double>{
         this.y = dy;
     }
 
-    public void lerpTo(double tx, double ty, double alpha) {
-        this.x += (tx - this.x) * alpha;
-        this.y += (ty - this.y) * alpha;
-    }
-
-    public boolean isWithin(double threshold, double tx, double ty) {
-        double dx = tx - this.x;
-        double dy = ty - this.y;
-        return Math.hypot(dx, dy) <= threshold;
-    }
-
     public void updateDirection(double dx, double dy){
         if ((dx == 0) & (dy < 0)) directionFacing = Direction.UP;
         else if ((dx == 0) & (dy > 0)) directionFacing = Direction.DOWN;

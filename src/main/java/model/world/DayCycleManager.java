@@ -1,9 +1,6 @@
-package model;
+package model.world;
 
 import controller.GameSettings;
-import io.cucumber.java.et.Eeldades;
-import view.NightFilterView;
-import view.ScreenSettings;
 
 import java.io.Serializable;
 

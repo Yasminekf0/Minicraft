@@ -46,6 +46,7 @@ public abstract class BreakingTools extends Tool{
             player.getInventory().addItem(drop);
             world.breakBlock(targetedX,targetedY);
 
+            // TODO: Same again
             switch (drop) {
                 case WoodItem woodItem -> SoundManager.getInstance().playSound("wood");
                 case RockItem rockItem -> SoundManager.getInstance().playSound("stone");

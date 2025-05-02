@@ -1,6 +1,6 @@
 package view;
 
-import model.Inventory;
+import model.items.Inventory;
 import model.items.Item;
 import model.items.tools.Tool;
 

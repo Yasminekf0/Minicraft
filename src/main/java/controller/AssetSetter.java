@@ -1,8 +1,5 @@
 package controller;
 
-import model.entity.NPC;
-import model.entity.Entity;
-
 public class AssetSetter {
     GameController gc;
 

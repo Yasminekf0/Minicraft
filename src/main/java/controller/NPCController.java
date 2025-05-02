@@ -1,14 +1,12 @@
 package controller;
 
-import model.entity.NPC;
+import model.entity.npcs.NPC;
 import model.entity.Player;
 import model.position.WorldPosition;
 import model.world.World;
 import view.NPCView;
-import view.PlayerView;
 import view.ScreenSettings;
 
-import javax.swing.*;
 import java.util.Random;
 
 public class NPCController {

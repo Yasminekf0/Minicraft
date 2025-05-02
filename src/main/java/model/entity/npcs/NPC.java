@@ -1,24 +1,19 @@
-package model.entity;
+package model.entity.npcs;
 
+import model.entity.CollisionChecker;
 import model.position.WorldPosition;
-import model.world.World;
 
 import java.awt.*;
-import java.util.Random;
 
 import static java.lang.Math.round;
-import static model.world.WorldSettings.worldSize;
-import static view.ScreenSettings.scale;
 import static view.ScreenSettings.tileSize;
 
 public class NPC extends Mob {
     private static NPC instance;
     private final CollisionChecker collisionChecker;
-    private final World world;
     private boolean alive = true;
     public NPC(){
         instance = this;
-        this.world = World.getInstance();
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
         this.speed = 10;
         //maybe max speed?
@@ -61,13 +56,6 @@ public class NPC extends Mob {
             moveDy = 0;
         }
 
-        /*collisionOn = false;
-        int hit = collisionChecker.checkEntity(this, moveDx, moveDy);
-        if (hit >= 0) {
-            collisionOn = true;
-            //if (hit == 0)      interactNPC(hit);
-            //else               interactEnemy(hit - 1);
-        }*/
         collisionChecker.checkPlayer(this,moveDx, moveDy);
 
         if (!collisionOn) {

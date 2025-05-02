@@ -27,6 +27,8 @@ public class SpeedPotion extends Potion {
         if (count > 0) {
             player.setSpeed(player.getSpeed() + speedBoost);
 
+
+            // TODO: Same thing for both potions, Sounds should be in View
             SoundManager.getInstance().playSound("potion");
 
             count--;

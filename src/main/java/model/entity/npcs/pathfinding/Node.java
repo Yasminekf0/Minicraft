@@ -1,4 +1,4 @@
-package model;
+package model.entity.npcs.pathfinding;
 
 public class Node {
     Node parent;

@@ -1,16 +1,10 @@
 package controller;
 
-import model.DayCycleManager;
+import model.world.DayCycleManager;
 import model.entity.Player;
-import model.world.World;
 import view.*;
-import controller.GameSettings;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static controller.GameSettings.FPS;
 
 public class GameController {
 

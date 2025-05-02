@@ -1,10 +1,10 @@
 package model.items.tools;
 
-import model.entity.Enemy;
+import model.entity.npcs.Enemy;
 import model.entity.Entity;
-import model.entity.NPC;
+import model.entity.npcs.NPC;
 import model.entity.Player;
-import model.world.MobManager;
+import model.entity.npcs.MobManager;
 import model.world.World;
 import view.SoundManager;
 
@@ -40,6 +40,8 @@ public class Sword extends Tool {
             int ey = e.getWorldPos().getTileYPos();
             if (ex == targetX && ey == targetY) {
                 e.takeDamage(10);
+
+                // TODO: And the same here too
                 if (e instanceof Enemy) {
                     if (((Enemy) e).skinType) {
                         SoundManager.getInstance().playSound("zombieDamage");

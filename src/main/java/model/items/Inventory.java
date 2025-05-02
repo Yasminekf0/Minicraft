@@ -1,10 +1,6 @@
-package model;
+package model.items;
 
-import model.items.Item;
 import model.items.blocks.RockItem;
-import model.items.blocks.WoodItem;
-import model.items.potions.HealthPotion;
-import model.items.potions.SpeedPotion;
 import model.items.tools.Axe;
 import model.items.tools.Pickaxe;
 import model.items.tools.Sword;

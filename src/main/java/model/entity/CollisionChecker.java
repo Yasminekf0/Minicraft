@@ -1,12 +1,12 @@
 package model.entity;
 
-import model.position.WorldPosition;
-import model.world.MobManager;
+import model.entity.npcs.Enemy;
+import model.entity.npcs.NPC;
+import model.entity.npcs.MobManager;
 import model.world.World;
 
 import java.awt.*;
 
-import static view.ScreenSettings.scale;
 import static view.ScreenSettings.tileSize;
 
 public class CollisionChecker {
@@ -61,7 +61,6 @@ public class CollisionChecker {
                 entity.collisionOn = true;
             }
         }
-
 
         if (dx > 0) { //right
             entityRightCol = (entityRightWorldX + (int) dx) / tileSize;

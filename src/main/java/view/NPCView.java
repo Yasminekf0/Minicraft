@@ -1,7 +1,5 @@
 package view;
 
-import controller.GameController;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -9,13 +7,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.*;
-import static view.ScreenSettings.scale;
 
-import model.entity.NPC;
+import model.entity.npcs.NPC;
 import model.entity.Player;
-import model.position.WorldPosition;
 
 public class NPCView extends GameElementView{
     // Sprite images

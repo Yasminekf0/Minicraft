@@ -1,8 +1,7 @@
 package view;
 
-import model.DayCycleManager;
+import model.world.DayCycleManager;
 
-import javax.swing.*;
 import java.awt.*;
 
 import static view.ScreenSettings.screenHeight;

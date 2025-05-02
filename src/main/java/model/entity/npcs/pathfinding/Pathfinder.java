@@ -1,4 +1,4 @@
-package model;
+package model.entity.npcs.pathfinding;
 
 import model.world.World;
 

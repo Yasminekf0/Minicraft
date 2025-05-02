@@ -1,7 +1,4 @@
-package model.world;
-
-import model.entity.Enemy;
-import model.entity.Player;
+package model.entity.npcs;
 
 import java.util.Arrays;
 import java.util.List;
