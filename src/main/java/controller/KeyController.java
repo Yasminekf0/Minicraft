@@ -7,6 +7,8 @@ public class KeyController implements KeyListener {
     private final PlayerController playerController;
     private final GameController gameController;
 
+    private boolean upPressed = false, downPressed = false, leftPressed = false, rightPressed = false;
+
     public KeyController(GameController gameController, PlayerController playerController) {
         this.gameController = gameController;
         this.playerController = playerController;
@@ -20,16 +22,20 @@ public class KeyController implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+        if ((code == KeyEvent.VK_W || code == KeyEvent.VK_UP) && !upPressed) {
+            upPressed = true;
             playerController.updateMoving(0, -1);
         }
-        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+        if ((code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) && !downPressed) {
+            downPressed = true;
             playerController.updateMoving(0, 1);
         }
-        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+        if ((code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) && !leftPressed) {
+            leftPressed = true;
             playerController.updateMoving(-1, 0);
         }
-        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+        if ((code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) && !rightPressed) {
+            rightPressed = true;
             playerController.updateMoving(1, 0);
         }
         if (code == KeyEvent.VK_ESCAPE) {
@@ -52,15 +58,19 @@ public class KeyController implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+            upPressed = false;
             playerController.updateMoving(0, 1);
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+            downPressed = false;
             playerController.updateMoving(0, -1);
         }
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+            leftPressed = false;
             playerController.updateMoving(1, 0);
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+            rightPressed = false;
             playerController.updateMoving(-1, 0);
         }
         if (code == KeyEvent.VK_SPACE) {
