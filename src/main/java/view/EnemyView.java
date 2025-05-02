@@ -115,11 +115,27 @@ public class EnemyView extends GameElementView{
                             worldY + tileSize > playerWorldY - playerScreenY &&
                             worldY - tileSize < playerWorldY + playerScreenY) {
 
-                        BufferedImage image = switch (spriteNum) {
+                        /*BufferedImage image = switch (spriteNum) {
                             case 2 -> z1;
                             case 4 -> z2;
                             default -> z;
-                        };
+                        };*/
+
+                        BufferedImage image;
+
+                        if (!enemies[i].getSkinType()) {
+                            image = switch (spriteNum) {
+                                case 2 -> z1;
+                                case 4 -> z2;
+                                default -> z;
+                            };
+                        } else { // skeleton
+                            image = switch (spriteNum) {
+                                case 2 -> sk1;
+                                case 4 -> sk2;
+                                default -> sk;
+                            };
+                        }
                         if (image == null) return;
 
                         AffineTransform at = createAffineTransform(image, screenX, screenY, angles[i]);

@@ -18,6 +18,7 @@ import static model.world.WorldSettings.worldSize;
 import static view.ScreenSettings.scale;
 
 public class Enemy extends Mob {
+    public boolean skinType;
     public CollisionChecker collisionChecker;
     public int wanderSteps = new Random().nextInt(100)+100;
     public int pathStage = new Random().nextInt(8);
@@ -33,7 +34,12 @@ public class Enemy extends Mob {
         this.dy = 1;
         this.collisionChecker = new CollisionChecker();
         this.solidArea = new Rectangle(1,1,tileSize,tileSize );
+        this.skinType = Math.random() < 0.5 ? true : false;
 
+    }
+
+    public boolean getSkinType() {
+        return skinType;
     }
 
 
