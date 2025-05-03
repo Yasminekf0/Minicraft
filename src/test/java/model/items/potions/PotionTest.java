@@ -38,6 +38,8 @@ class PotionTests {
     void testHealthPotionUseHealsPlayer() {
         player.setHealth(5); // took damage
         int initialHealth = player.getHealth();
+        healthPotion.setCount(1);
+
         //  System.out.println(initialHealth);
         healthPotion.use();
         // System.out.println(player.getHealth());
@@ -59,6 +61,7 @@ class PotionTests {
     @Test
     void testSpeedPotionUseIncreasesPlayerSpeed() {
         int initialSpeed = player.getSpeed();
+        speedPotion.setCount(1);
         speedPotion.use();
         assertEquals(initialSpeed + 5, player.getSpeed(), "Player's speed should increase by 5 after using SpeedPotion");
     }

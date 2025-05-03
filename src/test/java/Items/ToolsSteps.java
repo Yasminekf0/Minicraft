@@ -3,7 +3,7 @@ package Items;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import model.Inventory;
+import model.items.Inventory;
 import model.entity.Player;
 import model.items.tools.*;
 
