@@ -78,9 +78,8 @@ public class StartController {
         DayCycleManager dayCycleManager = DayCycleManager.getInstance();
         MobManager mobManager = MobManager.getInstance();
         GameView gameView = new GameView();
-        //NPCView npcView = gameView.getNpcView();
-        //EnemyView enemyView = gameView.getEnemyView();
-        MobView mobView = gameView.getMobView();
+        NPCView npcView = gameView.getNpcView();
+        EnemyView enemyView = gameView.getEnemyView();
         HUDView hudView = new HUDView(player);
 
         OptionsView optionsView = mainView.getOptionsView();
@@ -88,10 +87,10 @@ public class StartController {
 
 
         // Instantiate controllers for the game.
-        GameController gameController = new GameController(gameView, hudView, mobView);
+        GameController gameController = new GameController(gameView, hudView, enemyView, npcView);
         PlayerController playerController = new PlayerController(gameView.getPlayerView(), hudView);
-        NPCController npcController = new NPCController(gameView.getMobView());
-        EnemyController enemyController = new EnemyController( gameView.getMobView());
+        //NPCController npcController = new NPCController(gameView.getView());
+        //EnemyController enemyController = new EnemyController( gameView.getMobView());
         KeyController keyController = new KeyController(gameController, playerController);
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 

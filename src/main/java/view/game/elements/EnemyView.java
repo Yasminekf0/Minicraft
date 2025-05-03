@@ -18,10 +18,11 @@ import model.entity.npcs.MobManager;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class EnemyView extends MobView{
-        // Sprite images
-    private final Enemy[] enemies;
+
 
     public EnemyView() {
-        this.enemies = MobManager.getInstance().getEnemies();
+        super();
+        this.mobs = MobManager.getInstance().getEnemies();
+        MobsAngles = new double[mobs.length];
     }
 }

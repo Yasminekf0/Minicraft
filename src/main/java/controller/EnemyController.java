@@ -14,13 +14,13 @@ import static view.settings.ScreenSettings.tileSize;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class EnemyController extends MobController{
-    private final Enemy[] enemies;
+    //private final Enemy[] enemies;
     private List<Node> chasePath = null;
     final Player player = Player.getInstance();
 
     EnemyController(MobView mobView) {
         super(mobView);
-        this.enemies = MobManager.getInstance().getEnemies();
+        this.mobs = MobManager.getInstance().getEnemies();
     }
     private void chaseOrWander(Mob mob) {
         Enemy e = (Enemy) mob;
@@ -155,7 +155,6 @@ public class EnemyController extends MobController{
             angle = Math.atan2(e.dy, e.dx);*/
         }
     }
-
 
     @Override
     protected void act(Mob mob) {

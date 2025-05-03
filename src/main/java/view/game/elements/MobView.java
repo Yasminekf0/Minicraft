@@ -16,19 +16,15 @@ import static view.settings.ScreenSettings.*;
 import static view.settings.ScreenSettings.playerScreenX;
 import static view.settings.ScreenSettings.playerScreenY;
 
-public class MobView extends GameElementView{
+public abstract class MobView extends GameElementView{
     private BufferedImage z, z1, z2, sk1, sk2, sk, v, v1, v2, x;
     private final Player player;
     private int spriteCounter = 0;
     private int spriteNum;
-    private final double[] MobsAngles;
-    private final Mob[] mobs;
-    //private int spriteCounter = 0;
-    //private int spriteNum;
+    protected double[] MobsAngles;
+    protected Mob[] mobs;
     public MobView() {
         this.player = Player.getInstance();
-        this.mobs = MobManager.getInstance().getMobs();
-        MobsAngles = new double[mobs.length];
         loadImages();
 
     }
@@ -56,7 +52,7 @@ public class MobView extends GameElementView{
         if (moving) {
             MobsAngles[index] = newAngle;
             spriteCounter++;
-            if (spriteCounter > 40) { //*************************************
+            if (spriteCounter > 40) {
                 spriteNum++;
                 if (spriteNum > 4) {
                     spriteNum = 1;

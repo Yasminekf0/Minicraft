@@ -18,38 +18,19 @@ import static view.settings.ScreenSettings.tileSize;
 public abstract class MobController {
     protected Mob[] mobs;
     private final MobView mobView;
-    protected final int innerSpawnRadius = tileSize * 20;
-    protected final int outerSpawnRadius = tileSize * 30;
-    protected boolean spawned = false;
     protected double angle = 0;
     protected final Random rand = new Random();
     public MobController(MobView mobView) {
-        this.mobs = MobManager.getInstance().getMobs();
         this.mobView = mobView;
     }
 
     public void tick() {
-        if (!spawned) {
-            spawnAll();
-            spawned = true;
-        }
-
         for (int i = 0; i < mobs.length; i++) {
             if (mobs[i] == null) continue;
             act(mobs[i]);
             mobView.update(i, true, angle);
         }
 
-    }
-
-    protected void spawnAll() {
-        for (int i = 0; i < mobs.length; ++i) {
-            try {
-                mobs[i].setWorldPos(getSpawnPoint());
-            } catch (NoSpawnpointFoundException e) {
-                System.err.println("Failed to find spawn point for Mob " + i);
-            }
-        }
     }
 
     protected abstract void act(Mob mob);
@@ -85,36 +66,4 @@ public abstract class MobController {
 
     }
 
-    protected WorldPosition getSpawnPoint() throws NoSpawnpointFoundException {
-        WorldPosition playerPos = Player.getInstance().getWorldPos();
-        World world = World.getInstance();
-
-        // Try spawing 10 times, then give up
-        for (int i = 0; i < 30; i++) {
-            double spawnDistance = Math.random() * (outerSpawnRadius - innerSpawnRadius) + innerSpawnRadius;
-            double spawnAngle = Math.random() * 2 * Math.PI;
-
-            double relativeSpawnX = Math.cos(spawnAngle) * spawnDistance;
-            double relativeSpawnY = Math.sin(spawnAngle) * spawnDistance;
-
-            WorldPosition spawnPos = new WorldPosition(
-                    playerPos.getX() + relativeSpawnX,
-                    playerPos.getY() + relativeSpawnY
-            );
-
-            int tileX = spawnPos.getTileXPos();
-            int tileY = spawnPos.getTileYPos();
-
-            // Check if tile is walkable and doesn't have a block
-            if (world.isWalkable(tileX, tileY) && !world.hasBlock(tileX, tileY)) {
-                System.out.println("x" + tileX);
-                System.out.println("y" + tileY);
-                return spawnPos;
-            }
-        }
-
-        throw new NoSpawnpointFoundException();
-    }
-
-    class NoSpawnpointFoundException extends Exception {}
 }

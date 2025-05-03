@@ -18,12 +18,12 @@ import static view.settings.ScreenSettings.tileSize;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class NPCController extends MobController {
-    private final NPC[] npcs;
+    //private final NPC[] npcs;
 
 
     NPCController(MobView mobView) {
         super(mobView);
-        this.npcs = MobManager.getInstance().getNpcs();
+        this.mobs = MobManager.getInstance().getNpcs();
     }
 
 

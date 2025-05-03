@@ -29,13 +29,13 @@ public class GameController {
     private final NPCController npcController;
     private final EnemyController enemyController;
 
-    public GameController(GameView gameView, HUDView hudView, MobView mobView) {
+    public GameController(GameView gameView, HUDView hudView, EnemyView enemyView, NPCView npcView) {
         this.gameView = gameView;
         this.hudView = hudView;
 
         this.dayCycleManager = DayCycleManager.getInstance();
-        this.npcController = new NPCController(mobView);
-        this.enemyController = new EnemyController(mobView);
+        this.npcController = new NPCController(npcView);
+        this.enemyController = new EnemyController(enemyView);
 
 
 
