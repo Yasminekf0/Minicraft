@@ -1,8 +1,10 @@
 package model.position;
 
+import java.io.Serializable;
+
 import static view.settings.ScreenSettings.tileSize;
 
-public class WorldPosition{
+public class WorldPosition implements Serializable {
 
     private Direction directionFacing;
     private double x;
