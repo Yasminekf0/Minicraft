@@ -1,6 +1,8 @@
 package model.position;
 import static view.ScreenSettings.tileSize;
 import static org.junit.jupiter.api.Assertions.*;
+import static view.settings.ScreenSettings.tileSize;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
