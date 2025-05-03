@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 
 public class GameState implements Serializable {
-    // TODO: Add support for items
     World world = World.getInstance();
     Player player = Player.getInstance();
     DayCycleManager dayCycleManager = DayCycleManager.getInstance();

@@ -5,11 +5,12 @@ import model.world.MobManager;
 import model.world.World;
 
 import java.awt.*;
+import java.io.Serializable;
 
 import static view.ScreenSettings.scale;
 import static view.ScreenSettings.tileSize;
 
-public class CollisionChecker {
+public class CollisionChecker implements Serializable {
 
     private final World world;
     private final NPC npc;

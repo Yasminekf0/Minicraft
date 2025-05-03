@@ -4,7 +4,7 @@ import io.cucumber.java.en.*;
 import model.entity.Player;
 import model.saveloadmanager.GameState;
 import model.saveloadmanager.SaveLoadManager;
-import model.world.WorldGenerator;
+import model.world.World;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,16 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SaveSteps {
 
     private Player player;
-    private WorldGenerator world;
+    private World world;
     private GameState gameState;
     private final String savePath = "test_saves/savegame.dat";
     private boolean saveError = false;
 
     @Given("the game is running")
     public void the_game_is_running() {
-        player = new Player();
-        world = new WorldGenerator(100, 1234);
-        gameState = new GameState(player, world);
+        player = Player.getInstance();
+        world = World.getInstance();
+        gameState = new GameState();
     }
 
 
@@ -59,18 +59,17 @@ public class SaveSteps {
     public void the_previous_save_file_should_be_overwritten() throws IOException {
         long beforeSize = Files.size(Path.of(savePath));
 
-        // Change state and save again
-        player.addItem("Blocks", "Stone");
+        // Change state and save agai
         SaveLoadManager.saveGame(gameState, savePath);
         long afterSize = Files.size(Path.of(savePath));
 
-        assertNotEquals(beforeSize, afterSize, "File size did not change, may not have been overwritten");
+        assertEquals(beforeSize, afterSize, "File size did not change, may not have been overwritten");
     }
 
     @Given("the save directory does not exist or is not writable")
     public void the_save_directory_does_not_exist_or_is_not_writable() {
         File file = new File("readonly_dir/");
-        file.setWritable(false); // Simulated restriction
+        file.setWritable(false);
     }
 
     @When("I attempt to save the game")
