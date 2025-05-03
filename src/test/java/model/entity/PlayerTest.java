@@ -79,12 +79,12 @@ class PlayerTest {
 
     @Test
     void use_whenSelectedItemIsNotNull() {
-        // Create a dummy item that can track if 'use()' was called
+        //  dummy item that can track if 'use()' was called
         class DummyItem extends model.items.Item {
             boolean used = false;
 
             DummyItem() {
-                super("Tools"); // Section must match existing inventory section
+                super("Tools");
             }
 
             @Override
@@ -94,14 +94,14 @@ class PlayerTest {
         }
 
         DummyItem dummy = new DummyItem();
-        dummy.setCount(1); // Important: Inventory requires count > 0 for selected item
+        dummy.setCount(1);
 
         player.getInventory().getInventorySection("Tools").add(dummy);
         player.getInventory().setSelectedItem(dummy);
 
         assertDoesNotThrow(() -> player.use(), "Calling use() with a selected item should not throw");
 
-        // Bonus: verify use() was actually triggered
+
         assertTrue(dummy.used, "use() method of selected item should be called");
     }
 

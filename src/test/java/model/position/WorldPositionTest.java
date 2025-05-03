@@ -55,7 +55,7 @@ class WorldPositionTest {
 
     @Test
     void testUpdateDirectionNoChangeWhenZero() {
-        // direction remains what it was (DOWN by default)
+
         wp.updateDirection(0, 0);
         assertEquals(Direction.DOWN, wp.getDirectionFacing());
     }
@@ -69,28 +69,26 @@ class WorldPositionTest {
         assertEquals(3, wp.getTileXPos());
         assertEquals(2, wp.getTileYPos());
 
-        // Next positions add one full tile
         assertEquals(4, wp.getNextXTilePos(tileSize));
         assertEquals(3, wp.getNextYTilePos(tileSize));
     }
 
     @Test
     void testFocusedTileBasedOnDirection() {
-        // start at tile (1,2)
+
         double x = tileSize * 1 + 1.0;
         double y = tileSize * 2 + 1.0;
         wp = new WorldPosition(x, y);
 
-        // DEFAULT = DOWN → focusedY = tileY+1
         assertEquals(1, wp.getFocusedTileX());
         assertEquals(3, wp.getFocusedTileY());
 
-        // Face UP → focusedY = tileY-1
+
         wp.updateDirection(0, -1);
         assertEquals(1, wp.getFocusedTileX());
         assertEquals(1, wp.getFocusedTileY());
 
-        // Face RIGHT → focusedX = tileX+1
+
         wp.updateDirection(1, 0);
         assertEquals(2, wp.getFocusedTileX());
         assertEquals(2, wp.getFocusedTileY());

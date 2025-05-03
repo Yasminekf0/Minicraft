@@ -2,7 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import model.world.DayCycleManager;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DayCycleManagerTest {
@@ -44,13 +44,13 @@ class DayCycleManagerTest {
 
     @Test
     void isNightTransitionsAtHalfCycle() {
-        mgr.setTime(SUN_SET_START);       // 5000 → day
+        mgr.setTime(SUN_SET_START);       // 5000 = day
         assertFalse(mgr.isNight());
 
-        mgr.setTime(CYCLE/2);             // 15000 → exactly halfway → still day
+        mgr.setTime(CYCLE/2);             // 15000 =  still day
         assertFalse(mgr.isNight());
 
-        mgr.setTime(CYCLE/2 + 1);         // 15001 → night
+        mgr.setTime(CYCLE/2 + 1);         // 15001 = night
         assertTrue(mgr.isNight());
     }
 

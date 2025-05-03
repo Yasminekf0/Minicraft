@@ -4,7 +4,7 @@ import model.items.tools.Sword;
 import model.items.tools.Pickaxe;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-
+import model.items.Inventory;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryTest {
@@ -59,7 +59,6 @@ class InventoryTest {
 
     @Test
     void addItemIncreasesCount() {
-        // Initial RockItem exists in "Blocks" section
         Item existingRock = inventory.getInventorySection("Blocks").get(0);
         assertEquals(0, existingRock.getCount());
 
@@ -70,7 +69,7 @@ class InventoryTest {
 
     @Test
     void addItemNewItem() {
-        // Create a new HealthPotion (assuming it's empty initially)
+        // create  healthPotion assuming it's empty initially
         class DummyPotion extends Item {
             DummyPotion() {
                 super("Potions");
@@ -162,7 +161,7 @@ class InventoryTest {
         inventory.setSelectedItem(sword);
         String materialBefore = ((Sword) inventory.getSelectedItem()).getMaterial();
 
-        inventory.addItem(new Sword()); // Add another sword → should cause upgrade
+        inventory.addItem(new Sword());
 
         String materialAfter = ((Sword) inventory.getSelectedItem()).getMaterial();
 

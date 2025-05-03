@@ -13,6 +13,11 @@ public abstract class Tool extends Item {
         this.count = 1;
     }
 
+    public Material getMaterialEnum() {
+        return material;
+    }
+
+
     public String getMaterial() {
         return material.toString();
     }
