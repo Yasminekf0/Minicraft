@@ -1,5 +1,6 @@
 package controller;
 
+
 import model.entity.npcs.Enemy;
 import model.entity.npcs.Mob;
 import model.entity.npcs.MobManager;
@@ -18,12 +19,11 @@ import static view.settings.ScreenSettings.tileSize;
 @SuppressWarnings("FieldCanBeLocal")
 public class NPCController extends MobController {
     private final NPC[] npcs;
-    private final NPCView npcView;
 
-    NPCController(NPCView npcView, MobView mobView) {
-        super(mobView);
+
+    NPCController(NPCView npcView) {
+        super(npcView);
         this.npcs = MobManager.getInstance().getNpcs();
-        this.npcView = npcView;
     }
 
 

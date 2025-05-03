@@ -16,7 +16,6 @@ public abstract class Entity implements Serializable {
     protected int maxHealth;
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
-    public boolean collisionOn = false;
 
 
     public WorldPosition getWorldPos() {

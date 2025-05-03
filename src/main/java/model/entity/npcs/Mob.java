@@ -29,29 +29,29 @@ public abstract class Mob extends Entity {
     public CollisionChecker getCollisionChecker(){
         return collisionChecker;
     }
+
+    public void interact(){}
+
     public abstract int getSkinType();
     public void moveUntil(double dx, double dy) {
-        collisionOn = false;
+
         double moveDx = dx * speed;
         double moveDy = dy * speed;
 
         worldPos.updateDirection(moveDx,moveDy);
 
-        collisionOn = false;
-        collisionChecker.checkTile(this, moveDx, 0);
-        if (collisionOn) {
+
+        if (collisionChecker.checkTile(this, moveDx, 0)) {
             moveDx = 0;
         }
 
-        collisionOn = false;
-        collisionChecker.checkTile(this, 0, moveDy);
-        if (collisionOn) {
+        if (collisionChecker.checkTile(this, 0, moveDy)) {
             moveDy = 0;
         }
 
-        collisionChecker.checkPlayer(this,moveDx, moveDy);
+        ;
 
-        if (!collisionOn) {
+        if (!collisionChecker.checkPlayer(this,moveDx, moveDy)) {
             worldPos.increment(moveDx, moveDy);
         }
 
