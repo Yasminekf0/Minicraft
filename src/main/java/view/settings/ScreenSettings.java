@@ -7,7 +7,7 @@ public class ScreenSettings {
     public final static int scaleHUD = 3;
     public final static int tileSize = originalTileSize * scale;
     public final static int maxScreenCol = 17;
-    public final static int maxScreenRow = 17;
+    public final static int maxScreenRow = 14;
     public static final int screenWidth = tileSize * maxScreenCol;
     public static final int screenHeight = tileSize * maxScreenRow;
 
