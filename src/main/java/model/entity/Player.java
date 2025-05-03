@@ -75,34 +75,13 @@ public class Player extends Entity implements Serializable {
         }
 
         collisionOn = false;
-        int hit = collisionChecker.checkEntity(this, moveDx, moveDy);
+        int hit = collisionChecker.checkEntity( moveDx, moveDy);
         if (hit >= 0) {
             collisionOn = true;
-            if (hit == 0)      interactNPC(hit);
-            else               interactEnemy(hit - 1);
         }
 
         if (!collisionOn) {
             worldPos.increment(moveDx, moveDy);
-        }
-    }
-
-    public void interactNPC(int i){
-        //if (i!=-1){
-            System.out.println('x');
-        //}
-    }
-
-    public void interactEnemy(int i){
-        long now = System.currentTimeMillis();
-        if (now - lastDamageTime >= DAMAGE_COOLDOWN) {
-            takeDamage(i);
-            lastDamageTime = now;
-            System.out.println("You hit enemy " + i + ", health: " + health);
-            worldPos.increment(
-                    -this.getFacingDirection().getX() * tileSize,
-                    -this.getFacingDirection().getY() * tileSize
-            );
         }
     }
 

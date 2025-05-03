@@ -77,13 +77,13 @@ public class CollisionChecker implements Serializable {
     }
 
 
-    public int checkEntity(Entity entity, double dx, double dy) { //player check if there´s mobs
+    public int checkEntity(double dx, double dy) { //player check if there´s mobs
 
         Rectangle entityCollisionBox = new Rectangle(
-                entity.getWorldPos().getXInt() + entity.solidArea.x + (int)dx,
-                entity.getWorldPos().getYInt() + entity.solidArea.y + (int)dy,
-                entity.solidArea.width,
-                entity.solidArea.height
+                player.getWorldPos().getXInt() + player.solidArea.x + (int)dx,
+                player.getWorldPos().getYInt() + player.solidArea.y + (int)dy,
+                player.solidArea.width,
+                player.solidArea.height
         );
 
         Enemy[] enemies = MobManager.getInstance().getEnemies();
@@ -103,7 +103,7 @@ public class CollisionChecker implements Serializable {
                 );
 
                 if (entityCollisionBox.intersects(tBox)) {
-                    entity.collisionOn = true;
+                    player.collisionOn = true;
                     return i;
                 }
             }
@@ -115,7 +115,6 @@ public class CollisionChecker implements Serializable {
 
 
     public void checkPlayer ( Entity entity, double dx, double dy) { //mobs check if theres a player
-        boolean damage = entity instanceof Enemy;
 
         Rectangle entityCollisionBox = new Rectangle(
                 entity.getWorldPos().getXInt() + entity.solidArea.x,
@@ -135,7 +134,7 @@ public class CollisionChecker implements Serializable {
             entityCollisionBox.y -= entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
-                if (damage) {
+                if (entity instanceof Enemy) {
                     player.takeDamage(1);
                     System.out.println("Got hit by enemy, health:" + player.health);
                     player.worldPos.increment(
@@ -150,7 +149,7 @@ public class CollisionChecker implements Serializable {
             entityCollisionBox.y += entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
-                if (damage) {
+                if (entity instanceof Enemy) {
                     player.takeDamage(1);
                     System.out.println("Got hit by enemy, health:" + player.health);
                     player.worldPos.increment(
@@ -165,7 +164,7 @@ public class CollisionChecker implements Serializable {
             entityCollisionBox.x -= entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
-                if (damage) {
+                if (entity instanceof Enemy) {
                     player.takeDamage(1);
                     System.out.println("Got hit by enemy, health:" + player.health);
                     player.worldPos.increment(
@@ -178,7 +177,7 @@ public class CollisionChecker implements Serializable {
             entityCollisionBox.x += entity.speed;
             if (entityCollisionBox.intersects(playerCollisionBox)) {
                 entity.collisionOn = true;
-                if (damage) {
+                if (entity instanceof Enemy) {
                     player.takeDamage(1);
                     System.out.println("Got hit by enemy, health:" + player.health);
                     player.worldPos.increment(
