@@ -21,8 +21,8 @@ public class NPCController extends MobController {
     private final NPC[] npcs;
 
 
-    NPCController(NPCView npcView) {
-        super(npcView);
+    NPCController(MobView mobView) {
+        super(mobView);
         this.npcs = MobManager.getInstance().getNpcs();
     }
 

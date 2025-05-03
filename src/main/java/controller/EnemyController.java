@@ -15,13 +15,11 @@ import static view.settings.ScreenSettings.tileSize;
 @SuppressWarnings("FieldCanBeLocal")
 public class EnemyController extends MobController{
     private final Enemy[] enemies;
-    private final EnemyView enemyView;
     private List<Node> chasePath = null;
     final Player player = Player.getInstance();
 
-    EnemyController(EnemyView enemyView, MobView mobView) {
+    EnemyController(MobView mobView) {
         super(mobView);
-        this.enemyView = enemyView;
         this.enemies = MobManager.getInstance().getEnemies();
     }
     private void chaseOrWander(Mob mob) {
