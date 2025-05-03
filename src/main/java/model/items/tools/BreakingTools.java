@@ -53,9 +53,8 @@ public abstract class BreakingTools extends Tool {
                 world.breakBlock(targetedX, targetedY);
                 currentBlockHealth = 500;
 
-                if (brokenListener != null) {
-                    brokenListener.onBlockBroken(block, drop);
-                }
+                brokenListener.onBlockBroken(block, drop);
+
             }
         }
     }

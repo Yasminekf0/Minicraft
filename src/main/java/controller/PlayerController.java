@@ -75,13 +75,10 @@ public class PlayerController {
     private void performAction() {
         Item selected = player.getInventory().getSelectedItem();
 
-        if (selected instanceof BreakingTools bt) {
-            bt.use();
-        }
-        else if (selected != null && selected.getCount() > 0) {
-            selected.use();
-            SoundManager.getInstance().playUseSound(selected);
-        }
+         if (selected != null && selected.getCount() > 0) {
+             selected.use();
+             SoundManager.getInstance().playUseSound(selected);
+         }
 
         double angle = player.getFacingAngle();
         player.lockDirection(angle);
