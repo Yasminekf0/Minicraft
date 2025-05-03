@@ -28,9 +28,7 @@ public abstract class Entity implements Serializable {
         return worldPos;
     }
 
-    public void setWorldPos(WorldPosition worldPos) {
-        this.worldPos = worldPos;
-    }
+
 
     public int getSpeed() {
         return speed;

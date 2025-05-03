@@ -121,6 +121,7 @@ public class Player extends Entity implements Serializable {
         }
     }
 
+
     public void lockDirection(double currentAngle){
         this.lockedAngle = currentAngle;
         this.directionLocked = true;
