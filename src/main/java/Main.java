@@ -1,5 +1,5 @@
 import controller.StartController;
-import view.MainView;
+import view.game.core.MainView;
 
 public class Main {
     public static void main(String[] args) {

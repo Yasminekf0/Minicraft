@@ -1,16 +1,13 @@
 package model.entity;
-import controller.GameController;
-import model.Pathfinder;
+import model.position.Direction;
 import model.position.WorldPosition;
-import view.SoundManager;
+import view.audio.SoundManager;
 
 import java.awt.*;
-import static view.ScreenSettings.tileSize;
 
 import java.io.Serializable;
 
 public abstract class Entity implements Serializable {
-    GameController gameController;
     protected WorldPosition worldPos;
 
     protected int speed;
@@ -19,9 +16,7 @@ public abstract class Entity implements Serializable {
     protected int maxHealth;
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
-    public Rectangle solidAreaDefault;// = new Rectangle(8,8,8,8);
     public boolean collisionOn = false;
-    public boolean onPath = false;
 
 
     public WorldPosition getWorldPos() {
@@ -41,6 +36,7 @@ public abstract class Entity implements Serializable {
     public void setHealth(int health) {
         this.health = health;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -56,5 +52,8 @@ public abstract class Entity implements Serializable {
 
     public void heal(int healAmount) {
         this.health = Math.min(maxHealth, this.health + healAmount);
+    }
+    protected Direction getFacingDirection() {
+        return worldPos.getDirectionFacing();
     }
 }

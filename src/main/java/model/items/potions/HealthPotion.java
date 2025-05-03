@@ -1,7 +1,6 @@
 package model.items.potions;
 
 import model.entity.Player;
-import view.SoundManager;
 
 public class HealthPotion extends Potion {
 
@@ -25,9 +24,7 @@ public class HealthPotion extends Potion {
 
         if (count > 0) {
             player.heal(healingAmount);
-            SoundManager.getInstance().playSound("potion");
             count--;
         }
-
     }
 }

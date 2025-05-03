@@ -1,19 +1,16 @@
 package model.entity;
 
-import model.Inventory;
+import model.items.Inventory;
 import model.position.Direction;
 import model.position.WorldPosition;
-import model.world.MobManager;
-import model.world.World;
 
 import java.io.Serializable;
 
 import java.awt.*;
 
-import static java.lang.Math.round;
 import static model.world.WorldSettings.worldSize;
-import static view.ScreenSettings.scale;
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.scale;
+import static view.settings.ScreenSettings.tileSize;
 
 public class Player extends Entity implements Serializable {
 
@@ -35,12 +32,6 @@ public class Player extends Entity implements Serializable {
         collisionChecker = new CollisionChecker();
         inventory = new Inventory();
         this.solidArea = new Rectangle(1,1,1,1 );//(tileSize/2, tileSize/2, tileSize/2, tileSize/2); //(8, 8, 16, 16) tilesize=16
-        this.solidAreaDefault = new Rectangle(
-                solidArea.x,
-                solidArea.y,
-                solidArea.width,
-                solidArea.height
-        );
         collisionChecker.getSpawnPos(this);
 
     }
@@ -140,9 +131,5 @@ public class Player extends Entity implements Serializable {
 
     public int getDefaultSpeed() {
         return defaultSpeed;
-    }
-
-    protected Direction getFacingDirection() {
-        return worldPos.getDirectionFacing();
     }
 }

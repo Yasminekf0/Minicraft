@@ -1,19 +1,17 @@
 package controller;
 
-import model.entity.Enemy;
 import model.entity.Player;
-import model.items.tools.Axe;
-import model.items.tools.Tool;
-import view.HUDView;
-import model.world.MobManager;
-import view.PlayerView;
-import view.SoundManager;
-
 import model.items.Item;
-import model.items.tools.Tool;
+import model.items.tools.BreakingTools;
+import model.world.WorldBlock;
+import view.HUD.HUDView;
+import view.game.elements.PlayerView;
+import view.audio.SoundManager;
 
 import javax.swing.*;
+import java.util.List;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class PlayerController {
     private final Player player;
     private final PlayerView playerView;
@@ -32,14 +30,21 @@ public class PlayerController {
         this.playerView = playerView;
         this.hudView = hudView;
 
-        movementTimer = new Timer(delay, _ -> {
-            updatePlayer();
-        });
+        movementTimer = new Timer(delay, _ -> {updatePlayer();});
 
-        actionTimer = new Timer(100, _ -> {
-            player.use();
-        });
+        actionTimer = new Timer(100, _ -> {performAction();});
 
+        List<Item> tools = player.getInventory().getInventorySection("Tools");
+        for (Item i : tools) {
+            if (i instanceof BreakingTools bt) {
+                bt.setOnBlockBroken((WorldBlock block, Item drop) -> {
+                    if (drop != null) {
+                        player.getInventory().addItem(drop);
+                    }
+                    SoundManager.getInstance().playBlockSound(drop);
+                });
+            }
+        }
     }
 
     void updateMoving(int ddx, int ddy){
@@ -66,18 +71,27 @@ public class PlayerController {
 
     }
 
+    private void performAction() {
+        Item selected = player.getInventory().getSelectedItem();
+
+         if (selected != null && selected.getCount() > 0) {
+             selected.use();
+             SoundManager.getInstance().playUseSound(selected);
+         }
+
+        double angle = player.getFacingAngle();
+        player.lockDirection(angle);
+        playerView.startUse();
+
+        int tx = player.getWorldPos().getFocusedTileX();
+        int ty = player.getWorldPos().getFocusedTileY();
+        hudView.slashAt(tx, ty);
+    }
 
     public void doAction() {
         if (!actionTimer.isRunning()){
-            player.use();
+            performAction();
             actionTimer.start();
-            double currentAngle = player.getFacingAngle();
-            player.lockDirection(currentAngle);
-            playerView.startUse();
-
-            int tx = player.getWorldPos().getFocusedTileX();
-            int ty = player.getWorldPos().getFocusedTileY();
-            hudView.slashAt(tx, ty);
         }
     }
 
@@ -95,12 +109,4 @@ public class PlayerController {
         player.getInventory().cycleCurrentItem();
     }
 
-    public void upgradeSelectedTool(){
-        player.getInventory().upgradeTool();
-    }
-
-    public void takeDamage(int damage) {
-        player.takeDamage(damage);
-        SoundManager.getInstance().playSound("damage");
-    }
 }

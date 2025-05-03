@@ -1,14 +1,17 @@
 package model.position;
 
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.tileSize;
 
-public class WorldPosition extends Position<Double>{
+public class WorldPosition{
 
     private Direction directionFacing;
+    private double x;
+    private double y;
 
     public WorldPosition(double x, double y) {
-        super(x, y);
         this.directionFacing = Direction.DOWN;
+        this.x = x;
+        this.y = y;
     }
 
     public void increment(double dx, double dy) {
@@ -18,17 +21,6 @@ public class WorldPosition extends Position<Double>{
     public void set(double dx, double dy) {
         this.x = dx;
         this.y = dy;
-    }
-
-    public void lerpTo(double tx, double ty, double alpha) {
-        this.x += (tx - this.x) * alpha;
-        this.y += (ty - this.y) * alpha;
-    }
-
-    public boolean isWithin(double threshold, double tx, double ty) {
-        double dx = tx - this.x;
-        double dy = ty - this.y;
-        return Math.hypot(dx, dy) <= threshold;
     }
 
     public void updateDirection(double dx, double dy){
@@ -41,6 +33,32 @@ public class WorldPosition extends Position<Double>{
         else if ((dx > 0) & (dy > 0)) directionFacing = Direction.DOWNRIGHT;
         else if ((dx < 0) & (dy > 0)) directionFacing = Direction.DOWNLEFT;
     }
+
+
+    public double getX() {
+        return x;
+    }
+
+    public int getXInt(){
+        return (int) x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public int getYInt(){
+        return (int) y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
 
     public int getTileXPos(){
         return (int) (x/tileSize);

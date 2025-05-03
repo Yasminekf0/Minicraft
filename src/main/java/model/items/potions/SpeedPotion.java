@@ -1,7 +1,6 @@
 package model.items.potions;
 
 import model.entity.Player;
-import view.SoundManager;
 
 import javax.swing.Timer;
 
@@ -26,8 +25,6 @@ public class SpeedPotion extends Potion {
 
         if (count > 0) {
             player.setSpeed(player.getSpeed() + speedBoost);
-
-            SoundManager.getInstance().playSound("potion");
 
             count--;
 

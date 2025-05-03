@@ -1,16 +1,16 @@
 package controller;
 
-import model.DayCycleManager;
+import model.world.DayCycleManager;
 import model.entity.Player;
-import model.world.World;
-import view.*;
-import controller.GameSettings;
+import view.HUD.HUDView;
+import view.audio.SoundManager;
+import view.game.elements.EnemyView;
+import view.game.core.GameView;
+import view.game.elements.NPCView;
+import view.menus.DeathView;
+import view.menus.OptionsView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static controller.GameSettings.FPS;
 
 public class GameController {
 

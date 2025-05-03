@@ -4,8 +4,7 @@ import controller.GameSettings;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import model.DayCycleManager;
-import model.saveloadmanager.GameState;
+import model.world.DayCycleManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

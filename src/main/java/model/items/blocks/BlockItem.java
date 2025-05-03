@@ -4,7 +4,6 @@ import model.entity.Player;
 import model.items.Item;
 import model.world.World;
 import model.world.WorldBlock;
-import view.SoundManager;
 
 public abstract class BlockItem extends Item {
 
@@ -23,11 +22,6 @@ public abstract class BlockItem extends Item {
 
         if (world.isPlaceable(focusedX,focusedY) & count > 0) {
             world.placeBlock(focusedX,focusedY,worldBlock);
-            switch (this) {
-                case WoodItem woodItem   -> SoundManager.getInstance().playSound("wood");
-                case RockItem rockItem   -> SoundManager.getInstance().playSound("stone");      // or "stone_place"
-                default             -> SoundManager.getInstance().playSound("pickup");
-            }
             count--;
         }
     }

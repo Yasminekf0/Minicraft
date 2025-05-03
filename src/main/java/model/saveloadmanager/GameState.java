@@ -1,5 +1,5 @@
 package model.saveloadmanager;
-import model.DayCycleManager;
+import model.world.DayCycleManager;
 import model.entity.Player;
 import model.world.World;
 
@@ -10,9 +10,9 @@ import java.io.Serializable;
 
 
 public class GameState implements Serializable {
-    World world = World.getInstance();
-    Player player = Player.getInstance();
-    DayCycleManager dayCycleManager = DayCycleManager.getInstance();
+    final World world = World.getInstance();
+    final Player player = Player.getInstance();
+    final DayCycleManager dayCycleManager = DayCycleManager.getInstance();
 
     public Player getPlayer() {
         return player;

@@ -1,19 +1,18 @@
 package controller;
 
-import view.OptionsView;
+import view.menus.OptionsView;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
 import model.saveloadmanager.SaveLoadManager;
 import model.saveloadmanager.GameState;
-import view.SoundManager;
+import view.audio.SoundManager;
 
 import java.io.*;
 
 public class OptionsController {
-    private OptionsView optionsView;
-    private GameController gameController;
+    private final OptionsView optionsView;
+    private final GameController gameController;
     private final SoundManager soundManager = SoundManager.getInstance();
 
 
@@ -64,16 +63,4 @@ public class OptionsController {
         });
     }
 
-    /*private void initKeyListener() {
-        optionsView.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    optionsView.setVisible(false);
-                    gameController.resumeGame();
-                }
-            }
-        });
-        optionsView.setFocusable(true);
-    }*/
 }

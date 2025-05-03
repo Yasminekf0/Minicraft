@@ -1,26 +1,22 @@
 package model.entity;
 
-import model.position.WorldPosition;
-import model.world.MobManager;
+import model.entity.npcs.Enemy;
+import model.entity.npcs.NPC;
+import model.entity.npcs.MobManager;
 import model.world.World;
 
 import java.awt.*;
 import java.io.Serializable;
 
-import static view.ScreenSettings.scale;
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.tileSize;
 
 public class CollisionChecker implements Serializable {
 
     private final World world;
-    private final NPC npc;
     private final Player player;
-    //private final Enemy[] targets;
 
     public CollisionChecker() {
         this.world = World.getInstance();
-        this.npc = NPC.getInstance();
-        //this.targets = MobManager.getInstance().getEnemies();
         this.player = Player.getInstance();
     }
 
@@ -31,10 +27,10 @@ public class CollisionChecker implements Serializable {
     }
 
     public void checkTile(Entity entity, double dx, double dy) {
-        int entityLeftWorldX = entity.getWorldPos().getX().intValue()+ entity.solidArea.x;
-        int entityRightWorldX = entity.getWorldPos().getX().intValue()+ entity.solidArea.x + entity.solidArea.width;
-        int entityTopWorldY = entity.getWorldPos().getY().intValue()+ entity.solidArea.y;
-        int entityBottomWorldY = entity.getWorldPos().getY().intValue()+ entity.solidArea.y + entity.solidArea.height;
+        int entityLeftWorldX = entity.getWorldPos().getXInt()+ entity.solidArea.x;
+        int entityRightWorldX = entity.getWorldPos().getXInt()+ entity.solidArea.x + entity.solidArea.width;
+        int entityTopWorldY = entity.getWorldPos().getYInt()+ entity.solidArea.y;
+        int entityBottomWorldY = entity.getWorldPos().getYInt()+ entity.solidArea.y + entity.solidArea.height;
 
         int entityLeftCol = entityLeftWorldX / tileSize;
         int entityRightCol = entityRightWorldX / tileSize;
@@ -63,7 +59,6 @@ public class CollisionChecker implements Serializable {
             }
         }
 
-
         if (dx > 0) { //right
             entityRightCol = (entityRightWorldX + (int) dx) / tileSize;
             tile1_OK = !world.hasBlock(entityRightCol, entityTopRow) && world.isWalkable(entityRightCol, entityTopRow);
@@ -82,11 +77,11 @@ public class CollisionChecker implements Serializable {
     }
 
 
-    public int checkEntity(Entity entity, double dx, double dy) {
+    public int checkEntity(Entity entity, double dx, double dy) { //player check if there´s mobs
 
         Rectangle entityCollisionBox = new Rectangle(
-                entity.getWorldPos().getX().intValue() + entity.solidArea.x + (int)dx,
-                entity.getWorldPos().getY().intValue() + entity.solidArea.y + (int)dy,
+                entity.getWorldPos().getXInt() + entity.solidArea.x + (int)dx,
+                entity.getWorldPos().getYInt() + entity.solidArea.y + (int)dy,
                 entity.solidArea.width,
                 entity.solidArea.height
         );
@@ -101,8 +96,8 @@ public class CollisionChecker implements Serializable {
             if (targets[i] != null) {
                 Entity t = targets[i];
                 Rectangle tBox = new Rectangle(
-                        t.getWorldPos().getX().intValue() + t.solidArea.x,
-                        t.getWorldPos().getY().intValue() + t.solidArea.y,
+                        t.getWorldPos().getXInt() + t.solidArea.x,
+                        t.getWorldPos().getYInt() + t.solidArea.y,
                         t.solidArea.width,
                         t.solidArea.height
                 );
@@ -119,20 +114,19 @@ public class CollisionChecker implements Serializable {
 
 
 
-    public void checkPlayer ( Entity entity, double dx, double dy) {
+    public void checkPlayer ( Entity entity, double dx, double dy) { //mobs check if theres a player
         boolean damage = entity instanceof Enemy;
-        int damageAmount = 1;
 
-            Rectangle entityCollisionBox = new Rectangle(
-                entity.getWorldPos().getX().intValue() + entity.solidArea.x,
-                entity.getWorldPos().getY().intValue() + entity.solidArea.y,
+        Rectangle entityCollisionBox = new Rectangle(
+                entity.getWorldPos().getXInt() + entity.solidArea.x,
+                entity.getWorldPos().getYInt() + entity.solidArea.y,
                 entity.solidArea.width,
                 entity.solidArea.height
         );
 
         Rectangle playerCollisionBox = new Rectangle(
-                player.getWorldPos().getX().intValue() + player.solidArea.x,
-                player.getWorldPos().getY().intValue() + player.solidArea.y,
+                player.getWorldPos().getXInt() + player.solidArea.x,
+                player.getWorldPos().getYInt() + player.solidArea.y,
                 player.solidArea.width,
                 player.solidArea.height
         );
@@ -145,8 +139,8 @@ public class CollisionChecker implements Serializable {
                     player.takeDamage(1);
                     System.out.println("Got hit by enemy, health:" + player.health);
                     player.worldPos.increment(
-                            -player.getFacingDirection().getX() * tileSize,
-                            -player.getFacingDirection().getY() * tileSize
+                            entity.getFacingDirection().getX() * tileSize,
+                            entity.getFacingDirection().getY() * tileSize
                     );
                 }
             }
@@ -160,8 +154,8 @@ public class CollisionChecker implements Serializable {
                     player.takeDamage(1);
                     System.out.println("Got hit by enemy, health:" + player.health);
                     player.worldPos.increment(
-                            -player.getFacingDirection().getX() * tileSize,
-                            -player.getFacingDirection().getY() * tileSize
+                            entity.getFacingDirection().getX() * tileSize,
+                            entity.getFacingDirection().getY() * tileSize
                     );
                 }
             }
@@ -175,8 +169,8 @@ public class CollisionChecker implements Serializable {
                     player.takeDamage(1);
                     System.out.println("Got hit by enemy, health:" + player.health);
                     player.worldPos.increment(
-                            -player.getFacingDirection().getX() * tileSize,
-                            -player.getFacingDirection().getY() * tileSize
+                            entity.getFacingDirection().getX() * tileSize,
+                            entity.getFacingDirection().getY() * tileSize
                     );
                 }
             }
@@ -188,8 +182,8 @@ public class CollisionChecker implements Serializable {
                     player.takeDamage(1);
                     System.out.println("Got hit by enemy, health:" + player.health);
                     player.worldPos.increment(
-                            -player.getFacingDirection().getX() * tileSize,
-                            -player.getFacingDirection().getY() * tileSize
+                            entity.getFacingDirection().getX() * tileSize,
+                            entity.getFacingDirection().getY() * tileSize
                     );
                 }
             }
