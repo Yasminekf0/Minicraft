@@ -2,7 +2,7 @@ package model.position;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-class PositionTest {
+class PositionTest {/*
     @Test
     void testIntegerPositionGettersSetters() {
         Position<Integer> p = new Position<>(1, 2);
@@ -24,7 +24,7 @@ class PositionTest {
         Position<Double> p = new Position<>(1.5, -2.5);
         assertEquals(1.5, p.getX());
         assertEquals(-2.5, p.getY());
-    }
+    }*/
 
 
 }

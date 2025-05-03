@@ -76,10 +76,8 @@ public class InventorySteps {
         player.getInventory().addItem(i);
     }
 
-    @And("the player finds an upgrade chest")
-    public void thePlayerFindsAnUpgradeChest() {
-        player.getInventory().openChest();
-    }
+
+
 
     @When("the player upgrades the {string}")
     public void thePlayerUpgradesThe() {

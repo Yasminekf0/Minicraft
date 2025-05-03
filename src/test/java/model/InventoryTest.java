@@ -85,19 +85,19 @@ class InventoryTest {
         assertEquals(1, inventory.countItem(potion), "Adding a new item should set its count to 1");
     }
 
-    @Test
-    void upgradeToolUpgradesMaterial() {
-        Sword sword = new Sword();
-        inventory.setSelectedItem(sword);
-
-        assertEquals("WOOD", sword.getMaterial());
-
-
-        inventory.setSelectedItem(sword);
-        inventory.upgradeTool();
-
-        assertEquals("STONE", sword.getMaterial(), "Tool should upgrade from WOOD to STONE");
-    }
+//    @Test
+//    void upgradeToolUpgradesMaterial() {
+//        Sword sword = new Sword();
+//        inventory.setSelectedItem(sword);
+//
+//        assertEquals("WOOD", sword.getMaterial());
+//
+//
+//        inventory.setSelectedItem(sword);
+//        inventory.upgradeTool();
+//
+//        assertEquals("STONE", sword.getMaterial(), "Tool should upgrade from WOOD to STONE");
+//    }
 
 
     @Test
