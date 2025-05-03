@@ -1,9 +1,11 @@
-package view;
+package view.game.core;
+
+import view.game.elements.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static view.ScreenSettings.*;
+import static view.settings.ScreenSettings.*;
 
 public class GameView extends JPanel {
     private final PlayerView playerView;

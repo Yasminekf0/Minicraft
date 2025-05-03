@@ -1,4 +1,4 @@
-package view;
+package view.game.elements;
 
 import model.entity.Player;
 
@@ -9,9 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static view.ScreenSettings.playerScreenX;
-import static view.ScreenSettings.playerScreenY;
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.playerScreenX;
+import static view.settings.ScreenSettings.playerScreenY;
+import static view.settings.ScreenSettings.tileSize;
 
 import model.entity.npcs.Enemy;
 import model.entity.npcs.MobManager;

@@ -5,12 +5,12 @@ import model.entity.npcs.Enemy;
 import model.entity.Player;
 import model.position.WorldPosition;
 import model.world.World;
-import view.EnemyView;
+import view.game.elements.EnemyView;
 
 import java.util.List;
 import java.util.Random;
 
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.tileSize;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class EnemyController {

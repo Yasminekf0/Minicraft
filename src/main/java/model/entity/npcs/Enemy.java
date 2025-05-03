@@ -3,7 +3,7 @@ package model.entity.npcs;
 import model.entity.npcs.pathfinding.Node;
 import model.entity.npcs.pathfinding.Pathfinder;
 
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.tileSize;
 
 import java.util.List;
 import java.util.Random;

@@ -4,8 +4,17 @@ import model.world.DayCycleManager;
 import model.entity.Player;
 import model.entity.npcs.MobManager;
 import model.world.World;
-import view.*;
 import model.saveloadmanager.*;
+import view.HUD.HUDView;
+import view.audio.SoundManager;
+import view.game.elements.EnemyView;
+import view.game.core.GameView;
+import view.game.core.MainView;
+import view.game.elements.NPCView;
+import view.menus.DeathView;
+import view.menus.OptionsView;
+import view.menus.StartView;
+
 import java.io.*;
 
 

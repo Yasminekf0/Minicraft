@@ -6,7 +6,7 @@ import model.position.WorldPosition;
 
 import java.awt.*;
 
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.tileSize;
 
 public abstract class Mob extends Entity {
 

@@ -1,4 +1,4 @@
-package view;
+package view.HUD;
 
 import model.entity.Player;
 

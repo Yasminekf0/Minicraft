@@ -1,8 +1,9 @@
-package view;
+package view.HUD;
 
 import model.items.Inventory;
 import model.items.Item;
 import model.items.tools.Tool;
+import view.menus.Buttons;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-import static view.ScreenSettings.scaleHUD;
+import static view.settings.ScreenSettings.scaleHUD;
 
 public class InventoryView extends JComponent {
 

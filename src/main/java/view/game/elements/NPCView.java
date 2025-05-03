@@ -1,4 +1,4 @@
-package view;
+package view.game.elements;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static view.ScreenSettings.*;
+import static view.settings.ScreenSettings.*;
 
 import model.entity.npcs.NPC;
 import model.entity.Player;

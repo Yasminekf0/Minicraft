@@ -1,4 +1,4 @@
-package view;
+package view.HUD;
 
 import model.entity.Player;
 import model.items.Item;
@@ -8,9 +8,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-import static view.ScreenSettings.playerScreenX;
-import static view.ScreenSettings.playerScreenY;
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.playerScreenX;
+import static view.settings.ScreenSettings.playerScreenY;
+import static view.settings.ScreenSettings.tileSize;
 
 public class HUDView extends JPanel {
     private final Player player;

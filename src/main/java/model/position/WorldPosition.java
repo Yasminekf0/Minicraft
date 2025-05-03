@@ -1,6 +1,6 @@
 package model.position;
 
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.tileSize;
 
 public class WorldPosition extends Position<Double>{
 

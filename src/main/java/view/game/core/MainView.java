@@ -1,11 +1,16 @@
-package view;
+package view.game.core;
 
+
+import view.menus.DeathView;
+import view.HUD.HUDView;
+import view.menus.OptionsView;
+import view.menus.StartView;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static view.ScreenSettings.screenHeight;
-import static view.ScreenSettings.screenWidth;
+import static view.settings.ScreenSettings.screenHeight;
+import static view.settings.ScreenSettings.screenWidth;
 
 public class MainView {
 

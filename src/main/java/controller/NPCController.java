@@ -4,8 +4,8 @@ import model.entity.npcs.NPC;
 import model.entity.Player;
 import model.position.WorldPosition;
 import model.world.World;
-import view.NPCView;
-import view.ScreenSettings;
+import view.game.elements.NPCView;
+import view.settings.ScreenSettings;
 
 import java.util.Random;
 

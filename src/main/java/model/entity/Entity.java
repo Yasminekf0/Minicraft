@@ -1,6 +1,6 @@
 package model.entity;
 import model.position.WorldPosition;
-import view.SoundManager;
+import view.audio.SoundManager;
 
 import java.awt.*;
 

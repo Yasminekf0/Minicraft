@@ -6,7 +6,7 @@ import model.entity.npcs.NPC;
 import model.entity.Player;
 import model.entity.npcs.MobManager;
 import model.world.World;
-import view.SoundManager;
+import view.audio.SoundManager;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Sword extends Tool {

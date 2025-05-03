@@ -3,11 +3,10 @@ package controller;
 import model.entity.Player;
 import model.items.Item;
 import model.items.tools.BreakingTools;
-import model.world.World;
 import model.world.WorldBlock;
-import view.HUDView;
-import view.PlayerView;
-import view.SoundManager;
+import view.HUD.HUDView;
+import view.game.elements.PlayerView;
+import view.audio.SoundManager;
 
 import javax.swing.*;
 import java.util.List;

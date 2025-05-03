@@ -1,11 +1,11 @@
-package view;
+package view.game.elements;
 
 import model.world.DayCycleManager;
 
 import java.awt.*;
 
-import static view.ScreenSettings.screenHeight;
-import static view.ScreenSettings.screenWidth;
+import static view.settings.ScreenSettings.screenHeight;
+import static view.settings.ScreenSettings.screenWidth;
 
 public class NightFilterView extends GameElementView {
 

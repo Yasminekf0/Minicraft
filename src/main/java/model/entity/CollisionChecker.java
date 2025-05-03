@@ -7,7 +7,7 @@ import model.world.World;
 
 import java.awt.*;
 
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.tileSize;
 
 public class CollisionChecker {
 

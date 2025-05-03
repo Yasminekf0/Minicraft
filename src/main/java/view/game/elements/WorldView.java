@@ -1,4 +1,4 @@
-package view;
+package view.game.elements;
 
 import model.entity.Player;
 import model.world.WorldBlock;
@@ -15,7 +15,7 @@ import java.util.EnumMap;
 import java.util.Objects;
 
 import static model.world.WorldSettings.worldSize;
-import static view.ScreenSettings.*;
+import static view.settings.ScreenSettings.*;
 
 public class WorldView extends GameElementView {
 

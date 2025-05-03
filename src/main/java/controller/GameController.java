@@ -2,7 +2,13 @@ package controller;
 
 import model.world.DayCycleManager;
 import model.entity.Player;
-import view.*;
+import view.HUD.HUDView;
+import view.audio.SoundManager;
+import view.game.elements.EnemyView;
+import view.game.core.GameView;
+import view.game.elements.NPCView;
+import view.menus.DeathView;
+import view.menus.OptionsView;
 
 import javax.swing.*;
 

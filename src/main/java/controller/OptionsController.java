@@ -1,12 +1,12 @@
 package controller;
 
-import view.OptionsView;
+import view.menus.OptionsView;
 
 import javax.swing.*;
 
 import model.saveloadmanager.SaveLoadManager;
 import model.saveloadmanager.GameState;
-import view.SoundManager;
+import view.audio.SoundManager;
 
 import java.io.*;
 

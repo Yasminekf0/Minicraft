@@ -1,5 +1,7 @@
-package view;
+package view.game.elements;
 
+
+import view.audio.SoundManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -8,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static view.ScreenSettings.*;
+import static view.settings.ScreenSettings.*;
 
 public class PlayerView extends GameElementView {
 
