@@ -10,6 +10,6 @@ Feature:  Tools
     Then the "Stone Sword" should do more damage
 
   Scenario: Better Axe
-    Given that the player has a "Pickaxe" in "Tools" section in their inventory
+    Given that the player has a "Axe" in "Tools" section in their inventory
     When the tool is upgraded
     Then the "Stone Axe" should chop faster
