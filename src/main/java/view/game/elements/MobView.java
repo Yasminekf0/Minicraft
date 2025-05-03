@@ -1,5 +1,6 @@
 package view.game.elements;
 
+import io.cucumber.java.it.Ma;
 import model.entity.Player;
 import model.entity.npcs.Enemy;
 import model.entity.npcs.Mob;
@@ -10,6 +11,8 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static view.settings.ScreenSettings.*;
@@ -17,7 +20,9 @@ import static view.settings.ScreenSettings.playerScreenX;
 import static view.settings.ScreenSettings.playerScreenY;
 
 public abstract class MobView extends GameElementView{
-    private BufferedImage z, z1, z2, sk1, sk2, sk, v, v1, v2, x;
+    //private BufferedImage z, z1, z2, sk1, sk2, sk, v, v1, v2, x;
+
+    protected Map<Integer,BufferedImage[]> spriteMap = new HashMap<>();
     private final Player player;
     private int spriteCounter = 0;
     private int spriteNum;
@@ -26,25 +31,9 @@ public abstract class MobView extends GameElementView{
     public MobView() {
         this.player = Player.getInstance();
         loadImages();
-
     }
 
-    protected void loadImages() {
-        try {
-            v = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager.png")));
-            v2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager2.png")));
-            v1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager1.png")));
-            z = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie.png")));
-            z2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie2.png")));
-            z1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie1.png")));
-            sk = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/skeleton/skeleton.png")));
-            sk2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/skeleton/skeleton2.png")));
-            sk1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/skeleton/skeleton1.png")));
-            x = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/bat/bat_down_1.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    protected abstract void loadImages();
 
 
     public void update(int index, boolean moving, double newAngle) {
@@ -83,32 +72,14 @@ public abstract class MobView extends GameElementView{
 
                     BufferedImage image;
 
+                    BufferedImage[] images = spriteMap.get(mobs[i].getSkinType());
+
                     image = switch (spriteNum) {
-                        case 2 -> x;
-                        case 4 -> x;
-                        default -> x;
+                        case 2 -> images[1];
+                        case 4 -> images[2];
+                        default -> images[0];
                     };
 
-                    if (mobs[i].getSkinType() == 0) {
-                        image = switch (spriteNum) {
-                            case 2 -> v1;
-                            case 4 -> v2;
-                            default -> v;
-                        };
-
-                    } else if (mobs[i].getSkinType() == 1) {
-                        image = switch (spriteNum) {
-                            case 2 -> z1;
-                            case 4 -> z2;
-                            default -> z;
-                        };
-                    } else if (mobs[i].getSkinType() == 2 ) { // skeleton
-                        image = switch (spriteNum) {
-                            case 2 -> sk1;
-                            case 4 -> sk2;
-                            default -> sk;
-                        };
-                    }
 
                     if (image == null) return;
 

@@ -25,7 +25,7 @@ public class Enemy extends Mob {
         this.maxHealth = 10;
         this.dx = 0;
         this.dy = 1;
-        this.skinType = (Math.random() < 0.5)  ? 1 : 2;
+        this.skinType = (Math.random() < 0.5)  ? 0 : 1;
         this.lastHitTime = System.currentTimeMillis();
 
 
