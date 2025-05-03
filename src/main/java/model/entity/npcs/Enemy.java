@@ -10,9 +10,11 @@ import java.util.Random;
 
 
 public class Enemy extends Mob {
-    public final boolean skinType;
 
-    public int wanderSteps = new Random().nextInt(100)+100;
+
+    private boolean onPath = false;
+
+
     public int pathStage = new Random().nextInt(8);
     public final Pathfinder pFinder =  new Pathfinder();
     public double dx, dy;
@@ -27,7 +29,9 @@ public class Enemy extends Mob {
 
     }
 
-
+    private  boolean getOnPath(){
+        return onPath;
+    }
     public boolean getSkinType() {
         return skinType;
     }

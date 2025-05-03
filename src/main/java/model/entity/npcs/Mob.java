@@ -5,17 +5,20 @@ import model.entity.Entity;
 import model.position.WorldPosition;
 
 import java.awt.*;
+import java.util.Random;
 
 import static view.settings.ScreenSettings.tileSize;
 
 public abstract class Mob extends Entity {
 
 
-    public boolean onPath = false;
+    public boolean skinType;
+    public int wanderSteps = new Random().nextInt(100)+100;
 
     public Mob() {
         super();
 
+        this.skinType = true;
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
         this.collisionChecker = new CollisionChecker();
         this.solidArea = new Rectangle(1,1,tileSize-1,tileSize-1);

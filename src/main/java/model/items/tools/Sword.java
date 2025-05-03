@@ -51,7 +51,7 @@ public class Sword extends Tool {
                 }
 
                 if (e instanceof Enemy && e.getHealth() <= 0) {
-                    MobManager.getInstance().removeEnemy((Enemy) e);
+                    MobManager.getInstance().removeMob((Enemy) e);
                     if (((Enemy) e).skinType){
                         SoundManager.getInstance().playSound("zombieDeath");
                     } else {
