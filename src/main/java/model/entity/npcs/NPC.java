@@ -9,8 +9,13 @@ public class NPC extends Mob {
         this.speed = 1;
         this.health = 10;
         this.maxHealth = 10;
+        this.skinType = 0;
 
     }
+    public int getSkinType() {
+        return skinType;
+    }
+
 
 
     /*

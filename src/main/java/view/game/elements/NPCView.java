@@ -9,104 +9,54 @@ import java.util.Objects;
 
 import static view.settings.ScreenSettings.*;
 
+import model.entity.npcs.MobManager;
 import model.entity.npcs.NPC;
 import model.entity.Player;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class NPCView extends GameElementView{
+public class NPCView extends MobView{
     // Sprite images
-    private BufferedImage v, v1, v2;
-    private final Player player;
-    private final NPC npc;
-    private int spriteCounter = 0;
-    private int spriteNum;
-    private double angle = 0;
+    private final NPC[] npcs;
 
     public NPCView() {
-        this.player = Player.getInstance();
-        this.npc = NPC.getInstance();
-        loadImages();
+        this.npcs = MobManager.getInstance().getNpcs();
     }
 
-    protected void loadImages() {
-        try {
-            v = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager.png")));
-            v2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager2.png")));
-            v1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager1.png")));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    /*public void draw(Graphics2D g2) {
+        for(int i = 0; i < this.npcs.length; ++i) {
+            //if (!npcs[i].isAlive()) {
+                //return;
+            //}
 
-    public void update(boolean moving, double newAngle) {
+            int playerWorldX = player.getWorldPos().getXInt();
+            int playerWorldY = player.getWorldPos().getYInt();
+            int worldX = npcs[i].getWorldPos().getXInt();
+            int worldY = npcs[i].getWorldPos().getYInt();
 
-        if (moving) {
-            this.angle = newAngle;
-            spriteCounter++;
-            // Increase or decrease this threshold to adjust animation speed
-            if (spriteCounter > 19) {
-                spriteNum++;
-                if (spriteNum > 4) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
+            int screenX = worldX - playerWorldX + playerScreenX;
+            int screenY = worldY - playerWorldY + playerScreenY;
+
+
+            if (worldX + tileSize > playerWorldX - playerScreenX &&
+                    worldX - tileSize < playerWorldX + playerScreenX &&
+                    worldY + tileSize > playerWorldY - playerScreenY &&
+                    worldY - tileSize < playerWorldY + playerScreenY) {
+
+                BufferedImage image = switch (spriteNum) {
+                    case 2 -> v1;
+                    case 4 -> v2;
+                    default -> v;
+                };
+                if (image == null) return;
+
+                AffineTransform at = createAffineTransform(image, screenX, screenY, angles[i]);
+                g2.drawImage(image, at, null);
             }
-        } else {
-            spriteNum = 1; // Reset to standing when not moving
         }
-    }
-
-    public void draw(Graphics2D g2) {
-        if (!npc.isAlive()) {
-            return;
-        }
-
-        int playerWorldX = player.getWorldPos().getXInt();
-        int playerWorldY = player.getWorldPos().getYInt();
-        int worldX = npc.getWorldPos().getXInt();
-        int worldY = npc.getWorldPos().getYInt();
-
-        int screenX = worldX - playerWorldX + playerScreenX;
-        int screenY = worldY - playerWorldY + playerScreenY;
+    }*/
 
 
-        if (worldX + tileSize > playerWorldX - playerScreenX &&
-            worldX - tileSize < playerWorldX + playerScreenX &&
-            worldY + tileSize > playerWorldY - playerScreenY &&
-            worldY - tileSize < playerWorldY + playerScreenY) {
-
-            BufferedImage image = switch (spriteNum) {
-                case 2 -> v1;
-                case 4 -> v2;
-                default -> v;
-            };
-            if (image == null) return;
-
-            AffineTransform at = createAffineTransform(image, screenX, screenY);
-            g2.drawImage(image, at, null);
-        }
-    }
-
-    private AffineTransform createAffineTransform(BufferedImage image, int screenX, int screenY) {
-        AffineTransform at = new AffineTransform();
-
-        // Translate to screen position first
-        at.translate(screenX + tileSize / 2.0, screenY + tileSize / 2.0);
-
-        // Rotate around the center
-        at.rotate(angle);
-
-        // Scale to fit the tileSize
-        double scaleX = tileSize / (double) image.getWidth();
-        double scaleY = tileSize / (double) image.getHeight();
-        at.scale(scaleX, scaleY);
-
-        // Center the image
-        at.translate(-image.getWidth() / 2.0, -image.getHeight() / 2.0);
-
-        return at;
-    }
 
 }
 

@@ -1,11 +1,13 @@
 package controller;
 
+import model.entity.npcs.Mob;
 import model.world.DayCycleManager;
 import model.entity.Player;
 import view.HUD.HUDView;
 import view.audio.SoundManager;
 import view.game.elements.EnemyView;
 import view.game.core.GameView;
+import view.game.elements.MobView;
 import view.game.elements.NPCView;
 import view.menus.DeathView;
 import view.menus.OptionsView;
@@ -27,13 +29,13 @@ public class GameController {
     private final NPCController npcController;
     private final EnemyController enemyController;
 
-    public GameController(GameView gameView, NPCView npcView, EnemyView enemyView, HUDView hudView) {
+    public GameController(GameView gameView, NPCView npcView, EnemyView enemyView, HUDView hudView, MobView mobView) {
         this.gameView = gameView;
         this.hudView = hudView;
 
         this.dayCycleManager = DayCycleManager.getInstance();
-        this.npcController = new NPCController(npcView);
-        this.enemyController = new EnemyController(enemyView);
+        this.npcController = new NPCController(npcView,mobView);
+        this.enemyController = new EnemyController(enemyView, mobView);
 
 
 

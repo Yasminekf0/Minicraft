@@ -1,5 +1,6 @@
 package controller;
 
+import model.entity.npcs.Mob;
 import model.world.DayCycleManager;
 import model.entity.Player;
 import model.entity.npcs.MobManager;
@@ -10,6 +11,7 @@ import view.audio.SoundManager;
 import view.game.elements.EnemyView;
 import view.game.core.GameView;
 import view.game.core.MainView;
+import view.game.elements.MobView;
 import view.game.elements.NPCView;
 import view.menus.DeathView;
 import view.menus.OptionsView;
@@ -78,6 +80,7 @@ public class StartController {
         GameView gameView = new GameView();
         NPCView npcView = gameView.getNpcView();
         EnemyView enemyView = gameView.getEnemyView();
+        MobView mobView = gameView.getMobView();
         HUDView hudView = new HUDView(player);
 
         OptionsView optionsView = mainView.getOptionsView();
@@ -85,10 +88,10 @@ public class StartController {
 
 
         // Instantiate controllers for the game.
-        GameController gameController = new GameController(gameView, npcView,enemyView, hudView);
+        GameController gameController = new GameController(gameView, npcView,enemyView, hudView, mobView);
         PlayerController playerController = new PlayerController(gameView.getPlayerView(), hudView);
-        NPCController npcController = new NPCController(gameView.getNpcView());
-        EnemyController enemyController = new EnemyController(gameView.getEnemyView());
+        NPCController npcController = new NPCController(gameView.getNpcView(), gameView.getMobView());
+        EnemyController enemyController = new EnemyController(gameView.getEnemyView(), gameView.getMobView());
         KeyController keyController = new KeyController(gameController, playerController);
         OptionsController optionsController = new OptionsController(optionsView, gameController);
 

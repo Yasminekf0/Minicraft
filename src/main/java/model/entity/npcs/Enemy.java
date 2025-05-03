@@ -10,29 +10,25 @@ import java.util.Random;
 
 
 public class Enemy extends Mob {
-
-
     private boolean onPath = false;
-
-
-    public int pathStage = new Random().nextInt(8);
     public final Pathfinder pFinder =  new Pathfinder();
-    public double dx, dy;
+
     public Enemy(){
         super();
         this.speed = 2;
         this.health = 10;
         this.maxHealth = 10;
-        this.dx = 0;
-        this.dy = 1;
-        this.skinType = Math.random() < 0.5;
+        this.skinType = (Math.random() < 0.5) ? 1 : 2;
 
     }
 
-    private  boolean getOnPath(){
+    public boolean getOnPath(){
         return onPath;
     }
-    public boolean getSkinType() {
+    public void setOnPath(boolean onPath){
+        this.onPath = onPath;
+    }
+    public int getSkinType() {
         return skinType;
     }
 

@@ -10,24 +10,26 @@ import java.util.Random;
 import static view.settings.ScreenSettings.tileSize;
 
 public abstract class Mob extends Entity {
-
-
-    public boolean skinType;
-    public int wanderSteps = new Random().nextInt(100)+100;
+    public int skinType;
+    public int wanderSteps;
+    public int pathStage;
+    public double dx, dy;
 
     public Mob() {
         super();
-
-        this.skinType = true;
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
         this.collisionChecker = new CollisionChecker();
         this.solidArea = new Rectangle(1,1,tileSize-1,tileSize-1);
+        this.pathStage = new Random().nextInt(8);;
+        this.wanderSteps = new Random().nextInt(100)+100;
+        this.dx = 0;
+        this.dy = 1;
     }
 
     public CollisionChecker getCollisionChecker(){
         return collisionChecker;
     }
-
+    public abstract int getSkinType();
     public void moveUntil(double dx, double dy) {
         collisionOn = false;
         double moveDx = dx * speed;

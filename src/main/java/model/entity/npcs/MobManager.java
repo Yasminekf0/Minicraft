@@ -23,6 +23,7 @@ public class MobManager {
         }
         return inst; }
     public Enemy[] getEnemies() { return enemies; }
+    public NPC[] getNpcs() { return npcs; }
 
     public Mob[] getMobs() {
         return mobs;
