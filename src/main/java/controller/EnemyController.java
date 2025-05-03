@@ -1,4 +1,5 @@
 package controller;
+import model.entity.npcs.MobManager;
 import model.entity.npcs.pathfinding.Node;
 import model.entity.npcs.pathfinding.Pathfinder;
 import model.entity.npcs.Enemy;
@@ -17,35 +18,19 @@ public class EnemyController {
     //private final Enemy enemy;
     private final Enemy[] enemies;
     private final EnemyView enemyView;
-
-    private final int delay = 1000 / 60;
-    private final double speed = 0.5;
-
-    //private int pathStage; // 0 = right, 1 = down, 2 = left, 3 = up
-    //private int stepsRemaining = 100;
-
-    private final double dx = 0;
-    private final double dy = 0;
     private double angle = 0;
-    private List<Node> pathList;
 
     private final int innerSpawnRadius = tileSize * 20;
     private final int outerSpawnRadius = tileSize * 30;
-
     private final Random rand = new Random();
     private List<Node> chasePath = null;
-
-    private final int despawnRadius = tileSize * 40;
-    private final double mobsPerSecond = 0.1;
-    private final double spawnProbability = 0;
     private boolean spawned = false;
-    public Pathfinder pFinder =  new Pathfinder();
     final Player player = Player.getInstance();
     final World world = World.getInstance();
 
     EnemyController(EnemyView enemyView) {
         this.enemyView = enemyView;
-        this.enemies = enemyView.getEnemies();
+        this.enemies = MobManager.getInstance().getEnemies();
     }
 
     public void tick() {
@@ -87,18 +72,16 @@ public class EnemyController {
         }
 
         if (e.onPath) {
-
-
             // compute path toward the player's tile
-            int goalCol = (pp.getX().intValue()+player.solidArea.x)/tileSize;
-            int goalRow = (pp.getY().intValue()+player.solidArea.y)/tileSize;
+            int goalCol = (pp.getXInt()+player.solidArea.x)/tileSize;
+            int goalRow = (pp.getYInt()+player.solidArea.y)/tileSize;
 
             if (chasePath == null || chasePath.isEmpty()) {
                 chasePath = e.searchPath(goalCol, goalRow);
             }
             //pathList = e.searchPath(goalCol, goalRow); //if()then (moveuntil) //dx,dy lost
             if (chasePath != null && !chasePath.isEmpty()) {
-                Node next = chasePath.get(0);
+                Node next = chasePath.getFirst();
 
                 double entityCenterX = e.getWorldPos().getX()
                         + e.solidArea.x
@@ -127,16 +110,17 @@ public class EnemyController {
                     double snapY = next.row*tileSize + tileSize/2.0
                             - (e.solidArea.y + e.solidArea.height/2.0);
                     e.getWorldPos().set(snapX, snapY);
-                    chasePath.remove(0);
+                    chasePath.removeFirst();
                 } else {
                     e.dx = ndx;
                     e.dy = ndy;
+
                     e.moveUntil(ndx, ndy);
                     if (distt <= e.getSpeed()) {
                         double snapX = tileCenterX - (e.solidArea.x + e.solidArea.width * 0.5);
                         double snapY = tileCenterY - (e.solidArea.y + e.solidArea.height * 0.5);
                         e.getWorldPos().set(snapX, snapY);
-                            chasePath.remove(0);
+                            chasePath.removeFirst();
                         //}
                     }
 
@@ -192,7 +176,6 @@ public class EnemyController {
             e.dx = dx;
             e.dy = dy;
 
-
             double length = Math.sqrt(dx * dx + dy * dy);
             double normalizedDx = dx / length;
             double normalizedDy = dy / length;
@@ -233,49 +216,3 @@ public class EnemyController {
         throw new NoSpawnpointFoundException();
     }
 }
-
-
-/*for (int i = 0; i < enemies.length; ++i) {
-            //updateEnemy(enemies[i], i);
-            if (enemies[i] == null) continue;+++++++++++++++++++++++++++++++++++++++++++++
-            if (enemies[i].onPath){
-                int goalCol = (playerPos.getX().intValue()+player.solidArea.x)/tileSize;
-                int goalRow = (playerPos.getY().intValue()+player.solidArea.y)/tileSize;
-
-                enemies[i].searchPath(goalCol, goalRow);
-            } else {
-                if (--stepsRemaining[i] <= 0) {
-                    pathStage[i] = rand.nextInt(8);
-                    stepsRemaining[i] = rand.nextInt(200) + 100;
-                }
-
-            double dx = 0, dy = 0;
-            switch (pathStage[i]) {
-                case 0 -> { dx =  1; dy =  0; }  // right
-                case 1 -> { dx =  0; dy =  1; }  // down
-                case 2 -> { dx = -1; dy =  0; }  // left
-                case 3 -> { dx =  0; dy = -1; }  // up
-                case 4 -> { dx =  0.5; dy =  0.5; }
-                case 5 -> { dx = -0.5; dy = -0.5; }
-                case 6 -> { dx = -0.5; dy =  0.5; }
-                case 7 -> { dx =  0.5; dy = -0.5; }
-            }
-
-                double length = Math.sqrt(dx * dx + dy * dy);
-                double normalizedDx = (double) dx / length;
-                double normalizedDy = (double) dy / length;
-
-                //************************************************************************************************+
-                enemies[i].moveUntil(speed * normalizedDx, speed * normalizedDy);
-
-                double angle = Math.atan2(dy, dx);
-                enemyView.update(i, true, angle);
-            }
-        }*/
-
-    //updateEnemy(enemies[0]);
-    //updateEnemy(enemies[1]);
-    //updateEnemy(enemies[2]);
-    // despawn mobs that are too far
-    // update all existing mobs
-

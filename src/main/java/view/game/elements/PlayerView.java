@@ -21,8 +21,6 @@ public class PlayerView extends GameElementView {
     private int spriteNum = 1;
     private double angle = Math.PI / 2;
 
-    SoundManager soundManager = SoundManager.getInstance();// default facing angle
-
     private boolean usingAction = false;
 
     public PlayerView() {

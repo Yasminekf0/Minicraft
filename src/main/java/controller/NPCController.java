@@ -9,28 +9,22 @@ import view.settings.ScreenSettings;
 
 import java.util.Random;
 
+import static view.settings.ScreenSettings.tileSize;
+
 @SuppressWarnings("FieldCanBeLocal")
 public class NPCController {
     private final NPC npc;
     private final NPCView npcView;
-
-    private final int delay = 1000 / 60;
-    private final double speed = 0.1;
-
     private int pathStage = 0; // 0 = right, 1 = down, 2 = left, 3 = up
-    private int stepsRemaining = 100;
+    private int wanderSteps = 100;
 
     private double dx = 1, dy = 0;
 
-    private final int innerSpawnRadius = ScreenSettings.tileSize * 20;
-    private final int outerSpawnRadius = ScreenSettings.tileSize * 30;
-
-
-
-    private final int despawnRadius = ScreenSettings.tileSize * 40;
-    private final double mobsPerSecond = 0.1;
-    private final double spawnProbability = 0;
+    private final int innerSpawnRadius = tileSize * 20;
+    private final int outerSpawnRadius = tileSize * 30;
     private boolean spawned = false;
+    private double angle = 0;
+    private final Random rand = new Random();
 
     NPCController(NPCView npcView) {
         this.npc = NPC.getInstance();
@@ -50,18 +44,15 @@ public class NPCController {
                 return;
             }
         }
-        updateNPC();
-        // despawn mobs that are too far
-        // update all existing mobs
+        moveNPC();
+        npcView.update(true, angle);
 
     }
 
-    void updateNPC() {
-        Random rand = new Random();
-        if (stepsRemaining <= 0) {
+    private void moveNPC() {
+        if (--wanderSteps <= 0) {
             pathStage = rand.nextInt(8);//(pathStage + 1) % 4; // loop through 0 -> 1 -> 2 -> 3 -> 0
-
-            stepsRemaining = 300; // reset steps for new side
+            wanderSteps = 50 + rand.nextInt(100); // reset steps for new side
         }
 
         switch (pathStage) {
@@ -102,11 +93,8 @@ public class NPCController {
         double length = Math.sqrt(dx * dx + dy * dy);
         double normalizedDx = dx / length;
         double normalizedDy = dy / length;
-        npc.moveUntil(speed * normalizedDx, speed * normalizedDy);
-
-        double angle = Math.atan2(dy, dx);
-        npcView.update(true, angle);
-        stepsRemaining--;
+        npc.moveUntil(normalizedDx, normalizedDy);
+        angle = Math.atan2(dy, dx);
     }
 
     private WorldPosition getSpawnPoint() throws NoSpawnpointFoundException {
@@ -141,17 +129,3 @@ public class NPCController {
     }
 }
 class NoSpawnpointFoundException extends Exception {}
-
-
-/*while (x<100) {
-            int i = rand.nextInt(100) + 1; //random num 1 to 100
-
-            if (i < 51) {
-                ddx = 0;
-                ddy = 1;
-            } else {
-                ddx = 0;
-                ddy = -1;
-            }
-            x++;
-        }*/

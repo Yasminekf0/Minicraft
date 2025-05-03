@@ -1,4 +1,5 @@
 package model.entity;
+import model.position.Direction;
 import model.position.WorldPosition;
 import view.audio.SoundManager;
 
@@ -16,7 +17,6 @@ public abstract class Entity implements Serializable {
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
     public boolean collisionOn = false;
-    public boolean onPath = false;
 
 
     public WorldPosition getWorldPos() {
@@ -38,6 +38,7 @@ public abstract class Entity implements Serializable {
     public void setHealth(int health) {
         this.health = health;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -53,5 +54,8 @@ public abstract class Entity implements Serializable {
 
     public void heal(int healAmount) {
         this.health = Math.min(maxHealth, this.health + healAmount);
+    }
+    protected Direction getFacingDirection() {
+        return worldPos.getDirectionFacing();
     }
 }

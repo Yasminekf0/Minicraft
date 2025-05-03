@@ -8,11 +8,6 @@ public class Node {
     final boolean solid;   // true = blocked
     boolean open, checked;
 
-    // existing one stays if you need it...
-    public Node(int col, int row) {
-        this(col, row, false);  // default to solid until set
-    }
-
     // new constructor:
     public Node(int col, int row, boolean solid) {
         this.col   = col;

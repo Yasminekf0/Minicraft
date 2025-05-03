@@ -19,32 +19,24 @@ import model.entity.npcs.MobManager;
 @SuppressWarnings("FieldCanBeLocal")
 public class EnemyView extends GameElementView{
         // Sprite images
-        private BufferedImage  z, z1, z2, sk1, sk2, sk, v, v1, v2;
+        private BufferedImage  z, z1, z2, sk1, sk2, sk;
         private final Player player;
         private final Enemy[] enemies;
         private int spriteCounter = 0;
         private int spriteNum;
-        private final double angle = 0;
-        private final double[] angles = new double[3];
-        //private double angles[0] = 0;
-        //this.enemies[1] = Enemy.getInstance();
+        private final double[] angles;
 
 
     public EnemyView() {
             this.player = Player.getInstance();
             this.enemies = MobManager.getInstance().getEnemies();
+            angles = new double[enemies.length];
 
             loadImages();
-        }
-        public Enemy[ ] getEnemies() {
-            return enemies;
         }
 
         protected void loadImages() {
             try {
-                v = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager.png")));
-                v2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager2.png")));
-                v1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager1.png")));
                 z = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie.png")));
                 z2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie2.png")));
                 z1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie1.png")));
@@ -58,18 +50,11 @@ public class EnemyView extends GameElementView{
             }
         }
 
-        /**
-         * Updates animation frames and rotation.
-         * @param moving   true if the player is moving, false otherwise
-         * @param newAngle the angle (in radians) representing the player's direction
-         */
         public void update(int index, boolean moving, double newAngle) {
 
             if (moving) {
-                //this.angle = newAngle;
                 angles[index] = newAngle;
                 spriteCounter++;
-                // Increase or decrease this threshold to adjust animation speed
                 if (spriteCounter > 40) {
                     spriteNum++;
                     if (spriteNum > 4) {
@@ -82,16 +67,13 @@ public class EnemyView extends GameElementView{
             }
         }
 
-        /**
-         * Draws the player sprite with rotation and scaling.
-         */
         public void draw(Graphics2D g2) {
             for(int i = 0; i < this.enemies.length; ++i) {
                 if (this.enemies[i] != null) {
-                    int playerWorldX = player.getWorldPos().getX().intValue();
-                    int playerWorldY = player.getWorldPos().getY().intValue();
-                    int worldX = enemies[i].getWorldPos().getX().intValue();
-                    int worldY = enemies[i].getWorldPos().getY().intValue();
+                    int playerWorldX = player.getWorldPos().getXInt();
+                    int playerWorldY = player.getWorldPos().getYInt();
+                    int worldX = enemies[i].getWorldPos().getXInt();
+                    int worldY = enemies[i].getWorldPos().getYInt();
 
                     int screenX = worldX - playerWorldX + playerScreenX;
                     int screenY = worldY - playerWorldY + playerScreenY;

@@ -11,13 +11,13 @@ public class DayCycleManager implements Serializable {
     //TODO nightfilterview
     //private final NightFilterView nightFilterView;
     private final int delay;
-    private final int cycleDuration = 30 * 1000;  // day-night cycle duration in ms
-    private final int transitionDuration = 10 * 1000; // transition period duration in ms
+    private final int cycleDuration = 300 * 1000;  // day-night cycle duration in ms
+    private final int transitionDuration = 20 * 1000; // transition period duration in ms
 
     private int time = 0;
 
     private DayCycleManager() {
-        this.delay = 100/ GameSettings.FPS;
+        this.delay = 1000/ GameSettings.FPS;
     }
 
     public static DayCycleManager getInstance() {

@@ -15,7 +15,7 @@ import model.entity.Player;
 @SuppressWarnings("FieldCanBeLocal")
 public class NPCView extends GameElementView{
     // Sprite images
-    private BufferedImage up1,  up2, up3,up4,up5, down1, down2, right1, right2, left1, left2, z, z1, z2, sk1, sk2, sk, v, v1, v2;
+    private BufferedImage v, v1, v2;
     private final Player player;
     private final NPC npc;
     private int spriteCounter = 0;
@@ -30,35 +30,15 @@ public class NPCView extends GameElementView{
 
     protected void loadImages() {
         try {
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_down_1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_down_2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_left_1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_left_2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_right_1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_right_2.png")));
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_up_1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman/oldman_up_2.png")));
             v = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager.png")));
             v2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager2.png")));
             v1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/villager/villager1.png")));
-            z = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie.png")));
-            z2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie2.png")));
-            z1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/zombie/zombie1.png")));
-            sk = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/skeleton/skeleton.png")));
-            sk2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/skeleton/skeleton2.png")));
-            sk1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/skeleton/skeleton1.png")));
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Updates animation frames and rotation.
-     * @param moving   true if the player is moving, false otherwise
-     * @param newAngle the angle (in radians) representing the player's direction
-     */
     public void update(boolean moving, double newAngle) {
 
         if (moving) {
@@ -77,18 +57,15 @@ public class NPCView extends GameElementView{
         }
     }
 
-    /**
-     * Draws the player sprite with rotation and scaling.
-     */
     public void draw(Graphics2D g2) {
         if (!npc.isAlive()) {
             return;
         }
 
-        int playerWorldX = player.getWorldPos().getX().intValue();
-        int playerWorldY = player.getWorldPos().getY().intValue();
-        int worldX = npc.getWorldPos().getX().intValue();
-        int worldY = npc.getWorldPos().getY().intValue();
+        int playerWorldX = player.getWorldPos().getXInt();
+        int playerWorldY = player.getWorldPos().getYInt();
+        int worldX = npc.getWorldPos().getXInt();
+        int worldY = npc.getWorldPos().getYInt();
 
         int screenX = worldX - playerWorldX + playerScreenX;
         int screenY = worldY - playerWorldY + playerScreenY;

@@ -22,7 +22,6 @@ public class Sword extends Tool {
     @Override
     public void use() {
         Player player = Player.getInstance();
-        World world = World.getInstance();
         int targetX = player.getWorldPos().getFocusedTileX();
         int targetY = player.getWorldPos().getFocusedTileY();
 
@@ -40,7 +39,7 @@ public class Sword extends Tool {
             int ex = e.getWorldPos().getTileXPos();
             int ey = e.getWorldPos().getTileYPos();
             if (ex == targetX && ey == targetY) {
-                e.takeDamage(10);
+                e.takeDamage(damage+material.addedPower);
 
                 // TODO: And the same here too
                 if (e instanceof Enemy) {

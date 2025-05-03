@@ -43,8 +43,8 @@ public class WorldView extends GameElementView {
     public void draw(Graphics2D g2) {
 
         int size = worldSize;
-        int playerWorldX = player.getWorldPos().getX().intValue();
-        int playerWorldY = player.getWorldPos().getY().intValue();
+        int playerWorldX = player.getWorldPos().getXInt();
+        int playerWorldY = player.getWorldPos().getYInt();
 
         int[] ij = getTopLeftTileCoords();
         int rightTileX = ij[0] + maxScreenCol + 1;

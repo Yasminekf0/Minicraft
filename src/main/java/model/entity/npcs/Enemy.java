@@ -34,8 +34,8 @@ public class Enemy extends Mob {
 
     public List<Node> searchPath(int goalCol, int goalRow) {
 
-        int startCol = (this.getWorldPos().getX().intValue()+ this.solidArea.x)/tileSize;
-        int startRow = (this.getWorldPos().getY().intValue()+ this.solidArea.y)/tileSize;
+        int startCol = (this.getWorldPos().getXInt()+ this.solidArea.x)/tileSize;
+        int startRow = (this.getWorldPos().getYInt()+ this.solidArea.y)/tileSize;
         pFinder.setNode(startCol, startRow, goalCol, goalRow);
 
         if (pFinder.search() && !pFinder.pathList.isEmpty()){

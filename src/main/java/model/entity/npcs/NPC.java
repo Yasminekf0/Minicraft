@@ -6,7 +6,7 @@ public class NPC extends Mob {
     public NPC(){
         super();
         instance = this;
-        this.speed = 10;
+        this.speed = 1;
         this.health = 10;
         this.maxHealth = 10;
 

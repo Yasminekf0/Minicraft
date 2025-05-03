@@ -116,12 +116,12 @@ public class Pathfinder {
         }
     }
 
-    /** Back-traces from goalNode up to startNode into pathList. */
-    public void trackPath() {
+    // Back-traces from goalNode up to startNode into pathList
+    private void trackPath() {
         if (startNode == goalNode) return;
         Node cur = goalNode;
         while (cur != null && cur != startNode) {
-            pathList.add(0, cur);
+            pathList.addFirst(cur);
             cur = cur.parent;
         }
     }

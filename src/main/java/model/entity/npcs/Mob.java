@@ -11,6 +11,8 @@ import static view.settings.ScreenSettings.tileSize;
 public abstract class Mob extends Entity {
 
 
+    public boolean onPath = false;
+
     public Mob() {
         super();
 
