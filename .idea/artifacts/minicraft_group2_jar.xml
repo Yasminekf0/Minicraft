@@ -1,0 +1,36 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="minicraft-group2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/minicraft_group2_jar</output-path>
+    <root id="archive" name="minicraft-group2.jar">
+      <element id="module-output" name="minicraft-group2" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/gherkin/28.0.0/gherkin-28.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/junit-xml-formatter/0.5.0/junit-xml-formatter-0.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/articdive/jnoise-modifiers/4.1.0/jnoise-modifiers-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/articdive/jnoise-transformers/4.1.0/jnoise-transformers-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/html-formatter/21.7.0/html-formatter-21.7.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/testng-xml-formatter/0.2.0/testng-xml-formatter-0.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/query/12.2.0/query-12.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-plugin/7.19.0/cucumber-plugin-7.19.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/articdive/jnoise-pipeline/4.1.0/jnoise-pipeline-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-gherkin-messages/7.19.0/cucumber-gherkin-messages-7.19.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/articdive/jnoise-generators/4.1.0/jnoise-generators-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-gherkin/7.19.0/cucumber-gherkin-7.19.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-expressions/17.1.0/cucumber-expressions-17.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/ci-environment/10.0.1/ci-environment-10.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-junit-platform-engine/7.19.0/cucumber-junit-platform-engine-7.19.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/docstring/7.19.0/docstring-7.19.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/messages/24.1.0/messages-24.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/articdive/jnoise-core/4.1.0/jnoise-core-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/articdive/jnoise-modules/4.1.0/jnoise-modules-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/datatable/7.19.0/datatable-7.19.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.11.0/junit-platform-commons-1.11.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/tag-expressions/6.1.0/tag-expressions-6.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jspecify/jspecify/0.3.0/jspecify-0.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-java/7.19.0/cucumber-java-7.19.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-core/7.19.0/cucumber-core-7.19.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.11.0/junit-platform-engine-1.11.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
