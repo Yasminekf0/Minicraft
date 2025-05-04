@@ -1,5 +1,6 @@
 package model.entity.mobs.pathfinding;
 
+import model.world.World;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,12 @@ public class PathfinderTest {
 
     @BeforeEach
     void setUp() {
+        World.setInstance(null);
+        World.getInstance();
+
         pathfinder = new Pathfinder();
     }
+
 
     @Test
     void testStartEqualsGoal() {

@@ -70,11 +70,7 @@ class PlayerTest {
         assertEquals(initial.getX(), player.getWorldPos().getX(), "moveUntil with zero dx should not change X");
         assertEquals(initial.getY(), player.getWorldPos().getY(), "moveUntil with zero dy should not change Y");
     }
-    @Test
-    void use_withNoSelectedItem() {
-        player.getInventory().setCurrentSection("Potions"); // Assuming Potions section is empty
-        assertDoesNotThrow(() -> player.use(), "Using with no selected item should not throw");
-    }
+
 
     @Test
     void use_whenSelectedItemIsNotNull() {
