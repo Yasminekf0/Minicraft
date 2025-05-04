@@ -35,6 +35,8 @@ public class Noise {
         return blockNoise.evaluateNoise(X,Y);
     }
 
+
+    // Method for cucumber tests
     @Override
     public boolean equals(Object obj){
         if (obj instanceof Noise noise) {

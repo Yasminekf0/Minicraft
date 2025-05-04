@@ -35,10 +35,15 @@ public enum WorldBlock {
             new Pickaxe()
             );
 
+    // Array stating which tiles the block is allowed to generate upon
     private final Tile[] spawnableTiles;
 
     private final int blockDurability;
+
+    // What tool is used to break the block
     private final Tool requiredTool;
+
+    // What BlockItem the WorldBlock drops when broken, weighted for chests
     private final HashMap<Item, Double> drops;
     private final Random dropRandomizer = new Random();
 
