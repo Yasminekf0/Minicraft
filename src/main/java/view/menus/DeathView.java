@@ -6,7 +6,6 @@ import java.util.Objects;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class DeathView extends JPanel {
-    private final Buttons quitButton;
     private final JLabel gameOverLabel;
 
     public DeathView() {
@@ -24,13 +23,7 @@ public class DeathView extends JPanel {
         ));
         gameOverLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Quit button
-        quitButton = new Buttons("Quit  Game");
-        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         content.add(gameOverLabel);
-        content.add(Box.createVerticalStrut(20));
-        content.add(quitButton);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.CENTER;
