@@ -5,6 +5,8 @@ import model.items.Item;
 import model.world.World;
 import model.world.WorldBlock;
 
+import java.util.function.Consumer;
+
 
 public abstract class BreakingTools extends Tool {
 
@@ -21,7 +23,9 @@ public abstract class BreakingTools extends Tool {
 
     private int currentBlockHealth;
 
+    private Consumer<Item> onBreak;
 
+    public void onBreak(Consumer<Item> callback) { this.onBreak = callback; }
 
 
     @Override
@@ -43,13 +47,15 @@ public abstract class BreakingTools extends Tool {
             }
         } else {
             WorldBlock block = world.getBlock(targetedX, targetedY);
-            if (block != null) {
-                Item drop = block.getDrop();
-                player.getInventory().addItem(drop);
-                world.breakBlock(targetedX, targetedY);
-                currentBlockHealth = 500;
+            Item drop = block.getDrop();
+            player.getInventory().addItem(drop);
+            world.breakBlock(targetedX, targetedY);
 
-            }
+            if (onBreak != null) {onBreak.accept(drop);}
+
+            currentBlockHealth = 500;
+
+
         }
     }
 }

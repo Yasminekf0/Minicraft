@@ -16,8 +16,12 @@ public abstract class Entity implements Serializable {
     protected int maxHealth;
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
+
     private Consumer<Entity> onDamage;
     private Consumer<Mob> onDeath;
+
+    public void onDamage(Consumer<Entity> callback) {this.onDamage = callback;}
+    public void onDeath(Consumer<Mob> callback) { this.onDeath  = callback; }
 
 
 
@@ -49,9 +53,7 @@ public abstract class Entity implements Serializable {
         return maxHealth;
     }
 
-    public void onDamage(Consumer<Entity> callback) {this.onDamage = callback;}
 
-    public void onDeath(Consumer<Mob> cb) { this.onDeath  = cb; }
 
 
     public void takeDamage(int damage) {

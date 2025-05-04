@@ -2,6 +2,9 @@ package controller.entity;
 
 import model.entity.Player;
 import model.items.Item;
+import model.items.blocks.RockItem;
+import model.items.blocks.WoodItem;
+import model.items.tools.BreakingTools;
 import view.HUD.HUDView;
 import view.game.elements.PlayerView;
 import view.audio.SoundManager;
@@ -34,6 +37,19 @@ public class PlayerController {
         actionTimer = new Timer(100, _ -> performAction());
 
         player.onDamage(_ -> {SoundManager.getInstance().playSound("damage");});
+
+        for (Item item : player.getInventory().getInventorySection("Tools")) {
+            if (item instanceof BreakingTools bt) {
+                bt.onBreak(drop -> {
+                    // decide sound by the drop type:
+                    switch (drop) {
+                        case WoodItem w -> SoundManager.getInstance().playSound("wood");
+                        case RockItem r -> SoundManager.getInstance().playSound("stone");
+                        default         -> SoundManager.getInstance().playSound("pickup");
+                    }
+                });
+            }
+        }
     }
 
     public void updateMoving(int ddx, int ddy){
