@@ -21,7 +21,7 @@ public class GameController {
     private final DayCycleManager dayCycleManager;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final int FPS = 60;
+    private final int FPS = GameSettings.FPS;
     private boolean gamePaused = false;
     private final OptionsView optionsView;
     private final DeathView deathView;

@@ -8,11 +8,9 @@ import java.io.Serializable;
 public class DayCycleManager implements Serializable {
 
     private static DayCycleManager instance;
-    //TODO nightfilterview
-    //private final NightFilterView nightFilterView;
     private final int delay;
     private final int cycleDuration = 300 * 1000;  // day-night cycle duration in ms
-    private final int transitionDuration = 20 * 1000; // transition period duration in ms
+    private final int transitionDuration = 20 * 1000; // sunrise/sunset duration in ms
 
     private int time = 0;
 
@@ -31,6 +29,8 @@ public class DayCycleManager implements Serializable {
     }
 
     public void tick() {
+        // Increments current time by the delay between the game loop iterations
+        // When it finishes the cycle, the modulus makes it start from 0 again.
         time = (time + delay) % cycleDuration;
 
     }
@@ -40,13 +40,15 @@ public class DayCycleManager implements Serializable {
         int sunRiseStart = cycleDuration - transitionDuration;
         int sunSetStart = cycleDuration / 2 - transitionDuration;
 
-        if (time <= sunSetStart) {
+        if (time <= sunSetStart) { // during the day
             return 0;
-        } else if (time < cycleDuration / 2) {
+        } else if (time < cycleDuration / 2) { // during sunset
+            // linearly increasing the night filter opacity from 0 to 1 over time
             return (double) (time - sunSetStart) / transitionDuration;
-        } else if (time <= sunRiseStart) {
+        } else if (time <= sunRiseStart) { // during night
             return 1;
-        } else {
+        } else { // during sunrise
+            // linearly decreasing the night filter opacity from 1 to 0 over time
             return (double) (cycleDuration - time) / transitionDuration;
         }
     }
