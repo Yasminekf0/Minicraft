@@ -2,14 +2,11 @@ package controller.entity;
 
 import model.entity.Player;
 import model.items.Item;
-import model.items.tools.BreakingTools;
-import model.world.WorldBlock;
 import view.HUD.HUDView;
 import view.game.elements.PlayerView;
 import view.audio.SoundManager;
 
 import javax.swing.*;
-import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PlayerController {

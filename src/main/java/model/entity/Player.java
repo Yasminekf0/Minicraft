@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.awt.*;
 
 import static model.world.WorldSettings.worldSize;
-import static view.settings.ScreenSettings.scale;
 import static view.settings.ScreenSettings.tileSize;
 
 public class Player extends Entity implements Serializable {

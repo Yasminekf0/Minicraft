@@ -88,7 +88,7 @@ public class NoiseGenerator {
         JNoise blockNoise;
 
         for (int i = 0, k = 0; i<size; i++){
-            for (int j=0; j<size; j++, k++){
+            for (int j = 0; j<size; j++, k++){
                 worleyNoiseResult = worleyNoise.evaluateNoiseResult(i, j);
                 worleyClosestPoint = worleyNoiseResult.getClosestPoint();
                 biome = getBiome(worleyClosestPoint);
@@ -100,7 +100,7 @@ public class NoiseGenerator {
 
                 noiseArray[i][j] = new Noise(biome,tileNoise,blockNoise, i, j);
 
-                tilePerlinArray[k] = tileNoise.evaluateNoise(i, j);
+                tilePerlinArray[k] = tileNoise.evaluateNoise(i, j); //****************************************************
                 blockPerlinArray[k] = blockNoise.evaluateNoise(i, j);
             }
 

@@ -1,5 +1,5 @@
 package model.saveloadmanager;
-import model.saveloadmanager.GameState;
+
 import java.io.*;
 
 
@@ -7,7 +7,7 @@ public class SaveLoadManager {
     public static void saveGame(GameState state, String filePath) throws IOException {
         // Ensure the directory exists
         File file = new File(filePath);
-        file.getParentFile().mkdirs();
+        Boolean _ = file.getParentFile().mkdirs();
 
         //Save current gamestate
 

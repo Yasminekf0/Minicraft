@@ -2,7 +2,6 @@ package model.entity.mobs.pathfinding;
 
 import model.world.World;
 
-import java.io.Serializable;
 import java.util.*;
 
 import static model.world.WorldSettings.worldSize;

@@ -25,8 +25,5 @@ public class NightFilterView implements GameElementView {
         }
     }
 
-    public void setLevel(double level) {
-        this.level = level;
-    }
 
 }

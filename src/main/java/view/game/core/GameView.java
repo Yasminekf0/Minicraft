@@ -42,8 +42,6 @@ public class GameView extends JPanel {
     }
     public NPCView getNpcView() {return npcView;}
     public EnemyView getEnemyView() {return enemyView;}
-    public NightFilterView getNightFilterView() {
-        return nightFilterView;
-    }
+
 
 }

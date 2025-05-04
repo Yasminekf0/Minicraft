@@ -1,7 +1,5 @@
 package model.entity.mobs.pathfinding;
 
-import java.io.Serializable;
-
 public class Node {
     Node parent;
     public final int col;

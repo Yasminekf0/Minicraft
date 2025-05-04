@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static view.settings.ScreenSettings.*;
-import static view.settings.ScreenSettings.playerScreenX;
-import static view.settings.ScreenSettings.playerScreenY;
 
 public abstract class MobView implements GameElementView{
     //private BufferedImage z, z1, z2, sk1, sk2, sk, v, v1, v2, x;

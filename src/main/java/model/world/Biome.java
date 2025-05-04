@@ -18,7 +18,7 @@ public enum Biome {
             new LinkedHashMap<>(){{
                 put(WorldBlock.Tree,0.03); put(WorldBlock.Chest,chestRate);}}),
     MOUNTAIN(new LinkedHashMap<>(){{
-        put(Tile.LAVA,0.01);put(Tile.STONE,0.94); put(Tile.DIRT,chestRate);}},
+        put(Tile.LAVA,0.01);put(Tile.STONE,0.94); put(Tile.DIRT,0.05);}},
             new LinkedHashMap<>(){{
                 put(WorldBlock.Rock,0.3); }}),
     SNOWY(new LinkedHashMap<>(){{
