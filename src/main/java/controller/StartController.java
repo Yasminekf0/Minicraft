@@ -71,7 +71,7 @@ public class StartController {
         MobManager _ = MobManager.getInstance();
 
 
-        // Instantiate controllers for the game.
+        // Instantiate the controller for the game.
         GameController _ = new GameController(mainView);
 
 

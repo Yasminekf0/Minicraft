@@ -40,11 +40,8 @@ public class GameController {
         this.enemyController = new EnemyController(gameView.getEnemyView());
 
         PlayerController playerController = new PlayerController(gameView.getPlayerView(), hudView);
-
         KeyController _ = new KeyController(this, playerController);
         OptionsController _ = new OptionsController(optionsView, this);
-
-
 
         mainView.startGameView(gameView, hudView);
 
