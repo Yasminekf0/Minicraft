@@ -1,11 +1,10 @@
-package controller;
-import model.entity.npcs.Mob;
-import model.entity.npcs.MobManager;
-import model.entity.npcs.pathfinding.Node;
-import model.entity.npcs.Enemy;
+package controller.entity;
+import model.entity.mobs.Mob;
+import model.entity.mobs.MobManager;
+import model.entity.mobs.pathfinding.Node;
+import model.entity.mobs.Enemy;
 import model.entity.Player;
 import model.position.WorldPosition;
-import view.game.elements.EnemyView;
 import view.game.elements.MobView;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class EnemyController extends MobController{
     private List<Node> chasePath = null;
     final Player player = Player.getInstance();
 
-    EnemyController(MobView mobView) {
+    public EnemyController(MobView mobView) {
         super(mobView);
         this.mobs = MobManager.getInstance().getEnemies();
     }

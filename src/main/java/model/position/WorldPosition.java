@@ -1,8 +1,10 @@
 package model.position;
 
+import java.io.Serializable;
+
 import static view.settings.ScreenSettings.tileSize;
 
-public class WorldPosition{
+public class WorldPosition implements Serializable {
 
     private Direction directionFacing;
     private double x;
@@ -66,14 +68,6 @@ public class WorldPosition{
 
     public int getTileYPos(){
         return (int) (y/tileSize);
-    }
-
-    public int getNextXTilePos(double dx){
-        return (int) (((x+dx)/tileSize));
-    }
-
-    public int getNextYTilePos(double dy){
-        return (int) (((y+dy)/tileSize));
     }
 
     public int getFocusedTileX(){

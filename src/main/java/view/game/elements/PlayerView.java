@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import static view.settings.ScreenSettings.*;
 
-public class PlayerView extends GameElementView {
+public class PlayerView implements GameElementView {
 
 
     // Sprite images

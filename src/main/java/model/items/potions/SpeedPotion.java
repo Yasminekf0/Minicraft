@@ -5,20 +5,13 @@ import model.entity.Player;
 import javax.swing.Timer;
 
 public class SpeedPotion extends Potion {
-    private int speedBoost;
+    private final int speedBoost;
 
     public SpeedPotion() {
         super();
         this.speedBoost = 5;
     }
 
-
-    public int getSpeedBoost() {
-        return speedBoost;
-    }
-    public void setSpeedBoost(int speedBoost) {
-        this.speedBoost = speedBoost;
-    }
 
     public void use() {
         Player player = Player.getInstance();

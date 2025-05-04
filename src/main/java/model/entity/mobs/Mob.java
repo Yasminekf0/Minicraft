@@ -1,4 +1,4 @@
-package model.entity.npcs;
+package model.entity.mobs;
 
 import model.entity.CollisionChecker;
 import model.entity.Entity;

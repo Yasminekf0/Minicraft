@@ -1,14 +1,13 @@
-package model.entity.npcs;
+package model.entity.mobs;
 
 import model.entity.Player;
-import model.entity.npcs.pathfinding.Node;
-import model.entity.npcs.pathfinding.Pathfinder;
+import model.entity.mobs.pathfinding.Node;
+import model.entity.mobs.pathfinding.Pathfinder;
 
 import static view.settings.ScreenSettings.scale;
 import static view.settings.ScreenSettings.tileSize;
 
 import java.util.List;
-import java.util.Random;
 
 
 public class Enemy extends Mob {
@@ -21,8 +20,8 @@ public class Enemy extends Mob {
     public Enemy(){
         super();
         this.speed = 2;
-        this.health = 10;
-        this.maxHealth = 10;
+        this.health = 50;
+        this.maxHealth = 50;
         this.dx = 0;
         this.dy = 1;
         this.skinType = (Math.random() < 0.5)  ? 0 : 1;

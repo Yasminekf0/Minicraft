@@ -1,25 +1,19 @@
 package view.game.elements;
 
-import io.cucumber.java.it.Ma;
 import model.entity.Player;
-import model.entity.npcs.Enemy;
-import model.entity.npcs.Mob;
-import model.entity.npcs.MobManager;
+import model.entity.mobs.Mob;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static view.settings.ScreenSettings.*;
 import static view.settings.ScreenSettings.playerScreenX;
 import static view.settings.ScreenSettings.playerScreenY;
 
-public abstract class MobView extends GameElementView{
+public abstract class MobView implements GameElementView{
     //private BufferedImage z, z1, z2, sk1, sk2, sk, v, v1, v2, x;
 
     protected Map<Integer,BufferedImage[]> spriteMap = new HashMap<>();

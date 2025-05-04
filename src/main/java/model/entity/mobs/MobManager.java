@@ -1,16 +1,14 @@
-package model.entity.npcs;
+package model.entity.mobs;
 
-import controller.MobController;
-import model.entity.Entity;
 import model.entity.Player;
 import model.position.WorldPosition;
 import model.world.World;
 
-import java.util.Arrays;
+import java.io.Serializable;
 
 import static view.settings.ScreenSettings.tileSize;
 
-public class MobManager {
+public class MobManager implements Serializable {
 
     private static MobManager inst = new MobManager();
     private final Enemy[] enemies ;

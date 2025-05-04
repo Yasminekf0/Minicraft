@@ -1,4 +1,6 @@
-package model.entity.npcs.pathfinding;
+package model.entity.mobs.pathfinding;
+
+import java.io.Serializable;
 
 public class Node {
     Node parent;

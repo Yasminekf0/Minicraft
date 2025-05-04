@@ -17,7 +17,7 @@ import java.util.Objects;
 import static model.world.WorldSettings.worldSize;
 import static view.settings.ScreenSettings.*;
 
-public class WorldView extends GameElementView {
+public class WorldView implements GameElementView {
 
     private final Player player;
     private final Tile[][] tiles;

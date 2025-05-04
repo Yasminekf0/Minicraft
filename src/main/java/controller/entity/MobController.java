@@ -1,19 +1,9 @@
-package controller;
+package controller.entity;
 
-import model.entity.Entity;
-import model.entity.Player;
-import model.entity.npcs.Enemy;
-import model.entity.npcs.Mob;
-import model.entity.npcs.MobManager;
-import model.position.WorldPosition;
-import model.world.World;
-import view.game.elements.EnemyView;
+import model.entity.mobs.Mob;
 import view.game.elements.MobView;
-import view.game.elements.NPCView;
 
 import java.util.Random;
-
-import static view.settings.ScreenSettings.tileSize;
 
 public abstract class MobController {
     protected Mob[] mobs;

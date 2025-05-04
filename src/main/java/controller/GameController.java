@@ -1,14 +1,14 @@
 package controller;
 
-import model.entity.npcs.Mob;
+import controller.entity.EnemyController;
+import controller.entity.NPCController;
+import controller.entity.PlayerController;
 import model.world.DayCycleManager;
 import model.entity.Player;
 import view.HUD.HUDView;
 import view.audio.SoundManager;
-import view.game.elements.EnemyView;
+import view.game.core.MainView;
 import view.game.core.GameView;
-import view.game.elements.MobView;
-import view.game.elements.NPCView;
 import view.menus.DeathView;
 import view.menus.OptionsView;
 
@@ -23,21 +23,30 @@ public class GameController {
     @SuppressWarnings("FieldCanBeLocal")
     private final int FPS = 60;
     private boolean gamePaused = false;
-    private OptionsView optionsView;
-    private DeathView deathView;
+    private final OptionsView optionsView;
+    private final DeathView deathView;
     private final HUDView hudView;
     private final NPCController npcController;
     private final EnemyController enemyController;
 
-    public GameController(GameView gameView, HUDView hudView, EnemyView enemyView, NPCView npcView) {
-        this.gameView = gameView;
-        this.hudView = hudView;
+    public GameController(MainView mainView) {
+        this.gameView = new GameView();
+        this.hudView = new HUDView();
+        this.deathView = mainView.getDeathView();
+        this.optionsView = mainView.getOptionsView();
 
         this.dayCycleManager = DayCycleManager.getInstance();
-        this.npcController = new NPCController(npcView);
-        this.enemyController = new EnemyController(enemyView);
+        this.npcController = new NPCController(gameView.getNpcView());
+        this.enemyController = new EnemyController(gameView.getEnemyView());
+
+        PlayerController playerController = new PlayerController(gameView.getPlayerView(), hudView);
+
+        KeyController _ = new KeyController(this, playerController);
+        OptionsController _ = new OptionsController(optionsView, this);
 
 
+
+        mainView.startGameView(gameView, hudView);
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
@@ -45,12 +54,7 @@ public class GameController {
         startGameLoop();
     }
 
-    // Called from MainView after instantiating OptionsView.
-    public void setOptionsView(OptionsView optionsView) {
-        this.optionsView = optionsView;
-    }
 
-    public void setDeathView(DeathView deathView) { this.deathView = deathView; }
 
     private void startGameLoop() {
 
@@ -90,7 +94,7 @@ public class GameController {
         gameView.requestFocusInWindow();
     }
 
-    public HUDView getHudView() {
+    HUDView getHudView() {
         return hudView;
     }
 }

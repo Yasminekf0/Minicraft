@@ -19,15 +19,8 @@ public abstract class BreakingTools extends Tool {
 
     private int currentBlockHealth;
 
-    public interface BlockBrokenListener {
-        void onBlockBroken(WorldBlock block, Item drop);
-    }
 
-    private BlockBrokenListener brokenListener;
 
-    public void setOnBlockBroken(BlockBrokenListener l) {
-        this.brokenListener = l;
-    }
 
     @Override
     public void use() {
@@ -50,10 +43,9 @@ public abstract class BreakingTools extends Tool {
             WorldBlock block = world.getBlock(targetedX, targetedY);
             if (block != null) {
                 Item drop = block.getDrop();
+                player.getInventory().addItem(drop);
                 world.breakBlock(targetedX, targetedY);
                 currentBlockHealth = 500;
-
-                brokenListener.onBlockBroken(block, drop);
 
             }
         }

@@ -1,5 +1,7 @@
 package controller;
 
+import controller.entity.PlayerController;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -38,7 +40,7 @@ public class KeyController implements KeyListener {
             rightPressed = true;
             playerController.updateMoving(1, 0);
         }
-        if (code == KeyEvent.VK_ESCAPE) {
+        if (code == KeyEvent.VK_ESCAPE || code == KeyEvent.VK_O) {
             gameController.pauseGame();
         }
         if (code == KeyEvent.VK_SPACE) {

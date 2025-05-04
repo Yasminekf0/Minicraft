@@ -1,4 +1,4 @@
-package model.entity.npcs;
+package model.entity.mobs;
 
 public class NPC extends Mob {
 
@@ -7,8 +7,8 @@ public class NPC extends Mob {
         super();
 
         this.speed = 1;
-        this.health = 10;
-        this.maxHealth = 10;
+        this.health = 25;
+        this.maxHealth = 25;
         this.skinType = 0;
 
     }

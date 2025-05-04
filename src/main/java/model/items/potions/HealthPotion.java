@@ -4,19 +4,12 @@ import model.entity.Player;
 
 public class HealthPotion extends Potion {
 
-    private int healingAmount;
+    private final int healingAmount;
     public HealthPotion() {
         super();
         this.healingAmount = 5;
     }
 
-    public int getHealingAmount() {
-        return healingAmount;
-    }
-
-    public void setHealingAmount(int healingAmount) {
-        this.healingAmount = healingAmount;
-    }
 
 
     public void use() {

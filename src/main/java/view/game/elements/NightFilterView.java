@@ -7,7 +7,7 @@ import java.awt.*;
 import static view.settings.ScreenSettings.screenHeight;
 import static view.settings.ScreenSettings.screenWidth;
 
-public class NightFilterView extends GameElementView {
+public class NightFilterView implements GameElementView {
 
     private double level;
 

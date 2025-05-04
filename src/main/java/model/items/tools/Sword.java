@@ -1,12 +1,9 @@
 package model.items.tools;
 
-import model.entity.npcs.Enemy;
-import model.entity.Entity;
-import model.entity.npcs.Mob;
-import model.entity.npcs.NPC;
+import model.entity.mobs.Enemy;
+import model.entity.mobs.Mob;
 import model.entity.Player;
-import model.entity.npcs.MobManager;
-import model.world.World;
+import model.entity.mobs.MobManager;
 import view.audio.SoundManager;
 
 import static view.settings.ScreenSettings.tileSize;
@@ -36,25 +33,11 @@ public class Sword extends Tool {
         double crossProduct = diffX*directionX + diffY*directionY;
 
 
-        System.out.print("Cross Product: ");
-        System.out.println(crossProduct);
         double diffVectorMagnitude = Math.sqrt(diffX*diffX + diffY*diffY);
-        System.out.print("diffVectorMagnitude: ");
-        System.out.println(diffVectorMagnitude);
 
         double directionVectorMagnitude = Math.sqrt(directionX*directionX + directionY*directionY);
-        System.out.print("directionVectorMagnitude: ");
-        System.out.println(directionVectorMagnitude);
-
 
         double angle = Math.abs(Math.acos(crossProduct/(diffVectorMagnitude*directionVectorMagnitude)));
-        System.out.print("angle: ");
-        System.out.println(Math.toDegrees(angle));
-        System.out.println(" ");
-        System.out.println(" ");System.out.println(" ");System.out.println(" ");
-
-
-
 
 
         return (angle < Math.PI/3  && diffVectorMagnitude<tileSize*2);

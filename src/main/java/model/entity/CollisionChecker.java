@@ -1,27 +1,23 @@
 package model.entity;
 
-import model.entity.npcs.Enemy;
-import model.entity.npcs.Mob;
-import model.entity.npcs.NPC;
-import model.entity.npcs.MobManager;
+import model.entity.mobs.Mob;
+import model.entity.mobs.MobManager;
 import model.world.World;
 
 import java.awt.*;
+import java.io.Serializable;
 
-import static view.settings.ScreenSettings.scale;
 import static view.settings.ScreenSettings.tileSize;
 
-public class CollisionChecker {
+public class CollisionChecker implements Serializable {
 
     private final World world;
     private final Player player;
 
-    private final MobManager mobManager;
 
     public CollisionChecker() {
         this.world = World.getInstance();
         this.player = Player.getInstance();
-        this.mobManager = MobManager.getInstance();
     }
 
     public void getSpawnPos(Entity entity){
@@ -87,7 +83,7 @@ public class CollisionChecker {
 
     public boolean checkEntity(double dx, double dy) { //player check if there´s mobs
 
-        Mob[] targets = mobManager.getMobs();
+        Mob[] targets = MobManager.getInstance().getMobs();
 
         Rectangle entityCollisionBox = new Rectangle(
                 player.getWorldPos().getXInt() + player.solidArea.x + (int)dx,
