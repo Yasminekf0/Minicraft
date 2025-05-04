@@ -17,8 +17,8 @@ public abstract class Entity implements Serializable {
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
 
-    private Consumer<Entity> onDamage;
-    private Consumer<Entity> onDeath;
+    private transient Consumer<Entity> onDamage;
+    private transient Consumer<Entity> onDeath;
 
     public void onDamage(Consumer<Entity> callback) {this.onDamage = callback;}
     public void onDeath(Consumer<Entity> callback) { this.onDeath  = callback; }

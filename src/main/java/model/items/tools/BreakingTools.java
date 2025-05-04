@@ -23,7 +23,7 @@ public abstract class BreakingTools extends Tool {
 
     private int currentBlockHealth;
 
-    private Consumer<Item> onBreak;
+    private transient Consumer<Item> onBreak;
 
     public void onBreak(Consumer<Item> callback) { this.onBreak = callback; }
 
