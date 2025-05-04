@@ -13,7 +13,6 @@ import static view.settings.ScreenSettings.tileSize;
 
 
 public class EnemyController extends MobController{
-    //private final Enemy[] enemies;
     private List<Node> chasePath = null;
     final Player player = Player.getInstance();
 
@@ -47,7 +46,7 @@ public class EnemyController extends MobController{
             if (chasePath == null || chasePath.isEmpty()) {
                 chasePath = e.searchPath(goalCol, goalRow);
             }
-            //pathList = e.searchPath(goalCol, goalRow); //if()then (moveuntil) //dx,dy lost
+
             if (chasePath != null && !chasePath.isEmpty()) {
                 Node next = chasePath.getFirst();
 
@@ -89,19 +88,14 @@ public class EnemyController extends MobController{
                         double snapY = tileCenterY - (e.solidArea.y + e.solidArea.height * 0.5);
                         e.getWorldPos().set(snapX, snapY);
                             chasePath.removeFirst();
-                        //}
                     }
 
                     angle = Math.atan2(e.dy, e.dx);
                 }
             }
 
-
-
-
         } else {
             wander(e);
-
         }
     }
 

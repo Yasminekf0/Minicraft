@@ -6,7 +6,6 @@ import model.entity.mobs.MobManager;
 import view.game.elements.MobView;
 
 public class NPCController extends MobController {
-    //private final NPC[] npcs;
 
 
     public NPCController(MobView mobView) {
