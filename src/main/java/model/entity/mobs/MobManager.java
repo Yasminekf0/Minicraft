@@ -17,8 +17,8 @@ public class MobManager implements Serializable {
 
     private final Mob[] mobs;
 
-    protected final int innerSpawnRadius = tileSize * 20;
-    protected final int outerSpawnRadius = tileSize * 30;
+    protected final int innerSpawnRadius = tileSize * 5;
+    protected final int outerSpawnRadius = tileSize * 15;
 
     private MobManager(){
         inst = this;

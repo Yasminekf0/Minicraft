@@ -32,6 +32,10 @@ public class GameController {
     public GameController(MainView mainView) {
         this.gameView = new GameView();
         this.hudView = new HUDView();
+
+        mainView.startGameView(gameView, hudView);
+
+
         this.deathView = mainView.getDeathView();
         this.optionsView = mainView.getOptionsView();
 
@@ -43,7 +47,7 @@ public class GameController {
         KeyController _ = new KeyController(this, playerController);
         OptionsController _ = new OptionsController(optionsView, this);
 
-        mainView.startGameView(gameView, hudView);
+
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();
