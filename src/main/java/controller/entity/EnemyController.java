@@ -21,6 +21,7 @@ public class EnemyController extends MobController{
         super(mobView);
         this.mobs = MobManager.getInstance().getEnemies();
 
+        // Playing corresponding sounds from damage and death callbacks for each mob skin
         for (Mob m : this.mobs) {
             if (m instanceof Enemy e) {
                 e.onDamage(_hp -> {

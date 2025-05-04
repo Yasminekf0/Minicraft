@@ -36,6 +36,7 @@ public class PlayerController {
         // Defining a loop for actions that take time to complete (e.g. breaking blocks)
         actionTimer = new Timer(100, _ -> performAction());
 
+        // Playing corresponding sounds from damage and block breaking callbacks
         player.onDamage(_ -> {SoundManager.getInstance().playSound("damage");});
 
         for (Item item : player.getInventory().getInventorySection("Tools")) {

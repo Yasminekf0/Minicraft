@@ -14,7 +14,7 @@ public class NPCController extends MobController {
         this.mobs = MobManager.getInstance().getNpcs();
 
         for (Mob m : this.mobs) {
-            // assuming all entries here are your Villager class (or cast if mixed types)
+            // Playing corresponding sounds from damage and death callbacks
             m.onDamage(v -> {
                 SoundManager.getInstance().playSound("villager3");
             });
