@@ -24,9 +24,13 @@ public class NoiseGenerator {
     private final Random randomBlockNoise;
     @SuppressWarnings("NullableProblems")
     private JNoiseDetailed<WorleyNoiseResult<Vector>> worleyNoise;
+
+    // Everything is seed based, same seed = same world
     private final long seed;
     private final int size;
 
+
+    // 2 Arrays containing all the noises generated, used to properly weigh the tiles.
     private final double[] tilePerlinArray;
 
     private final double[] blockPerlinArray;
@@ -51,6 +55,8 @@ public class NoiseGenerator {
 
         generateWorleyNoise();
         generateNoiseArray();
+
+        //
         Arrays.sort(tilePerlinArray);
         Arrays.sort(blockPerlinArray);
 
@@ -80,6 +86,8 @@ public class NoiseGenerator {
     }
 
     private void generateNoiseArray(){
+
+
         Biome biome;
         WorleyNoiseResult<Vector> worleyNoiseResult;
         Vector worleyClosestPoint;
@@ -89,18 +97,22 @@ public class NoiseGenerator {
 
         for (int i = 0, k = 0; i<size; i++){
             for (int j = 0; j<size; j++, k++){
+
+                // Find the closest point, and get the associated biome
                 worleyNoiseResult = worleyNoise.evaluateNoiseResult(i, j);
                 worleyClosestPoint = worleyNoiseResult.getClosestPoint();
                 biome = getBiome(worleyClosestPoint);
 
+                // Get the noise values for both tiles and blocks
                 tileNoise = getTileNoise(biome);
 
                 blockNoise = getBlockNoise(biome);
 
-
+                // Construct the array
                 noiseArray[i][j] = new Noise(biome,tileNoise,blockNoise, i, j);
 
-                tilePerlinArray[k] = tileNoise.evaluateNoise(i, j); //****************************************************
+                // Add to the threshold arrays
+                tilePerlinArray[k] = tileNoise.evaluateNoise(i, j);
                 blockPerlinArray[k] = blockNoise.evaluateNoise(i, j);
             }
 
@@ -108,16 +120,20 @@ public class NoiseGenerator {
     }
 
     private Biome getBiome(Vector closestPoint) {
+        // Chooses a random biome to associate to a closes point.
         biomeHashMap.putIfAbsent(closestPoint,biomes[randomBiomes.nextInt(biomes.length)]);
         return biomeHashMap.get(closestPoint);
     }
 
     private JNoise getTileNoise(Biome biome){
+        // Tile noise is also biome specific, generate new tile noise for every biome, otherwise features cross over;
         tileHashMap.putIfAbsent(biome,generatePerlinNoise(randomTileNoise.nextLong()));
         return tileHashMap.get(biome);
     }
 
     private JNoise getBlockNoise(Biome biome){
+
+        // Chose different noise algorithm depending on how grouped you want the blocks
         if (biome == Biome.MOUNTAIN | biome == Biome.SNOWY) blockHashMap.putIfAbsent(biome,generatePerlinNoise(randomBlockNoise.nextLong()));
         else blockHashMap.putIfAbsent(biome,generateValueNoise(randomBlockNoise.nextLong()));
         return blockHashMap.get(biome);
@@ -127,6 +143,7 @@ public class NoiseGenerator {
         return noiseArray;
     }
 
+    // Converts a probability into a Noise value threshold
     public double getTilePerlinThreshold(double prob){
         return tilePerlinArray[(int) (prob * size * size-1)];
     }

@@ -71,9 +71,9 @@ public class SoundManager {
     public void playUseSound(Item selected){
 
         switch (selected) {
-            case Sword s -> playSound("villager2");
-            case RockItem r -> playSound("stone");
-            case WoodItem w -> playSound("wood");
+            case Sword _ -> playSound("villager2");
+            case RockItem _ -> playSound("stone");
+            case WoodItem _ -> playSound("wood");
             case HealthPotion _, SpeedPotion _  -> playSound("potion");
             default -> playSound("generic_use");
         }
@@ -82,8 +82,8 @@ public class SoundManager {
     public void playBlockSound(Item drop) {
 
         switch (drop) {
-            case WoodItem w -> playSound("wood");
-            case RockItem r -> playSound("stone");
+            case WoodItem _ -> playSound("wood");
+            case RockItem _ -> playSound("stone");
             default -> playSound("pickup");
         }
     }

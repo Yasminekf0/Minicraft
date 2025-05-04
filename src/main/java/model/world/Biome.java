@@ -31,12 +31,16 @@ public enum Biome {
                 put(WorldBlock.Chest,chestRate);
             }});
 
+    // A Map associating how much of the biome should be what tile. Weights must add up to 1
     private final LinkedHashMap<Tile, Double> tileWeightMap;
+
+    // A Map associating how much of the biome should be what Block. Weights don't have to add up to 1
     private final LinkedHashMap<WorldBlock, Double> blockWeightMap;
 
     private static final double chestRate = 0.001;
 
     Biome(LinkedHashMap<Tile, Double> tileWeightMap,LinkedHashMap<WorldBlock, Double> blockWeightMap) {
+
         this.tileWeightMap = tileWeightMap;
         this.blockWeightMap = blockWeightMap;
 

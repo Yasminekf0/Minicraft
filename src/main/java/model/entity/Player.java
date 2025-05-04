@@ -18,7 +18,8 @@ public class Player extends Entity implements Serializable {
     private final Inventory inventory;
     private boolean directionLocked = false;
     private double lockedAngle = Math.PI/2;
-    private long lastDamageTime = 0;
+
+    // Cooldown time in milliseconds to prevent repeated damage.
     private static final long DAMAGE_COOLDOWN = 1000;
 
     private Player() {
@@ -30,7 +31,9 @@ public class Player extends Entity implements Serializable {
         this.maxHealth = 10;
         collisionChecker = new CollisionChecker();
         inventory = new Inventory();
-        this.solidArea = new Rectangle(1,1,1,1 );//(tileSize/2, tileSize/2, tileSize/2, tileSize/2); //(8, 8, 16, 16) tilesize=16
+        // Defines the collision boundary box.
+        this.solidArea = new Rectangle(1,1,1,1 );
+        // Makes the player spawn in a place with no collisions
         collisionChecker.getSpawnPos(this);
 
     }
@@ -50,6 +53,7 @@ public class Player extends Entity implements Serializable {
 
     public void moveUntil(double dx, double dy) {
         long now = System.currentTimeMillis();
+        long lastDamageTime = 0;
         if (now - lastDamageTime < DAMAGE_COOLDOWN) {
             return;
         }
@@ -61,6 +65,7 @@ public class Player extends Entity implements Serializable {
             worldPos.updateDirection(moveDx,moveDy);
         }
 
+        // Check for tile collisions in X and Y directions, that way, if walking diagonally, if one direction is free, you can continue
         if (collisionChecker.checkTile(this, moveDx, 0)) {
             moveDx = 0;
         }
@@ -74,13 +79,6 @@ public class Player extends Entity implements Serializable {
             worldPos.increment(moveDx, moveDy);
         }
     }
-
-    public void use(){
-        if (inventory.getSelectedItem() != null) {
-            inventory.getSelectedItem().use();
-        }
-    }
-
 
     public void lockDirection(double currentAngle){
         this.lockedAngle = currentAngle;

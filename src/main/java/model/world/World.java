@@ -22,6 +22,7 @@ public class World implements Serializable {
         this.worldBlockMap = map.getBlocks();
     }
 
+    // Singleton Pattern
     public static World getInstance() {
         if (instance == null) {
             instance = new World();

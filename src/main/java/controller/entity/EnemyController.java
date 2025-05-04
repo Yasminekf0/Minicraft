@@ -11,7 +11,7 @@ import java.util.List;
 
 import static view.settings.ScreenSettings.tileSize;
 
-@SuppressWarnings("FieldCanBeLocal")
+
 public class EnemyController extends MobController{
     //private final Enemy[] enemies;
     private List<Node> chasePath = null;
@@ -101,57 +101,7 @@ public class EnemyController extends MobController{
 
         } else {
             wander(e);
-            /*if (--e.wanderSteps <= 0) {
-                e.wanderSteps = 50 + rand.nextInt(100);
-                e.pathStage = rand.nextInt(8);
-            }
-            dx = 0;
-            dy = 0;
-            switch (e.pathStage) {
-                case 0 -> {
-                    dx = 1;
-                    dy = 0;
-                }  // right
-                case 1 -> {
-                    dx = 0;
-                    dy = 1;
-                }  // down
-                case 2 -> {
-                    dx = -1;
-                    dy = 0;
-                }  // left
-                case 3 -> {
-                    dx = 0;
-                    dy = -1;
-                }  // up
-                case 4 -> {
-                    dx = 1;
-                    dy = 1;
-                }
-                case 5 -> {
-                    dx = -1;
-                    dy = -1;
-                }
-                case 6 -> {
-                    dx = -1;
-                    dy = 1;
-                }
-                case 7 -> {
-                    dx = 1;
-                    dy = -1;
-                }
-            } //take out 0.5s
 
-            e.dx = dx;
-            e.dy = dy;
-
-            double length = Math.sqrt(dx * dx + dy * dy);
-            double normalizedDx = dx / length;
-            double normalizedDy = dy / length;
-
-            e.moveUntil(normalizedDx, normalizedDy);
-            e.getCollisionChecker().checkPlayer(e, 0, 0);
-            angle = Math.atan2(e.dy, e.dx);*/
         }
     }
 

@@ -21,7 +21,7 @@ public class GameController {
     private final DayCycleManager dayCycleManager;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final int FPS = 60;
+    private final int FPS = GameSettings.FPS;
     private boolean gamePaused = false;
     private final OptionsView optionsView;
     private final DeathView deathView;
@@ -32,6 +32,10 @@ public class GameController {
     public GameController(MainView mainView) {
         this.gameView = new GameView();
         this.hudView = new HUDView();
+
+        mainView.startGameView(gameView, hudView);
+
+
         this.deathView = mainView.getDeathView();
         this.optionsView = mainView.getOptionsView();
 
@@ -40,13 +44,10 @@ public class GameController {
         this.enemyController = new EnemyController(gameView.getEnemyView());
 
         PlayerController playerController = new PlayerController(gameView.getPlayerView(), hudView);
-
         KeyController _ = new KeyController(this, playerController);
         OptionsController _ = new OptionsController(optionsView, this);
 
 
-
-        mainView.startGameView(gameView, hudView);
 
         gameView.setFocusable(true);
         gameView.requestFocusInWindow();

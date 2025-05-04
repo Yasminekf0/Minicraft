@@ -1,8 +1,6 @@
 package model.entity.mobs;
 
 public class NPC extends Mob {
-
-    // private boolean alive = true;
     public NPC(){
         super();
 
@@ -16,16 +14,4 @@ public class NPC extends Mob {
         return skinType;
     }
 
-
-
-    /*
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void kill() {
-        alive = false;
-    }
-
-     */
 }

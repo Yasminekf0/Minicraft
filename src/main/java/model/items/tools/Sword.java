@@ -8,15 +8,11 @@ import view.audio.SoundManager;
 
 import static view.settings.ScreenSettings.tileSize;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class Sword extends Tool {
+    @SuppressWarnings("FieldCanBeLocal")
     private final int damage = 10; //DEPENDS ON MATERIAL
     public Sword() {
         super();
-    }
-
-    public int getDamage() {
-        return damage;
     }
 
     private boolean canHit(double mobX, double mobY){
@@ -80,7 +76,6 @@ public class Sword extends Tool {
                     } else {
                         SoundManager.getInstance().playSound("skeletonDeath");
                     }
-                    System.out.println("Enemy defeated!");
 
                 }
             }

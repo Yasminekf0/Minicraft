@@ -27,16 +27,20 @@ public class PlayerController {
         this.playerView = playerView;
         this.hudView = hudView;
 
-        movementTimer = new Timer(delay, _ -> {updatePlayer();});
+        // Defining a loop for updating the position of the player
+        movementTimer = new Timer(delay, _ -> updatePlayer());
 
-        actionTimer = new Timer(100, _ -> {performAction();});
+        // Defining a loop for actions that take time to complete (e.g. breaking blocks)
+        actionTimer = new Timer(100, _ -> performAction());
 
         //TODO: removed sounds completely cos it broke shit. So either make it work with some listener called from breakingTools and then that listener makes to sound call. Or forget completely about this sound
         //TODO: I mean a Listener just like all the other ones in Controller.
     }
 
     public void updateMoving(int ddx, int ddy){
-
+        // Updates the movement status of the player
+        // ddx and ddy are the changes in the movement "vector" (dx, dy)
+        // Adding them to the current dx and dy essentially updates the vector correspondingly to the pressed/released key
         if (dx + ddx <= 1 && dx + ddx >= -1) dx += ddx;
         if (dy + ddy <= 1 && dy + ddy >= -1) dy += ddy;
 
@@ -49,11 +53,15 @@ public class PlayerController {
     }
 
     private void updatePlayer() {
+
+        // Normalizing the diagonal movement
         double length = Math.sqrt(dx * dx + dy * dy);
         double normalizedDx = (double) dx / length;
         double normalizedDy = (double) dy / length;
+
         player.moveUntil(normalizedDx, normalizedDy);
 
+        // Providing playerView with the movement direction
         double angle = Math.atan2(dy, dx);
         playerView.update(true, angle);
 
@@ -77,6 +85,7 @@ public class PlayerController {
     }
 
     public void doAction() {
+        // Starts an action
         if (!actionTimer.isRunning()){
             performAction();
             actionTimer.start();

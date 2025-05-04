@@ -8,7 +8,6 @@ public class OptionsView extends JPanel {
     private final Buttons backButton;
     private final Buttons saveButton;
     private final Buttons quitButton;
-    private JLabel titleLabel;
 
     public OptionsView(){
         setOpaque(false);
