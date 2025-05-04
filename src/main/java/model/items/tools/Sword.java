@@ -80,7 +80,6 @@ public class Sword extends Tool {
                     } else {
                         SoundManager.getInstance().playSound("skeletonDeath");
                     }
-                    System.out.println("Enemy defeated!");
 
                 }
             }

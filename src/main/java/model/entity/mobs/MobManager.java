@@ -38,7 +38,6 @@ public class MobManager implements Serializable {
 
     private void spawnMobs(){
         for (int i = 0; i < mobs.length; ++i) {
-            System.out.println(mobs[i]);
             try {
                 mobs[i].setWorldPos(getSpawnPoint());
             } catch (NoSpawnpointFoundException e) {
@@ -53,11 +52,12 @@ public class MobManager implements Serializable {
         WorldPosition playerPos = Player.getInstance().getWorldPos();
         World world = World.getInstance();
 
-        // Try spawing 10 times, then give up
+        // Try spawing 30 times, then give up
         for (int i = 0; i < 30; i++) {
             double spawnDistance = Math.random() * (outerSpawnRadius - innerSpawnRadius) + innerSpawnRadius;
             double spawnAngle = Math.random() * 2 * Math.PI;
 
+            // Calculate the spawn coordinates relative to the player's coordinates
             double relativeSpawnX = Math.cos(spawnAngle) * spawnDistance;
             double relativeSpawnY = Math.sin(spawnAngle) * spawnDistance;
 
@@ -71,8 +71,6 @@ public class MobManager implements Serializable {
 
             // Check if tile is walkable and doesn't have a block
             if (world.isWalkable(tileX, tileY) && !world.hasBlock(tileX, tileY)) {
-                System.out.println("x" + tileX);
-                System.out.println("y" + tileY);
                 return spawnPos;
             }
         }
