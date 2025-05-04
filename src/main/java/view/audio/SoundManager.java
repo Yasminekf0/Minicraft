@@ -5,7 +5,6 @@ import model.items.blocks.RockItem;
 import model.items.blocks.WoodItem;
 import model.items.potions.HealthPotion;
 import model.items.potions.SpeedPotion;
-import model.items.tools.Sword;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
@@ -75,15 +74,6 @@ public class SoundManager {
             case WoodItem _ -> playSound("wood");
             case HealthPotion _, SpeedPotion _  -> playSound("potion");
             default -> playSound("generic_use");
-        }
-    }
-
-    public void playBlockSound(Item drop) {
-
-        switch (drop) {
-            case WoodItem _ -> playSound("wood");
-            case RockItem _ -> playSound("stone");
-            default -> playSound("pickup");
         }
     }
 
