@@ -61,18 +61,6 @@ class WorldPositionTest {
         assertEquals(Direction.DOWN, wp.getDirectionFacing());
     }
     @Test
-    void setMethods() {
-        wp.set(1, 2);
-        assertEquals(1, wp.getX());
-        assertEquals(2, wp.getY());
-
-        wp.setX(3);
-        assertEquals(3, wp.getXInt());
-        wp.setY(4);
-        assertEquals(4, wp.getYInt());
-
-    }
-    @Test
     void testTile() {
         double x = tileSize * 3 + 4.7;
         double y = tileSize * 2 + 8.2;

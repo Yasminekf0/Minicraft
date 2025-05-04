@@ -15,6 +15,10 @@ public class Sword extends Tool {
         super();
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
     private boolean canHit(double mobX, double mobY){
         Player player = Player.getInstance();
         double directionX = player.getWorldPos().getDirectionFacing().getX();

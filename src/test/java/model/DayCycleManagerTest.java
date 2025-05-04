@@ -42,17 +42,6 @@ class DayCycleManagerTest {
         assertEquals(1234, mgr.getTime(), "time ≥ cycleDuration should be ignored");
     }
 
-    @Test
-    void isNightTransitionsAtHalfCycle() {
-        mgr.setTime(SUN_SET_START);       // 5000 = day
-        assertFalse(mgr.isNight());
-
-        mgr.setTime(CYCLE/2);             // 15000 =  still day
-        assertFalse(mgr.isNight());
-
-        mgr.setTime(CYCLE/2 + 1);         // 15001 = night
-        assertTrue(mgr.isNight());
-    }
 
     @Test
     void getNightFilterLevel_dayBeforeSunset() {

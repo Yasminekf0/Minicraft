@@ -96,6 +96,10 @@ public class Player extends Entity implements Serializable {
         return Math.atan2(d.getY(), d.getX());
     }
 
+    public void use(){
+        inventory.getSelectedItem().use();
+    }
+
     public int getDefaultSpeed() {
         return defaultSpeed;
     }
