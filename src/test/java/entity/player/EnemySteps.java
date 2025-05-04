@@ -1,21 +1,26 @@
-package SaveLoadManager;
+package entity.player;
 
-import controller.entity.EnemyController;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
 import model.entity.Player;
 import model.entity.mobs.Enemy;
 import model.entity.mobs.MobManager;
 
 public class EnemySteps {
+    Enemy enemy;
+    Player player;
+    @Before
+    public void setup() {
+        Player.setInstance(null);
+        player = Player.getInstance();
+        enemy=MobManager.getInstance().getEnemies()[0];
+    }
 
-    Enemy enemy = MobManager.getInstance().getEnemies()[0];
-    Player player = Player.getInstance();
 
     @When("enemy in range of player")
     public void enemyInRangeOfPlayer() {
-
-
 
         // Force enemy close enough to trigger pathfinding hopefully...
         enemy.setWorldPos(player.getWorldPos());

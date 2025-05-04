@@ -1,3 +1,5 @@
+package SaveLoadManager;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -5,8 +7,7 @@ import model.saveloadmanager.*;
 import model.entity.Player;
 import model.world.World;
 import model.world.DayCycleManager;
-import view.game.core.MainView;
-import controller.StartController;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
