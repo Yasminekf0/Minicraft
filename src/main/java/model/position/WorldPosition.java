@@ -1,14 +1,19 @@
 package model.position;
 
-import static view.ScreenSettings.tileSize;
+import java.io.Serializable;
 
-public class WorldPosition extends Position<Double>{
+import static view.settings.ScreenSettings.tileSize;
+
+public class WorldPosition implements Serializable {
 
     private Direction directionFacing;
+    private double x;
+    private double y;
 
     public WorldPosition(double x, double y) {
-        super(x, y);
         this.directionFacing = Direction.DOWN;
+        this.x = x;
+        this.y = y;
     }
 
     public void increment(double dx, double dy) {
@@ -18,17 +23,6 @@ public class WorldPosition extends Position<Double>{
     public void set(double dx, double dy) {
         this.x = dx;
         this.y = dy;
-    }
-
-    public void lerpTo(double tx, double ty, double alpha) {
-        this.x += (tx - this.x) * alpha;
-        this.y += (ty - this.y) * alpha;
-    }
-
-    public boolean isWithin(double threshold, double tx, double ty) {
-        double dx = tx - this.x;
-        double dy = ty - this.y;
-        return Math.hypot(dx, dy) <= threshold;
     }
 
     public void updateDirection(double dx, double dy){
@@ -42,6 +36,24 @@ public class WorldPosition extends Position<Double>{
         else if ((dx < 0) & (dy > 0)) directionFacing = Direction.DOWNLEFT;
     }
 
+
+    public double getX() {
+        return x;
+    }
+
+    public int getXInt(){
+        return (int) x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public int getYInt(){
+        return (int) y;
+    }
+
+
     public int getTileXPos(){
         return (int) (x/tileSize);
     }
@@ -50,19 +62,11 @@ public class WorldPosition extends Position<Double>{
         return (int) (y/tileSize);
     }
 
-    public int getNextXTilePos(double dx){
-        return (int) (((x+dx)/tileSize));
-    }
-
-    public int getNextYTilePos(double dy){
-        return (int) (((y+dy)/tileSize));
-    }
-
     public int getFocusedTileX(){
-        return (int) ((x+tileSize*directionFacing.getX())/tileSize);
+        return (int) ((x+tileSize*directionFacing.getX()*0.99)/tileSize);
     }
     public int getFocusedTileY(){
-        return (int) ((y+tileSize*directionFacing.getY())/tileSize);
+        return (int) ((y+tileSize*directionFacing.getY()*0.99)/tileSize);
     }
 
     public Direction getDirectionFacing() {return directionFacing;}

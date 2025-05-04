@@ -34,6 +34,6 @@ public class BiomeSteps {
     @Then("they correspond to the correct Maps")
     public void theyCorrespondToTheCorrectMaps() {
         assertEquals(tileMap, new LinkedHashMap<>(){{put(Tile.GRASS,0.9); put(Tile.WATER,0.1);}});
-        assertEquals(blockMap, new LinkedHashMap<>(){{put(WorldBlock.Tree,0.02);}});
+        assertEquals(blockMap, new LinkedHashMap<>(){{put(WorldBlock.Tree,0.02); put(WorldBlock.Chest, 0.001);}});
     }
 }

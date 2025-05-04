@@ -12,16 +12,12 @@ public class MapGenerator {
 
     private final Noise[][] noiseArray;
 
+
+    // 2D arrays of enums containing the entire world
     private final Tile[][] tileArray;
 
     private final WorldBlock[][] worldBlockArray;
-
-
-
     final int size;
-
-
-
     final NoiseGenerator noiseGenerator;
 
     public MapGenerator(int size, long seed){
@@ -34,7 +30,7 @@ public class MapGenerator {
         generateMapArrays();
     }
 
-
+    // Iterates over the noise Array and constructs both the tile and block array
     private void generateMapArrays(){
         for (int i=0; i<size; i++){
             for (int j=0; j<size; j++){
@@ -49,6 +45,7 @@ public class MapGenerator {
         }
     }
 
+    // Using the weightMap saved in the Biome enum, associated a Noise value to a Tile
     private Tile selectTile(Noise noise){
         Biome biome = noise.getBiome();
         Map<Tile, Double> tileWeightMap = biome.getTileWeightMap();
@@ -62,6 +59,7 @@ public class MapGenerator {
         return Tile.WATER;
     }
 
+    // Using the weightMap saved in the Biome enum, associated a Noise value to a Block or null
     private WorldBlock selectBlock(Noise noise, Tile tile){
         Biome biome = noise.getBiome();
         Map<WorldBlock, Double> blockWeightMap = biome.getBlockWeightMap();

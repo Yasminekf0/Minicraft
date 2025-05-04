@@ -1,9 +1,9 @@
 Feature: Game Load System
 
-  Scenario: Loading a valid saved game
-    Given a valid save file exists
-    When I load the game
-    Then the player and world state should match the saved state
+  Scenario: Loading a saved game
+    Given a saved game file exists at "saves/save1.dat"
+    When I press the "Load Game" button
+    Then the game state should be restored from the file
 
   Scenario: Handling load errors
     Given the save file is missing or corrupted

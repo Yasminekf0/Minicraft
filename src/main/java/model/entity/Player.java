@@ -1,19 +1,15 @@
 package model.entity;
 
-import model.Inventory;
+import model.items.Inventory;
 import model.position.Direction;
 import model.position.WorldPosition;
-import model.world.MobManager;
-import model.world.World;
 
 import java.io.Serializable;
 
 import java.awt.*;
 
-import static java.lang.Math.round;
 import static model.world.WorldSettings.worldSize;
-import static view.ScreenSettings.scale;
-import static view.ScreenSettings.tileSize;
+import static view.settings.ScreenSettings.tileSize;
 
 public class Player extends Entity implements Serializable {
 
@@ -21,8 +17,9 @@ public class Player extends Entity implements Serializable {
 
     private final Inventory inventory;
     private boolean directionLocked = false;
-    private double lockedAngle = Math.PI/2;
-    private long lastDamageTime = 0;
+
+
+    // Cooldown time in milliseconds to prevent repeated damage.
     private static final long DAMAGE_COOLDOWN = 1000;
 
     private Player() {
@@ -34,13 +31,9 @@ public class Player extends Entity implements Serializable {
         this.maxHealth = 10;
         collisionChecker = new CollisionChecker();
         inventory = new Inventory();
-        this.solidArea = new Rectangle(1,1,1,1 );//(tileSize/2, tileSize/2, tileSize/2, tileSize/2); //(8, 8, 16, 16) tilesize=16
-        this.solidAreaDefault = new Rectangle(
-                solidArea.x,
-                solidArea.y,
-                solidArea.width,
-                solidArea.height
-        );
+        // Defines the collision boundary box.
+        this.solidArea = new Rectangle(1,1,1,1 );
+        // Makes the player spawn in a place with no collisions
         collisionChecker.getSpawnPos(this);
 
     }
@@ -60,69 +53,35 @@ public class Player extends Entity implements Serializable {
 
     public void moveUntil(double dx, double dy) {
         long now = System.currentTimeMillis();
+        long lastDamageTime = 0;
         if (now - lastDamageTime < DAMAGE_COOLDOWN) {
             return;
         }
 
-        collisionOn = false;
         double moveDx = dx * speed;
         double moveDy = dy * speed;
 
         if (!directionLocked){
             worldPos.updateDirection(moveDx,moveDy);
         }
-        collisionOn = false;
-        collisionChecker.checkTile(this, moveDx, 0);
-        if (collisionOn) {
+
+        // Check for tile collisions in X and Y directions, that way, if walking diagonally, if one direction is free, you can continue
+        if (collisionChecker.checkTile(this, moveDx, 0)) {
             moveDx = 0;
         }
 
-        collisionOn = false;
-        collisionChecker.checkTile(this, 0, moveDy);
-        if (collisionOn) {
+
+        if (collisionChecker.checkTile(this, 0, moveDy)) {
             moveDy = 0;
         }
 
-        collisionOn = false;
-        int hit = collisionChecker.checkEntity(this, moveDx, moveDy);
-        if (hit >= 0) {
-            collisionOn = true;
-            if (hit == 0)      interactNPC(hit);
-            else               interactEnemy(hit - 1);
-        }
-
-        if (!collisionOn) {
+        if (!collisionChecker.checkEntity( moveDx, moveDy)) {
             worldPos.increment(moveDx, moveDy);
         }
     }
 
-    public void interactNPC(int i){
-        //if (i!=-1){
-            System.out.println('x');
-        //}
-    }
+    public void lockDirection(){
 
-    public void interactEnemy(int i){
-        long now = System.currentTimeMillis();
-        if (now - lastDamageTime >= DAMAGE_COOLDOWN) {
-            takeDamage(i);
-            lastDamageTime = now;
-            System.out.println("You hit enemy " + i + ", health: " + health);
-            worldPos.increment(
-                    -this.getFacingDirection().getX() * tileSize,
-                    -this.getFacingDirection().getY() * tileSize
-            );
-        }
-    }
-
-    public void use(){
-        if (inventory.getSelectedItem() != null) {
-            inventory.getSelectedItem().use();
-        }
-    }
-
-    public void lockDirection(double currentAngle){
-        this.lockedAngle = currentAngle;
         this.directionLocked = true;
     }
 
@@ -131,17 +90,16 @@ public class Player extends Entity implements Serializable {
     }
 
     public double getFacingAngle() {
-        if (directionLocked) return lockedAngle;
 
         Direction d = worldPos.getDirectionFacing();
         return Math.atan2(d.getY(), d.getX());
     }
 
-    public int getDefaultSpeed() {
-        return defaultSpeed;
+    public void use(){
+        inventory.getSelectedItem().use();
     }
 
-    protected Direction getFacingDirection() {
-        return worldPos.getDirectionFacing();
+    public int getDefaultSpeed() {
+        return defaultSpeed;
     }
 }

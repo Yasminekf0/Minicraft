@@ -2,17 +2,18 @@ package model.items.tools;
 
 import model.entity.Player;
 import model.items.Item;
-import model.items.blocks.RockItem;
-import model.items.blocks.WoodItem;
 import model.world.World;
 import model.world.WorldBlock;
-import view.SoundManager;
 
-public abstract class BreakingTools extends Tool{
+import java.util.function.Consumer;
 
+
+public abstract class BreakingTools extends Tool {
+
+    @SuppressWarnings("FieldCanBeLocal")
     private final int breakingPower = 10;
 
-    public BreakingTools(){
+    public BreakingTools() {
         super();
         currentBlockHealth = 500; //Any big value to begin if statements
     }
@@ -20,7 +21,12 @@ public abstract class BreakingTools extends Tool{
     private int targetedX;
     private int targetedY;
 
-    private int currentBlockHealth ;
+    private int currentBlockHealth;
+
+    private Consumer<Item> onBreak;
+
+    public void onBreak(Consumer<Item> callback) { this.onBreak = callback; }
+
 
     @Override
     public void use() {
@@ -39,21 +45,17 @@ public abstract class BreakingTools extends Tool{
                     currentBlockHealth = world.getBlock(targetedX, targetedY).getBlockDurabilty();
                 }
             }
-        }
-        else {
+        } else {
             WorldBlock block = world.getBlock(targetedX, targetedY);
             Item drop = block.getDrop();
             player.getInventory().addItem(drop);
-            world.breakBlock(targetedX,targetedY);
+            world.breakBlock(targetedX, targetedY);
 
-            switch (drop) {
-                case WoodItem woodItem -> SoundManager.getInstance().playSound("wood");
-                case RockItem rockItem -> SoundManager.getInstance().playSound("stone");
-                default -> SoundManager.getInstance().playSound("pickup");
-            }
+            if (onBreak != null) {onBreak.accept(drop);}
 
             currentBlockHealth = 500;
+
+
         }
     }
-
 }

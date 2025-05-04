@@ -1,14 +1,15 @@
 package controller;
 
-import model.DayCycleManager;
+import model.world.DayCycleManager;
 import model.entity.Player;
-import model.items.tools.Axe;
-import model.world.MobManager;
+import model.entity.mobs.MobManager;
 import model.world.World;
-import view.*;
 import model.saveloadmanager.*;
+import view.audio.SoundManager;
+import view.game.core.MainView;
+import view.menus.StartView;
+
 import java.io.*;
-import view.SoundManager;
 
 
 import javax.swing.*;
@@ -32,8 +33,6 @@ public class StartController {
             startNewGame();
         });
 
-
-        // TODO: Should call method in View instead
         // Load Game Listener
         startView.addLoadGameListener(_ -> {
             soundManager.playSound("button");
@@ -66,32 +65,15 @@ public class StartController {
         });
     }
     private void startNewGame(){
-        World world = World.getInstance();
-        Player player = Player.getInstance();
-        DayCycleManager dayCycleManager = DayCycleManager.getInstance();
-        MobManager mobManager = MobManager.getInstance();
-        GameView gameView = new GameView();
-        NPCView npcView = gameView.getNpcView();
-        EnemyView enemyView = gameView.getEnemyView();
-        HUDView hudView = new HUDView(player);
-
-        OptionsView optionsView = mainView.getOptionsView();
-        mainView.startGameView(gameView, hudView);
+        World _ = World.getInstance();
+        Player _ = Player.getInstance();
+        DayCycleManager _ = DayCycleManager.getInstance();
+        MobManager _ = MobManager.getInstance();
 
 
-        // Instantiate controllers for the game.
-        GameController gameController = new GameController(gameView, npcView,enemyView, hudView);
-        PlayerController playerController = new PlayerController(gameView.getPlayerView(), hudView);
-        NPCController npcController = new NPCController(gameView.getNpcView());
-        EnemyController enemyController = new EnemyController(gameView.getEnemyView());
-        KeyController keyController = new KeyController(gameController, playerController);
-        OptionsController optionsController = new OptionsController(optionsView, gameController);
+        // Instantiate the controller for the game.
+        GameController _ = new GameController(mainView);
 
-        DeathView deathView = mainView.getDeathView();
-        gameController.setDeathView(deathView);
-        deathView.addQuitListener(e -> { System.exit(0); });
-
-        gameController.setOptionsView(optionsView);
 
         soundManager.loopSoundContinuously("background");
 

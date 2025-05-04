@@ -13,6 +13,8 @@ public enum Material {
     }
 
 
+    public int getAddedPower() {
+        return addedPower;}
 
     public Material upgrade() {
         return switch (this) {

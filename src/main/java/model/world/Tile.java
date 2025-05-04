@@ -10,7 +10,10 @@ public enum Tile {
     SNOW( true, true);
 
 
+    // Can a block be placed on top
     private final boolean isBlockPlaceable;
+
+    // Can Entities walk over it
     private final boolean isTileWalkable;
 
 

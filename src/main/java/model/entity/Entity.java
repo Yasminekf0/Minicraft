@@ -1,16 +1,13 @@
 package model.entity;
-import controller.GameController;
-import model.Pathfinder;
+import model.entity.mobs.Mob;
 import model.position.WorldPosition;
-import view.SoundManager;
+import java.util.function.Consumer;
 
 import java.awt.*;
-import static view.ScreenSettings.tileSize;
 
 import java.io.Serializable;
 
 public abstract class Entity implements Serializable {
-    GameController gameController;
     protected WorldPosition worldPos;
 
     protected int speed;
@@ -19,9 +16,13 @@ public abstract class Entity implements Serializable {
     protected int maxHealth;
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
-    public Rectangle solidAreaDefault;// = new Rectangle(8,8,8,8);
-    public boolean collisionOn = false;
-    public boolean onPath = false;
+
+    private Consumer<Entity> onDamage;
+    private Consumer<Entity> onDeath;
+
+    public void onDamage(Consumer<Entity> callback) {this.onDamage = callback;}
+    public void onDeath(Consumer<Entity> callback) { this.onDeath  = callback; }
+
 
 
     public WorldPosition getWorldPos() {
@@ -43,6 +44,7 @@ public abstract class Entity implements Serializable {
     public void setHealth(int health) {
         this.health = health;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -51,9 +53,22 @@ public abstract class Entity implements Serializable {
         return maxHealth;
     }
 
+
+
+
     public void takeDamage(int damage) {
-        this.health = Math.max(0, this.health - damage);
-        SoundManager.getInstance().playSound("damage");
+        int oldH = this.health;
+        this.health = Math.max(0, oldH - damage);
+
+        // Damage callback
+        if (onDamage != null) {
+            onDamage.accept(this);
+        }
+
+        // Death callback
+        if (oldH > 0 && this.health == 0 && onDeath != null) {
+            onDeath.accept(this);
+        }
     }
 
     public void heal(int healAmount) {

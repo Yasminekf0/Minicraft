@@ -1,6 +1,5 @@
 package model.items.potions;
 
-import model.entity.Player;
 import model.items.Item;
 
 

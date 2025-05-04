@@ -18,7 +18,7 @@ public enum Biome {
             new LinkedHashMap<>(){{
                 put(WorldBlock.Tree,0.03); put(WorldBlock.Chest,chestRate);}}),
     MOUNTAIN(new LinkedHashMap<>(){{
-        put(Tile.LAVA,0.01);put(Tile.STONE,0.94); put(Tile.DIRT,chestRate);}},
+        put(Tile.LAVA,0.01);put(Tile.STONE,0.94); put(Tile.DIRT,0.05);}},
             new LinkedHashMap<>(){{
                 put(WorldBlock.Rock,0.3); }}),
     SNOWY(new LinkedHashMap<>(){{
@@ -31,12 +31,16 @@ public enum Biome {
                 put(WorldBlock.Chest,chestRate);
             }});
 
+    // A Map associating how much of the biome should be what tile. Weights must add up to 1
     private final LinkedHashMap<Tile, Double> tileWeightMap;
+
+    // A Map associating how much of the biome should be what Block. Weights don't have to add up to 1
     private final LinkedHashMap<WorldBlock, Double> blockWeightMap;
 
     private static final double chestRate = 0.001;
 
     Biome(LinkedHashMap<Tile, Double> tileWeightMap,LinkedHashMap<WorldBlock, Double> blockWeightMap) {
+
         this.tileWeightMap = tileWeightMap;
         this.blockWeightMap = blockWeightMap;
 
