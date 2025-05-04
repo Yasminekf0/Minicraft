@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 import static view.settings.ScreenSettings.tileSize;
 
+// MobManager handles the initialization, spawning, and management of all mobs
 public class MobManager implements Serializable {
 
     private static MobManager inst = new MobManager();
@@ -21,10 +22,12 @@ public class MobManager implements Serializable {
 
     private MobManager(){
         inst = this;
+        // Initialize enemies and NPCs
         enemies = new Enemy[] { new Enemy(), new Enemy(), new Enemy()};
         npcs = new NPC[] {new NPC()};
-        mobs = new Mob[enemies.length + npcs.length];
 
+        // Combine enemies and NPCs into a single mobs array.
+        mobs = new Mob[enemies.length + npcs.length];
         System.arraycopy(enemies, 0, mobs, 0, enemies.length);
         System.arraycopy(npcs,    0, mobs, enemies.length, npcs.length);
         spawnMobs();
@@ -47,7 +50,7 @@ public class MobManager implements Serializable {
 
     }
 
-
+    // Attempts to find a spawnable position within a donut-shaped area around the player
     private WorldPosition getSpawnPoint() throws NoSpawnpointFoundException {
         WorldPosition playerPos = Player.getInstance().getWorldPos();
         World world = World.getInstance();
@@ -86,7 +89,6 @@ public class MobManager implements Serializable {
         return mobs;
     }
 
-
     public void removeMob(Mob mob) {
         Mob[] array;
 
@@ -112,5 +114,6 @@ public class MobManager implements Serializable {
 
 
 }
+// Custom exception used when no valid spawn point is found for a mob.
 class NoSpawnpointFoundException extends Exception {}
 

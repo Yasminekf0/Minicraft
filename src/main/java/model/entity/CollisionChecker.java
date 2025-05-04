@@ -20,12 +20,14 @@ public class CollisionChecker implements Serializable {
         this.player = Player.getInstance();
     }
 
+    // Sets a valid spawn position for an entity by moving it until it's on a walkable tile without a block.
     public void getSpawnPos(Entity entity){
         while (!(world.isWalkable(entity.worldPos.getTileXPos(),entity.worldPos.getTileYPos())) | world.hasBlock(entity.worldPos.getTileXPos(),entity.worldPos.getTileYPos())){
             entity.worldPos.increment(tileSize,tileSize);
         }
     }
 
+    // Checks if the entity collides with any tiles in the direction of movement by using the entity's position and solid area and world map
     public boolean checkTile(Entity entity, double dx, double dy) {
         int entityLeftWorldX = entity.getWorldPos().getXInt()+ entity.solidArea.x;
         int entityRightWorldX = entity.getWorldPos().getXInt()+ entity.solidArea.x + entity.solidArea.width;
@@ -81,10 +83,11 @@ public class CollisionChecker implements Serializable {
 
 
 
-    public boolean checkEntity(double dx, double dy) { //player check if there´s mobs
+    // Checks if the player will collide with any mobs after moving (used by player)
+    public boolean checkEntity(double dx, double dy) {
 
         Mob[] targets = MobManager.getInstance().getMobs();
-
+        // Makes a future temporary player collision box where the player wants to move and checks if they'll intersect with the mob's collision box
         Rectangle entityCollisionBox = new Rectangle(
                 player.getWorldPos().getXInt() + player.solidArea.x + (int)dx,
                 player.getWorldPos().getYInt() + player.solidArea.y + (int)dy,
@@ -112,8 +115,9 @@ public class CollisionChecker implements Serializable {
     }
 
 
-
-    public boolean checkPlayer ( Mob mob, double dx, double dy) { //mobs check if theres a player
+    // Checks if the mob will collide with the player after moving (used by mobs)
+    public boolean checkPlayer ( Mob mob, double dx, double dy) {
+        // Similar logic than checkEntity()
 
         Rectangle entityCollisionBox = new Rectangle(
                 mob.getWorldPos().getXInt() + mob.solidArea.x,

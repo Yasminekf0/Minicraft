@@ -8,11 +8,19 @@ import static model.world.WorldSettings.worldSize;
 
 
 @SuppressWarnings("FieldCanBeLocal")
-public class Pathfinder {
+public class Pathfinder { //Used A* algorithm to make a nodes map calculating different costs (fcost, gcost and hcost) to find and back-trace a path
     private final World world = World.getInstance();
+
+    // 2D grid of nodes representing the map for pathfinding
     private final Node[][] nodes;
+
+    // Priority queue for open nodes, ordered by fCost, and then hCost
     private final PriorityQueue<Node> openList;
+
+    // Final computed path after a successful search
     public final List<Node> pathList = new ArrayList<>();
+
+    // List of nodes modified during a search (to be reset later)
     private final List<Node> dirtyNodes = new ArrayList<>();
 
     private Node startNode, goalNode, currentNode;
@@ -21,7 +29,7 @@ public class Pathfinder {
     private final int maxSteps = 500;
 
     public Pathfinder() {
-        // 1) Build your 1000×1000 grid ONCE
+        // Builds the 1000×1000 grid once
         nodes = new Node[worldSize][worldSize];
         for (int c = 0; c < worldSize; c++) {
             for (int r = 0; r < worldSize; r++) {
@@ -30,13 +38,14 @@ public class Pathfinder {
             }
         }
 
-        // 2) Use a min-heap keyed on fCost, then hCost
+        // Used a min-heap keyed on fCost, then hCost
         openList = new PriorityQueue<>(
                 Comparator.comparingInt((Node n) -> n.fCost)
                         .thenComparingInt(n -> n.hCost)
         );
     }
 
+    // Resets only the nodes used in the last pathfinding call
     private void resetNodes() {
         // Only clear the nodes we've actually opened/checked
         for (Node n : dirtyNodes) {
@@ -51,7 +60,7 @@ public class Pathfinder {
         step = 0;
     }
 
-    /** Called each time you want to (re)start a search. */
+    // Initializes the pathfinding algorithm with start and goal positions
     public void setNode(int startCol, int startRow, int goalCol, int goalRow) {
         resetNodes();
 
@@ -68,7 +77,7 @@ public class Pathfinder {
         openList.add(startNode);
     }
 
-    /** Runs A*; returns true if a path to goalNode was found. */
+    // Executes A* algorithm and returns true if a path to goalNode was found
     public boolean search() {
         while (!openList.isEmpty() && !goalReached && step++ < maxSteps) {
             currentNode = openList.poll();
@@ -90,6 +99,7 @@ public class Pathfinder {
         return goalReached;
     }
 
+    // Explores a neighboring node, updating its costs and parent if it's a better path
     private void exploreNeighbor(int c, int r) {
         // Bounds check
         if (c < 0 || c >= worldSize || r < 0 || r >= worldSize) return;
@@ -116,7 +126,7 @@ public class Pathfinder {
         }
     }
 
-    // Back-traces from goalNode up to startNode into pathList
+    // Reconstructs the path from goalNode to startNode by following parent links
     private void trackPath() {
         if (startNode == goalNode) return;
         Node cur = goalNode;
