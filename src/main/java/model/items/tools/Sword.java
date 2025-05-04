@@ -63,25 +63,6 @@ public class Sword extends Tool {
                 if ( mob.getHealth() <=0) {
                     MobManager.getInstance().removeMob(mob);
                 }
-
-                // TODO: MATEO, fix these please
-                if (mob instanceof Enemy) {
-                    if (( mob).skinType == 1) {
-                        SoundManager.getInstance().playSound("zombieDamage");
-                    } else {
-                        SoundManager.getInstance().playSound("skeletonDamage");
-                    }
-                }
-
-                if (mob instanceof Enemy && mob.getHealth() <= 0) {
-                    MobManager.getInstance().removeMob(mob);
-                    if ((mob).skinType == 2) {
-                        SoundManager.getInstance().playSound("zombieDeath");
-                    } else {
-                        SoundManager.getInstance().playSound("skeletonDeath");
-                    }
-
-                }
             }
         }
     }

@@ -71,7 +71,6 @@ public class SoundManager {
     public void playUseSound(Item selected){
 
         switch (selected) {
-            case Sword _ -> playSound("villager2");
             case RockItem _ -> playSound("stone");
             case WoodItem _ -> playSound("wood");
             case HealthPotion _, SpeedPotion _  -> playSound("potion");

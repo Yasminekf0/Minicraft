@@ -1,6 +1,6 @@
 package model.entity;
 import model.position.WorldPosition;
-import view.audio.SoundManager;
+import java.util.function.Consumer;
 
 import java.awt.*;
 
@@ -15,6 +15,7 @@ public abstract class Entity implements Serializable {
     protected int maxHealth;
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
+    private Consumer<Entity> onDamage;
 
 
     public WorldPosition getWorldPos() {
@@ -45,9 +46,13 @@ public abstract class Entity implements Serializable {
         return maxHealth;
     }
 
+    public void onDamage(Consumer<Entity> callback) {
+        this.onDamage = callback;
+    }
+
     public void takeDamage(int damage) {
         this.health = Math.max(0, this.health - damage);
-        SoundManager.getInstance().playSound("damage");
+        if (onDamage != null) onDamage.accept(this);
     }
 
     public void heal(int healAmount) {

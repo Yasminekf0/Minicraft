@@ -5,6 +5,7 @@ import model.entity.mobs.pathfinding.Node;
 import model.entity.mobs.Enemy;
 import model.entity.Player;
 import model.position.WorldPosition;
+import view.audio.SoundManager;
 import view.game.elements.MobView;
 
 import java.util.List;
@@ -19,6 +20,18 @@ public class EnemyController extends MobController{
     public EnemyController(MobView mobView) {
         super(mobView);
         this.mobs = MobManager.getInstance().getEnemies();
+
+        for (Mob m : this.mobs) {
+            if (m instanceof Enemy e) {
+                e.onDamage(_hp -> {
+                    String key = e.getSkinType() == 0
+                            ? "skeletonDamage"
+                            : "zombieDamage";
+                    SoundManager.getInstance().playSound(key);
+                });
+            }
+        }
+
     }
     private void chaseOrWander(Mob mob) {
         Enemy e = (Enemy) mob;
