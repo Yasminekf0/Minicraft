@@ -39,10 +39,12 @@ public class Enemy extends Mob {
             Player player = Player.getInstance();
             player.takeDamage(damage);
             // Knock-back the player slightly in the direction the enemy is facing
+            player.lockDirection();
             player.moveUntil(
                     worldPos.getDirectionFacing().getX() * scale,
                     worldPos.getDirectionFacing().getY() * scale
             );
+            player.unlockDirection();
             lastHitTime = System.currentTimeMillis();
         }
 

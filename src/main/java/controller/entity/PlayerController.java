@@ -92,7 +92,7 @@ public class PlayerController {
          }
 
         double angle = player.getFacingAngle();
-        player.lockDirection(angle);
+        player.lockDirection();
         playerView.startUse();
 
         int tx = player.getWorldPos().getFocusedTileX();

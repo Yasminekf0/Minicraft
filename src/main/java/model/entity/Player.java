@@ -17,7 +17,7 @@ public class Player extends Entity implements Serializable {
 
     private final Inventory inventory;
     private boolean directionLocked = false;
-    private double lockedAngle = Math.PI/2;
+
 
     // Cooldown time in milliseconds to prevent repeated damage.
     private static final long DAMAGE_COOLDOWN = 1000;
@@ -80,8 +80,8 @@ public class Player extends Entity implements Serializable {
         }
     }
 
-    public void lockDirection(double currentAngle){
-        this.lockedAngle = currentAngle;
+    public void lockDirection(){
+
         this.directionLocked = true;
     }
 
@@ -90,7 +90,6 @@ public class Player extends Entity implements Serializable {
     }
 
     public double getFacingAngle() {
-        if (directionLocked) return lockedAngle;
 
         Direction d = worldPos.getDirectionFacing();
         return Math.atan2(d.getY(), d.getX());

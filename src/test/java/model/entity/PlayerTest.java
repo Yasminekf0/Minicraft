@@ -103,14 +103,4 @@ class PlayerTest {
 
 
 
-    @Test
-    void lockAndUnlockDirection() {
-        double angle = Math.PI / 4;
-        player.lockDirection(angle);
-        assertEquals(angle, player.getFacingAngle(), "After locking, player should face locked angle");
-
-        player.unlockDirection();
-        assertNotEquals(angle, player.getFacingAngle(), "After unlocking, player should face based on movement direction");
-    }
-
 }
