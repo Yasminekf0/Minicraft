@@ -20,14 +20,10 @@ public abstract class Mob extends Entity {
         this.worldPos = new WorldPosition((505*tileSize)+(tileSize/2.0),(495*tileSize)+(tileSize/2.0));
         this.collisionChecker = new CollisionChecker();
         this.solidArea = new Rectangle(1,1,tileSize-1,tileSize-1);
-        this.pathStage = new Random().nextInt(8);;
+        this.pathStage = new Random().nextInt(8);
         this.wanderSteps = new Random().nextInt(100)+100;
         this.dx = 0;
         this.dy = 1;
-    }
-
-    public CollisionChecker getCollisionChecker(){
-        return collisionChecker;
     }
 
     public void interact(){}
@@ -49,7 +45,7 @@ public abstract class Mob extends Entity {
             moveDy = 0;
         }
 
-        ;
+
 
         if (!collisionChecker.checkPlayer(this,moveDx, moveDy)) {
             worldPos.increment(moveDx, moveDy);

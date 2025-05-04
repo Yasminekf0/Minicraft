@@ -18,7 +18,6 @@ public class Player extends Entity implements Serializable {
     private final Inventory inventory;
     private boolean directionLocked = false;
     private double lockedAngle = Math.PI/2;
-    private long lastDamageTime = 0;
     private static final long DAMAGE_COOLDOWN = 1000;
 
     private Player() {
@@ -50,6 +49,7 @@ public class Player extends Entity implements Serializable {
 
     public void moveUntil(double dx, double dy) {
         long now = System.currentTimeMillis();
+        long lastDamageTime = 0;
         if (now - lastDamageTime < DAMAGE_COOLDOWN) {
             return;
         }
@@ -72,12 +72,6 @@ public class Player extends Entity implements Serializable {
 
         if (!collisionChecker.checkEntity( moveDx, moveDy)) {
             worldPos.increment(moveDx, moveDy);
-        }
-    }
-
-    public void use(){
-        if (inventory.getSelectedItem() != null) {
-            inventory.getSelectedItem().use();
         }
     }
 

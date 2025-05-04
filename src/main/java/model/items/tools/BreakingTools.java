@@ -5,8 +5,10 @@ import model.items.Item;
 import model.world.World;
 import model.world.WorldBlock;
 
+
 public abstract class BreakingTools extends Tool {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final int breakingPower = 10;
 
     public BreakingTools() {

@@ -108,7 +108,8 @@ public class MobManager implements Serializable {
             }
         }
 
-        System.arraycopy(enemies, 0, mobs, 1, enemies.length);
+        System.arraycopy(enemies, 0, mobs, 0, enemies.length);
+        System.arraycopy(npcs,    0, mobs, enemies.length, npcs.length);
     }
 
 

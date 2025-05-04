@@ -9,12 +9,9 @@ import static view.settings.ScreenSettings.screenWidth;
 
 public class NightFilterView implements GameElementView {
 
-    private double level;
-
-    @Override
     public void draw(Graphics2D g2) {
 
-        level = DayCycleManager.getInstance().getNightFilterLevel();
+        double level = DayCycleManager.getInstance().getNightFilterLevel();
 
         if (level != 0) {
             int alpha = (int) (166 * level);

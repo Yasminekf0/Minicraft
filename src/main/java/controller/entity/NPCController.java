@@ -5,7 +5,6 @@ import model.entity.mobs.Mob;
 import model.entity.mobs.MobManager;
 import view.game.elements.MobView;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class NPCController extends MobController {
     //private final NPC[] npcs;
 
