@@ -18,10 +18,10 @@ public abstract class Entity implements Serializable {
     public Rectangle solidArea;
 
     private Consumer<Entity> onDamage;
-    private Consumer<Mob> onDeath;
+    private Consumer<Entity> onDeath;
 
     public void onDamage(Consumer<Entity> callback) {this.onDamage = callback;}
-    public void onDeath(Consumer<Mob> callback) { this.onDeath  = callback; }
+    public void onDeath(Consumer<Entity> callback) { this.onDeath  = callback; }
 
 
 
@@ -67,7 +67,7 @@ public abstract class Entity implements Serializable {
 
         // Death callback
         if (oldH > 0 && this.health == 0 && onDeath != null) {
-            onDeath.accept((Mob) this);
+            onDeath.accept(this);
         }
     }
 
