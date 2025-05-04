@@ -1,15 +1,12 @@
-package controller;
+package controller.entity;
 
 import model.entity.Player;
 import model.items.Item;
-import model.items.tools.BreakingTools;
-import model.world.WorldBlock;
 import view.HUD.HUDView;
 import view.game.elements.PlayerView;
 import view.audio.SoundManager;
 
 import javax.swing.*;
-import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PlayerController {
@@ -25,7 +22,7 @@ public class PlayerController {
 
     private final Timer actionTimer;
 
-    PlayerController(PlayerView playerView, HUDView hudView) {
+    public PlayerController(PlayerView playerView, HUDView hudView) {
         this.player = Player.getInstance();
         this.playerView = playerView;
         this.hudView = hudView;
@@ -34,20 +31,11 @@ public class PlayerController {
 
         actionTimer = new Timer(100, _ -> {performAction();});
 
-        List<Item> tools = player.getInventory().getInventorySection("Tools");
-        for (Item i : tools) {
-            if (i instanceof BreakingTools bt) {
-                bt.setOnBlockBroken((WorldBlock block, Item drop) -> {
-                    if (drop != null) {
-                        player.getInventory().addItem(drop);
-                    }
-                    SoundManager.getInstance().playBlockSound(drop);
-                });
-            }
-        }
+        //TODO: removed sounds completely cos it broke shit. So either make it work with some listener called from breakingTools and then that listener makes to sound call. Or forget completely about this sound
+        //TODO: I mean a Listener just like all the other ones in Controller.
     }
 
-    void updateMoving(int ddx, int ddy){
+    public void updateMoving(int ddx, int ddy){
 
         if (dx + ddx <= 1 && dx + ddx >= -1) dx += ddx;
         if (dy + ddy <= 1 && dy + ddy >= -1) dy += ddy;

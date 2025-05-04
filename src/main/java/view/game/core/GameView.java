@@ -23,6 +23,7 @@ public class GameView extends JPanel {
         npcView = new NPCView();
         enemyView = new EnemyView();
         worldView = new WorldView();
+
         nightFilterView = new NightFilterView();
     }
 
@@ -30,8 +31,8 @@ public class GameView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         worldView.draw((Graphics2D) g);
-        npcView.draw((Graphics2D) g);
         playerView.draw((Graphics2D) g);
+        npcView.draw((Graphics2D) g);
         enemyView.draw((Graphics2D) g);
         nightFilterView.draw((Graphics2D) g);
     }
@@ -41,8 +42,6 @@ public class GameView extends JPanel {
     }
     public NPCView getNpcView() {return npcView;}
     public EnemyView getEnemyView() {return enemyView;}
-    public NightFilterView getNightFilterView() {
-        return nightFilterView;
-    }
+
 
 }

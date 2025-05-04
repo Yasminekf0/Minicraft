@@ -21,7 +21,7 @@ public class OptionsController {
         this.gameController = gameController;
 
         initListeners();
-        //initKeyListener();
+
     }
 
     private void initListeners() {

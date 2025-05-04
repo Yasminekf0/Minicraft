@@ -70,14 +70,6 @@ public class WorldPosition implements Serializable {
         return (int) (y/tileSize);
     }
 
-    public int getNextXTilePos(double dx){
-        return (int) (((x+dx)/tileSize));
-    }
-
-    public int getNextYTilePos(double dy){
-        return (int) (((y+dy)/tileSize));
-    }
-
     public int getFocusedTileX(){
         return (int) ((x+tileSize*directionFacing.getX())/tileSize);
     }

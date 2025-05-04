@@ -15,13 +15,7 @@ public class MapGenerator {
     private final Tile[][] tileArray;
 
     private final WorldBlock[][] worldBlockArray;
-
-
-
     final int size;
-
-
-
     final NoiseGenerator noiseGenerator;
 
     public MapGenerator(int size, long seed){

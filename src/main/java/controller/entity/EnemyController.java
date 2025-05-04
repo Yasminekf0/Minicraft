@@ -1,60 +1,28 @@
-package controller;
-import model.entity.npcs.MobManager;
-import model.entity.npcs.pathfinding.Node;
-import model.entity.npcs.pathfinding.Pathfinder;
-import model.entity.npcs.Enemy;
+package controller.entity;
+import model.entity.mobs.Mob;
+import model.entity.mobs.MobManager;
+import model.entity.mobs.pathfinding.Node;
+import model.entity.mobs.Enemy;
 import model.entity.Player;
 import model.position.WorldPosition;
-import model.world.World;
-import view.game.elements.EnemyView;
+import view.game.elements.MobView;
 
 import java.util.List;
-import java.util.Random;
 
 import static view.settings.ScreenSettings.tileSize;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class EnemyController {
-    //private final Enemy enemy;
-    private final Enemy[] enemies;
-    private final EnemyView enemyView;
-    private double angle = 0;
-
-    private final int innerSpawnRadius = tileSize * 20;
-    private final int outerSpawnRadius = tileSize * 30;
-    private final Random rand = new Random();
+public class EnemyController extends MobController{
+    //private final Enemy[] enemies;
     private List<Node> chasePath = null;
-    private boolean spawned = false;
     final Player player = Player.getInstance();
-    final World world = World.getInstance();
 
-    EnemyController(EnemyView enemyView) {
-        this.enemyView = enemyView;
-        this.enemies = MobManager.getInstance().getEnemies();
+    public EnemyController(MobView mobView) {
+        super(mobView);
+        this.mobs = MobManager.getInstance().getEnemies();
     }
-
-    public void tick() {
-        if (!spawned) {
-            for (int i = 0; i < enemies.length; ++i) {
-                try {
-                    enemies[i].setWorldPos(getSpawnPoint());
-                } catch (NoSpawnpointFoundException e) {
-                    System.err.println("Failed to find spawn point for Enemy " + i);
-                }
-            }
-            spawned = true;
-        }
-
-        for (int i = 0; i < enemies.length; i++) {
-            if (enemies[i] == null) continue;
-            chaseOrWander(enemies[i]);
-            enemyView.update(i, true, angle);
-        }
-
-    }
-
-
-    private void chaseOrWander(Enemy e) {
+    private void chaseOrWander(Mob mob) {
+        Enemy e = (Enemy) mob;
         WorldPosition ep = e.getWorldPos();
         WorldPosition pp = player.getWorldPos();
 
@@ -65,13 +33,13 @@ public class EnemyController {
 
         if (dist < tileSize * 6) {
             // within chase range
-            e.onPath = true;
+            e.setOnPath(true);
         } else if (dist > tileSize * 15) {
             // out of chase range
-            e.onPath = false;
+            e.setOnPath(false);
         }
 
-        if (e.onPath) {
+        if (e.getOnPath()) {
             // compute path toward the player's tile
             int goalCol = (pp.getXInt()+player.solidArea.x)/tileSize;
             int goalRow = (pp.getYInt()+player.solidArea.y)/tileSize;
@@ -132,7 +100,8 @@ public class EnemyController {
 
 
         } else {
-            if (--e.wanderSteps <= 0) {
+            wander(e);
+            /*if (--e.wanderSteps <= 0) {
                 e.wanderSteps = 50 + rand.nextInt(100);
                 e.pathStage = rand.nextInt(8);
             }
@@ -179,40 +148,15 @@ public class EnemyController {
             double length = Math.sqrt(dx * dx + dy * dy);
             double normalizedDx = dx / length;
             double normalizedDy = dy / length;
+
             e.moveUntil(normalizedDx, normalizedDy);
             e.getCollisionChecker().checkPlayer(e, 0, 0);
-            angle = Math.atan2(e.dy, e.dx);
+            angle = Math.atan2(e.dy, e.dx);*/
         }
     }
 
-
-    private WorldPosition getSpawnPoint() throws NoSpawnpointFoundException {
-
-
-        // Try spawing 10 times, then give up
-        for (int i = 0; i < 30; i++) {
-            double spawnDistance = Math.random() * (outerSpawnRadius - innerSpawnRadius) + innerSpawnRadius;
-            double spawnAngle = Math.random() * 2 * Math.PI;
-
-            double relativeSpawnX = Math.cos(spawnAngle) * spawnDistance;
-            double relativeSpawnY = Math.sin(spawnAngle) * spawnDistance;
-
-            WorldPosition spawnPos = new WorldPosition(
-                    player.getWorldPos().getX() + relativeSpawnX,
-                    player.getWorldPos().getY() + relativeSpawnY
-            );
-
-            int tileX = spawnPos.getTileXPos();
-            int tileY = spawnPos.getTileYPos();
-
-            // Check if tile is walkable and doesn't have a block
-            if (world.isWalkable(tileX, tileY) && !world.hasBlock(tileX, tileY)) {
-                System.out.println("x" + tileX);
-                System.out.println("y" + tileY);
-                return spawnPos;
-            }
-        }
-
-        throw new NoSpawnpointFoundException();
+    @Override
+    protected void act(Mob mob) {
+        chaseOrWander(mob);
     }
 }

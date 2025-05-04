@@ -1,12 +1,12 @@
 package model.items.tools;
 
-import model.entity.npcs.Enemy;
-import model.entity.Entity;
-import model.entity.npcs.NPC;
+import model.entity.mobs.Enemy;
+import model.entity.mobs.Mob;
 import model.entity.Player;
-import model.entity.npcs.MobManager;
-import model.world.World;
+import model.entity.mobs.MobManager;
 import view.audio.SoundManager;
+
+import static view.settings.ScreenSettings.tileSize;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Sword extends Tool {
@@ -19,47 +19,69 @@ public class Sword extends Tool {
         return damage;
     }
 
+    private boolean canHit(double mobX, double mobY){
+        Player player = Player.getInstance();
+        double directionX = player.getWorldPos().getDirectionFacing().getX();
+        double directionY = player.getWorldPos().getDirectionFacing().getY();
+
+        double playerX = player.getWorldPos().getX();
+        double playerY = player.getWorldPos().getY();
+
+        double diffX = mobX - playerX; // Positive when Player on the right
+        double diffY = mobY - playerY; // Positive when Player on bottom
+
+        double crossProduct = diffX*directionX + diffY*directionY;
+
+
+        double diffVectorMagnitude = Math.sqrt(diffX*diffX + diffY*diffY);
+
+        double directionVectorMagnitude = Math.sqrt(directionX*directionX + directionY*directionY);
+
+        double angle = Math.abs(Math.acos(crossProduct/(diffVectorMagnitude*directionVectorMagnitude)));
+
+
+        return (angle < Math.PI/3  && diffVectorMagnitude<tileSize*2);
+
+
+    }
+
     @Override
     public void use() {
-        Player player = Player.getInstance();
-        int targetX = player.getWorldPos().getFocusedTileX();
-        int targetY = player.getWorldPos().getFocusedTileY();
 
-        Enemy[] enemies = MobManager.getInstance().getEnemies();
-
-        Entity[] targets = new Entity[enemies.length + 1];
-
-        targets[0] = NPC.getInstance();
-        System.arraycopy(enemies, 0, targets, 1, enemies.length);
+        Mob[] targets = MobManager.getInstance().getMobs();
 
 
-        for (Entity e : targets) {
 
-            if (e == null) continue;
-            int ex = e.getWorldPos().getTileXPos();
-            int ey = e.getWorldPos().getTileYPos();
-            if (ex == targetX && ey == targetY) {
-                e.takeDamage(damage+material.addedPower);
+        for (Mob mob : targets) {
 
-                // TODO: And the same here too
-                if (e instanceof Enemy) {
-                    if (((Enemy) e).skinType) {
+            if (mob == null) continue;
+            double mobX = mob.getWorldPos().getX();
+            double mobY = mob.getWorldPos().getY();
+            if (canHit(mobX,mobY)) {
+                mob.takeDamage(damage+material.addedPower);
+
+                if ( mob.getHealth() <=0) {
+                    MobManager.getInstance().removeMob(mob);
+                }
+
+                // TODO: MATEO, fix these please
+                if (mob instanceof Enemy) {
+                    if (( mob).skinType == 1) {
                         SoundManager.getInstance().playSound("zombieDamage");
                     } else {
                         SoundManager.getInstance().playSound("skeletonDamage");
                     }
                 }
 
-                if (e instanceof Enemy && e.getHealth() <= 0) {
-                    MobManager.getInstance().removeEnemy((Enemy) e);
-                    if (((Enemy) e).skinType){
+                if (mob instanceof Enemy && mob.getHealth() <= 0) {
+                    MobManager.getInstance().removeMob(mob);
+                    if ((mob).skinType == 2) {
                         SoundManager.getInstance().playSound("zombieDeath");
                     } else {
                         SoundManager.getInstance().playSound("skeletonDeath");
                     }
                     System.out.println("Enemy defeated!");
-                } else if (e instanceof NPC && e.getHealth() <=0) {
-                    ((NPC) e).kill();
+
                 }
             }
         }

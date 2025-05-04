@@ -20,8 +20,8 @@ public class HUDView extends JPanel {
     private int slashTileX, slashTileY;
     private final Timer slashTimer;
 
-    public HUDView(Player player) {
-        this.player = player;
+    public HUDView() {
+        this.player = Player.getInstance();
 
         setOpaque(false);
         setLayout(new GridBagLayout());

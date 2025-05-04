@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.awt.*;
 
 import static model.world.WorldSettings.worldSize;
-import static view.settings.ScreenSettings.scale;
 import static view.settings.ScreenSettings.tileSize;
 
 public class Player extends Entity implements Serializable {
@@ -55,32 +54,23 @@ public class Player extends Entity implements Serializable {
             return;
         }
 
-        collisionOn = false;
         double moveDx = dx * speed;
         double moveDy = dy * speed;
 
         if (!directionLocked){
             worldPos.updateDirection(moveDx,moveDy);
         }
-        collisionOn = false;
-        collisionChecker.checkTile(this, moveDx, 0);
-        if (collisionOn) {
+
+        if (collisionChecker.checkTile(this, moveDx, 0)) {
             moveDx = 0;
         }
 
-        collisionOn = false;
-        collisionChecker.checkTile(this, 0, moveDy);
-        if (collisionOn) {
+
+        if (collisionChecker.checkTile(this, 0, moveDy)) {
             moveDy = 0;
         }
 
-        collisionOn = false;
-        int hit = collisionChecker.checkEntity( moveDx, moveDy);
-        if (hit >= 0) {
-            collisionOn = true;
-        }
-
-        if (!collisionOn) {
+        if (!collisionChecker.checkEntity( moveDx, moveDy)) {
             worldPos.increment(moveDx, moveDy);
         }
     }
