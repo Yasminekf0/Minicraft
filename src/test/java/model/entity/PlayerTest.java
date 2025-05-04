@@ -3,7 +3,6 @@ package model.entity;
 import model.position.WorldPosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.items.Item;
 
 import static org.junit.jupiter.api.Assertions.*;
 
