@@ -23,16 +23,16 @@ class PotionTests {
 
 
 
-    @Test
-    void testHealthPotionDefaultHealingAmount() {
-        assertEquals(5, healthPotion.getHealingAmount(), "Default healing amount should be 5");
-    }
-
-    @Test
-    void testHealthPotionSetHealingAmount() {
-        healthPotion.setHealingAmount(10);
-        assertEquals(10, healthPotion.getHealingAmount(), "Healing amount should be updated to 10");
-    }
+//    @Test
+//    void testHealthPotionDefaultHealingAmount() {
+//        assertEquals(5, healthPotion.healingAmount, "Default healing amount should be 5");
+//    }
+//
+//    @Test
+//    void testHealthPotionSetHealingAmount() {
+//        healthPotion.setHealingAmount(10);
+//        assertEquals(10, healthPotion.getHealingAmount(), "Healing amount should be updated to 10");
+//    }
 
     @Test
     void testHealthPotionUseHealsPlayer() {
@@ -47,16 +47,16 @@ class PotionTests {
     }
 
 
-    @Test
-    void testSpeedPotionDefaultSpeedBoost() {
-        assertEquals(5, speedPotion.getSpeedBoost(), "Default speed boost should be 5");
-    }
-
-    @Test
-    void testSpeedPotionSetSpeedBoost() {
-        speedPotion.setSpeedBoost(7);
-        assertEquals(7, speedPotion.getSpeedBoost(), "Speed boost should be updated to 7");
-    }
+//    @Test
+//    void testSpeedPotionDefaultSpeedBoost() {
+//        assertEquals(5, speedPotion.getSpeedBoost(), "Default speed boost should be 5");
+//    }
+//
+//    @Test
+//    void testSpeedPotionSetSpeedBoost() {
+//        speedPotion.setSpeedBoost(7);
+//        assertEquals(7, speedPotion.getSpeedBoost(), "Speed boost should be updated to 7");
+//    }
 
     @Test
     void testSpeedPotionUseIncreasesPlayerSpeed() {

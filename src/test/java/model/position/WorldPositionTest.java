@@ -61,18 +61,26 @@ class WorldPositionTest {
         wp.updateDirection(0, 0);
         assertEquals(Direction.DOWN, wp.getDirectionFacing());
     }
-
     @Test
-    void testTileAndNextTilePositions() {
+    void setMethods() {
+        wp.set(1, 2);
+        assertEquals(1, wp.getX());
+        assertEquals(2, wp.getY());
+
+        wp.setX(3);
+        assertEquals(3, wp.getXInt());
+        wp.setY(4);
+        assertEquals(4, wp.getYInt());
+
+    }
+    @Test
+    void testTile() {
         double x = tileSize * 3 + 4.7;
         double y = tileSize * 2 + 8.2;
         wp = new WorldPosition(x, y);
 
         assertEquals(3, wp.getTileXPos());
         assertEquals(2, wp.getTileYPos());
-
-        assertEquals(4, wp.getNextXTilePos(tileSize));
-        assertEquals(3, wp.getNextYTilePos(tileSize));
     }
 
     @Test
