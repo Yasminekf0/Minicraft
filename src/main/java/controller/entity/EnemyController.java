@@ -29,10 +29,17 @@ public class EnemyController extends MobController{
                             : "zombieDamage";
                     SoundManager.getInstance().playSound(key);
                 });
+
+                e.onDeath(ent -> {
+                    String key = (e.getSkinType() == 0)
+                            ? "skeletonDeath"
+                            : "zombieDeath";
+                    SoundManager.getInstance().playSound(key);
+                });
             }
         }
-
     }
+
     private void chaseOrWander(Mob mob) {
         Enemy e = (Enemy) mob;
         WorldPosition ep = e.getWorldPos();

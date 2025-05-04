@@ -1,4 +1,5 @@
 package model.entity;
+import model.entity.mobs.Mob;
 import model.position.WorldPosition;
 import java.util.function.Consumer;
 
@@ -16,6 +17,8 @@ public abstract class Entity implements Serializable {
     protected CollisionChecker collisionChecker;
     public Rectangle solidArea;
     private Consumer<Entity> onDamage;
+    private Consumer<Mob> onDeath;
+
 
 
     public WorldPosition getWorldPos() {
@@ -46,13 +49,24 @@ public abstract class Entity implements Serializable {
         return maxHealth;
     }
 
-    public void onDamage(Consumer<Entity> callback) {
-        this.onDamage = callback;
-    }
+    public void onDamage(Consumer<Entity> callback) {this.onDamage = callback;}
+
+    public void onDeath(Consumer<Mob> cb) { this.onDeath  = cb; }
+
 
     public void takeDamage(int damage) {
-        this.health = Math.max(0, this.health - damage);
-        if (onDamage != null) onDamage.accept(this);
+        int oldH = this.health;
+        this.health = Math.max(0, oldH - damage);
+
+        // Damage callback
+        if (onDamage != null) {
+            onDamage.accept(this);
+        }
+
+        // Death callback
+        if (oldH > 0 && this.health == 0 && onDeath != null) {
+            onDeath.accept((Mob) this);
+        }
     }
 
     public void heal(int healAmount) {
