@@ -53,10 +53,6 @@ public class DayCycleManager implements Serializable {
         }
     }
 
-    public boolean isNight() {
-        return time > cycleDuration / 2;
-    }
-
     public void setTime(int time) {
         if (time >= 0 && time < cycleDuration) {
             this.time = time;

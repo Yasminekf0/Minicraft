@@ -28,10 +28,10 @@ public class PlayerController {
         this.hudView = hudView;
 
         // Defining a loop for updating the position of the player
-        movementTimer = new Timer(delay, _ -> {updatePlayer();});
+        movementTimer = new Timer(delay, _ -> updatePlayer());
 
         // Defining a loop for actions that take time to complete (e.g. breaking blocks)
-        actionTimer = new Timer(100, _ -> {performAction();});
+        actionTimer = new Timer(100, _ -> performAction());
 
         //TODO: removed sounds completely cos it broke shit. So either make it work with some listener called from breakingTools and then that listener makes to sound call. Or forget completely about this sound
         //TODO: I mean a Listener just like all the other ones in Controller.

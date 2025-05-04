@@ -45,20 +45,12 @@ public class WorldPosition implements Serializable {
         return (int) x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
     }
 
     public int getYInt(){
         return (int) y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
 
@@ -71,10 +63,10 @@ public class WorldPosition implements Serializable {
     }
 
     public int getFocusedTileX(){
-        return (int) ((x+tileSize*directionFacing.getX())/tileSize);
+        return (int) ((x+tileSize*directionFacing.getX()*0.99)/tileSize);
     }
     public int getFocusedTileY(){
-        return (int) ((y+tileSize*directionFacing.getY())/tileSize);
+        return (int) ((y+tileSize*directionFacing.getY()*0.99)/tileSize);
     }
 
     public Direction getDirectionFacing() {return directionFacing;}

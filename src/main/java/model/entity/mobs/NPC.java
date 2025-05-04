@@ -16,16 +16,4 @@ public class NPC extends Mob {
         return skinType;
     }
 
-
-
-    /*
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void kill() {
-        alive = false;
-    }
-
-     */
 }

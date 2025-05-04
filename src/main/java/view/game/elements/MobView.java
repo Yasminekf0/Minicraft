@@ -14,7 +14,7 @@ import static view.settings.ScreenSettings.*;
 public abstract class MobView implements GameElementView{
     //private BufferedImage z, z1, z2, sk1, sk2, sk, v, v1, v2, x;
 
-    protected Map<Integer,BufferedImage[]> spriteMap = new HashMap<>();
+    protected final Map<Integer,BufferedImage[]> spriteMap = new HashMap<>();
     private final Player player;
     private int spriteCounter = 0;
     private int spriteNum;

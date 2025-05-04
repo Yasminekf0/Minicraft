@@ -2,7 +2,6 @@ package view.menus;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -48,7 +47,4 @@ public class DeathView extends JPanel {
         super.paintComponent(g);
     }
 
-    public void addQuitListener(ActionListener l) {
-        quitButton.addActionListener(l);
-    }
 }

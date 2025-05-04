@@ -39,7 +39,6 @@ public class WorldView implements GameElementView {
         loadBlocks();
     }
 
-    @Override
     public void draw(Graphics2D g2) {
 
         int size = worldSize;
@@ -89,7 +88,7 @@ public class WorldView implements GameElementView {
 
 
     private BufferedImage getBufferedImage(String path) {
-        BufferedImage src = null;
+        BufferedImage src;
         try {
             src = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path)));
         } catch (IOException e) {

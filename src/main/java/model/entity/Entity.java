@@ -1,5 +1,4 @@
 package model.entity;
-import model.position.Direction;
 import model.position.WorldPosition;
 import view.audio.SoundManager;
 
@@ -53,8 +52,5 @@ public abstract class Entity implements Serializable {
 
     public void heal(int healAmount) {
         this.health = Math.min(maxHealth, this.health + healAmount);
-    }
-    protected Direction getFacingDirection() {
-        return worldPos.getDirectionFacing();
     }
 }

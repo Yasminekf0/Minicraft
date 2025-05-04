@@ -20,7 +20,8 @@ public class StartView extends JPanel {
     private final Buttons quitButton;
 
     // Field to scale the title image (1.0 = original size)
-    private double titleScale = 0.9;
+    @SuppressWarnings("FieldCanBeLocal")
+    private final double titleScale = 0.9;
 
     public StartView() {
         // Load wallpaper and title images.
@@ -96,13 +97,6 @@ public class StartView extends JPanel {
             Image scaledTitle = titleImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
             titleLabel.setIcon(new ImageIcon(scaledTitle));
         }
-    }
-
-    public void setTitleScale(double scale){
-        this.titleScale = scale;
-        updateTitleIcon();
-        revalidate();
-        repaint();
     }
 
     // Listener attachment methods (MVC)
