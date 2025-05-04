@@ -51,7 +51,6 @@ public abstract class MobController {
         double normalizedDy = dy / length;
 
         mob.moveUntil(normalizedDx, normalizedDy);
-        //e.getCollisionChecker().checkPlayer(e, 0, 0);
         this.angle = Math.atan2(mob.dy, mob.dx);
 
     }
